@@ -49,7 +49,7 @@
     </style>
 
 </head>
-<body class="sidebar_main_swipe">
+<body class="sidebar_main_swipe app_theme_h">
 
 <div id="loader" class="fullscreenTop"
      style="position: fixed;
@@ -83,7 +83,7 @@
                 <!-- main sidebar switch -->
                 {{--OLD ID sidebar_main_toggle--}}
                 <a href="{{ route("home") }}" id="" class="sSwitch sSwitch_left ">
-                    <img src="{!! URL::asset('images/icons/Logo Enera Blanco-01.png') !!}" alt="Enera"
+                    <img src="{!! URL::asset('img/Logo Enera Blanco-01.png') !!}" alt="Enera"
                          style="top: -10px; left: 15px; position: relative;">
                 </a>
                 <!-- secondary sidebar switch -->
@@ -95,7 +95,7 @@
                     <div class="uk-button-dropdown" data-uk-dropdown="{mode:'click'}"
                          style="position: fixed; top: 13px; margin-left: 10px;">
                         <a href="#" class="top_menu_toggle" style="color: #FFFFff;">
-                            <img src="{!! URL::asset('images/icons/icon_publisher.png') !!}" alt="Enera"
+                            <img src="{!! URL::asset('img/icon_publisher.png') !!}" alt="Enera"
                                  style="top: -0px; left: 0; position: relative;"> <span class="uk-hidden-small"
                                                                                         style="top: 2px; position: relative;">Publishers</span>
                         </a>
@@ -106,19 +106,19 @@
                                     <div class="uk-grid uk-grid-width-medium-1-3 uk-margin-top uk-margin-bottom uk-text-center"
                                          data-uk-grid-margin>
                                         <a href="#">
-                                            {{--<i class="material-icons md-36">&#xE158;</i>--}}
-                                            <i class="material-icons md-36 md-color-light-blue-A700">event</i>
+                                            <i class="material-icons md-36  md-color-red-600">&#xE158;</i>
+                                            {{--<i class="material-icons md-36 md-bg-red-400">event</i>--}}
                                             <span class="uk-text-muted uk-display-block">Campañas</span>
                                         </a>
                                         {{--<a href="{!! route('reports::index') !!}">--}}
                                         <a href="#">
-                                            {{--<i class="material-icons md-36 md-color-red-600">&#xE0B9;</i>--}}
-                                            <i class="material-icons md-36 md-color-light-blue-A700">assessment</i>
+                                            <i class="material-icons md-36 md-color-red-600">&#xE0B9;</i>
+                                            {{--<i class="material-icons md-36 md-bg-red-400">assessment</i>--}}
                                             <span class="uk-text-muted uk-display-block">Reportes</span>
                                         </a>
                                         <a href="#">
-                                            {{--<i class="material-icons md-36">&#xE53E;</i>--}}
-                                            <i class="material-icons md-36 md-color-light-blue-A700">attach_money</i>
+                                            <i class="material-icons md-36  md-color-red-600">&#xE53E;</i>
+                                            {{--<i class="material-icons md-36 md-bg-red-400">attach_money</i>--}}
                                             <span class="uk-text-muted uk-display-block">Presupuesto</span>
                                         </a>
                                     </div>
