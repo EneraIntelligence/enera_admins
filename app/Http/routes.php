@@ -17,6 +17,6 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 Route::group(['middleware' => 'auth.ready'], function () {
-    Route::get('/login', ['as' => 'auth.login', 'uses' => 'AuthController@index']);
+    Route::get('/login', ['as' => 'auth.index', 'uses' => 'AuthController@index']);
     Route::post('/login', ['as' => 'auth.login', 'uses' => 'AuthController@login']);
 });

@@ -4,3 +4,13 @@
 Homestead.yaml
 Homestead.json
 .env
+/public/css
+!/public/css/codemirror_themes.min.css
+!/public/css/main.css
+!/public/css/main.min.css
+!public/css/error_page.css
+!public/css/error_page.min.css
+!public/css/login_page.css
+!public/css/login_page.min.css
+!public/css/my_theme.css
+!public/css/my_theme.min.css
