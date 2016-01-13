@@ -10,8 +10,6 @@
     <!-- Remove Tap Highlight on Windows Phone IE -->
     <meta name="msapplication-tap-highlight" content="no"/>
 
-    {{--<link rel="icon" type="image/png" href="{!! URL::asset('assets/img/favicon-16x16.png') !!}" sizes="16x16">
-    <link rel="icon" type="image/png" href="{!! URL::asset('assets/img/favicon-16x16.png') !!}" sizes="32x32">--}}
     <link rel="icon" type="image/png" href="{!! URL::asset('images/favicon.png') !!}" sizes="32x32">
 
     <title>Enera Publishers</title>
@@ -32,13 +30,6 @@
     </style>
 </head>
 <body class="login_page">
-{!! $registro = '' !!}
-{{--    {{ session('registro') ? $registro=session('registro') : '' }}--}}
-@if(null!=session('registro'))
-    <div style="display: none">
-        {!! $registro=session('registro')!!}
-    </div>
-@endif
 <div class="login_page_wrapper">
 
     <div class="md-card" id="login_card">
@@ -151,151 +142,8 @@
                 </div>
             </form>
         </div>
-        {{--style="display: none;"--}}
-        <div class="md-card-content large-padding" id="register_form" style="display: none;">
-
-            <button type="button" class="uk-position-top-right uk-close uk-margin-right uk-margin-top back_to_login"></button>
-            <div class="login_heading">
-                <div style="width: 290px;height: 100px; display:inline-block;text-align:center;">
-                    <img src="images/publisher.png" alt="">
-                </div>
-            </div>
-            <h2 class="heading_a ">Crear Cuenta</h2>
-            {!! Form::open(['route'=>'auth.signUp', 'class'=>'uk-form-stacked', 'id'=>'form_validation2']) !!}
-            @if( Session::has('errors') )
-                <div style="text-align: center; color: red;">hubo un {!! $registro = 'error'  !!} al registrarte verifica los campos</div>
-                @foreach($errors->get('registro') as $m)
-                    <div style="text-align: center; color: red;">{!! $m !!}</div>
-                @endforeach
-            @endif
-            {{--{{ dd($errors) }}--}}
-            {{--{{ var_dump($errors)  }}--}}
-
-            {{--@foreach($errors->get('estado') as $m)
-                <div style="text-align: center; color: red;">{{ $m }}</div>
-            @endforeach
-
-            @foreach($errors->get('municipio') as $m)
-                <div style="text-align: center; color: red;">{{ $m }}</div>
-            @endforeach--}}
-            {{--@if($errors->get('registro'))
-                {{ $registro = 'error' }}
-            @endif--}}
-            {{--{{ var_dump($errors)  }}--}}
-
-            <div class="uk-form-row {!!  $errors->get('nombre')? 'md-input-wrapper-danger md-input-focus':' ' !!}">
-                <label for="register_name">Nombre </label>
-                <input class="md-input" type="text" id="register_name" name="nombre"
-                       required data-parsley-trigger="change"
-                       data-parsley-required-message="nombre"
-                       data-parsley-maxlength="16" data-parsley-maxlength-message="maximo 16 caracteres"
-                       data-parsley-pattern="^([a-zA-Z ñáéíóú]{2,60})$" data-parsley-pattern-message="solo acepta letras y espacios"
-                />
-                @foreach($errors->get('nombre') as $m)
-                    <div style="text-align: center; color: red;">{!! $m !!}</div>
-                @endforeach
-                <span class="md-input-bar"> </span>
-            </div>
-            <div class="uk-form-row {!! $errors->get('apellido')? 'md-input-wrapper-danger md-input-focus':' ' !!}">
-                <label for="register_apellido">Apellido </label>
-                <input class="md-input" type="text" id="register_apellido" name="apellido"
-                       required data-parsley-trigger="change"
-                       data-parsley-maxlength="16" data-parsley-maxlength-message="maximo 16 caracteres"
-                       data-parsley-required-message="apellido"
-                       data-parsley-pattern="^([a-zA-Z ñáéíóú]{2,60})$" data-parsley-pattern-message="solo acepta letras y espacios"
-                />
-                @foreach($errors->get('apellido') as $m)
-                    <div style="text-align: center; color: red;">{{ $m }}</div>
-                @endforeach
-                <span class="md-input-bar"> </span>
-            </div>
-            <div class="uk-form-row {!!  $errors->get('email')? 'md-input-wrapper-danger md-input-focus':' ' !!}">
-                <label for="register_email">E-mail </label>
-                <input class="md-input" data-parsley-type="email" id="register_email" name="email" required
-                       data-parsley-trigger="change" class="md-input"
-                       data-parsley-type-message="ingresa un correo valido"
-                       data-parsley-required-message="Ingresa tu correo"/>
-                @foreach($errors->get('email') as $m)
-                    <div style="text-align: center; color: red;">{!! $m !!}</div>
-                    <span id="Rerror" class="md-input-bar"> </span>
-                @endforeach
-
-            </div>
-            <div class="uk-form-row {!! $errors->get('password')? 'md-input-wrapper-danger md-input-focus':' ' !!}" >
-                <label for="register_password">Contraseña </label>
-                <input class="md-input" type="password" id="register_password" name="password" required
-                       data-parsley-trigger="change"
-                       data-parsley-minlength="8" data-parsley-minlength-message="minimo 8 caracteres"
-                       data-parsley-maxlength="16" data-parsley-maxlength-message="maximo 16 caracteres"
-                       data-parsley-validation-threshold="10"
-                       data-parsley-required-message="se requiere de una contraseña"
-                        {{--data-parsley-equalto="#register_password_repeat" data-parsley-equalto-message="las contraseñas deben ser iguales"--}}
-                />
-                @foreach($errors->get('password') as $m)
-                    <div style="text-align: center; color: red;">{!! $m !!}</div>
-                    <span id="Rerror" class="md-input-bar" style="background: red"> </span>
-                @endforeach
-            </div>
-            <div class="uk-form-row {!! $errors->get('password')? 'md-input-wrapper-danger md-input-focus':' '!!}">
-                <label for="register_password_repeat">Confirmar Contraseña</label>
-                <input class="md-input" type="password" id="register_password_repeat" name="confirma_contraseña"
-                       required data-parsley-trigger="change"
-                       data-parsley-minlength="8" data-parsley-minlength-message="minimo 8 caracteres"
-                       data-parsley-maxlength="16" data-parsley-maxlength-message="maximo 16 caracteres"
-                       data-parsley-validation-threshold="10"
-                       data-parsley-required-message="se requiere de una contraseña"
-                       data-parsley-equalto="#register_password" data-parsley-equalto-message="esta contraseña no coincide con la otra. Deben ser iguales"
-                />
-                @foreach($errors->get('password') as $m)
-                    <div style="text-align: center; color: red;">{!! $m !!}</div>
-                    <span class="md-input-bar"> </span>
-                @endforeach
-
-            </div>
-            {{--<div class="uk-form-row">
-                <label for="register_password_repeat">Estado</label>
-                <input class="md-input" type="text" id="register_Estado" name="estado"
-                       required
-                />
-            </div>
-            <div class="uk-form-row">
-                <label for="register_password_repeat">Municipio</label>
-                <input class="md-input" type="text" id="register_munucipio" name="ciudad"
-                       required
-                />
-            </div>--}}
-
-            <div class="uk-margin-medium-top">
-                <button type="submit" class="md-btn md-btn-primary md-btn-block md-btn-large">Registrarse</button>
-                {{--<a href="index.html" class="md-btn md-btn-primary md-btn-block md-btn-large">Sign Up</a>--}}
-            </div>
-            {!! Form::close() !!}
-
-        </div>
-    </div>
-    <div id="create" class="uk-margin-top uk-text-center">
-        <a href="#" id="signup_form_show">Crear Cuenta</a>
     </div>
 </div>
-<div id="registro" class="md-card uk-width-1-1 uk-margin-top uk-navbar-center" style="display:none;">
-    <div class="uk-panel-box">
-        <div class="">
-            <img class="uk-margin"
-                 {{--src="http://2.bp.blogspot.com/-j-KIUPKyqqY/U9JXzPTmf3I/AAAAAAAAAIw/u6SSyqfPDhU/s1600/bienvenido1.png"--}}
-                 src="{!! URL::asset('images/confirmRegister.png') !!}"
-                 alt="">
-        </div>
-        <div>
-            <h1 class="uk-text-center"> Bienvenido </h1>
-            <h3>En breve recibiras un email para completar el proceso de registro</h3>
-            <h3><a href="{!! route('auth.login') !!}">Ir a Login</a> </h3>
-        </div>
-    </div>
-</div>
-
-{{--{!!  var_dump($registro) !!}--}}
-{{--{!!  var_dump($registro2) !!}--}}
-
         <!-- common functions -->
 {!! HTML::script('assets/js/common.min.js') !!}
         <!-- altair core functions -->
@@ -305,36 +153,6 @@
 {!! HTML::script('bower_components/parsleyjs/dist/parsley.min.js') !!}
 {!! HTML::script('bower_components/parsleyjs/src/i18n/es.js') !!}
 {!! HTML::script('assets/js/pages/forms_validation.min.js') !!}
-
-<script>
-
-    var registro = '{!!  session('success') !!}';
-    console.log(registro);
-    if (registro) {
-        console.log('true');
-        $("#registro").show();
-        $("#login_card").hide();
-        $("#create").hide();
-    }else{
-        console.log('no hay nada');
-    }
-    var registro2 = '{!!$registro  !!}';
-    console.log('valor de registro = '+registro2);
-    if (registro2=='registrar'|registro2=='error') {
-        console.log('fallo el registro regreso a registro');
-        console.log(registro2);
-        $("#registro").hide();
-        $("#login_form").hide();
-        $("#create").show();
-        $("#register_form").show();
-//        $("#Rerror").show();
-    }
-
-    //         load parsley config (altair_admin_common.js)
-    altair_forms.parsley_validation_config();
-    //        llamada al parsley
-    $('#form_validation2').parsley();
-</script>
 
 
 </body>
