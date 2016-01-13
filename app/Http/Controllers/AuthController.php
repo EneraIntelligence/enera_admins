@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Admins\Http\Requests;
 use Admins\Http\Controllers\Controller;
 use Input;
+use Validator;
 
 class AuthController extends Controller
 {
