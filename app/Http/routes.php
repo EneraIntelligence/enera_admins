@@ -13,7 +13,7 @@
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', ['as' => 'home', 'uses' => 'DashboardController@index']);
-    Route::match(['post', 'get'], '/logout', ['as' => 'home', 'uses' => 'AuthController@logout']);
+    Route::match(['post', 'get'], '/logout', ['as' => 'logout', 'uses' => 'AuthController@logout']);
 });
 
 Route::group(['middleware' => 'auth.ready'], function () {

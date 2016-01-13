@@ -15,7 +15,7 @@ class AuthReadyMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if (!auth()->guest()) {
+        if (auth()->check()) {
             return redirect()->route('home');
         }
         return $next($request);
