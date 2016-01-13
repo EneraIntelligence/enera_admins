@@ -94,6 +94,7 @@
                                    data-parsley-validation-threshold="10" data-parsley-id="2"
                                    data-parsley-required-message="No olvides tu contraseña"
                             />
+
                             <span class="md-input-bar"> </span>
                         </div>
                     </div>
@@ -144,15 +145,24 @@
         </div>
     </div>
 </div>
+
+
         <!-- common functions -->
 {!! HTML::script('assets/js/common.min.js') !!}
         <!-- altair core functions -->
 {!! HTML::script('assets/js/altair_admin_common.min.js') !!}
+
+<script>
+    // load parsley config (altair_admin_common.js)
+    altair_forms.parsley_validation_config();
+</script>
         <!-- altair login page functions -->
 {!! HTML::script('assets/js/pages/login.min.js') !!}
 {!! HTML::script('bower_components/parsleyjs/dist/parsley.min.js') !!}
 {!! HTML::script('bower_components/parsleyjs/src/i18n/es.js') !!}
 {!! HTML::script('assets/js/pages/forms_validation.min.js') !!}
+
+
 
 
 </body>
