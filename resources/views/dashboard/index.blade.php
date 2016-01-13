@@ -1,7 +1,17 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: pedroluna
- * Date: 1/13/16
- * Time: 11:36 AM
- */
+@extends('layout.main')
+
+@section('head_scripts')
+    <style type="text/css">
+
+    </style>
+@stop
+
+@section('content')
+
+@stop
+
+@section('footer_scripts')
+    <script>
+
+    </script>
+@stop
