@@ -97,7 +97,7 @@
                         <a href="#" class="top_menu_toggle" style="color: #FFFFff;">
                             <img src="{!! URL::asset('img/icon_publisher.png') !!}" alt="Enera"
                                  style="top: -0px; left: 0; position: relative;"> <span class="uk-hidden-small"
-                                                                                        style="top: 2px; position: relative;">Publishers</span>
+                                                                                        style="top: 2px; position: relative;">Admins</span>
                         </a>
 
                         <div class="uk-dropdown uk-dropdown-width-3" style="top: -20px;">
@@ -105,21 +105,21 @@
                                 <div class="uk-width-2-3">
                                     <div class="uk-grid uk-grid-width-medium-1-3 uk-margin-top uk-margin-bottom uk-text-center"
                                          data-uk-grid-margin>
-                                        <a href="{{route("campaigns::index")}}">
-                                            <i class="material-icons md-36  md-color-red-600">&#xE158;</i>
+                                        <a href="#">
+                                            <i class="material-icons md-36  md-color-red-600">&#xE8DF;</i>
                                             {{--<i class="material-icons md-36 md-bg-red-400">event</i>--}}
                                             <span class="uk-text-muted uk-display-block">Campañas</span>
                                         </a>
                                         {{--<a href="{!! route('reports::index') !!}">--}}
                                         <a href="#">
-                                            <i class="material-icons md-36 md-color-red-600">&#xE0B9;</i>
+                                            <i class="material-icons md-36 md-color-red-600">&#xE1BA;</i>
                                             {{--<i class="material-icons md-36 md-bg-red-400">assessment</i>--}}
-                                            <span class="uk-text-muted uk-display-block">Reportes</span>
+                                            <span class="uk-text-muted uk-display-block">Redes</span>
                                         </a>
                                         <a href="#">
-                                            <i class="material-icons md-36  md-color-red-600">&#xE53E;</i>
+                                            <i class="material-icons md-36  md-color-red-600">&#xE7EF;</i>
                                             {{--<i class="material-icons md-36 md-bg-red-400">attach_money</i>--}}
-                                            <span class="uk-text-muted uk-display-block">Presupuesto</span>
+                                            <span class="uk-text-muted uk-display-block">Clientes</span>
                                         </a>
                                     </div>
                                 </div>
