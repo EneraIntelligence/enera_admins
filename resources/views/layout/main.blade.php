@@ -105,7 +105,7 @@
                                 <div class="uk-width-2-3">
                                     <div class="uk-grid uk-grid-width-medium-1-3 uk-margin-top uk-margin-bottom uk-text-center"
                                          data-uk-grid-margin>
-                                        <a href="#">
+                                        <a href="{!! route('campaigns::index') !!}">
                                             <i class="material-icons md-36  md-color-red-600">&#xE8DF;</i>
                                             {{--<i class="material-icons md-36 md-bg-red-400">event</i>--}}
                                             <span class="uk-text-muted uk-display-block">Campañas</span>
@@ -322,6 +322,7 @@
     </script>
 
     <!-- common functions -->
+    {!! HTML::script('bower_components/peity/test/jquery-1.6.2.min.js') !!}
     {!! HTML::script('assets/js/common.min.js') !!}
             <!-- uikit functions -->
     {!! HTML::script('assets/js/uikit_custom.js') !!}
@@ -370,10 +371,6 @@
         }
 
     </script>
-
-
-
     @yield('scripts')
-
 </body>
 </html>

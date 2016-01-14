@@ -1,16 +1,7 @@
-@extends('layouts.main')
+@extends('layout.main')
 @section('head_scripts')
     <style>
-        li p {
-            font: 400 14px/18px Roboto, sans-serif;
-            color: #000000;
-            margin-bottom: 0;
-        }
 
-        .p {
-            list-style: none;
-
-        }
     </style>
 @endsection
 
@@ -494,21 +485,27 @@
                                                 <div class="uk-grid">
                                                     <div class="uk-width-medium-1-3 uk-width-small-1-3">
                                                         <div class="uk-width-medium-1-2 uk-width-small-1-2 uk-container-center">
-                                                            <i class="uk-icon-eye uk-icon-medium" style="top: 25px; position: relative; left: 20px" data-uk-tooltip="{pos:'top'}"
+                                                            <i class="uk-icon-eye uk-icon-medium"
+                                                               style="top: 25px; position: relative; left: 20px"
+                                                               data-uk-tooltip="{pos:'top'}"
                                                                title="visto"></i>
                                                             <h2 class="jumbo uk-float-left" id="vistos">0</h2>
                                                         </div>
                                                     </div>
                                                     <div class="uk-width-medium-1-3 uk-width-small-1-3">
                                                         <div class="uk-width-medium-1-2 uk-width-small-1-2 uk-container-center">
-                                                            <i class="material-icons md-36" style="top: 25px; position: relative; left: 20px" data-uk-tooltip="{pos:'top'}"
+                                                            <i class="material-icons md-36"
+                                                               style="top: 25px; position: relative; left: 20px"
+                                                               data-uk-tooltip="{pos:'top'}"
                                                                title="Completado">done</i>
                                                             <h2 class="jumbo uk-float-left" id="completados">0</h2>
                                                         </div>
                                                     </div>
-                                                    <div class="uk-width-medium-1-3 uk-width-small-1-3" >
+                                                    <div class="uk-width-medium-1-3 uk-width-small-1-3">
                                                         <div class="uk-kit-medium-2-3 uk-width-small-1-2 uk-container-center">
-                                                            <i class="uk-icon-user uk-icon-medium " style="top: 25px; position: relative; left: 20px" data-uk-tooltip="{pos:'top'}"
+                                                            <i class="uk-icon-user uk-icon-medium "
+                                                               style="top: 25px; position: relative; left: 20px"
+                                                               data-uk-tooltip="{pos:'top'}"
                                                                title="Usuario"></i>
                                                             <h2 class="jumbo uk-float-left" id="usuarios">0</h2>
                                                         </div>
@@ -529,7 +526,7 @@
                                             <div class="uk-width-1-1">
                                                 <div class="uk-width-medium-1-6">
                                                     <a class="md-btn md-btn-primary"
-                                                       href="{{route('analytics::single', ['id' => $cam->_id])}}">
+                                                       href="#">
                                                         <span class="uk-display-block">Reportes</span>
                                                     </a>
                                                 </div>
@@ -550,71 +547,73 @@
 
             <!-- slider script -->
     {!! HTML::script('bower_components/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js') !!}
-    {!! HTML::script('bower_components/ionrangeslider/js/ion.rangeSlider.min.js') !!}
+    {!! HTML::script('bower_components/ion.rangeslider/js/ion.rangeSlider.min.js') !!}
     {!! HTML::script('bower_components/countUp.js/countUp.js') !!}
     {!! HTML::script('js/circle-progress.js') !!}
     {!! HTML::style('css/show.css') !!}
             <!-- links para que funcione la grafica demografica  -->
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    {!! HTML::script('js/ajax/graficas.js') !!}
+    {{--{!! HTML::script('js/ajax/graficas.js') !!}--}}
     <script>
-        //-------------------------------------- animacion del circulo  ---------------------------------------------
-        $('#circle').circleProgress({
-            value: {{$cam->porcentaje}}, //lo que se va a llenar con el color
-            size: 98,   //tamaño del circulo
-            startAngle: -300, //de donde va a empezar la animacion
-            reverse: true, //empieza la animacion al contrario
-            thickness: 8,  //el grosor la linea
-            fill: {color: "{!! Publishers\Libraries\CampaignStyleHelper::getStatusColor($cam->status) !!}"} //el color de la linea
-        }).on('circle-animation-progress', function (event, progress) {
-            $(this).find('strong').html(parseInt(100 * progress) + '<i>%</i>');
-        });
+        $(Document).ready(function () {
+            //-------------------------------------- animacion del circulo  ---------------------------------------------
+            $('#circle').circleProgress({
+                value:.20, //lo que se va a llenar con el color
+                size: 98,   //tamaño del circulo
+                startAngle: -300, //de donde va a empezar la animacion
+                reverse: true, //empieza la animacion al contrario
+                thickness: 8,  //el grosor la linea
+                fill: {color: "{!! CampaignStyle::getStatusColor($cam->status) !!}"} //el color de la linea
+            }).on('circle-animation-progress', function (event, progress) {
+                $(this).find('strong').html(parseInt(100 * progress) + '<i>%</i>');
+            });
 
-        //-------------------------------------- animación de los numeros  ---------------------------------------------
-        var options = {
-            useEasing: true,
-            useGrouping: true,
-            separator: ',',
-            decimal: '.',
-            prefix: '',
-            suffix: ''
-        };
-        var vistos = new CountUp("vistos", 0, {!! $cam->logs()->where('interaction.loaded','exists',true)->count() !!}, 0, 5.0, options);
-        vistos.start();
-        var completados = new CountUp("completados", 0, {!! $cam->logs()->where('interaction.completed','exists',true)->count() !!}, 0, 5.0, options);
-        completados.start();
-        var users = new CountUp("usuarios", 0, {!! count(DB::collection('campaign_logs')->distinct('user.id')->get()) !!}, 0, 5.0, options);
-        users.start();
-        //-------------------------------------- grafica de muestra se espera confirmacion de quitar  ---------------------------------------------
-        var chart = c3.generate({
-            bindto: '#gender',
-            data: {
-                columns: [
-                    ['Mujeres', 15],
-                    ['Hombres', 25]
-                ],
-                type: 'bar'
-            },
-            bar: {
-                width: {
-                    ratio: 0.5 // this makes bar width 50% of length between ticks
+            //-------------------------------------- animación de los numeros  ---------------------------------------------
+            var options = {
+                useEasing: true,
+                useGrouping: true,
+                separator: ',',
+                decimal: '.',
+                prefix: '',
+                suffix: ''
+            };
+            var vistos = new CountUp("vistos", 0, {!! $cam->logs()->where('interaction.loaded','exists',true)->count() !!}, 0, 5.0, options);
+            vistos.start();
+            var completados = new CountUp("completados", 0, {!! $cam->logs()->where('interaction.completed','exists',true)->count() !!}, 0, 5.0, options);
+            completados.start();
+            var users = new CountUp("usuarios", 0, {!! count(DB::collection('campaign_logs')->distinct('user.id')->get()) !!}, 0, 5.0, options);
+            users.start();
+            //-------------------------------------- grafica de muestra se espera confirmacion de quitar  ---------------------------------------------
+            var chart = c3.generate({
+                bindto: '#gender',
+                data: {
+                    columns: [
+                        ['Mujeres', 15],
+                        ['Hombres', 25]
+                    ],
+                    type: 'bar'
+                },
+                bar: {
+                    width: {
+                        ratio: 0.5 // this makes bar width 50% of length between ticks
+                    }
+                    // or
+                    //width: 100 // this makes bar width 100px
                 }
-                // or
-                //width: 100 // this makes bar width 100px
-            }
+            });
+            //------------------------------------------Grafica---------------------------------------------
+            var grafica = new graficas;
+            var menJson = '{!! json_encode($cam->men) !!}';
+            var menObj = JSON.parse(menJson);
+            var womenJson = '{!! json_encode($cam->women) !!}';
+            var womenObj = JSON.parse(womenJson);
+
+            var gra = grafica.genderAge(menObj, womenObj);
+            //        var gra = grafica.genderAge();
+            //var gra2= grafica.gender();
+
         });
-        //------------------------------------------Grafica---------------------------------------------
-        var grafica = new graficas;
-        var menJson = '{!! json_encode($cam->men) !!}';
-        var menObj = JSON.parse(menJson);
-        var womenJson = '{!! json_encode($cam->women) !!}';
-        var womenObj = JSON.parse(womenJson);
-
-        var gra = grafica.genderAge(menObj, womenObj);
-        //        var gra = grafica.genderAge();
-        //var gra2= grafica.gender();
-
     </script>
     <!-- enera custom scripts -->
     {{--{!! HTML::script('assets/js/enera/create_campaign_helper.js') !!}--}}
