@@ -284,12 +284,12 @@
 
                                                 @if($campaign->status=="pending")
                                                     <!-- check campaign button -->
-                                                    <div class="uk-width-medium-2-10  uk-width-small-1-2">
-                                                    <a class="md-btn md-btn-warning">
-                                                        Revisar campaña
-                                                    </a>
-                                                </div>
-                                                @endif;
+                                                    <div class="uk-width-medium-2-10  uk-width-small-1-2 uk-flex uk-flex-center uk-flex-middle">
+                                                        <a class="md-btn md-btn-warning ">
+                                                            Revisar campaña
+                                                        </a>
+                                                    </div>
+                                                @endif
 
                                             </div>
                                         </div>
