@@ -18,8 +18,8 @@
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- uikit -->
-    {!! HTML::style('bower_components/kendo-ui-core/styles/kendo.common-material.min.css') !!}
-    {!! HTML::style('bower_components/kendo-ui-core/styles/kendo.material.min.css') !!}
+    {!! HTML::style('bower_components/kendo-ui/styles/kendo.common-material.min.css') !!}
+    {!! HTML::style('bower_components/kendo-ui/styles/kendo.material.min.css') !!}
     {!! HTML::style('bower_components/uikit/css/uikit.almost-flat.min.css') !!}
 
             <!-- flag icons -->
@@ -105,7 +105,7 @@
                                 <div class="uk-width-2-3">
                                     <div class="uk-grid uk-grid-width-medium-1-3 uk-margin-top uk-margin-bottom uk-text-center"
                                          data-uk-grid-margin>
-                                        <a href="#">
+                                        <a href="{{route("campaigns::index")}}">
                                             <i class="material-icons md-36  md-color-red-600">&#xE158;</i>
                                             {{--<i class="material-icons md-36 md-bg-red-400">event</i>--}}
                                             <span class="uk-text-muted uk-display-block">Campañas</span>
@@ -341,14 +341,14 @@
     {!! HTML::script('bower_components/c3js-chart/c3.min.js') !!}
 
 
-    {!! HTML::script('js/ajax/new_campaign.js') !!}
-    {!! HTML::script('bower_components/jquery.inputmask/dist/jquery.inputmask.bundle.min.js') !!}
+    {!! HTML::script('bower_components/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js') !!}
     {!! HTML::script('assets/js/pages/kendoui.min.js') !!}
 
             <!-- animation library -->
     {!! HTML::script('js/greensock/TweenLite.min.js') !!}
     {!! HTML::script('js/greensock/plugins/CSSPlugin.min.js') !!}
     {!! HTML::script('js/greensock/easing/EasePack.min.js') !!}
+
 
 
     <script>
@@ -361,76 +361,18 @@
             }
         });
 
-        {{--new_campaign.token = "{!! csrf_token() !!}";--}}
-        {{--new_campaign.url = "{{URL::to('campaigns/new')}}";--}}
+        window.onload = function () {
+            //remove loader
+            TweenLite.to("#loader", .3, {
+                "autoAlpha": 0, onComplete: function () {
+                    $("#loader").css("display", "none");
+                }
+            });
+        }
+
     </script>
 
-    <script>
-        /*$(function () {
-         $switcher_toggle.click(function (e) {
-         e.preventDefault();
-         $switcher.toggleClass('switcher_active');
-         });
 
-         $theme_switcher.children('li').click(function (e) {
-         e.preventDefault();
-         var $this = $(this),
-         this_theme = $this.attr('data-app-theme');
-
-         $theme_switcher.children('li').removeClass('active_theme');
-         $(this).addClass('active_theme');
-         $('body')
-         .removeClass('app_theme_a app_theme_b app_theme_c app_theme_d app_theme_e app_theme_f app_theme_g')
-         .addClass(this_theme);
-
-         if (this_theme == '') {
-         localStorage.removeItem('altair_theme');
-         } else {
-         localStorage.setItem("altair_theme", this_theme);
-         }
-
-         });
-
-         // hide style switcher
-         $document.on('click keyup', function (e) {
-         if ($switcher.hasClass('switcher_active')) {
-         if (
-         ( !$(e.target).closest($switcher).length )
-         || ( e.keyCode == 27 )
-         ) {
-         $switcher.removeClass('switcher_active');
-         }
-         }
-         });
-
-         if (localStorage.getItem("altair_theme") !== null) {
-         $theme_switcher.children('li[data-app-theme=' + localStorage.getItem("altair_theme") + ']').click();
-         }
-         });*/
-    </script>
-
-    {{--<script>--}}
-
-
-        {{--new_campaign.base_url = "{!! URL::to('/') !!}";--}}
-        {{--new_campaign.user_budget = parseFloat("{!! auth()->user()->wallet->current !!}");--}}
-
-        {{--$(function () {--}}
-            {{--$("body").on("click", ".uk-button[data-message]", function () {--}}
-                {{--UIkit.notify($(this).data());--}}
-            {{--});--}}
-        {{--});--}}
-
-
-        {{--window.onload = function () {--}}
-            {{--//remove loader--}}
-            {{--TweenLite.to("#loader", .3, {--}}
-                {{--"autoAlpha": 0, onComplete: function () {--}}
-                    {{--$("#loader").css("display", "none");--}}
-                {{--}--}}
-            {{--});--}}
-        {{--}--}}
-    {{--</script>--}}
 
     @yield('scripts')
 

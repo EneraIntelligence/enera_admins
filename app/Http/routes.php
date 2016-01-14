@@ -14,6 +14,11 @@
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', ['as' => 'home', 'uses' => 'DashboardController@index']);
     Route::match(['post', 'get'], '/logout', ['as' => 'logout', 'uses' => 'AuthController@logout']);
+
+    Route::group(['prefix' => 'campaigns', 'as' => 'campaigns::'], function () {
+        Route::get('/', ['as' => 'index', 'uses' => 'CampaignsController@index']);
+    });
+
 });
 
 Route::group(['middleware' => 'auth.ready'], function () {

@@ -1,5 +1,5 @@
 /*
-*  Altair Admin
+*  Altair Admin AngularJS
 *  author: tzd
 *
 *  Content:
@@ -15,7 +15,6 @@
 *    10. print styles
 *    12. themes
 *    11. style switcher
-*
 */
 /* 1. altair variables/mixins ======================== */
 /* 2. UIkit custom styles ============================ */
@@ -8990,293 +8989,6 @@ div.ganttview .ui-resizable-w {
 .animate_hide {
   display: none;
 }
-/* wizard */
-.wizard,
-.tabcontrol {
-  display: block;
-  width: 100%;
-  overflow: hidden;
-}
-.wizard a,
-.tabcontrol a {
-  outline: 0;
-}
-.wizard ul,
-.tabcontrol ul {
-  list-style: none !important;
-  padding: 0;
-  margin: 0;
-}
-.wizard ul > li,
-.tabcontrol ul > li {
-  display: block;
-  padding: 0;
-}
-.wizard > .steps .current-info,
-.tabcontrol > .steps .current-info {
-  position: absolute;
-  left: -999em;
-}
-.wizard .content > .title,
-.tabcontrol .content > .title {
-  position: absolute;
-  left: -999em;
-}
-.wizard > .steps {
-  position: relative;
-  display: block;
-  width: 100%;
-  background: #2196f3;
-}
-.wizard > .steps .number {
-  font-size: 14px;
-  border: 2px solid #fff;
-  width: 24px;
-  height: 24px;
-  line-height: 24px;
-  text-align: center;
-  border-radius: 50%;
-  position: absolute;
-  left: 12px;
-  top: 50%;
-  margin-top: -14px;
-}
-@media only screen and (min-width: 960px) {
-  .wizard > .steps .number {
-    font-size: 16px;
-    width: 32px;
-    height: 32px;
-    line-height: 32px;
-    margin-top: -18px;
-  }
-}
-.wizard > .steps .title {
-  text-overflow: ellipsis;
-  display: inline-block;
-  vertical-align: top;
-  white-space: nowrap;
-  overflow: hidden;
-  width: 100%;
-  padding-left: 46px;
-  box-sizing: border-box;
-}
-.wizard > .steps > ul > li {
-  display: block;
-}
-@media only screen and (min-width: 960px) {
-  .wizard > .steps > ul > li {
-    float: left;
-    width: 25%;
-  }
-}
-.wizard > .steps > ul > li + li a {
-  border-top: 1px solid rgba(0, 0, 0, 0.15);
-}
-@media only screen and (min-width: 960px) {
-  .wizard > .steps > ul > li + li a {
-    border-top: none;
-    border-right: 1px solid rgba(0, 0, 0, 0.15);
-  }
-}
-.wizard > .steps > ul > li a {
-  position: relative;
-}
-.wizard > .steps > ul > li a,
-.wizard > .steps > ul > li a:hover,
-.wizard > .steps > ul > li a:active {
-  display: block;
-  width: auto;
-  padding: 12px 8px;
-  text-decoration: none;
-  color: #fff;
-}
-@media only screen and (min-width: 960px) {
-  .wizard > .steps > ul > li a,
-  .wizard > .steps > ul > li a:hover,
-  .wizard > .steps > ul > li a:active {
-    padding: 16px;
-  }
-}
-.wizard > .steps > ul > li.disabled a,
-.wizard > .steps > ul > li.disabled a:hover,
-.wizard > .steps > ul > li.disabled a:active {
-  color: #fff;
-  cursor: default;
-}
-.wizard > .steps > ul > li.current a,
-.wizard > .steps > ul > li.current a:hover,
-.wizard > .steps > ul > li.current a:active {
-  background: #51adf6;
-  color: #fff;
-  cursor: default;
-}
-.wizard > .steps > ul > li.done a,
-.wizard > .steps > ul > li.done a:hover,
-.wizard > .steps > ul > li.done a:active {
-  background: #1976d2;
-  color: #fff;
-}
-.wizard > .steps > ul > li.error a,
-.wizard > .steps > ul > li.error a:hover,
-.wizard > .steps > ul > li.error a:active {
-  background: #c62828;
-  color: #fff;
-}
-.wizard > .content {
-  display: block;
-  min-height: 360px;
-  overflow: hidden;
-  position: relative;
-  box-sizing: border-box;
-}
-.wizard > .content > .body {
-  padding: 48px 24px 64px;
-  width: 100%;
-  position: absolute;
-  box-sizing: border-box;
-}
-.wizard > .content > .body ul {
-  margin: 0;
-}
-.wizard > .content > .body ul > li {
-  margin: 0;
-}
-.wizard > .content > .body ul,
-.wizard > .content > .body ul > li {
-  list-style: none;
-  padding: 0;
-}
-.wizard > .content > .body .uk-form-label {
-  display: block;
-  font-weight: 500;
-  font-size: 13px;
-  margin: -4px 0;
-}
-.wizard > .content > .body .icheck-inline {
-  margin: 4px 16px 0 0;
-}
-.wizard > .content > .body .icheck-inline + .parsley-errors-list {
-  margin-top: 2px;
-}
-.wizard > .content > .body > iframe {
-  border: 0 none;
-  width: 100%;
-  height: 100%;
-}
-.wizard > .content > .body pre[class*="language-"] {
-  max-height: inherit;
-}
-.wizard > .actions {
-  display: block;
-  background: rgba(0, 0, 0, 0.085);
-  padding: 8px 24px;
-}
-.wizard > .actions > ul > li.button_previous {
-  float: left;
-}
-.wizard > .actions > ul > li.button_next,
-.wizard > .actions > ul > li.button_finish {
-  float: right;
-}
-@media only screen and (max-width: 479px) {
-  .wizard > .actions > ul > li + li {
-    margin-top: 8px;
-  }
-  .wizard > .actions > ul > li.button_previous {
-    float: none;
-  }
-  .wizard > .actions > ul > li.button_next,
-  .wizard > .actions > ul > li.button_finish {
-    float: none;
-  }
-}
-.wizard > .actions a,
-.wizard > .actions a:hover,
-.wizard > .actions a:active {
-  color: #212121;
-  display: block;
-  padding: 0 16px;
-  min-width: 80px;
-  text-align: center;
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 31px;
-  text-transform: uppercase;
-}
-.wizard > .actions a .material-icons {
-  color: #212121;
-}
-.wizard > .actions .disabled a,
-.wizard > .actions .disabled a:hover,
-.wizard > .actions .disabled a:active {
-  color: #aaa;
-}
-.wizard > .actions .disabled .material-icons {
-  color: #aaa;
-}
-@media only screen and (min-width: 960px) {
-  .wizard.vertical > .steps {
-    width: 25%;
-    float: left;
-    box-sizing: border-box;
-    padding: 8px;
-  }
-}
-@media only screen and (min-width: 1220px) {
-  .wizard.vertical > .steps {
-    width: 20%;
-  }
-}
-@media only screen and (min-width: 960px) {
-  .wizard.vertical > .steps > ul > li {
-    float: none;
-    width: 100%;
-  }
-  .wizard.vertical > .steps > ul > li + li {
-    margin-top: 8px;
-  }
-  .wizard.vertical > .steps > ul > li a {
-    padding: 12px;
-    border: none;
-    border-radius: 4px;
-  }
-  .wizard.vertical > .steps .number {
-    font-size: 12px;
-    border: 2px solid #fff;
-    width: 24px;
-    height: 24px;
-    line-height: 24px;
-    text-align: center;
-    border-radius: 50%;
-    position: absolute;
-    left: 12px;
-    top: 50%;
-    margin-top: -14px;
-  }
-}
-.wizard.vertical > .content {
-  display: block;
-  background: #fff;
-}
-@media only screen and (min-width: 960px) {
-  .wizard.vertical > .content {
-    width: 75%;
-    float: left;
-  }
-  .wizard.vertical > .content .body {
-    padding: 16px 32px;
-  }
-}
-@media only screen and (min-width: 1220px) {
-  .wizard.vertical > .content {
-    width: 80%;
-  }
-}
-.wizard.vertical > .actions {
-  display: block;
-  clear: both;
-}
 /* chartist overide */
 .chartist {
   height: 240px;
@@ -11228,6 +10940,60 @@ a.waves-effect .waves-ripple {
 .md-list.chat_users li {
   cursor: pointer;
 }
+/* error page */
+.error_page {
+  padding: 0;
+  overflow: hidden;
+}
+.error_page_header {
+  background: #1565c0;
+  padding: 80px 0 20px;
+  color: #fff;
+  font-size: 48px;
+  font-weight: 300;
+  margin-bottom: 40px;
+}
+/* login page */
+.login_page {
+  font-size: 15px;
+  padding: 64px 24px;
+  overflow-y: auto;
+  height: auto;
+  min-height: 100%;
+}
+@media only screen and (max-width: 767px) {
+  .login_page {
+    padding: 24px;
+  }
+}
+.login_page_wrapper {
+  width: 360px;
+  max-width: 100%;
+  margin: 0 auto;
+  -webkit-transition: all 280ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 280ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.login_page .user_avatar {
+  width: 64px;
+  height: 64px;
+  display: inline-block;
+  text-align: center;
+  border-radius: 50%;
+  background-image: url("../img/avatars/user.png");
+  background-repeat: no-repeat;
+  background-color: rgba(0, 0, 0, 0.085);
+  background-position: 50% 1px;
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2), only screen and (-webkit-min-device-pixel-ratio: 192), only screen and (min-resolution: 192dppx), only screen and (min-resolution: 2dppx) {
+  .login_page .user_avatar {
+    background-image: url("../img/avatars/user@2x.png");
+    background-size: 64px 64px;
+  }
+}
+.login_page .login_heading {
+  text-align: center;
+  margin-bottom: 32px;
+}
 /* blog */
 .blog_list_teaser_image {
   margin-bottom: 16px;
@@ -11821,7 +11587,6 @@ body.pace-done > .page_preloader {
     height: 0 !important;
     overflow: hidden !important;
     margin: 0 !important;
-    left: 0 !important;
   }
   .sidebar_main_active #header_main,
   .sidebar_main_active #top_bar {
@@ -11843,6 +11608,9 @@ body.pace-done > .page_preloader {
     background: #fff;
     display: block;
     z-index: 9999;
+  }
+  #sidebar_main {
+    left: -240px !important;
   }
   .main-print {
     padding: 0 !important;
@@ -11875,6 +11643,64 @@ body.pace-done > .page_preloader {
     height: auto !important;
   }
 }
+/*
+body {
+    overflow-y: visible !important;
+    background: #fff;
+    padding: 20px !important;
+    &:after {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #fff;
+        display: block;
+        z-index: 9999;
+    }
+}
+#sidebar_main,
+#sidebar_secondary,
+#header_main,
+.header_double_height:before,
+.print_hide {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+}
+.print_reset {
+    left: 0 !important;
+    right: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+#page_content {
+    margin: 0 !important;
+    overflow-y: visible !important;
+    height: auto !important;
+}
+.md-card-content {
+    height: auto !important;
+    overflow: visible !important;
+}
+
+.print_main {
+    padding: 0 !important;
+    margin: 0 !important;
+    width: auto !important;
+    z-index: 10000;
+    left: 0 !important;
+    top: 0 !important;
+}
+
+.md-card-single {
+    margin: 0 !important;
+}*/
 /* 11. themes ======================================== */
 .app_theme_a .uk-alert {
   background: #3f51b5;
@@ -13557,4 +13383,203 @@ body.pace-done > .page_preloader {
   font-size: 24px;
   line-height: 36px;
   color: #212121;
+}
+/* 12. angularjs ==================================== */
+.page_loading {
+  overflow: hidden !important;
+}
+#page_preloader {
+  background: #ececec;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  position: fixed;
+  z-index: 2000;
+  opacity: 0;
+  -webkit-transition: all 280ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 280ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+#page_preloader > img {
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: -24px 0 0 -24px;
+  width: 48px;
+  height: 48px;
+}
+.page_loading #page_preloader {
+  opacity: 1;
+}
+.page_loaded #page_preloader {
+  display: none;
+}
+.app_initialized #page_preloader {
+  left: 0;
+  top: 48px;
+  z-index: 1094;
+}
+@media only screen and (max-width: 1219px) {
+  .app_initialized #page_preloader {
+    left: 0;
+  }
+}
+.app_initialized .sidebar_main_active #page_preloader,
+.app_initialized .sidebar_main_open #page_preloader {
+  left: 240px;
+}
+/* wizard */
+.wizard {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+}
+.wizard a {
+  outline: 0;
+}
+.wizard ul {
+  list-style: none !important;
+  padding: 0;
+  margin: 0;
+}
+.wizard ul > li {
+  display: block;
+  padding: 0;
+}
+.wizard > .steps {
+  position: relative;
+  display: block;
+  width: 100%;
+  background: #2196f3;
+}
+.wizard > .steps .number {
+  font-size: 14px;
+  border: 2px solid #fff;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  border-radius: 50%;
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  margin-top: -14px;
+}
+@media only screen and (min-width: 960px) {
+  .wizard > .steps .number {
+    font-size: 16px;
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    margin-top: -18px;
+  }
+}
+.wizard > .steps .title {
+  text-overflow: ellipsis;
+  display: inline-block;
+  vertical-align: top;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
+  padding-left: 46px;
+  box-sizing: border-box;
+}
+.wizard > .steps > ul > li {
+  display: block;
+}
+@media only screen and (min-width: 960px) {
+  .wizard > .steps > ul > li {
+    float: left;
+    width: 25%;
+  }
+}
+.wizard > .steps > ul > li + li a {
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
+}
+@media only screen and (min-width: 960px) {
+  .wizard > .steps > ul > li + li a {
+    border-top: none;
+    border-right: 1px solid rgba(0, 0, 0, 0.15);
+  }
+}
+.wizard > .steps > ul > li a {
+  position: relative;
+}
+.wizard > .steps > ul > li a,
+.wizard > .steps > ul > li a:hover,
+.wizard > .steps > ul > li a:active {
+  display: block;
+  width: auto;
+  padding: 12px 8px;
+  text-decoration: none;
+  color: #fff;
+}
+@media only screen and (min-width: 960px) {
+  .wizard > .steps > ul > li a,
+  .wizard > .steps > ul > li a:hover,
+  .wizard > .steps > ul > li a:active {
+    padding: 16px;
+  }
+}
+.wizard > .steps > ul > li.disabled a,
+.wizard > .steps > ul > li.disabled a:hover,
+.wizard > .steps > ul > li.disabled a:active {
+  color: #fff;
+  cursor: default;
+}
+.wizard > .steps > ul > li.current a,
+.wizard > .steps > ul > li.current a:hover,
+.wizard > .steps > ul > li.current a:active {
+  background: #51adf6;
+  color: #fff;
+  cursor: default;
+}
+.wizard > .steps > ul > li.done a,
+.wizard > .steps > ul > li.done a:hover,
+.wizard > .steps > ul > li.done a:active {
+  background: #1976d2;
+  color: #fff;
+}
+.wizard > .steps > ul > li.error a,
+.wizard > .steps > ul > li.error a:hover,
+.wizard > .steps > ul > li.error a:active {
+  background: #c62828;
+  color: #fff;
+}
+.wizard > .content {
+  display: block;
+  box-sizing: border-box;
+}
+.wizard > .content > .body {
+  padding: 32px 24px;
+  box-sizing: border-box;
+}
+.wizard > .content > .body ul {
+  margin: 0;
+}
+.wizard > .content > .body ul > li {
+  margin: 0;
+}
+.wizard > .content > .body ul,
+.wizard > .content > .body ul > li {
+  list-style: none;
+  padding: 0;
+}
+.wizard > .content > .body .uk-form-label {
+  display: block;
+  font-weight: 500;
+  font-size: 13px;
+  margin: -4px 0;
+}
+.wizard > .content > .body .icheck-inline {
+  margin: 4px 16px 0 0;
+}
+.wizard > .content > .body > iframe {
+  border: 0 none;
+  width: 100%;
+  height: 100%;
+}
+.wizard > .content > .body pre[class*="language-"] {
+  max-height: inherit;
 }

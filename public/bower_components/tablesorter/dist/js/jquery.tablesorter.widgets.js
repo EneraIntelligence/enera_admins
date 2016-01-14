@@ -1,4 +1,4 @@
-/*! tablesorter (FORK) - updated 12-13-2015 (v2.25.0)*/
+/*! tablesorter (FORK) - updated 11-10-2015 (v2.24.5)*/
 /* Includes widgets ( storage,uitheme,columns,filter,stickyHeaders,resizable,saveSort ) */
 (function(factory) {
 	if (typeof define === 'function' && define.amd) {
@@ -366,7 +366,7 @@
 
 })(jQuery);
 
-/*! Widget: filter - updated 12/13/2015 (v2.25.0) *//*
+/*! Widget: filter - updated 11/10/2015 (v2.24.4) *//*
  * Requires tablesorter v2.8+ and jQuery 1.7+
  * by Rob Garrison
  */
@@ -576,7 +576,7 @@
 						table = c.table,
 						parsed = data.parsed[ data.index ],
 						query = ts.formatFloat( data.iFilter.replace( tsfRegex.operators, '' ), table ),
-						parser = c.parsers[ data.index ] || {},
+						parser = c.parsers[ data.index ],
 						savedSearch = query;
 					// parse filter value in case we're comparing numbers ( dates )
 					if ( parsed || parser.type === 'numeric' ) {
@@ -716,7 +716,6 @@
 
 			var options, string, txt, $header, column, filters, val, fxn, noSelect;
 			c.$table.addClass( 'hasFilters' );
-			c.lastSearch = [];
 
 			// define timers so using clearTimeout won't cause an undefined error
 			wo.filter_searchTimer = null;
@@ -799,7 +798,7 @@
 				if ( wo.filter_reset instanceof $ ) {
 					// reset contains a jQuery object, bind to it
 					wo.filter_reset.click( function() {
-						c.$table.triggerHandler( 'filterReset' );
+						c.$table.trigger( 'filterReset' );
 					});
 				} else if ( $( wo.filter_reset ).length ) {
 					// reset is a jQuery selector, use event delegation
@@ -807,7 +806,7 @@
 						.undelegate( wo.filter_reset, 'click' + c.namespace + 'filter' )
 						.delegate( wo.filter_reset, 'click' + c.namespace + 'filter', function() {
 							// trigger a reset event, so other functions ( filter_formatter ) know when to reset
-							c.$table.triggerHandler( 'filterReset' );
+							c.$table.trigger( 'filterReset' );
 						});
 				}
 			}
@@ -909,7 +908,7 @@
 						ts.setFilters( table, filters, true );
 					}
 				}
-				c.$table.triggerHandler( 'filterFomatterUpdate' );
+				c.$table.trigger( 'filterFomatterUpdate' );
 				// trigger init after setTimeout to prevent multiple filterStart/End/Init triggers
 				setTimeout( function() {
 					if ( !wo.filter_initialized ) {
@@ -919,7 +918,7 @@
 			});
 			// if filter widget is added after pager has initialized; then set filter init flag
 			if ( c.pager && c.pager.initialized && !wo.filter_initialized ) {
-				c.$table.triggerHandler( 'filterFomatterUpdate' );
+				c.$table.trigger( 'filterFomatterUpdate' );
 				setTimeout( function() {
 					tsf.filterInitComplete( c );
 				}, 100 );
@@ -942,7 +941,7 @@
 				count = 0,
 				completed = function() {
 					wo.filter_initialized = true;
-					c.$table.triggerHandler( 'filterInit', c );
+					c.$table.trigger( 'filterInit', c );
 					tsf.findRows( c.table, c.$table.data( 'lastSearch' ) || [] );
 				};
 			if ( $.isEmptyObject( wo.filter_formatter ) ) {
@@ -997,7 +996,7 @@
 				for ( indx = 0; indx <= c.columns; indx++ ) {
 					// include data-column='all' external filters
 					col = indx === c.columns ? 'all' : indx;
-					filters[ indx ] = $filters
+					filters[indx] = $filters
 						.filter( '[data-column="' + col + '"]' )
 						.attr( wo.filter_defaultAttrib ) || filters[indx] || '';
 				}
@@ -1019,12 +1018,11 @@
 				buildFilter = '<tr role="row" class="' + tscss.filterRow + ' ' + c.cssIgnoreRow + '">';
 			for ( column = 0; column < columns; column++ ) {
 				if ( c.$headerIndexed[ column ].length ) {
+					buildFilter += '<td data-column="' + column + '"';
 					// account for entire column set with colspan. See #1047
 					tmp = c.$headerIndexed[ column ] && c.$headerIndexed[ column ][0].colSpan || 0;
 					if ( tmp > 1 ) {
-						buildFilter += '<td data-column="' + column + '-' + ( column + tmp - 1 ) + '" colspan="' + tmp + '"';
-					} else {
-						buildFilter += '<td data-column="' + column + '"';
+						buildFilter += ' colspan="' + tmp + '"';
 					}
 					if ( arry ) {
 						buildFilter += ( cellFilter[ column ] ? ' class="' + cellFilter[ column ] + '"' : '' );
@@ -1043,8 +1041,7 @@
 				// assuming last cell of a column is the main column
 				$header = c.$headerIndexed[ column ];
 				if ( $header && $header.length ) {
-					// $filter = c.$filters.filter( '[data-column="' + column + '"]' );
-					$filter = tsf.getColumnElm( c, c.$filters, column );
+					$filter = c.$filters.filter( '[data-column="' + column + '"]' );
 					ffxn = ts.getColumnData( table, wo.filter_functions, column );
 					makeSelect = ( wo.filter_functions && ffxn && typeof ffxn !== 'function' ) ||
 						$header.hasClass( 'filter-select' );
@@ -1084,8 +1081,7 @@
 						name = ( $.isArray( wo.filter_cssFilter ) ?
 							( typeof wo.filter_cssFilter[column] !== 'undefined' ? wo.filter_cssFilter[column] || '' : '' ) :
 							wo.filter_cssFilter ) || '';
-						// copy data-column from table cell (it will include colspan)
-						buildFilter.addClass( tscss.filter + ' ' + name ).attr( 'data-column', $filter.attr( 'data-column' ) );
+						buildFilter.addClass( tscss.filter + ' ' + name ).attr( 'data-column', column );
 						if ( disabled ) {
 							buildFilter.attr( 'placeholder', '' ).addClass( tscss.filterDisabled )[0].disabled = true;
 						}
@@ -1193,7 +1189,7 @@
 				// show/hide filter row as needed
 				c.$table
 					.find( '.' + tscss.filterRow )
-					.triggerHandler( combinedFilters === '' ? 'mouseleave' : 'mouseenter' );
+					.trigger( combinedFilters === '' ? 'mouseleave' : 'mouseenter' );
 			}
 			// return if the last search is the same; but filter === false when updating the search
 			// see example-widget-filter.html filter toggle buttons
@@ -1204,8 +1200,6 @@
 				c.lastCombinedFilter = null;
 				c.lastSearch = [];
 			}
-			// define filter inside it is false
-			filters = filters || [];
 			// convert filters to strings - see #1070
 			filters = Array.prototype.map ?
 				filters.map( String ) :
@@ -1213,7 +1207,7 @@
 				filters.join( '\u0000' ).split( '\u0000' );
 
 			if ( wo.filter_initialized ) {
-				c.$table.triggerHandler( 'filterStart', [ filters ] );
+				c.$table.trigger( 'filterStart', [ filters ] );
 			}
 			if ( c.showProcessing ) {
 				// give it time for the processing icon to kick in
@@ -1294,18 +1288,22 @@
 			}
 			return $input || $();
 		},
-		findRange: function( c, val, ignoreRanges ) {
+		multipleColumns: function( c, $input ) {
 			// look for multiple columns '1-3,4-6,8' in data-column
 			var temp, ranges, range, start, end, singles, i, indx, len,
-				columns = [];
-			if ( /^[0-9]+$/.test( val ) ) {
-				// always return an array
-				return [ parseInt( val, 10 ) ];
+				wo = c.widgetOptions,
+				// only target 'all' column inputs on initialization
+				// & don't target 'all' column inputs if they don't exist
+				targets = wo.filter_initialized || !$input.filter( wo.filter_anyColumnSelector ).length,
+				columns = [],
+				val = $.trim( tsf.getLatestSearch( $input ).attr( 'data-column' ) || '' );
+			if ( /^[0-9]+$/.test(val)) {
+				return parseInt( val, 10 );
 			}
 			// process column range
-			if ( !ignoreRanges && /-/.test( val ) ) {
+			if ( targets && /-/.test( val ) ) {
 				ranges = val.match( /(\d+)\s*-\s*(\d+)/g );
-				len = ranges ? ranges.length : 0;
+				len = ranges.length;
 				for ( indx = 0; indx < len; indx++ ) {
 					range = ranges[indx].split( /\s*-\s*/ );
 					start = parseInt( range[0], 10 ) || 0;
@@ -1324,7 +1322,7 @@
 				}
 			}
 			// process single columns
-			if ( !ignoreRanges && /,/.test( val ) ) {
+			if ( targets && /,/.test( val ) ) {
 				singles = val.split( /\s*,\s*/ );
 				len = singles.length;
 				for ( i = 0; i < len; i++ ) {
@@ -1343,23 +1341,6 @@
 				}
 			}
 			return columns;
-		},
-		getColumnElm: function( c, $elements, column ) {
-			// data-column may contain multiple columns '1-3,5-6,8'
-			// replaces: c.$filters.filter( '[data-column="' + column + '"]' );
-			return $elements.filter( function() {
-				var cols = tsf.findRange( c, $( this ).attr( 'data-column' ) );
-				return $.inArray( column, cols ) > -1;
-			});
-		},
-		multipleColumns: function( c, $input ) {
-			// look for multiple columns '1-3,4-6,8' in data-column
-			var wo = c.widgetOptions,
-				// only target 'all' column inputs on initialization
-				// & don't target 'all' column inputs if they don't exist
-				targets = wo.filter_initialized || !$input.filter( wo.filter_anyColumnSelector ).length,
-				val = $.trim( tsf.getLatestSearch( $input ).attr( 'data-column' ) || '' );
-			return tsf.findRange( c, val, !targets );
 		},
 		processTypes: function( c, data, vars ) {
 			var ffxn,
@@ -1472,11 +1453,6 @@
 					// replace accents - see #357
 					if ( c.sortLocaleCompare ) {
 						data.filter = ts.replaceAccents( data.filter );
-					}
-
-					// replace column specific default filters - see #1088
-					if ( wo.filter_defaultFilter && tsfRegex.iQuery.test( vars.defaultColFilter[ columnIndex ] ) ) {
-						data.filter = tsf.defaultFilter( data.filter, vars.defaultColFilter[ columnIndex ] );
 					}
 
 					// data.iFilter = case insensitive ( if wo.filter_ignoreCase is true ),
@@ -1767,8 +1743,7 @@
 				console.log( 'Completed filter widget search' + ts.benchmark(time) );
 			}
 			if ( wo.filter_initialized ) {
-				c.$table.triggerHandler( 'filterBeforeEnd', c );
-				c.$table.triggerHandler( 'filterEnd', c );
+				c.$table.trigger( 'filterEnd', c );
 			}
 			setTimeout( function() {
 				ts.applyWidget( c.table ); // make sure zebra widget is applied
@@ -2133,7 +2108,7 @@
 			c.lastCombinedFilter = null;
 			c.lastSearch = [];
 			tsf.searching( c.table, filter, skipFirst );
-			c.$table.triggerHandler( 'filterFomatterUpdate' );
+			c.$table.trigger( 'filterFomatterUpdate' );
 		}
 		return !!valid;
 	};
@@ -2181,7 +2156,7 @@
 					}
 				}
 				if ( headers.length && triggerEvent !== false ) {
-					c.$table.triggerHandler( 'resize', [ headers ] );
+					c.$table.trigger( 'resize', [ headers ] );
 				}
 				wo.resize_flag = false;
 			};
@@ -2408,7 +2383,7 @@
 				}
 			}
 
-			$table.triggerHandler('stickyHeadersInit');
+			$table.trigger('stickyHeadersInit');
 
 		},
 		remove: function(table, c, wo) {
@@ -2736,7 +2711,7 @@
 			}
 			vars.mouseXPosition = event.pageX;
 			// dynamically update sticky header widths
-			c.$table.triggerHandler('stickyHeadersUpdate');
+			c.$table.trigger('stickyHeadersUpdate');
 		},
 
 		stopResize : function( c, wo ) {
@@ -2750,7 +2725,7 @@
 			vars.mouseXPosition = 0;
 			vars.$target = vars.$next = null;
 			// will update stickyHeaders, just in case, see #912
-			c.$table.triggerHandler('stickyHeadersUpdate');
+			c.$table.trigger('stickyHeadersUpdate');
 		}
 	};
 
@@ -2812,7 +2787,7 @@
 				}
 
 				// reset stickyHeader widths
-				c.$table.triggerHandler( 'stickyHeadersUpdate' );
+				c.$table.trigger( 'stickyHeadersUpdate' );
 				if ( ts.storage && !refreshing ) {
 					ts.storage( this, ts.css.resizableStorage, {} );
 				}
