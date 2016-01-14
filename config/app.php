@@ -202,6 +202,7 @@ return [
         /* Custom Aliases */
         'Form' => Collective\Html\FormFacade::class,
         'HTML' => Collective\Html\HtmlFacade::class,
+        'CampaignStyle'  => Admins\Libraries\CampaignStyleHelper::class,
 
     ],
 

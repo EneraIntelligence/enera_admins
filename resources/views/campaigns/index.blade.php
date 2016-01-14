@@ -152,7 +152,6 @@
 
                                 </div>
 
-
                             </div>
 
                         </div>
@@ -176,13 +175,15 @@
                                         <div onclick="window.location.href='{!! route('campaigns::show',['id'=>$campaign->_id]) !!}'"
                                              class="scrum_task {!! CampaignStyle::getStatusColorClass( $campaign->status ) !!}"
                                              data-snippet-title="{!! $campaign->name !!}">
+
                                             <div class="md-card-content uk-grid">
 
-                                                <div class="interaction-icon uk-width-large-1-10 uk-hidden-small uk-width-medium-1-4 uk-hidden-medium">
+                                                <!-- icon -->
+                                                <div class="interaction-icon uk-width-medium-1-10 uk-hidden-small">
                                                     <div class="uk-vertical-align"  id="name"
                                                          data-uk-tooltip="{cls:'long-text'}"
                                                          title="{{$campaign->interaction['name']}} - {!! $campaign->status !!}">
-                                                        <img src="{!! URL::asset('images/icons/'.
+                                                        <img src="{!! URL::asset('img/icons/'.
                                                                 CampaignStyle::getCampaignIcon( $campaign->interaction['name']
                                                              ) ) !!}" alt="">
 
@@ -190,13 +191,14 @@
 
                                                 </div>
 
-                                                <div id="campaign-title"
-                                                     class="uk-width-large-2-10 uk-grid-width-small-2-3  uk-width-medium-1-4 uk-width-large-1">
+                                                <!-- campaign name -->
+                                                <div id="campaign-title" class="uk-width-medium-3-10 uk-width-small-1-1">
                                                     <h2>{{$campaign->name}}</h2>
                                                     <h4>{{$campaign->publishers_summary['client']}}</h4>
                                                 </div>
 
-                                                <div class="uk-grid-width-8-10" style="max-width: 317px;">
+                                                <!-- days and budget bars -->
+                                                <div class="uk-width-medium-4-10 uk-width-small-1-2" >
 
                                                     <div class="uk-grid uk-grid-medium" style="max-width: 317px;">
 
@@ -280,10 +282,15 @@
 
                                                 </div>
 
-                                                <div style="max-height: 100px; position: relative; float: right; padding: 0px; width: 35%!important;"
-                                                     class="uk-hidden-small uk-grid-width-5-10 uk-width-medium-2-5 uk-width-small-1-4 uk-width-large-1-3 chart_id" id="chart_{!! $campaign->_id !!}">
-
+                                                @if($campaign->status=="pending")
+                                                    <!-- check campaign button -->
+                                                    <div class="uk-width-medium-2-10  uk-width-small-1-2">
+                                                    <a class="md-btn md-btn-warning">
+                                                        Revisar campaña
+                                                    </a>
                                                 </div>
+                                                @endif;
+
                                             </div>
                                         </div>
                                     </div>
@@ -311,7 +318,7 @@
                                                                  title="{{$sub->interaction['name']}} - {!! $sub->status !!}"
                                                             >
 
-                                                                <img src="{!! URL::asset('images/icons/mailing.svg') !!}" alt="">
+                                                                <img src="{!! URL::asset('img/icons/mailing.svg') !!}" alt="">
 
                                                             </div>
 
@@ -352,77 +359,6 @@
 @stop
 
 @section('scripts')
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script>
-        var error = '{{session('data')}}';
-        if (error == 'NoMail') {
-            UIkit.notify("<i class='material-icons uk-icon-large'> &#xE002; </i> &nbsp;&nbsp;No puedes mandar correos de la subcamapaña dado que la campaña no tiene correos asignados <span style='float:right'><i class='material-icons uk-icon-large'> clear </i></span>", {
-                timeout: 0,
-                status: 'danger'
-            });
-        }
-        var send = '{{session('data')}}';
-        if (error == 'errorCamp') {
-            UIkit.notify(" &nbsp;&nbsp;la campaña no existe o no es tuya <span style='float:right'><i class='material-icons uk-icon-large'> clear </i></span>", {
-                timeout: 0,
-                status: 'danger'
-            });
-        }
 
-        var send = '{{session('data')}}';
-        if (send == 'send') {
-            UIkit.notify("<i class='material-icons uk-icon-large'> &#xE877; </i> &nbsp;&nbsp;Tus correos se han enviado <span style='float:right'><i class='material-icons uk-icon-large'> clear </i></span>", {
-                timeout: 0,
-                status: 'success'
-            });
-        }
-        <!--     codigo de la grafica   -->
-                @foreach($campaigns as $campaign)
-        var dia1 = {!! $campaign->grafica['dia1']['num'] !!};
-        var dia2 = {!! $campaign->grafica['dia2']['num'] !!};
-        var dia3 = {!! $campaign->grafica['dia3']['num'] !!};
-        var dia4 = {!! $campaign->grafica['dia4']['num'] !!};
-        var dia5 = {!! $campaign->grafica['dia5']['num'] !!};
-        var dia6 = {!! $campaign->grafica['dia6']['num'] !!};
-        var dia7 = {!! $campaign->grafica['dia7']['num'] !!};
-        var chart = c3.generate({
-            bindto: '#chart_{!! $campaign->_id !!}',
-            data: {
-                x:'x',
-                columns: [
-                    ['x','{!! $campaign->grafica['dia1']['fecha'] !!}','{!! $campaign->grafica['dia2']['fecha'] !!}','{!! $campaign->grafica['dia3']['fecha'] !!}','{!! $campaign->grafica['dia4']['fecha'] !!}','{!!$campaign->grafica['dia5']['fecha']!!}','{!!$campaign->grafica['dia6']['fecha']!!}','{!!$campaign->grafica['dia7']['fecha']!!}'],
-                    //                            ['interacciones por dia '],
-                    ['interacciones', dia1, dia2,dia3, dia4,dia5,dia6,dia7]
-                ],
-                type: 'bar'
-            },
-            bar: {
-                width: {
-                    ratio: 0.5 // this makes bar width 50% of length between ticks
-                }
-                // or
-                //width: 100 // this makes bar width 100px
-            },
-            axis: {
-                y: {
-                    tick: {
-                        count: 2
-                    }
-                },
-                x: {
-                    type: 'timeseries',
-                    tick: {
-                        format: '%d'
-                        //                                format: '%Y-%m-%d'
-                    }
-                }
-            },
-            legend: {
-                show: false
-            }
-        });
 
-        @endforeach
-    </script>
 @stop

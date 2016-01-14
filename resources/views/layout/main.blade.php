@@ -12,7 +12,7 @@
 
     {{--<link rel="icon" type="image/png" href="assets/img/favicon-16x16.png" sizes="16x16">
     <link rel="icon" type="image/png" href="assets/img/favicon-32x32.png" sizes="32x32">--}}
-    <link rel="icon" type="image/png" href="{!! URL::asset('images/favicon.png') !!}" sizes="32x32">
+    <link rel="icon" type="image/png" href="{!! URL::asset('img/favicon.png') !!}" sizes="32x32">
     <title>Enera Publishers @yield('title')</title>
     @yield('head_scripts')
 
@@ -268,7 +268,6 @@
                         </li>
                         <li data-uk-dropdown="{mode:'click'}">
                             <a href="#" class="user_action_image">
-                                {{--<img class="md-user-image" src="{!!URL::asset('images/avatar/'. $user->image )  !!}" alt="{{$user->name['first']}}"style="border-radius: 50%; height: 35px; width: 35px;"/>--}}
                                 <i class="material-icons md-36" style="color: white;">account_circle</i>
                             </a>
 
