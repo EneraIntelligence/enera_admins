@@ -25,7 +25,7 @@
                                 <div>
                                     <div id="circle" style="max-width:98px;max-height:98px;margin:auto;">
                                         <img style="background-image:none!important;margin:-96px 9px;"
-                                             src="{!! URL::asset('images/icons/'.
+                                             src="{!! URL::asset('img/icons/'.
                                                                 CampaignStyle::getCampaignIcon( $cam->interaction['name']
                                                              ) ) !!}"
                                              alt="producto"/>
