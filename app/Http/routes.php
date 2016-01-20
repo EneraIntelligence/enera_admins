@@ -20,6 +20,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/view/{id}', ['as' => 'show', 'uses' => 'CampaignsController@show']);
     });
 
+    Route::group(['prefix' => 'profile', 'as' => 'profile::'], function () {
+        Route::get('/', ['as' => 'index', 'uses' => 'UserController@index']);
+    });
+
 });
 
 Route::group(['middleware' => 'auth.ready'], function () {
