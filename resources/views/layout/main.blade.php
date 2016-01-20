@@ -298,8 +298,6 @@
 
 
     @yield('content')
-
-
             <!-- google web fonts -->
     <script>
         WebFontConfig = {
@@ -322,7 +320,7 @@
     </script>
 
     <!-- common functions -->
-    {!! HTML::script('bower_components/peity/test/jquery-1.6.2.min.js') !!}
+    {{--{!! HTML::script('bower_components/peity/test/jquery-1.6.2.min.js') !!}--}}
     {!! HTML::script('assets/js/common.min.js') !!}
             <!-- uikit functions -->
     {!! HTML::script('assets/js/uikit_custom.js') !!}
