@@ -1,26 +1,26 @@
 /*! UIkit 2.24.3 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
-(function(core) {
+(function (core) {
 
     if (typeof define == "function" && define.amd) { // AMD
 
-        define("uikit", function(){
+        define("uikit", function () {
 
             var uikit = window.UIkit || core(window, window.jQuery, window.document);
 
-            uikit.load = function(res, req, onload, config) {
+            uikit.load = function (res, req, onload, config) {
 
                 var resources = res.split(','), load = [], i, base = (config.config && config.config.uikit && config.config.uikit.base ? config.config.uikit.base : "").replace(/\/+$/g, "");
 
                 if (!base) {
-                    throw new Error( "Please define base path to UIkit in the requirejs config." );
+                    throw new Error("Please define base path to UIkit in the requirejs config.");
                 }
 
                 for (i = 0; i < resources.length; i += 1) {
                     var resource = resources[i].replace(/\./g, '/');
-                    load.push(base+'/components/'+resource);
+                    load.push(base + '/components/' + resource);
                 }
 
-                req(load, function() {
+                req(load, function () {
                     onload(uikit);
                 });
             };
@@ -30,7 +30,7 @@
     }
 
     if (!window.jQuery) {
-        throw new Error( "UIkit requires jQuery" );
+        throw new Error("UIkit requires jQuery");
     }
 
     if (window && window.jQuery) {
@@ -38,7 +38,7 @@
     }
 
 
-})(function(global, $, doc) {
+})(function (global, $, doc) {
 
     "use strict";
 
@@ -46,39 +46,39 @@
 
     UI.version = '2.24.3';
 
-    UI.noConflict = function() {
+    UI.noConflict = function () {
         // restore UIkit version
         if (_UI) {
             global.UIkit = _UI;
-            $.UIkit      = _UI;
-            $.fn.uk      = _UI.fn;
+            $.UIkit = _UI;
+            $.fn.uk = _UI.fn;
         }
 
         return UI;
     };
 
-    UI.prefix = function(str) {
+    UI.prefix = function (str) {
         return str;
     };
 
     // cache jQuery
     UI.$ = $;
 
-    UI.$doc  = UI.$(document);
-    UI.$win  = UI.$(window);
+    UI.$doc = UI.$(document);
+    UI.$win = UI.$(window);
     UI.$html = UI.$('html');
 
     UI.support = {};
-    UI.support.transition = (function() {
+    UI.support.transition = (function () {
 
-        var transitionEnd = (function() {
+        var transitionEnd = (function () {
 
             var element = doc.body || doc.documentElement,
                 transEndEventNames = {
-                    WebkitTransition : 'webkitTransitionEnd',
-                    MozTransition    : 'transitionend',
-                    OTransition      : 'oTransitionEnd otransitionend',
-                    transition       : 'transitionend'
+                    WebkitTransition: 'webkitTransitionEnd',
+                    MozTransition: 'transitionend',
+                    OTransition: 'oTransitionEnd otransitionend',
+                    transition: 'transitionend'
                 }, name;
 
             for (name in transEndEventNames) {
@@ -86,19 +86,19 @@
             }
         }());
 
-        return transitionEnd && { end: transitionEnd };
+        return transitionEnd && {end: transitionEnd};
     })();
 
-    UI.support.animation = (function() {
+    UI.support.animation = (function () {
 
-        var animationEnd = (function() {
+        var animationEnd = (function () {
 
             var element = doc.body || doc.documentElement,
                 animEndEventNames = {
-                    WebkitAnimation : 'webkitAnimationEnd',
-                    MozAnimation    : 'animationend',
-                    OAnimation      : 'oAnimationEnd oanimationend',
-                    animation       : 'animationend'
+                    WebkitAnimation: 'webkitAnimationEnd',
+                    MozAnimation: 'animationend',
+                    OAnimation: 'oAnimationEnd oanimationend',
+                    animation: 'animationend'
                 }, name;
 
             for (name in animEndEventNames) {
@@ -106,30 +106,34 @@
             }
         }());
 
-        return animationEnd && { end: animationEnd };
+        return animationEnd && {end: animationEnd};
     })();
 
     // requestAnimationFrame polyfill
     //https://github.com/darius/requestAnimationFrame
-    (function() {
+    (function () {
 
-        Date.now = Date.now || function() { return new Date().getTime(); };
+        Date.now = Date.now || function () {
+                return new Date().getTime();
+            };
 
         var vendors = ['webkit', 'moz'];
         for (var i = 0; i < vendors.length && !window.requestAnimationFrame; ++i) {
             var vp = vendors[i];
-            window.requestAnimationFrame = window[vp+'RequestAnimationFrame'];
-            window.cancelAnimationFrame = (window[vp+'CancelAnimationFrame']
-                                       || window[vp+'CancelRequestAnimationFrame']);
+            window.requestAnimationFrame = window[vp + 'RequestAnimationFrame'];
+            window.cancelAnimationFrame = (window[vp + 'CancelAnimationFrame']
+            || window[vp + 'CancelRequestAnimationFrame']);
         }
         if (/iP(ad|hone|od).*OS 6/.test(window.navigator.userAgent) // iOS6 is buggy
             || !window.requestAnimationFrame || !window.cancelAnimationFrame) {
             var lastTime = 0;
-            window.requestAnimationFrame = function(callback) {
+            window.requestAnimationFrame = function (callback) {
                 var now = Date.now();
                 var nextTime = Math.max(lastTime + 16, now);
-                return setTimeout(function() { callback(lastTime = nextTime); },
-                                  nextTime - now);
+                return setTimeout(function () {
+                        callback(lastTime = nextTime);
+                    },
+                    nextTime - now);
             };
             window.cancelAnimationFrame = clearTimeout;
         }
@@ -137,7 +141,7 @@
 
     UI.support.touch = (
         ('ontouchstart' in document) ||
-        (global.DocumentTouch && document instanceof global.DocumentTouch)  ||
+        (global.DocumentTouch && document instanceof global.DocumentTouch) ||
         (global.navigator.msPointerEnabled && global.navigator.msMaxTouchPoints > 0) || //IE 10
         (global.navigator.pointerEnabled && global.navigator.maxTouchPoints > 0) || //IE >=11
         false
@@ -147,30 +151,36 @@
 
     UI.Utils = {};
 
-    UI.Utils.isFullscreen = function() {
+    UI.Utils.isFullscreen = function () {
         return document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement || document.fullscreenElement || false;
     };
 
-    UI.Utils.str2json = function(str, notevil) {
+    UI.Utils.str2json = function (str, notevil) {
         try {
             if (notevil) {
                 return JSON.parse(str
                     // wrap keys without quote with valid double quote
-                    .replace(/([\$\w]+)\s*:/g, function(_, $1){return '"'+$1+'":';})
+                    .replace(/([\$\w]+)\s*:/g, function (_, $1) {
+                        return '"' + $1 + '":';
+                    })
                     // replacing single quote wrapped ones to double quote
-                    .replace(/'([^']+)'/g, function(_, $1){return '"'+$1+'"';})
+                    .replace(/'([^']+)'/g, function (_, $1) {
+                        return '"' + $1 + '"';
+                    })
                 );
             } else {
                 return (new Function("", "var json = " + str + "; return JSON.parse(JSON.stringify(json));"))();
             }
-        } catch(e) { return false; }
+        } catch (e) {
+            return false;
+        }
     };
 
-    UI.Utils.debounce = function(func, wait, immediate) {
+    UI.Utils.debounce = function (func, wait, immediate) {
         var timeout;
-        return function() {
+        return function () {
             var context = this, args = arguments;
-            var later = function() {
+            var later = function () {
                 timeout = null;
                 if (!immediate) func.apply(context, args);
             };
@@ -181,32 +191,33 @@
         };
     };
 
-    UI.Utils.removeCssRules = function(selectorRegEx) {
+    UI.Utils.removeCssRules = function (selectorRegEx) {
         var idx, idxs, stylesheet, _i, _j, _k, _len, _len1, _len2, _ref;
 
-        if(!selectorRegEx) return;
+        if (!selectorRegEx) return;
 
-        setTimeout(function(){
+        setTimeout(function () {
             try {
-              _ref = document.styleSheets;
-              for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-                stylesheet = _ref[_i];
-                idxs = [];
-                stylesheet.cssRules = stylesheet.cssRules;
-                for (idx = _j = 0, _len1 = stylesheet.cssRules.length; _j < _len1; idx = ++_j) {
-                  if (stylesheet.cssRules[idx].type === CSSRule.STYLE_RULE && selectorRegEx.test(stylesheet.cssRules[idx].selectorText)) {
-                    idxs.unshift(idx);
-                  }
+                _ref = document.styleSheets;
+                for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                    stylesheet = _ref[_i];
+                    idxs = [];
+                    stylesheet.cssRules = stylesheet.cssRules;
+                    for (idx = _j = 0, _len1 = stylesheet.cssRules.length; _j < _len1; idx = ++_j) {
+                        if (stylesheet.cssRules[idx].type === CSSRule.STYLE_RULE && selectorRegEx.test(stylesheet.cssRules[idx].selectorText)) {
+                            idxs.unshift(idx);
+                        }
+                    }
+                    for (_k = 0, _len2 = idxs.length; _k < _len2; _k++) {
+                        stylesheet.deleteRule(idxs[_k]);
+                    }
                 }
-                for (_k = 0, _len2 = idxs.length; _k < _len2; _k++) {
-                  stylesheet.deleteRule(idxs[_k]);
-                }
-              }
-            } catch (_error) {}
+            } catch (_error) {
+            }
         }, 0);
     };
 
-    UI.Utils.isInView = function(element, options) {
+    UI.Utils.isInView = function (element, options) {
 
         var $element = $(element);
 
@@ -216,17 +227,17 @@
 
         var window_left = UI.$win.scrollLeft(), window_top = UI.$win.scrollTop(), offset = $element.offset(), left = offset.left, top = offset.top;
 
-        options = $.extend({topoffset:0, leftoffset:0}, options);
+        options = $.extend({topoffset: 0, leftoffset: 0}, options);
 
         if (top + $element.height() >= window_top && top - options.topoffset <= window_top + UI.$win.height() &&
             left + $element.width() >= window_left && left - options.leftoffset <= window_left + UI.$win.width()) {
-          return true;
+            return true;
         } else {
-          return false;
+            return false;
         }
     };
 
-    UI.Utils.checkDisplay = function(context, initanimation) {
+    UI.Utils.checkDisplay = function (context, initanimation) {
 
         var elements = UI.$('[data-uk-margin], [data-uk-grid-match], [data-uk-grid-margin], [data-uk-check-display]', context || document), animated;
 
@@ -239,14 +250,14 @@
         // fix firefox / IE animations
         if (initanimation) {
 
-            if (typeof(initanimation)!='string') {
+            if (typeof(initanimation) != 'string') {
                 initanimation = '[class*="uk-animation-"]';
             }
 
-            elements.find(initanimation).each(function(){
+            elements.find(initanimation).each(function () {
 
-                var ele  = UI.$(this),
-                    cls  = ele.attr('class'),
+                var ele = UI.$(this),
+                    cls = ele.attr('class'),
                     anim = cls.match(/uk\-animation\-(.+)/);
 
                 ele.removeClass(anim[0]).width();
@@ -258,12 +269,12 @@
         return elements;
     };
 
-    UI.Utils.options = function(string) {
+    UI.Utils.options = function (string) {
 
-        if ($.type(string)!='string') return string;
+        if ($.type(string) != 'string') return string;
 
         if (string.indexOf(':') != -1 && string.trim().substr(-1) != '}') {
-            string = '{'+string+'}';
+            string = '{' + string + '}';
         }
 
         var start = (string ? string.indexOf("{") : -1), options = {};
@@ -271,20 +282,21 @@
         if (start != -1) {
             try {
                 options = UI.Utils.str2json(string.substr(start));
-            } catch (e) {}
+            } catch (e) {
+            }
         }
 
         return options;
     };
 
-    UI.Utils.animate = function(element, cls) {
+    UI.Utils.animate = function (element, cls) {
 
         var d = $.Deferred();
 
         element = UI.$(element);
-        cls     = cls;
+        cls = cls;
 
-        element.css('display', 'none').addClass(cls).one(UI.support.animation.end, function() {
+        element.css('display', 'none').addClass(cls).one(UI.support.animation.end, function () {
             element.removeClass(cls);
             d.resolve();
         }).width();
@@ -294,40 +306,40 @@
         return d.promise();
     };
 
-    UI.Utils.uid = function(prefix) {
-        return (prefix || 'id') + (new Date().getTime())+"RAND"+(Math.ceil(Math.random() * 100000));
+    UI.Utils.uid = function (prefix) {
+        return (prefix || 'id') + (new Date().getTime()) + "RAND" + (Math.ceil(Math.random() * 100000));
     };
 
-    UI.Utils.template = function(str, data) {
+    UI.Utils.template = function (str, data) {
 
         var tokens = str.replace(/\n/g, '\\n').replace(/\{\{\{\s*(.+?)\s*\}\}\}/g, "{{!$1}}").split(/(\{\{\s*(.+?)\s*\}\})/g),
-            i=0, toc, cmd, prop, val, fn, output = [], openblocks = 0;
+            i = 0, toc, cmd, prop, val, fn, output = [], openblocks = 0;
 
-        while(i < tokens.length) {
+        while (i < tokens.length) {
 
             toc = tokens[i];
 
-            if(toc.match(/\{\{\s*(.+?)\s*\}\}/)) {
+            if (toc.match(/\{\{\s*(.+?)\s*\}\}/)) {
                 i = i + 1;
-                toc  = tokens[i];
-                cmd  = toc[0];
-                prop = toc.substring(toc.match(/^(\^|\#|\!|\~|\:)/) ? 1:0);
+                toc = tokens[i];
+                cmd = toc[0];
+                prop = toc.substring(toc.match(/^(\^|\#|\!|\~|\:)/) ? 1 : 0);
 
-                switch(cmd) {
+                switch (cmd) {
                     case '~':
-                        output.push("for(var $i=0;$i<"+prop+".length;$i++) { var $item = "+prop+"[$i];");
+                        output.push("for(var $i=0;$i<" + prop + ".length;$i++) { var $item = " + prop + "[$i];");
                         openblocks++;
                         break;
                     case ':':
-                        output.push("for(var $key in "+prop+") { var $val = "+prop+"[$key];");
+                        output.push("for(var $key in " + prop + ") { var $val = " + prop + "[$key];");
                         openblocks++;
                         break;
                     case '#':
-                        output.push("if("+prop+") {");
+                        output.push("if(" + prop + ") {");
                         openblocks++;
                         break;
                     case '^':
-                        output.push("if(!"+prop+") {");
+                        output.push("if(!" + prop + ") {");
                         openblocks++;
                         break;
                     case '/':
@@ -335,19 +347,19 @@
                         openblocks--;
                         break;
                     case '!':
-                        output.push("__ret.push("+prop+");");
+                        output.push("__ret.push(" + prop + ");");
                         break;
                     default:
-                        output.push("__ret.push(escape("+prop+"));");
+                        output.push("__ret.push(escape(" + prop + "));");
                         break;
                 }
             } else {
-                output.push("__ret.push('"+toc.replace(/\'/g, "\\'")+"');");
+                output.push("__ret.push('" + toc.replace(/\'/g, "\\'") + "');");
             }
             i = i + 1;
         }
 
-        fn  = new Function('$data', [
+        fn = new Function('$data', [
             'var __ret = [];',
             'try {',
             'with($data){', (!openblocks ? output.join('') : '__ret = ["Not all blocks are closed correctly."]'), '};',
@@ -359,14 +371,14 @@
         return data ? fn(data) : fn;
     };
 
-    UI.Utils.events       = {};
+    UI.Utils.events = {};
     UI.Utils.events.click = UI.support.touch ? 'tap' : 'click';
 
     global.UIkit = UI;
 
     // deprecated
 
-    UI.fn = function(command, options) {
+    UI.fn = function (command, options) {
 
         var args = arguments, cmd = command.match(/^([a-z\-]+)(?:\.([a-z]+))?/i), component = cmd[1], method = cmd[2];
 
@@ -375,27 +387,27 @@
             return this;
         }
 
-        return this.each(function() {
+        return this.each(function () {
             var $this = $(this), data = $this.data(component);
             if (!data) $this.data(component, (data = UI[component](this, method ? undefined : options)));
             if (method) data[method].apply(data, Array.prototype.slice.call(args, 1));
         });
     };
 
-    $.UIkit          = UI;
-    $.fn.uk          = UI.fn;
+    $.UIkit = UI;
+    $.fn.uk = UI.fn;
 
     UI.langdirection = UI.$html.attr("dir") == "rtl" ? "right" : "left";
 
-    UI.components    = {};
+    UI.components = {};
 
-    UI.component = function(name, def) {
+    UI.component = function (name, def) {
 
-        var fn = function(element, options) {
+        var fn = function (element, options) {
 
             var $this = this;
 
-            this.UIkit   = UI;
+            this.UIkit = UI;
             this.element = element ? UI.$(element) : null;
             this.options = $.extend(true, {}, this.defaults, options);
             this.plugins = {};
@@ -406,7 +418,7 @@
 
             this.init();
 
-            (this.options.plugins.length ? this.options.plugins : Object.keys(fn.plugins)).forEach(function(plugin) {
+            (this.options.plugins.length ? this.options.plugins : Object.keys(fn.plugins)).forEach(function (plugin) {
 
                 if (fn.plugins[plugin].init) {
                     fn.plugins[plugin].init($this);
@@ -424,50 +436,54 @@
 
         $.extend(true, fn.prototype, {
 
-            defaults : {plugins: []},
+            defaults: {plugins: []},
 
-            boot: function(){},
-            init: function(){},
-
-            on: function(a1,a2,a3){
-                return UI.$(this.element || this).on(a1,a2,a3);
+            boot: function () {
+            },
+            init: function () {
             },
 
-            one: function(a1,a2,a3){
-                return UI.$(this.element || this).one(a1,a2,a3);
+            on: function (a1, a2, a3) {
+                return UI.$(this.element || this).on(a1, a2, a3);
             },
 
-            off: function(evt){
+            one: function (a1, a2, a3) {
+                return UI.$(this.element || this).one(a1, a2, a3);
+            },
+
+            off: function (evt) {
                 return UI.$(this.element || this).off(evt);
             },
 
-            trigger: function(evt, params) {
+            trigger: function (evt, params) {
                 return UI.$(this.element || this).trigger(evt, params);
             },
 
-            find: function(selector) {
-                return UI.$(this.element ? this.element: []).find(selector);
+            find: function (selector) {
+                return UI.$(this.element ? this.element : []).find(selector);
             },
 
-            proxy: function(obj, methods) {
+            proxy: function (obj, methods) {
 
                 var $this = this;
 
-                methods.split(' ').forEach(function(method) {
-                    if (!$this[method]) $this[method] = function() { return obj[method].apply(obj, arguments); };
+                methods.split(' ').forEach(function (method) {
+                    if (!$this[method]) $this[method] = function () {
+                        return obj[method].apply(obj, arguments);
+                    };
                 });
             },
 
-            mixin: function(obj, methods) {
+            mixin: function (obj, methods) {
 
                 var $this = this;
 
-                methods.split(' ').forEach(function(method) {
+                methods.split(' ').forEach(function (method) {
                     if (!$this[method]) $this[method] = obj[method].bind($this);
                 });
             },
 
-            option: function() {
+            option: function () {
 
                 if (arguments.length == 1) {
                     return this.options[arguments[0]] || undefined;
@@ -480,13 +496,13 @@
 
         this.components[name] = fn;
 
-        this[name] = function() {
+        this[name] = function () {
 
             var element, options;
 
             if (arguments.length) {
 
-                switch(arguments.length) {
+                switch (arguments.length) {
                     case 1:
 
                         if (typeof arguments[0] === "string" || arguments[0].nodeType || arguments[0] instanceof jQuery) {
@@ -518,11 +534,11 @@
         return fn;
     };
 
-    UI.plugin = function(component, name, def) {
+    UI.plugin = function (component, name, def) {
         this.components[component].plugins[name] = def;
     };
 
-    UI.component.boot = function(name) {
+    UI.component.boot = function (name) {
 
         if (UI.components[name].prototype && UI.components[name].prototype.boot && !UI.components[name].booted) {
             UI.components[name].prototype.boot.apply(UI, []);
@@ -530,7 +546,7 @@
         }
     };
 
-    UI.component.bootComponents = function() {
+    UI.component.bootComponents = function () {
 
         for (var component in UI.components) {
             UI.component.boot(component);
@@ -541,9 +557,9 @@
     // DOM mutation save ready helper function
 
     UI.domObservers = [];
-    UI.domready     = false;
+    UI.domready = false;
 
-    UI.ready = function(fn) {
+    UI.ready = function (fn) {
 
         UI.domObservers.push(fn);
 
@@ -552,38 +568,39 @@
         }
     };
 
-    UI.on = function(a1,a2,a3){
+    UI.on = function (a1, a2, a3) {
 
         if (a1 && a1.indexOf('ready.uk.dom') > -1 && UI.domready) {
             a2.apply(UI.$doc);
         }
 
-        return UI.$doc.on(a1,a2,a3);
+        return UI.$doc.on(a1, a2, a3);
     };
 
-    UI.one = function(a1,a2,a3){
+    UI.one = function (a1, a2, a3) {
 
         if (a1 && a1.indexOf('ready.uk.dom') > -1 && UI.domready) {
             a2.apply(UI.$doc);
             return UI.$doc;
         }
 
-        return UI.$doc.one(a1,a2,a3);
+        return UI.$doc.one(a1, a2, a3);
     };
 
-    UI.trigger = function(evt, params) {
+    UI.trigger = function (evt, params) {
         return UI.$doc.trigger(evt, params);
     };
 
-    UI.domObserve = function(selector, fn) {
+    UI.domObserve = function (selector, fn) {
 
-        if(!UI.support.mutationobserver) return;
+        if (!UI.support.mutationobserver) return;
 
-        fn = fn || function() {};
+        fn = fn || function () {
+            };
 
-        UI.$(selector).each(function() {
+        UI.$(selector).each(function () {
 
-            var element  = this,
+            var element = this,
                 $element = UI.$(element);
 
             if ($element.data('observer')) {
@@ -592,47 +609,48 @@
 
             try {
 
-                var observer = new UI.support.mutationobserver(UI.Utils.debounce(function(mutations) {
+                var observer = new UI.support.mutationobserver(UI.Utils.debounce(function (mutations) {
                     fn.apply(element, []);
                     $element.trigger('changed.uk.dom');
                 }, 50));
 
                 // pass in the target node, as well as the observer options
-                observer.observe(element, { childList: true, subtree: true });
+                observer.observe(element, {childList: true, subtree: true});
 
                 $element.data('observer', observer);
 
-            } catch(e) {}
+            } catch (e) {
+            }
         });
     };
 
-    UI.init = function(root) {
+    UI.init = function (root) {
 
         root = root || document;
 
-        UI.domObservers.forEach(function(fn){
+        UI.domObservers.forEach(function (fn) {
             fn(root);
         });
     };
 
-    UI.on('domready.uk.dom', function(){
+    UI.on('domready.uk.dom', function () {
 
         UI.init();
 
         if (UI.domready) UI.Utils.checkDisplay();
     });
 
-    document.addEventListener('DOMContentLoaded', function(){
+    document.addEventListener('DOMContentLoaded', function () {
 
-        var domReady = function() {
+        var domReady = function () {
 
             UI.$body = UI.$('body');
 
-            UI.ready(function(context){
+            UI.ready(function (context) {
                 UI.domObserve('[data-uk-observe]');
             });
 
-            UI.on('changed.uk.dom', function(e) {
+            UI.on('changed.uk.dom', function (e) {
                 UI.init(e.target);
                 UI.Utils.checkDisplay(e.target);
             });
@@ -642,18 +660,18 @@
             UI.component.bootComponents();
 
             // custom scroll observer
-            requestAnimationFrame((function(){
+            requestAnimationFrame((function () {
 
-                var memory = {x: window.pageXOffset, y:window.pageYOffset}, dir;
+                var memory = {x: window.pageXOffset, y: window.pageYOffset}, dir;
 
-                var fn = function(){
+                var fn = function () {
 
                     if (memory.x != window.pageXOffset || memory.y != window.pageYOffset) {
 
-                        dir = {x: 0 , y: 0};
+                        dir = {x: 0, y: 0};
 
-                        if (window.pageXOffset != memory.x) dir.x = window.pageXOffset > memory.x ? 1:-1;
-                        if (window.pageYOffset != memory.y) dir.y = window.pageYOffset > memory.y ? 1:-1;
+                        if (window.pageXOffset != memory.x) dir.x = window.pageXOffset > memory.x ? 1 : -1;
+                        if (window.pageYOffset != memory.y) dir.y = window.pageYOffset > memory.y ? 1 : -1;
 
                         memory = {
                             "dir": dir, "x": window.pageXOffset, "y": window.pageYOffset
@@ -686,9 +704,9 @@
                 // viewport unit fix for uk-height-viewport - should be fixed in iOS 8
                 if (navigator.userAgent.match(/(iPad|iPhone|iPod)/g)) {
 
-                    UI.$win.on('load orientationchange resize', UI.Utils.debounce((function(){
+                    UI.$win.on('load orientationchange resize', UI.Utils.debounce((function () {
 
-                        var fn = function() {
+                        var fn = function () {
                             $('.uk-height-viewport').css('height', window.innerHeight);
                             return fn;
                         };
@@ -724,13 +742,13 @@
             hovercls = 'uk-hover',
             selector = '.uk-overlay, .uk-overlay-hover, .uk-overlay-toggle, .uk-animation-hover, .uk-has-hover';
 
-        UI.$html.on('mouseenter touchstart MSPointerDown pointerdown', selector, function() {
+        UI.$html.on('mouseenter touchstart MSPointerDown pointerdown', selector, function () {
 
-            if (hoverset) $('.'+hovercls).removeClass(hovercls);
+            if (hoverset) $('.' + hovercls).removeClass(hovercls);
 
             hoverset = $(this).addClass(hovercls);
 
-        }).on('mouseleave touchend MSPointerUp pointerup', function(e) {
+        }).on('mouseleave touchend MSPointerUp pointerup', function (e) {
 
             exclude = $(e.target).parents(selector);
 
@@ -747,178 +765,180 @@
 //  https://raw.github.com/madrobby/zepto/master/src/touch.js
 //  Zepto.js may be freely distributed under the MIT license.
 
-;(function($){
+;(function ($) {
 
-  if ($.fn.swipeLeft) {
-    return;
-  }
-
-
-  var touch = {}, touchTimeout, tapTimeout, swipeTimeout, longTapTimeout, longTapDelay = 750, gesture;
-
-  function swipeDirection(x1, x2, y1, y2) {
-    return Math.abs(x1 - x2) >= Math.abs(y1 - y2) ? (x1 - x2 > 0 ? 'Left' : 'Right') : (y1 - y2 > 0 ? 'Up' : 'Down');
-  }
-
-  function longTap() {
-    longTapTimeout = null;
-    if (touch.last) {
-      if ( touch.el !== undefined ) touch.el.trigger('longTap');
-      touch = {};
-    }
-  }
-
-  function cancelLongTap() {
-    if (longTapTimeout) clearTimeout(longTapTimeout);
-    longTapTimeout = null;
-  }
-
-  function cancelAll() {
-    if (touchTimeout)   clearTimeout(touchTimeout);
-    if (tapTimeout)     clearTimeout(tapTimeout);
-    if (swipeTimeout)   clearTimeout(swipeTimeout);
-    if (longTapTimeout) clearTimeout(longTapTimeout);
-    touchTimeout = tapTimeout = swipeTimeout = longTapTimeout = null;
-    touch = {};
-  }
-
-  function isPrimaryTouch(event){
-    return event.pointerType == event.MSPOINTER_TYPE_TOUCH && event.isPrimary;
-  }
-
-  $(function(){
-    var now, delta, deltaX = 0, deltaY = 0, firstTouch;
-
-    if ('MSGesture' in window) {
-      gesture = new MSGesture();
-      gesture.target = document.body;
+    if ($.fn.swipeLeft) {
+        return;
     }
 
-    $(document)
-      .on('MSGestureEnd gestureend', function(e){
 
-        var swipeDirectionFromVelocity = e.originalEvent.velocityX > 1 ? 'Right' : e.originalEvent.velocityX < -1 ? 'Left' : e.originalEvent.velocityY > 1 ? 'Down' : e.originalEvent.velocityY < -1 ? 'Up' : null;
+    var touch = {}, touchTimeout, tapTimeout, swipeTimeout, longTapTimeout, longTapDelay = 750, gesture;
 
-        if (swipeDirectionFromVelocity && touch.el !== undefined) {
-          touch.el.trigger('swipe');
-          touch.el.trigger('swipe'+ swipeDirectionFromVelocity);
-        }
-      })
-      // MSPointerDown: for IE10
-      // pointerdown: for IE11
-      .on('touchstart MSPointerDown pointerdown', function(e){
+    function swipeDirection(x1, x2, y1, y2) {
+        return Math.abs(x1 - x2) >= Math.abs(y1 - y2) ? (x1 - x2 > 0 ? 'Left' : 'Right') : (y1 - y2 > 0 ? 'Up' : 'Down');
+    }
 
-        if(e.type == 'MSPointerDown' && !isPrimaryTouch(e.originalEvent)) return;
-
-        firstTouch = (e.type == 'MSPointerDown' || e.type == 'pointerdown') ? e : e.originalEvent.touches[0];
-
-        now      = Date.now();
-        delta    = now - (touch.last || now);
-        touch.el = $('tagName' in firstTouch.target ? firstTouch.target : firstTouch.target.parentNode);
-
-        if(touchTimeout) clearTimeout(touchTimeout);
-
-        touch.x1 = firstTouch.pageX;
-        touch.y1 = firstTouch.pageY;
-
-        if (delta > 0 && delta <= 250) touch.isDoubleTap = true;
-
-        touch.last = now;
-        longTapTimeout = setTimeout(longTap, longTapDelay);
-
-        // adds the current touch contact for IE gesture recognition
-        if (gesture && ( e.type == 'MSPointerDown' || e.type == 'pointerdown' || e.type == 'touchstart' ) ) {
-          gesture.addPointer(e.originalEvent.pointerId);
-        }
-
-      })
-      // MSPointerMove: for IE10
-      // pointermove: for IE11
-      .on('touchmove MSPointerMove pointermove', function(e){
-
-        if (e.type == 'MSPointerMove' && !isPrimaryTouch(e.originalEvent)) return;
-
-        firstTouch = (e.type == 'MSPointerMove' || e.type == 'pointermove') ? e : e.originalEvent.touches[0];
-
-        cancelLongTap();
-        touch.x2 = firstTouch.pageX;
-        touch.y2 = firstTouch.pageY;
-
-        deltaX += Math.abs(touch.x1 - touch.x2);
-        deltaY += Math.abs(touch.y1 - touch.y2);
-      })
-      // MSPointerUp: for IE10
-      // pointerup: for IE11
-      .on('touchend MSPointerUp pointerup', function(e){
-
-        if (e.type == 'MSPointerUp' && !isPrimaryTouch(e.originalEvent)) return;
-
-        cancelLongTap();
-
-        // swipe
-        if ((touch.x2 && Math.abs(touch.x1 - touch.x2) > 30) || (touch.y2 && Math.abs(touch.y1 - touch.y2) > 30)){
-
-          swipeTimeout = setTimeout(function() {
-            if ( touch.el !== undefined ) {
-              touch.el.trigger('swipe');
-              touch.el.trigger('swipe' + (swipeDirection(touch.x1, touch.x2, touch.y1, touch.y2)));
-            }
+    function longTap() {
+        longTapTimeout = null;
+        if (touch.last) {
+            if (touch.el !== undefined) touch.el.trigger('longTap');
             touch = {};
-          }, 0);
-
-        // normal tap
-        } else if ('last' in touch) {
-
-          // don't fire tap when delta position changed by more than 30 pixels,
-          // for instance when moving to a point and back to origin
-          if (isNaN(deltaX) || (deltaX < 30 && deltaY < 30)) {
-            // delay by one tick so we can cancel the 'tap' event if 'scroll' fires
-            // ('tap' fires before 'scroll')
-            tapTimeout = setTimeout(function() {
-
-              // trigger universal 'tap' with the option to cancelTouch()
-              // (cancelTouch cancels processing of single vs double taps for faster 'tap' response)
-              var event = $.Event('tap');
-              event.cancelTouch = cancelAll;
-              if ( touch.el !== undefined ) touch.el.trigger(event);
-
-              // trigger double tap immediately
-              if (touch.isDoubleTap) {
-                if ( touch.el !== undefined ) touch.el.trigger('doubleTap');
-                touch = {};
-              }
-
-              // trigger single tap after 250ms of inactivity
-              else {
-                touchTimeout = setTimeout(function(){
-                  touchTimeout = null;
-                  if ( touch.el !== undefined ) touch.el.trigger('singleTap');
-                  touch = {};
-                }, 250);
-              }
-            }, 0);
-          } else {
-            touch = {};
-          }
-          deltaX = deltaY = 0;
         }
-      })
-      // when the browser window loses focus,
-      // for example when a modal dialog is shown,
-      // cancel all ongoing events
-      .on('touchcancel MSPointerCancel', cancelAll);
+    }
 
-    // scrolling the window indicates intention of the user
-    // to scroll, not tap or swipe, so cancel all ongoing events
-    $(window).on('scroll', cancelAll);
-  });
+    function cancelLongTap() {
+        if (longTapTimeout) clearTimeout(longTapTimeout);
+        longTapTimeout = null;
+    }
 
-  ['swipe', 'swipeLeft', 'swipeRight', 'swipeUp', 'swipeDown', 'doubleTap', 'tap', 'singleTap', 'longTap'].forEach(function(eventName){
-    $.fn[eventName] = function(callback){ return $(this).on(eventName, callback); };
-  });
+    function cancelAll() {
+        if (touchTimeout)   clearTimeout(touchTimeout);
+        if (tapTimeout)     clearTimeout(tapTimeout);
+        if (swipeTimeout)   clearTimeout(swipeTimeout);
+        if (longTapTimeout) clearTimeout(longTapTimeout);
+        touchTimeout = tapTimeout = swipeTimeout = longTapTimeout = null;
+        touch = {};
+    }
+
+    function isPrimaryTouch(event) {
+        return event.pointerType == event.MSPOINTER_TYPE_TOUCH && event.isPrimary;
+    }
+
+    $(function () {
+        var now, delta, deltaX = 0, deltaY = 0, firstTouch;
+
+        if ('MSGesture' in window) {
+            gesture = new MSGesture();
+            gesture.target = document.body;
+        }
+
+        $(document)
+            .on('MSGestureEnd gestureend', function (e) {
+
+                var swipeDirectionFromVelocity = e.originalEvent.velocityX > 1 ? 'Right' : e.originalEvent.velocityX < -1 ? 'Left' : e.originalEvent.velocityY > 1 ? 'Down' : e.originalEvent.velocityY < -1 ? 'Up' : null;
+
+                if (swipeDirectionFromVelocity && touch.el !== undefined) {
+                    touch.el.trigger('swipe');
+                    touch.el.trigger('swipe' + swipeDirectionFromVelocity);
+                }
+            })
+            // MSPointerDown: for IE10
+            // pointerdown: for IE11
+            .on('touchstart MSPointerDown pointerdown', function (e) {
+
+                if (e.type == 'MSPointerDown' && !isPrimaryTouch(e.originalEvent)) return;
+
+                firstTouch = (e.type == 'MSPointerDown' || e.type == 'pointerdown') ? e : e.originalEvent.touches[0];
+
+                now = Date.now();
+                delta = now - (touch.last || now);
+                touch.el = $('tagName' in firstTouch.target ? firstTouch.target : firstTouch.target.parentNode);
+
+                if (touchTimeout) clearTimeout(touchTimeout);
+
+                touch.x1 = firstTouch.pageX;
+                touch.y1 = firstTouch.pageY;
+
+                if (delta > 0 && delta <= 250) touch.isDoubleTap = true;
+
+                touch.last = now;
+                longTapTimeout = setTimeout(longTap, longTapDelay);
+
+                // adds the current touch contact for IE gesture recognition
+                if (gesture && ( e.type == 'MSPointerDown' || e.type == 'pointerdown' || e.type == 'touchstart' )) {
+                    gesture.addPointer(e.originalEvent.pointerId);
+                }
+
+            })
+            // MSPointerMove: for IE10
+            // pointermove: for IE11
+            .on('touchmove MSPointerMove pointermove', function (e) {
+
+                if (e.type == 'MSPointerMove' && !isPrimaryTouch(e.originalEvent)) return;
+
+                firstTouch = (e.type == 'MSPointerMove' || e.type == 'pointermove') ? e : e.originalEvent.touches[0];
+
+                cancelLongTap();
+                touch.x2 = firstTouch.pageX;
+                touch.y2 = firstTouch.pageY;
+
+                deltaX += Math.abs(touch.x1 - touch.x2);
+                deltaY += Math.abs(touch.y1 - touch.y2);
+            })
+            // MSPointerUp: for IE10
+            // pointerup: for IE11
+            .on('touchend MSPointerUp pointerup', function (e) {
+
+                if (e.type == 'MSPointerUp' && !isPrimaryTouch(e.originalEvent)) return;
+
+                cancelLongTap();
+
+                // swipe
+                if ((touch.x2 && Math.abs(touch.x1 - touch.x2) > 30) || (touch.y2 && Math.abs(touch.y1 - touch.y2) > 30)) {
+
+                    swipeTimeout = setTimeout(function () {
+                        if (touch.el !== undefined) {
+                            touch.el.trigger('swipe');
+                            touch.el.trigger('swipe' + (swipeDirection(touch.x1, touch.x2, touch.y1, touch.y2)));
+                        }
+                        touch = {};
+                    }, 0);
+
+                    // normal tap
+                } else if ('last' in touch) {
+
+                    // don't fire tap when delta position changed by more than 30 pixels,
+                    // for instance when moving to a point and back to origin
+                    if (isNaN(deltaX) || (deltaX < 30 && deltaY < 30)) {
+                        // delay by one tick so we can cancel the 'tap' event if 'scroll' fires
+                        // ('tap' fires before 'scroll')
+                        tapTimeout = setTimeout(function () {
+
+                            // trigger universal 'tap' with the option to cancelTouch()
+                            // (cancelTouch cancels processing of single vs double taps for faster 'tap' response)
+                            var event = $.Event('tap');
+                            event.cancelTouch = cancelAll;
+                            if (touch.el !== undefined) touch.el.trigger(event);
+
+                            // trigger double tap immediately
+                            if (touch.isDoubleTap) {
+                                if (touch.el !== undefined) touch.el.trigger('doubleTap');
+                                touch = {};
+                            }
+
+                            // trigger single tap after 250ms of inactivity
+                            else {
+                                touchTimeout = setTimeout(function () {
+                                    touchTimeout = null;
+                                    if (touch.el !== undefined) touch.el.trigger('singleTap');
+                                    touch = {};
+                                }, 250);
+                            }
+                        }, 0);
+                    } else {
+                        touch = {};
+                    }
+                    deltaX = deltaY = 0;
+                }
+            })
+            // when the browser window loses focus,
+            // for example when a modal dialog is shown,
+            // cancel all ongoing events
+            .on('touchcancel MSPointerCancel', cancelAll);
+
+        // scrolling the window indicates intention of the user
+        // to scroll, not tap or swipe, so cancel all ongoing events
+        $(window).on('scroll', cancelAll);
+    });
+
+    ['swipe', 'swipeLeft', 'swipeRight', 'swipeUp', 'swipeDown', 'doubleTap', 'tap', 'singleTap', 'longTap'].forEach(function (eventName) {
+        $.fn[eventName] = function (callback) {
+            return $(this).on(eventName, callback);
+        };
+    });
 })(jQuery);
 
-(function(UI) {
+(function (UI) {
 
     "use strict";
 
@@ -931,12 +951,12 @@
             rowfirst: false
         },
 
-        boot: function() {
+        boot: function () {
 
             // init code
-            UI.ready(function(context) {
+            UI.ready(function (context) {
 
-                UI.$("[data-uk-margin]", context).each(function() {
+                UI.$("[data-uk-margin]", context).each(function () {
 
                     var ele = UI.$(this), obj;
 
@@ -947,19 +967,19 @@
             });
         },
 
-        init: function() {
+        init: function () {
 
             var $this = this;
 
             this.columns = [];
 
-            UI.$win.on('resize orientationchange', (function() {
+            UI.$win.on('resize orientationchange', (function () {
 
-                var fn = function() {
+                var fn = function () {
                     $this.process();
                 };
 
-                UI.$(function() {
+                UI.$(function () {
                     fn();
                     UI.$win.on("load", fn);
                 });
@@ -967,18 +987,18 @@
                 return UI.Utils.debounce(fn, 20);
             })());
 
-            UI.$html.on("changed.uk.dom", function(e) {
+            UI.$html.on("changed.uk.dom", function (e) {
                 $this.process();
             });
 
-            this.on("display.uk.check", function(e) {
+            this.on("display.uk.check", function (e) {
                 if (this.element.is(":visible")) this.process();
             }.bind(this));
 
             stacks.push(this);
         },
 
-        process: function() {
+        process: function () {
 
             var $this = this;
 
@@ -994,15 +1014,15 @@
             var pos_cache = this.columns.removeClass(this.options.rowfirst).filter(':visible').first().position();
 
             if (pos_cache) {
-                this.columns.each(function() {
-                    UI.$(this)[UI.$(this).position().left == pos_cache.left ? 'addClass':'removeClass']($this.options.rowfirst);
+                this.columns.each(function () {
+                    UI.$(this)[UI.$(this).position().left == pos_cache.left ? 'addClass' : 'removeClass']($this.options.rowfirst);
                 });
             }
 
             return this;
         },
 
-        revert: function() {
+        revert: function () {
             this.columns.removeClass(this.options.cls);
             return this;
         }
@@ -1011,15 +1031,15 @@
 
     // responsive element e.g. iframes
 
-    (function(){
+    (function () {
 
-        var elements = [], check = function(ele) {
+        var elements = [], check = function (ele) {
 
             if (!ele.is(':visible')) return;
 
-            var width  = ele.parent().width(),
+            var width = ele.parent().width(),
                 iwidth = ele.data('width'),
-                ratio  = (width / iwidth),
+                ratio = (width / iwidth),
                 height = Math.floor(ratio * ele.data('height'));
 
             ele.css({'height': (width < iwidth) ? height : ele.data('height')});
@@ -1029,12 +1049,12 @@
 
             defaults: {},
 
-            boot: function() {
+            boot: function () {
 
                 // init code
-                UI.ready(function(context) {
+                UI.ready(function (context) {
 
-                    UI.$("iframe.uk-responsive-width, [data-uk-responsive]", context).each(function() {
+                    UI.$("iframe.uk-responsive-width, [data-uk-responsive]", context).each(function () {
 
                         var ele = UI.$(this), obj;
 
@@ -1045,7 +1065,7 @@
                 });
             },
 
-            init: function() {
+            init: function () {
 
                 var ele = this.element;
 
@@ -1053,10 +1073,10 @@
 
                     ele.data({
 
-                        'width' : ele.attr('width'),
+                        'width': ele.attr('width'),
                         'height': ele.attr('height')
 
-                    }).on('display.uk.check', function(){
+                    }).on('display.uk.check', function () {
                         check(ele);
                     });
 
@@ -1067,9 +1087,9 @@
             }
         });
 
-        UI.$win.on('resize load', UI.Utils.debounce(function(){
+        UI.$win.on('resize load', UI.Utils.debounce(function () {
 
-            elements.forEach(function(ele){
+            elements.forEach(function (ele) {
                 check(ele);
             });
 
@@ -1078,10 +1098,9 @@
     })();
 
 
-
     // helper
 
-    UI.Utils.stackMargin = function(elements, options) {
+    UI.Utils.stackMargin = function (elements, options) {
 
         options = UI.$.extend({
             'cls': 'uk-margin-small-top'
@@ -1091,13 +1110,13 @@
 
         elements = UI.$(elements).removeClass(options.cls);
 
-        var skip         = false,
+        var skip = false,
             firstvisible = elements.filter(":visible:first"),
-            offset       = firstvisible.length ? (firstvisible.position().top + firstvisible.outerHeight()) - 1 : false; // (-1): weird firefox bug when parent container is display:flex
+            offset = firstvisible.length ? (firstvisible.position().top + firstvisible.outerHeight()) - 1 : false; // (-1): weird firefox bug when parent container is display:flex
 
         if (offset === false || elements.length == 1) return;
 
-        elements.each(function() {
+        elements.each(function () {
 
             var column = UI.$(this);
 
@@ -1115,23 +1134,23 @@
         });
     };
 
-    UI.Utils.matchHeights = function(elements, options) {
+    UI.Utils.matchHeights = function (elements, options) {
 
         elements = UI.$(elements).css('min-height', '');
-        options  = UI.$.extend({ row : true }, options);
+        options = UI.$.extend({row: true}, options);
 
-        var matchHeights = function(group){
+        var matchHeights = function (group) {
 
             if (group.length < 2) return;
 
             var max = 0;
 
-            group.each(function() {
+            group.each(function () {
                 max = Math.max(max, UI.$(this).outerHeight());
-            }).each(function() {
+            }).each(function () {
 
                 var element = UI.$(this),
-                    height  = max - (element.css('box-sizing') == 'border-box' ? 0 : (element.outerHeight() - element.height()));
+                    height = max - (element.css('box-sizing') == 'border-box' ? 0 : (element.outerHeight() - element.height()));
 
                 element.css('min-height', height + 'px');
             });
@@ -1141,18 +1160,18 @@
 
             elements.first().width(); // force redraw
 
-            setTimeout(function(){
+            setTimeout(function () {
 
                 var lastoffset = false, group = [];
 
-                elements.each(function() {
+                elements.each(function () {
 
                     var ele = UI.$(this), offset = ele.offset().top;
 
                     if (offset != lastoffset && group.length) {
 
                         matchHeights(UI.$(group));
-                        group  = [];
+                        group = [];
                         offset = ele.offset().top;
                     }
 
@@ -1171,11 +1190,11 @@
         }
     };
 
-    (function(cacheSvgs){
+    (function (cacheSvgs) {
 
-        UI.Utils.inlineSvg = function(selector, root) {
+        UI.Utils.inlineSvg = function (selector, root) {
 
-            var images = UI.$(selector || 'img[src$=".svg"]', root || document).each(function(){
+            var images = UI.$(selector || 'img[src$=".svg"]', root || document).each(function () {
 
                 var img = UI.$(this),
                     src = img.attr('src');
@@ -1184,14 +1203,14 @@
 
                     var d = UI.$.Deferred();
 
-                    UI.$.get(src, {nc: Math.random()}, function(data){
+                    UI.$.get(src, {nc: Math.random()}, function (data) {
                         d.resolve(UI.$(data).find('svg'));
                     });
 
                     cacheSvgs[src] = d.promise();
                 }
 
-                cacheSvgs[src].then(function(svg) {
+                cacheSvgs[src].then(function (svg) {
 
                     var $svg = UI.$(svg).clone();
 
@@ -1204,7 +1223,7 @@
                         if (!img.attr('height'))  $svg.removeAttr('height');
                     }
 
-                    if (img.attr('height')){
+                    if (img.attr('height')) {
                         $svg.attr('height', img.attr('height'));
                         if (!img.attr('width')) $svg.removeAttr('width');
                     }
@@ -1215,7 +1234,7 @@
         };
 
         // init code
-        UI.ready(function(context) {
+        UI.ready(function (context) {
             UI.Utils.inlineSvg('[data-uk-svg]', context);
         });
 
@@ -1223,16 +1242,16 @@
 
 })(UIkit);
 
-(function(UI) {
+(function (UI) {
 
     "use strict";
 
     UI.component('smoothScroll', {
 
-        boot: function() {
+        boot: function () {
 
             // init code
-            UI.$html.on("click.smooth-scroll.uikit", "[data-uk-smooth-scroll]", function(e) {
+            UI.$html.on("click.smooth-scroll.uikit", "[data-uk-smooth-scroll]", function (e) {
                 var ele = UI.$(this);
 
                 if (!ele.data("smoothScroll")) {
@@ -1244,11 +1263,11 @@
             });
         },
 
-        init: function() {
+        init: function () {
 
             var $this = this;
 
-            this.on("click", function(e) {
+            this.on("click", function (e) {
                 e.preventDefault();
                 scrollToElement(UI.$(this.hash).length ? UI.$(this.hash) : UI.$("body"), $this.options);
             });
@@ -1261,11 +1280,12 @@
             duration: 1000,
             transition: 'easeOutExpo',
             offset: 0,
-            complete: function(){}
+            complete: function () {
+            }
         }, options);
 
         // get / set parameters
-        var target    = ele.offset().top - options.offset,
+        var target = ele.offset().top - options.offset,
             docheight = UI.$doc.height(),
             winheight = window.innerHeight;
 
@@ -1280,20 +1300,22 @@
     UI.Utils.scrollToElement = scrollToElement;
 
     if (!UI.$.easing.easeOutExpo) {
-        UI.$.easing.easeOutExpo = function(x, t, b, c, d) { return (t == d) ? b + c : c * (-Math.pow(2, -10 * t / d) + 1) + b; };
+        UI.$.easing.easeOutExpo = function (x, t, b, c, d) {
+            return (t == d) ? b + c : c * (-Math.pow(2, -10 * t / d) + 1) + b;
+        };
     }
 
 })(UIkit);
 
-(function(UI) {
+(function (UI) {
 
     "use strict";
 
-    var $win           = UI.$win,
-        $doc           = UI.$doc,
-        scrollspies    = [],
-        checkScrollSpy = function() {
-            for(var i=0; i < scrollspies.length; i++) {
+    var $win = UI.$win,
+        $doc = UI.$doc,
+        scrollspies = [],
+        checkScrollSpy = function () {
+            for (var i = 0; i < scrollspies.length; i++) {
                 window.requestAnimationFrame.apply(window, [scrollspies[i].check]);
             }
         };
@@ -1301,25 +1323,25 @@
     UI.component('scrollspy', {
 
         defaults: {
-            "target"     : false,
-            "cls"        : "uk-scrollspy-inview",
-            "initcls"    : "uk-scrollspy-init-inview",
-            "topoffset"  : 0,
-            "leftoffset" : 0,
-            "repeat"     : false,
-            "delay"      : 0
+            "target": false,
+            "cls": "uk-scrollspy-inview",
+            "initcls": "uk-scrollspy-init-inview",
+            "topoffset": 0,
+            "leftoffset": 0,
+            "repeat": false,
+            "delay": 0
         },
 
-        boot: function() {
+        boot: function () {
 
             // listen to scroll and resize
             $doc.on("scrolling.uk.document", checkScrollSpy);
             $win.on("load resize orientationchange", UI.Utils.debounce(checkScrollSpy, 50));
 
             // init code
-            UI.ready(function(context) {
+            UI.ready(function (context) {
 
-                UI.$("[data-uk-scrollspy]", context).each(function() {
+                UI.$("[data-uk-scrollspy]", context).each(function () {
 
                     var element = UI.$(this);
 
@@ -1330,20 +1352,20 @@
             });
         },
 
-        init: function() {
+        init: function () {
 
-            var $this = this, inviewstate, initinview, togglecls = this.options.cls.split(/,/), fn = function(){
+            var $this = this, inviewstate, initinview, togglecls = this.options.cls.split(/,/), fn = function () {
 
-                var elements     = $this.options.target ? $this.element.find($this.options.target) : $this.element,
-                    delayIdx     = elements.length === 1 ? 1 : 0,
+                var elements = $this.options.target ? $this.element.find($this.options.target) : $this.element,
+                    delayIdx = elements.length === 1 ? 1 : 0,
                     toggleclsIdx = 0;
 
-                elements.each(function(idx){
+                elements.each(function (idx) {
 
-                    var element     = UI.$(this),
+                    var element = UI.$(this),
                         inviewstate = element.data('inviewstate'),
-                        inview      = UI.Utils.isInView(element, $this.options),
-                        toggle      = element.data('ukScrollspyCls') || togglecls[toggleclsIdx].trim();
+                        inview = UI.Utils.isInView(element, $this.options),
+                        toggle = element.data('ukScrollspyCls') || togglecls[toggleclsIdx].trim();
 
                     if (inview && !inviewstate && !element.data('scrollspy-idle')) {
 
@@ -1355,7 +1377,7 @@
                             element.trigger("init.uk.scrollspy");
                         }
 
-                        element.data('scrollspy-idle', setTimeout(function(){
+                        element.data('scrollspy-idle', setTimeout(function () {
 
                             element.addClass("uk-scrollspy-inview").toggleClass(toggle).width();
                             element.trigger("inview.uk.scrollspy");
@@ -1395,8 +1417,8 @@
 
 
     var scrollspynavs = [],
-        checkScrollSpyNavs = function() {
-            for(var i=0; i < scrollspynavs.length; i++) {
+        checkScrollSpyNavs = function () {
+            for (var i = 0; i < scrollspynavs.length; i++) {
                 window.requestAnimationFrame.apply(window, [scrollspynavs[i].check]);
             }
         };
@@ -1404,23 +1426,23 @@
     UI.component('scrollspynav', {
 
         defaults: {
-            "cls"          : 'uk-active',
-            "closest"      : false,
-            "topoffset"    : 0,
-            "leftoffset"   : 0,
-            "smoothscroll" : false
+            "cls": 'uk-active',
+            "closest": false,
+            "topoffset": 0,
+            "leftoffset": 0,
+            "smoothscroll": false
         },
 
-        boot: function() {
+        boot: function () {
 
             // listen to scroll and resize
             $doc.on("scrolling.uk.document", checkScrollSpyNavs);
             $win.on("resize orientationchange", UI.Utils.debounce(checkScrollSpyNavs, 50));
 
             // init code
-            UI.ready(function(context) {
+            UI.ready(function (context) {
 
-                UI.$("[data-uk-scrollspy-nav]", context).each(function() {
+                UI.$("[data-uk-scrollspy-nav]", context).each(function () {
 
                     var element = UI.$(this);
 
@@ -1431,20 +1453,22 @@
             });
         },
 
-        init: function() {
+        init: function () {
 
-            var ids     = [],
-                links   = this.find("a[href^='#']").each(function(){ if(this.getAttribute("href").trim()!=='#') ids.push(this.getAttribute("href")); }),
+            var ids = [],
+                links = this.find("a[href^='#']").each(function () {
+                    if (this.getAttribute("href").trim() !== '#') ids.push(this.getAttribute("href"));
+                }),
                 targets = UI.$(ids.join(",")),
 
-                clsActive  = this.options.cls,
+                clsActive = this.options.cls,
                 clsClosest = this.options.closest || this.options.closest;
 
-            var $this = this, inviews, fn = function(){
+            var $this = this, inviews, fn = function () {
 
                 inviews = [];
 
-                for (var i=0 ; i < targets.length ; i++) {
+                for (var i = 0; i < targets.length; i++) {
                     if (UI.Utils.isInView(targets.eq(i), $this.options)) {
                         inviews.push(targets.eq(i));
                     }
@@ -1454,9 +1478,9 @@
 
                     var navitems,
                         scrollTop = $win.scrollTop(),
-                        target = (function(){
-                            for(var i=0; i< inviews.length;i++){
-                                if(inviews[i].offset().top >= scrollTop){
+                        target = (function () {
+                            for (var i = 0; i < inviews.length; i++) {
+                                if (inviews[i].offset().top >= scrollTop) {
                                     return inviews[i];
                                 }
                             }
@@ -1466,9 +1490,9 @@
 
                     if ($this.options.closest) {
                         links.blur().closest(clsClosest).removeClass(clsActive);
-                        navitems = links.filter("a[href='#"+target.attr("id")+"']").closest(clsClosest).addClass(clsActive);
+                        navitems = links.filter("a[href='#" + target.attr("id") + "']").closest(clsClosest).addClass(clsActive);
                     } else {
-                        navitems = links.removeClass(clsActive).filter("a[href='#"+target.attr("id")+"']").addClass(clsActive);
+                        navitems = links.removeClass(clsActive).filter("a[href='#" + target.attr("id") + "']").addClass(clsActive);
                     }
 
                     $this.element.trigger("inview.uk.scrollspynav", [target, navitems]);
@@ -1476,7 +1500,7 @@
             };
 
             if (this.options.smoothscroll && UI.smoothScroll) {
-                links.each(function(){
+                links.each(function () {
                     UI.smoothScroll(this, $this.options.smoothscroll);
                 });
             }
@@ -1493,7 +1517,7 @@
 
 })(UIkit);
 
-(function(UI){
+(function (UI) {
 
     "use strict";
 
@@ -1502,18 +1526,18 @@
     UI.component('toggle', {
 
         defaults: {
-            target    : false,
-            cls       : 'uk-hidden',
-            animation : false,
-            duration  : 200
+            target: false,
+            cls: 'uk-hidden',
+            animation: false,
+            duration: 200
         },
 
-        boot: function(){
+        boot: function () {
 
             // init code
-            UI.ready(function(context) {
+            UI.ready(function (context) {
 
-                UI.$("[data-uk-toggle]", context).each(function() {
+                UI.$("[data-uk-toggle]", context).each(function () {
                     var ele = UI.$(this);
 
                     if (!ele.data("toggle")) {
@@ -1521,9 +1545,9 @@
                     }
                 });
 
-                setTimeout(function(){
+                setTimeout(function () {
 
-                    toggles.forEach(function(toggle){
+                    toggles.forEach(function (toggle) {
                         toggle.getToggles();
                     });
 
@@ -1531,7 +1555,7 @@
             });
         },
 
-        init: function() {
+        init: function () {
 
             var $this = this;
 
@@ -1539,7 +1563,7 @@
 
             this.getToggles();
 
-            this.on("click", function(e) {
+            this.on("click", function (e) {
                 if ($this.element.is('a[href="#"]')) e.preventDefault();
                 $this.toggle();
             });
@@ -1547,9 +1571,9 @@
             toggles.push(this);
         },
 
-        toggle: function() {
+        toggle: function () {
 
-            if(!this.totoggle.length) return;
+            if (!this.totoggle.length) return;
 
             if (this.options.animation && UI.support.animation) {
 
@@ -1562,9 +1586,9 @@
                 animations[0] = animations[0].trim();
                 animations[1] = animations[1].trim();
 
-                this.totoggle.css('animation-duration', this.options.duration+'ms');
+                this.totoggle.css('animation-duration', this.options.duration + 'ms');
 
-                this.totoggle.each(function(){
+                this.totoggle.each(function () {
 
                     var ele = UI.$(this);
 
@@ -1572,14 +1596,14 @@
 
                         ele.toggleClass($this.options.cls);
 
-                        UI.Utils.animate(ele, animations[0]).then(function(){
+                        UI.Utils.animate(ele, animations[0]).then(function () {
                             ele.css('animation-duration', '');
                             UI.Utils.checkDisplay(ele);
                         });
 
                     } else {
 
-                        UI.Utils.animate(this, animations[1]+' uk-animation-reverse').then(function(){
+                        UI.Utils.animate(this, animations[1] + ' uk-animation-reverse').then(function () {
                             ele.toggleClass($this.options.cls).css('animation-duration', '');
                             UI.Utils.checkDisplay(ele);
                         });
@@ -1597,14 +1621,14 @@
 
         },
 
-        getToggles: function() {
-            this.totoggle = this.options.target ? UI.$(this.options.target):[];
+        getToggles: function () {
+            this.totoggle = this.options.target ? UI.$(this.options.target) : [];
             this.updateAria();
         },
 
-        updateAria: function() {
+        updateAria: function () {
             if (this.aria && this.totoggle.length) {
-                this.totoggle.each(function(){
+                this.totoggle.each(function () {
                     UI.$(this).attr('aria-hidden', UI.$(this).hasClass('uk-hidden'));
                 });
             }
@@ -1613,7 +1637,7 @@
 
 })(UIkit);
 
-(function(UI) {
+(function (UI) {
 
     "use strict";
 
@@ -1625,10 +1649,10 @@
             "trigger": ".uk-alert-close"
         },
 
-        boot: function() {
+        boot: function () {
 
             // init code
-            UI.$html.on("click.alert.uikit", "[data-uk-alert]", function(e) {
+            UI.$html.on("click.alert.uikit", "[data-uk-alert]", function (e) {
 
                 var ele = UI.$(this);
 
@@ -1644,31 +1668,31 @@
             });
         },
 
-        init: function() {
+        init: function () {
 
             var $this = this;
 
-            this.on("click", this.options.trigger, function(e) {
+            this.on("click", this.options.trigger, function (e) {
                 e.preventDefault();
                 $this.close();
             });
         },
 
-        close: function() {
+        close: function () {
 
-            var element       = this.trigger("close.uk.alert"),
+            var element = this.trigger("close.uk.alert"),
                 removeElement = function () {
                     this.trigger("closed.uk.alert").remove();
                 }.bind(this);
 
             if (this.options.fade) {
                 element.css("overflow", "hidden").css("max-height", element.height()).animate({
-                    "height"         : 0,
-                    "opacity"        : 0,
-                    "padding-top"    : 0,
-                    "padding-bottom" : 0,
-                    "margin-top"     : 0,
-                    "margin-bottom"  : 0
+                    "height": 0,
+                    "opacity": 0,
+                    "padding-top": 0,
+                    "padding-bottom": 0,
+                    "margin-top": 0,
+                    "margin-bottom": 0
                 }, this.options.duration, removeElement);
             } else {
                 removeElement();
@@ -1679,7 +1703,7 @@
 
 })(UIkit);
 
-(function(UI) {
+(function (UI) {
 
     "use strict";
 
@@ -1690,16 +1714,16 @@
             "target": ".uk-button"
         },
 
-        boot: function() {
+        boot: function () {
 
             // init code
-            UI.$html.on("click.buttonradio.uikit", "[data-uk-button-radio]", function(e) {
+            UI.$html.on("click.buttonradio.uikit", "[data-uk-button-radio]", function (e) {
 
                 var ele = UI.$(this);
 
                 if (!ele.data("buttonRadio")) {
 
-                    var obj    = UI.buttonRadio(ele, UI.Utils.options(ele.attr("data-uk-button-radio"))),
+                    var obj = UI.buttonRadio(ele, UI.Utils.options(ele.attr("data-uk-button-radio"))),
                         target = UI.$(e.target);
 
                     if (target.is(obj.options.target)) {
@@ -1709,14 +1733,14 @@
             });
         },
 
-        init: function() {
+        init: function () {
 
             var $this = this;
 
             // Init ARIA
             this.find($this.options.target).attr('aria-checked', 'false').filter('.' + $this.options.activeClass).attr('aria-checked', 'true');
 
-            this.on("click", this.options.target, function(e) {
+            this.on("click", this.options.target, function (e) {
 
                 var ele = UI.$(this);
 
@@ -1734,7 +1758,7 @@
 
         },
 
-        getSelected: function() {
+        getSelected: function () {
             return this.find('.' + this.options.activeClass);
         }
     });
@@ -1746,14 +1770,14 @@
             "target": ".uk-button"
         },
 
-        boot: function() {
+        boot: function () {
 
-            UI.$html.on("click.buttoncheckbox.uikit", "[data-uk-button-checkbox]", function(e) {
+            UI.$html.on("click.buttoncheckbox.uikit", "[data-uk-button-checkbox]", function (e) {
                 var ele = UI.$(this);
 
                 if (!ele.data("buttonCheckbox")) {
 
-                    var obj    = UI.buttonCheckbox(ele, UI.Utils.options(ele.attr("data-uk-button-checkbox"))),
+                    var obj = UI.buttonCheckbox(ele, UI.Utils.options(ele.attr("data-uk-button-checkbox"))),
                         target = UI.$(e.target);
 
                     if (target.is(obj.options.target)) {
@@ -1763,14 +1787,14 @@
             });
         },
 
-        init: function() {
+        init: function () {
 
             var $this = this;
 
             // Init ARIA
             this.find($this.options.target).attr('aria-checked', 'false').filter('.' + $this.options.activeClass).attr('aria-checked', 'true');
 
-            this.on("click", this.options.target, function(e) {
+            this.on("click", this.options.target, function (e) {
                 var ele = UI.$(this);
 
                 if (ele.is('a[href="#"]')) e.preventDefault();
@@ -1785,7 +1809,7 @@
 
         },
 
-        getSelected: function() {
+        getSelected: function () {
             return this.find('.' + this.options.activeClass);
         }
     });
@@ -1795,9 +1819,9 @@
 
         defaults: {},
 
-        boot: function() {
+        boot: function () {
 
-            UI.$html.on("click.button.uikit", "[data-uk-button]", function(e) {
+            UI.$html.on("click.button.uikit", "[data-uk-button]", function (e) {
                 var ele = UI.$(this);
 
                 if (!ele.data("button")) {
@@ -1808,14 +1832,14 @@
             });
         },
 
-        init: function() {
+        init: function () {
 
             var $this = this;
 
             // Init ARIA
             this.element.attr('aria-pressed', this.element.hasClass("uk-active"));
 
-            this.on("click", function(e) {
+            this.on("click", function (e) {
 
                 if ($this.element.is('a[href="#"]')) e.preventDefault();
 
@@ -1825,7 +1849,7 @@
 
         },
 
-        toggle: function() {
+        toggle: function () {
             this.element.toggleClass("uk-active");
 
             // Update ARIA
@@ -1836,67 +1860,65 @@
 })(UIkit);
 
 
-(function(UI) {
+(function (UI) {
 
     "use strict";
 
     var active = false, hoverIdle, flips = {
         'x': {
-            "bottom-left"   : 'bottom-right',
-            "bottom-right"  : 'bottom-left',
-            "bottom-center" : 'bottom-right',
-            "top-left"      : 'top-right',
-            "top-right"     : 'top-left',
-            "top-center"    : 'top-right',
-            "left-top"      : 'right',
-            "left-bottom"   : 'right-bottom',
-            "left-center"   : 'right-center',
-            "right-top"     : 'left',
-            "right-bottom"  : 'left-bottom',
-            "right-center"  : 'left-center'
+            "bottom-left": 'bottom-right',
+            "bottom-right": 'bottom-left',
+            "bottom-center": 'bottom-right',
+            "top-left": 'top-right',
+            "top-right": 'top-left',
+            "top-center": 'top-right',
+            "left-top": 'right',
+            "left-bottom": 'right-bottom',
+            "left-center": 'right-center',
+            "right-top": 'left',
+            "right-bottom": 'left-bottom',
+            "right-center": 'left-center'
         },
         'y': {
-            "bottom-left"   : 'top-left',
-            "bottom-right"  : 'top-right',
-            "bottom-center" : 'top-center',
-            "top-left"      : 'bottom-left',
-            "top-right"     : 'bottom-right',
-            "top-center"    : 'bottom-center',
-            "left-top"      : 'top-left',
-            "left-bottom"   : 'left-bottom',
-            "left-center"   : 'top-left',
-            "right-top"     : 'top-left',
-            "right-bottom"  : 'bottom-left',
-            "right-center"  : 'top-left'
+            "bottom-left": 'top-left',
+            "bottom-right": 'top-right',
+            "bottom-center": 'top-center',
+            "top-left": 'bottom-left',
+            "top-right": 'bottom-right',
+            "top-center": 'bottom-center',
+            "left-top": 'top-left',
+            "left-bottom": 'left-bottom',
+            "left-center": 'top-left',
+            "right-top": 'top-left',
+            "right-bottom": 'bottom-left',
+            "right-center": 'top-left'
         },
-        'xy': {
-
-        }
+        'xy': {}
     };
 
     UI.component('dropdown', {
 
         defaults: {
-           'mode'            : 'hover',
-           'pos'             : 'bottom-left',
-           'offset'          : 0,
-           'remaintime'      : 800,
-           'justify'         : false,
-           'boundary'        : UI.$win,
-           'delay'           : 0,
-           'dropdownSelector': '.uk-dropdown,.uk-dropdown-blank',
-           'hoverDelayIdle'  : 250,
-           'preventflip'     : false
+            'mode': 'hover',
+            'pos': 'bottom-left',
+            'offset': 0,
+            'remaintime': 800,
+            'justify': false,
+            'boundary': UI.$win,
+            'delay': 0,
+            'dropdownSelector': '.uk-dropdown,.uk-dropdown-blank',
+            'hoverDelayIdle': 250,
+            'preventflip': false
         },
 
         remainIdle: false,
 
-        boot: function() {
+        boot: function () {
 
             var triggerevent = UI.support.touch ? "click" : "mouseenter";
 
             // init code
-            UI.$html.on(triggerevent+".dropdown.uikit", "[data-uk-dropdown]", function(e) {
+            UI.$html.on(triggerevent + ".dropdown.uikit", "[data-uk-dropdown]", function (e) {
 
                 var ele = UI.$(this);
 
@@ -1904,7 +1926,7 @@
 
                     var dropdown = UI.dropdown(ele, UI.Utils.options(ele.attr("data-uk-dropdown")));
 
-                    if (triggerevent=="click" || (triggerevent=="mouseenter" && dropdown.options.mode=="hover")) {
+                    if (triggerevent == "click" || (triggerevent == "mouseenter" && dropdown.options.mode == "hover")) {
                         dropdown.element.trigger(triggerevent);
                     }
 
@@ -1915,19 +1937,19 @@
             });
         },
 
-        init: function() {
+        init: function () {
 
             var $this = this;
 
-            this.dropdown     = this.find(this.options.dropdownSelector);
-            this.offsetParent = this.dropdown.parents().filter(function() {
+            this.dropdown = this.find(this.options.dropdownSelector);
+            this.offsetParent = this.dropdown.parents().filter(function () {
                 return UI.$.inArray(UI.$(this).css('position'), ['relative', 'fixed', 'absolute']) !== -1;
-            }).slice(0,1);
+            }).slice(0, 1);
 
-            this.centered  = this.dropdown.hasClass('uk-dropdown-center');
+            this.centered = this.dropdown.hasClass('uk-dropdown-center');
             this.justified = this.options.justify ? UI.$(this.options.justify) : false;
 
-            this.boundary  = UI.$(this.options.boundary);
+            this.boundary = UI.$(this.options.boundary);
 
             if (!this.boundary.length) {
                 this.boundary = UI.$win;
@@ -1938,10 +1960,10 @@
                 this.options.pos = 'top-left';
             }
             if (this.dropdown.hasClass('uk-dropdown-flip')) {
-                this.options.pos = this.options.pos.replace('left','right');
+                this.options.pos = this.options.pos.replace('left', 'right');
             }
             if (this.dropdown.hasClass('uk-dropdown-center')) {
-                this.options.pos = this.options.pos.replace(/(left|right)/,'center');
+                this.options.pos = this.options.pos.replace(/(left|right)/, 'center');
             }
             //-- end legacy
 
@@ -1951,13 +1973,13 @@
 
             if (this.options.mode == "click" || UI.support.touch) {
 
-                this.on("click.uikit.dropdown", function(e) {
+                this.on("click.uikit.dropdown", function (e) {
 
                     var $target = UI.$(e.target);
 
                     if (!$target.parents($this.options.dropdownSelector).length) {
 
-                        if ($target.is("a[href='#']") || $target.parent().is("a[href='#']") || ($this.dropdown.length && !$this.dropdown.is(":visible")) ){
+                        if ($target.is("a[href='#']") || $target.parent().is("a[href='#']") || ($this.dropdown.length && !$this.dropdown.is(":visible"))) {
                             e.preventDefault();
                         }
 
@@ -1978,7 +2000,7 @@
 
             } else {
 
-                this.on("mouseenter", function(e) {
+                this.on("mouseenter", function (e) {
 
                     $this.trigger('pointerenter.uk.dropdown', [$this]);
 
@@ -1997,7 +2019,7 @@
                     // pseudo manuAim
                     if (active && active != $this) {
 
-                        hoverIdle = setTimeout(function() {
+                        hoverIdle = setTimeout(function () {
                             hoverIdle = setTimeout($this.show.bind($this), $this.options.delay);
                         }, $this.options.hoverDelayIdle);
 
@@ -2006,19 +2028,19 @@
                         hoverIdle = setTimeout($this.show.bind($this), $this.options.delay);
                     }
 
-                }).on("mouseleave", function() {
+                }).on("mouseleave", function () {
 
                     if (hoverIdle) {
                         clearTimeout(hoverIdle);
                     }
 
-                    $this.remainIdle = setTimeout(function() {
+                    $this.remainIdle = setTimeout(function () {
                         if (active && active == $this) $this.hide();
                     }, $this.options.remaintime);
 
                     $this.trigger('pointerleave.uk.dropdown', [$this]);
 
-                }).on("click", function(e){
+                }).on("click", function (e) {
 
                     var $target = UI.$(e.target);
 
@@ -2033,7 +2055,7 @@
                         return;
                     }
 
-                    if ($target.is("a[href='#']") || $target.parent().is("a[href='#']")){
+                    if ($target.is("a[href='#']") || $target.parent().is("a[href='#']")) {
                         e.preventDefault();
                     }
 
@@ -2042,7 +2064,7 @@
             }
         },
 
-        show: function(){
+        show: function () {
 
             UI.$html.off("click.outer.dropdown");
 
@@ -2070,7 +2092,7 @@
             this.registerOuterClick();
         },
 
-        hide: function(force) {
+        hide: function (force) {
 
             this.trigger('beforehide.uk.dropdown', [this, force]);
 
@@ -2090,15 +2112,15 @@
             if (active == this) active = false;
         },
 
-        registerOuterClick: function(){
+        registerOuterClick: function () {
 
             var $this = this;
 
             UI.$html.off("click.outer.dropdown");
 
-            setTimeout(function() {
+            setTimeout(function () {
 
-                UI.$html.on("click.outer.dropdown", function(e) {
+                UI.$html.on("click.outer.dropdown", function (e) {
 
                     if (hoverIdle) {
                         clearTimeout(hoverIdle);
@@ -2114,46 +2136,52 @@
             }, 10);
         },
 
-        checkDimensions: function() {
+        checkDimensions: function () {
 
             if (!this.dropdown.length) return;
 
             // reset
             this.dropdown.removeClass('uk-dropdown-top uk-dropdown-bottom uk-dropdown-left uk-dropdown-right uk-dropdown-stack').css({
-                'top-left':'',
-                'left':'',
-                'margin-left' :'',
-                'margin-right':''
+                'top-left': '',
+                'left': '',
+                'margin-left': '',
+                'margin-right': ''
             });
 
             if (this.justified && this.justified.length) {
                 this.dropdown.css("min-width", "");
             }
 
-            var $this          = this,
-                pos            = UI.$.extend({}, this.offsetParent.offset(), {width: this.offsetParent[0].offsetWidth, height: this.offsetParent[0].offsetHeight}),
-                posoffset      = this.options.offset,
-                dropdown       = this.dropdown,
-                offset         = dropdown.show().offset() || {left: 0, top: 0},
-                width          = dropdown.outerWidth(),
-                height         = dropdown.outerHeight(),
-                boundarywidth  = this.boundary.width(),
-                boundaryoffset = this.boundary[0] !== window && this.boundary.offset() ? this.boundary.offset(): {top:0, left:0},
-                dpos           = this.options.pos;
+            var $this = this,
+                pos = UI.$.extend({}, this.offsetParent.offset(), {
+                    width: this.offsetParent[0].offsetWidth,
+                    height: this.offsetParent[0].offsetHeight
+                }),
+                posoffset = this.options.offset,
+                dropdown = this.dropdown,
+                offset = dropdown.show().offset() || {left: 0, top: 0},
+                width = dropdown.outerWidth(),
+                height = dropdown.outerHeight(),
+                boundarywidth = this.boundary.width(),
+                boundaryoffset = this.boundary[0] !== window && this.boundary.offset() ? this.boundary.offset() : {
+                    top: 0,
+                    left: 0
+                },
+                dpos = this.options.pos;
 
-            var variants =  {
-                    "bottom-left"   : {top: 0 + pos.height + posoffset, left: 0},
-                    "bottom-right"  : {top: 0 + pos.height + posoffset, left: 0 + pos.width - width},
-                    "bottom-center" : {top: 0 + pos.height + posoffset, left: 0 + pos.width / 2 - width / 2},
-                    "top-left"      : {top: 0 - height - posoffset, left: 0},
-                    "top-right"     : {top: 0 - height - posoffset, left: 0 + pos.width - width},
-                    "top-center"    : {top: 0 - height - posoffset, left: 0 + pos.width / 2 - width / 2},
-                    "left-top"      : {top: 0, left: 0 - width - posoffset},
-                    "left-bottom"   : {top: 0 + pos.height - height, left: 0 - width - posoffset},
-                    "left-center"   : {top: 0 + pos.height / 2 - height / 2, left: 0 - width - posoffset},
-                    "right-top"     : {top: 0, left: 0 + pos.width + posoffset},
-                    "right-bottom"  : {top: 0 + pos.height - height, left: 0 + pos.width + posoffset},
-                    "right-center"  : {top: 0 + pos.height / 2 - height / 2, left: 0 + pos.width + posoffset}
+            var variants = {
+                    "bottom-left": {top: 0 + pos.height + posoffset, left: 0},
+                    "bottom-right": {top: 0 + pos.height + posoffset, left: 0 + pos.width - width},
+                    "bottom-center": {top: 0 + pos.height + posoffset, left: 0 + pos.width / 2 - width / 2},
+                    "top-left": {top: 0 - height - posoffset, left: 0},
+                    "top-right": {top: 0 - height - posoffset, left: 0 + pos.width - width},
+                    "top-center": {top: 0 - height - posoffset, left: 0 + pos.width / 2 - width / 2},
+                    "left-top": {top: 0, left: 0 - width - posoffset},
+                    "left-bottom": {top: 0 + pos.height - height, left: 0 - width - posoffset},
+                    "left-center": {top: 0 + pos.height / 2 - height / 2, left: 0 - width - posoffset},
+                    "right-top": {top: 0, left: 0 + pos.width + posoffset},
+                    "right-bottom": {top: 0 + pos.height - height, left: 0 + pos.width + posoffset},
+                    "right-center": {top: 0 + pos.height / 2 - height / 2, left: 0 + pos.width + posoffset}
                 },
                 css = {},
                 pp;
@@ -2163,33 +2191,33 @@
 
             // justify dropdown
             if (this.justified && this.justified.length) {
-                justify(dropdown.css({left:0}), this.justified, boundarywidth);
+                justify(dropdown.css({left: 0}), this.justified, boundarywidth);
             } else {
 
                 if (this.options.preventflip !== true) {
 
                     var fdpos;
 
-                    switch(this.checkBoundary(pos.left + css.left, pos.top + css.top, width, height, boundarywidth)) {
+                    switch (this.checkBoundary(pos.left + css.left, pos.top + css.top, width, height, boundarywidth)) {
                         case "x":
-                            if(this.options.preventflip !=='x') fdpos = flips['x'][dpos] || 'right-top';
+                            if (this.options.preventflip !== 'x') fdpos = flips['x'][dpos] || 'right-top';
                             break;
                         case "y":
-                            if(this.options.preventflip !=='y') fdpos = flips['y'][dpos] || 'top-left';
+                            if (this.options.preventflip !== 'y') fdpos = flips['y'][dpos] || 'top-left';
                             break;
                         case "xy":
-                            if(!this.options.preventflip) fdpos = flips['xy'][dpos] || 'right-bottom';
+                            if (!this.options.preventflip) fdpos = flips['xy'][dpos] || 'right-bottom';
                             break;
                     }
 
                     if (fdpos) {
 
-                        pp  = fdpos.split('-');
+                        pp = fdpos.split('-');
                         css = variants[fdpos] ? variants[fdpos] : variants['bottom-left'];
 
                         // check flipped
                         if (this.checkBoundary(pos.left + css.left, pos.top + css.top, width, height, boundarywidth)) {
-                            pp  = dpos.split('-');
+                            pp = dpos.split('-');
                             css = variants[dpos] ? variants[dpos] : variants['bottom-left'];
                         }
                     }
@@ -2201,19 +2229,19 @@
                 this.trigger('stack.uk.dropdown', [this]);
             }
 
-            dropdown.css(css).css("display", "").addClass('uk-dropdown-'+pp[0]);
+            dropdown.css(css).css("display", "").addClass('uk-dropdown-' + pp[0]);
         },
 
-        checkBoundary: function(left, top, width, height, boundarywidth) {
+        checkBoundary: function (left, top, width, height, boundarywidth) {
 
             var axis = "";
 
-            if (left < 0 || ((left - UI.$win.scrollLeft())+width) > boundarywidth) {
-               axis += "x";
+            if (left < 0 || ((left - UI.$win.scrollLeft()) + width) > boundarywidth) {
+                axis += "x";
             }
 
-            if ((top - UI.$win.scrollTop()) < 0 || ((top - UI.$win.scrollTop())+height) > window.innerHeight) {
-               axis += "y";
+            if ((top - UI.$win.scrollTop()) < 0 || ((top - UI.$win.scrollTop()) + height) > window.innerHeight) {
+                axis += "y";
             }
 
             return axis;
@@ -2224,17 +2252,17 @@
     UI.component('dropdownOverlay', {
 
         defaults: {
-           'justify' : false,
-           'cls'     : '',
-           'duration': 200
+            'justify': false,
+            'cls': '',
+            'duration': 200
         },
 
-        boot: function() {
+        boot: function () {
 
             // init code
-            UI.ready(function(context) {
+            UI.ready(function (context) {
 
-                UI.$("[data-uk-dropdown-overlay]", context).each(function() {
+                UI.$("[data-uk-dropdown-overlay]", context).each(function () {
                     var ele = UI.$(this);
 
                     if (!ele.data("dropdownOverlay")) {
@@ -2244,12 +2272,12 @@
             });
         },
 
-        init: function() {
+        init: function () {
 
             var $this = this;
 
             this.justified = this.options.justify ? UI.$(this.options.justify) : false;
-            this.overlay   = this.element.find('uk-dropdown-overlay');
+            this.overlay = this.element.find('uk-dropdown-overlay');
 
             if (!this.overlay.length) {
                 this.overlay = UI.$('<div class="uk-dropdown-overlay"></div>').appendTo(this.element);
@@ -2259,40 +2287,44 @@
 
             this.on({
 
-                'beforeshow.uk.dropdown': function(e, dropdown) {
+                'beforeshow.uk.dropdown': function (e, dropdown) {
                     $this.dropdown = dropdown;
 
                     if ($this.justified && $this.justified.length) {
-                        justify($this.overlay.css({'display':'block', 'margin-left':'','margin-right':''}), $this.justified, $this.justified.outerWidth());
+                        justify($this.overlay.css({
+                            'display': 'block',
+                            'margin-left': '',
+                            'margin-right': ''
+                        }), $this.justified, $this.justified.outerWidth());
                     }
                 },
 
-                'show.uk.dropdown': function(e, dropdown) {
+                'show.uk.dropdown': function (e, dropdown) {
 
                     var h = $this.dropdown.dropdown.outerHeight(true);
 
                     $this.dropdown.element.removeClass('uk-open');
 
-                    $this.overlay.stop().css('display', 'block').animate({height: h}, $this.options.duration, function() {
+                    $this.overlay.stop().css('display', 'block').animate({height: h}, $this.options.duration, function () {
 
-                       $this.dropdown.dropdown.css('visibility', '');
-                       $this.dropdown.element.addClass('uk-open');
+                        $this.dropdown.dropdown.css('visibility', '');
+                        $this.dropdown.element.addClass('uk-open');
 
-                       UI.Utils.checkDisplay($this.dropdown.dropdown, true);
+                        UI.Utils.checkDisplay($this.dropdown.dropdown, true);
                     });
 
                     $this.pointerleave = false;
                 },
 
-                'hide.uk.dropdown': function() {
+                'hide.uk.dropdown': function () {
                     $this.overlay.stop().animate({height: 0}, $this.options.duration);
                 },
 
-                'pointerenter.uk.dropdown': function(e, dropdown) {
+                'pointerenter.uk.dropdown': function (e, dropdown) {
                     clearTimeout($this.remainIdle);
                 },
 
-                'pointerleave.uk.dropdown': function(e, dropdown) {
+                'pointerleave.uk.dropdown': function (e, dropdown) {
                     $this.pointerleave = true;
                 }
             });
@@ -2300,19 +2332,19 @@
 
             this.overlay.on({
 
-                'mouseenter': function() {
+                'mouseenter': function () {
                     if ($this.remainIdle) {
                         clearTimeout($this.dropdown.remainIdle);
                         clearTimeout($this.remainIdle);
                     }
                 },
 
-                'mouseleave': function(){
+                'mouseleave': function () {
 
                     if ($this.pointerleave && active) {
 
-                        $this.remainIdle = setTimeout(function() {
-                           if(active) active.hide();
+                        $this.remainIdle = setTimeout(function () {
+                            if (active) active.hide();
                         }, active.options.remaintime);
                     }
                 }
@@ -2324,10 +2356,10 @@
 
     function justify(ele, justifyTo, boundarywidth, offset) {
 
-        ele           = UI.$(ele);
-        justifyTo     = UI.$(justifyTo);
+        ele = UI.$(ele);
+        justifyTo = UI.$(justifyTo);
         boundarywidth = boundarywidth || window.innerWidth;
-        offset        = offset || ele.offset();
+        offset = offset || ele.offset();
 
         if (justifyTo.length) {
 
@@ -2337,8 +2369,8 @@
 
             if (UI.langdirection == 'right') {
 
-                var right1   = boundarywidth - (justifyTo.offset().left + jwidth),
-                    right2   = boundarywidth - (ele.offset().left + ele.outerWidth());
+                var right1 = boundarywidth - (justifyTo.offset().left + jwidth),
+                    right2 = boundarywidth - (ele.offset().left + ele.outerWidth());
 
                 ele.css("margin-right", right1 - right2);
 
@@ -2350,7 +2382,7 @@
 
 })(UIkit);
 
-(function(UI) {
+(function (UI) {
 
     "use strict";
 
@@ -2359,17 +2391,17 @@
     UI.component('gridMatchHeight', {
 
         defaults: {
-            "target"        : false,
-            "row"           : true,
-            "ignorestacked" : false
+            "target": false,
+            "row": true,
+            "ignorestacked": false
         },
 
-        boot: function() {
+        boot: function () {
 
             // init code
-            UI.ready(function(context) {
+            UI.ready(function (context) {
 
-                UI.$("[data-uk-grid-match]", context).each(function() {
+                UI.$("[data-uk-grid-match]", context).each(function () {
                     var grid = UI.$(this), obj;
 
                     if (!grid.data("gridMatchHeight")) {
@@ -2379,40 +2411,42 @@
             });
         },
 
-        init: function() {
+        init: function () {
 
             var $this = this;
 
-            this.columns  = this.element.children();
+            this.columns = this.element.children();
             this.elements = this.options.target ? this.find(this.options.target) : this.columns;
 
             if (!this.columns.length) return;
 
-            UI.$win.on('load resize orientationchange', (function() {
+            UI.$win.on('load resize orientationchange', (function () {
 
-                var fn = function() {
+                var fn = function () {
                     $this.match();
                 };
 
-                UI.$(function() { fn(); });
+                UI.$(function () {
+                    fn();
+                });
 
                 return UI.Utils.debounce(fn, 50);
             })());
 
-            UI.$html.on("changed.uk.dom", function(e) {
-                $this.columns  = $this.element.children();
+            UI.$html.on("changed.uk.dom", function (e) {
+                $this.columns = $this.element.children();
                 $this.elements = $this.options.target ? $this.find($this.options.target) : $this.columns;
                 $this.match();
             });
 
-            this.on("display.uk.check", function(e) {
-                if(this.element.is(":visible")) this.match();
+            this.on("display.uk.check", function (e) {
+                if (this.element.is(":visible")) this.match();
             }.bind(this));
 
             grids.push(this);
         },
 
-        match: function() {
+        match: function () {
 
             var firstvisible = this.columns.filter(":visible:first");
 
@@ -2429,7 +2463,7 @@
             return this;
         },
 
-        revert: function() {
+        revert: function () {
             this.elements.css('min-height', '');
             return this;
         }
@@ -2438,16 +2472,16 @@
     UI.component('gridMargin', {
 
         defaults: {
-            cls      : 'uk-grid-margin',
-            rowfirst : 'uk-row-first'
+            cls: 'uk-grid-margin',
+            rowfirst: 'uk-row-first'
         },
 
-        boot: function() {
+        boot: function () {
 
             // init code
-            UI.ready(function(context) {
+            UI.ready(function (context) {
 
-                UI.$("[data-uk-grid-margin]", context).each(function() {
+                UI.$("[data-uk-grid-margin]", context).each(function () {
                     var grid = UI.$(this), obj;
 
                     if (!grid.data("gridMargin")) {
@@ -2457,7 +2491,7 @@
             });
         },
 
-        init: function() {
+        init: function () {
 
             var stackMargin = UI.stackMargin(this.element, this.options);
         }
@@ -2465,7 +2499,7 @@
 
 })(UIkit);
 
-(function(UI) {
+(function (UI) {
 
     "use strict";
 
@@ -2485,7 +2519,7 @@
         transition: false,
         hasTransitioned: true,
 
-        init: function() {
+        init: function () {
 
             if (!body) body = UI.$('body');
 
@@ -2493,18 +2527,18 @@
 
             var $this = this;
 
-            this.paddingdir = "padding-" + (UI.langdirection == 'left' ? "right":"left");
-            this.dialog     = this.find(".uk-modal-dialog");
+            this.paddingdir = "padding-" + (UI.langdirection == 'left' ? "right" : "left");
+            this.dialog = this.find(".uk-modal-dialog");
 
-            this.active     = false;
+            this.active = false;
 
             // Update ARIA
             this.element.attr('aria-hidden', this.element.hasClass("uk-open"));
 
-            this.on("click", ".uk-modal-close", function(e) {
+            this.on("click", ".uk-modal-close", function (e) {
                 e.preventDefault();
                 $this.hide();
-            }).on("click", function(e) {
+            }).on("click", function (e) {
 
                 var target = UI.$(e.target);
 
@@ -2514,11 +2548,11 @@
             });
         },
 
-        toggle: function() {
+        toggle: function () {
             return this[this.isActive() ? "hide" : "show"]();
         },
 
-        show: function() {
+        show: function () {
 
             if (!this.element.length) return;
 
@@ -2543,7 +2577,7 @@
 
             if (UI.support.transition) {
                 this.hasTransitioned = false;
-                this.element.one(UI.support.transition.end, function(){
+                this.element.one(UI.support.transition.end, function () {
                     $this.hasTransitioned = true;
                 }).addClass("uk-open");
             } else {
@@ -2562,13 +2596,13 @@
             return this;
         },
 
-        hide: function(force) {
+        hide: function (force) {
 
             if (!force && UI.support.transition && this.hasTransitioned) {
 
                 var $this = this;
 
-                this.one(UI.support.transition.end, function() {
+                this.one(UI.support.transition.end, function () {
                     $this._hide();
                 }).removeClass("uk-open");
 
@@ -2580,9 +2614,9 @@
             return this;
         },
 
-        resize: function() {
+        resize: function () {
 
-            var bodywidth  = body.width();
+            var bodywidth = body.width();
 
             this.scrollbarwidth = window.innerWidth - bodywidth;
 
@@ -2592,18 +2626,18 @@
 
             if (!this.updateScrollable() && this.options.center) {
 
-                var dh  = this.dialog.outerHeight(),
-                pad = parseInt(this.dialog.css('margin-top'), 10) + parseInt(this.dialog.css('margin-bottom'), 10);
+                var dh = this.dialog.outerHeight(),
+                    pad = parseInt(this.dialog.css('margin-top'), 10) + parseInt(this.dialog.css('margin-bottom'), 10);
 
                 if ((dh + pad) < window.innerHeight) {
-                    this.dialog.css({'top': (window.innerHeight/2 - dh/2) - pad });
+                    this.dialog.css({'top': (window.innerHeight / 2 - dh / 2) - pad});
                 } else {
                     this.dialog.css({'top': ''});
                 }
             }
         },
 
-        updateScrollable: function() {
+        updateScrollable: function () {
 
             // has scrollable?
             var scrollable = this.dialog.find('.uk-overflow-container:visible:first');
@@ -2613,13 +2647,13 @@
                 scrollable.css('height', 0);
 
                 var offset = Math.abs(parseInt(this.dialog.css('margin-top'), 10)),
-                dh     = this.dialog.outerHeight(),
-                wh     = window.innerHeight,
-                h      = wh - 2*(offset < 20 ? 20:offset) - dh;
+                    dh = this.dialog.outerHeight(),
+                    wh = window.innerHeight,
+                    h = wh - 2 * (offset < 20 ? 20 : offset) - dh;
 
                 scrollable.css({
-                    'max-height': (h < this.options.minScrollHeight ? '':h),
-                    'height':''
+                    'max-height': (h < this.options.minScrollHeight ? '' : h),
+                    'height': ''
                 });
 
                 return true;
@@ -2628,7 +2662,7 @@
             return false;
         },
 
-        _hide: function() {
+        _hide: function () {
 
             this.active = false;
             if (activeCount > 0) activeCount--;
@@ -2644,12 +2678,12 @@
                 body.css(this.paddingdir, "");
             }
 
-            if(active===this) active = false;
+            if (active === this) active = false;
 
             this.trigger('hide.uk.modal');
         },
 
-        isActive: function() {
+        isActive: function () {
             return this.active;
         }
 
@@ -2657,10 +2691,10 @@
 
     UI.component('modalTrigger', {
 
-        boot: function() {
+        boot: function () {
 
             // init code
-            UI.$html.on("click.modal.uikit", "[data-uk-modal]", function(e) {
+            UI.$html.on("click.modal.uikit", "[data-uk-modal]", function (e) {
 
                 var ele = UI.$(this);
 
@@ -2684,12 +2718,12 @@
                 }
             });
 
-            UI.$win.on("resize orientationchange", UI.Utils.debounce(function(){
+            UI.$win.on("resize orientationchange", UI.Utils.debounce(function () {
                 if (active) active.resize();
             }, 150));
         },
 
-        init: function() {
+        init: function () {
 
             var $this = this;
 
@@ -2699,7 +2733,7 @@
 
             this.modal = UI.modal(this.options.target, this.options);
 
-            this.on("click", function(e) {
+            this.on("click", function (e) {
                 e.preventDefault();
                 $this.show();
             });
@@ -2709,11 +2743,11 @@
         }
     });
 
-    UI.modal.dialog = function(content, options) {
+    UI.modal.dialog = function (content, options) {
 
         var modal = UI.modal(UI.$(UI.modal.dialog.template).appendTo("body"), options);
 
-        modal.on("hide.uk.modal", function(){
+        modal.on("hide.uk.modal", function () {
             if (modal.persist) {
                 modal.persist.appendTo(modal.persist.data("modalPersistParent"));
                 modal.persist = false;
@@ -2728,17 +2762,17 @@
 
     UI.modal.dialog.template = '<div class="uk-modal"><div class="uk-modal-dialog" style="min-height:0;"></div></div>';
 
-    UI.modal.alert = function(content, options) {
+    UI.modal.alert = function (content, options) {
 
-        options = UI.$.extend(true, {bgclose:false, keyboard:false, modal:false, labels:UI.modal.labels}, options);
+        options = UI.$.extend(true, {bgclose: false, keyboard: false, modal: false, labels: UI.modal.labels}, options);
 
         var modal = UI.modal.dialog(([
-            '<div class="uk-margin uk-modal-content">'+String(content)+'</div>',
-            '<div class="uk-modal-footer uk-text-right"><button class="uk-button uk-button-primary uk-modal-close">'+options.labels.Ok+'</button></div>'
+            '<div class="uk-margin uk-modal-content">' + String(content) + '</div>',
+            '<div class="uk-modal-footer uk-text-right"><button class="uk-button uk-button-primary uk-modal-close">' + options.labels.Ok + '</button></div>'
         ]).join(""), options);
 
-        modal.on('show.uk.modal', function(){
-            setTimeout(function(){
+        modal.on('show.uk.modal', function () {
+            setTimeout(function () {
                 modal.element.find('button:first').focus();
             }, 50);
         });
@@ -2746,26 +2780,33 @@
         return modal.show();
     };
 
-    UI.modal.confirm = function(content, onconfirm, oncancel) {
+    UI.modal.confirm = function (content, onconfirm, oncancel) {
 
-        var options = arguments.length > 1 && arguments[arguments.length-1] ? arguments[arguments.length-1] : {};
+        var options = arguments.length > 1 && arguments[arguments.length - 1] ? arguments[arguments.length - 1] : {};
 
-        onconfirm = UI.$.isFunction(onconfirm) ? onconfirm : function(){};
-        oncancel  = UI.$.isFunction(oncancel) ? oncancel : function(){};
-        options   = UI.$.extend(true, {bgclose:false, keyboard:false, modal:false, labels:UI.modal.labels}, UI.$.isFunction(options) ? {}:options);
+        onconfirm = UI.$.isFunction(onconfirm) ? onconfirm : function () {
+        };
+        oncancel = UI.$.isFunction(oncancel) ? oncancel : function () {
+        };
+        options = UI.$.extend(true, {
+            bgclose: false,
+            keyboard: false,
+            modal: false,
+            labels: UI.modal.labels
+        }, UI.$.isFunction(options) ? {} : options);
 
         var modal = UI.modal.dialog(([
-            '<div class="uk-margin uk-modal-content">'+String(content)+'</div>',
-            '<div class="uk-modal-footer uk-text-right"><button class="uk-button js-modal-confirm-cancel">'+options.labels.Cancel+'</button> <button class="uk-button uk-button-primary js-modal-confirm">'+options.labels.Ok+'</button></div>'
+            '<div class="uk-margin uk-modal-content">' + String(content) + '</div>',
+            '<div class="uk-modal-footer uk-text-right"><button class="uk-button js-modal-confirm-cancel">' + options.labels.Cancel + '</button> <button class="uk-button uk-button-primary js-modal-confirm">' + options.labels.Ok + '</button></div>'
         ]).join(""), options);
 
-        modal.element.find(".js-modal-confirm, .js-modal-confirm-cancel").on("click", function(){
+        modal.element.find(".js-modal-confirm, .js-modal-confirm-cancel").on("click", function () {
             UI.$(this).is('.js-modal-confirm') ? onconfirm() : oncancel();
             modal.hide();
         });
 
-        modal.on('show.uk.modal', function(){
-            setTimeout(function(){
+        modal.on('show.uk.modal', function () {
+            setTimeout(function () {
                 modal.element.find('.js-modal-confirm').focus();
             }, 50);
         });
@@ -2773,31 +2814,32 @@
         return modal.show();
     };
 
-    UI.modal.prompt = function(text, value, onsubmit, options) {
+    UI.modal.prompt = function (text, value, onsubmit, options) {
 
-        onsubmit = UI.$.isFunction(onsubmit) ? onsubmit : function(value){};
-        options  = UI.$.extend(true, {bgclose:false, keyboard:false, modal:false, labels:UI.modal.labels}, options);
+        onsubmit = UI.$.isFunction(onsubmit) ? onsubmit : function (value) {
+        };
+        options = UI.$.extend(true, {bgclose: false, keyboard: false, modal: false, labels: UI.modal.labels}, options);
 
         var modal = UI.modal.dialog(([
-            text ? '<div class="uk-modal-content uk-form">'+String(text)+'</div>':'',
-            '<div class="uk-margin-small-top uk-modal-content uk-form"><p><input type="text" class="uk-width-1-1"></p></div>',
-            '<div class="uk-modal-footer uk-text-right"><button class="uk-button uk-modal-close">'+options.labels.Cancel+'</button> <button class="uk-button uk-button-primary js-modal-ok">'+options.labels.Ok+'</button></div>'
-        ]).join(""), options),
+                text ? '<div class="uk-modal-content uk-form">' + String(text) + '</div>' : '',
+                '<div class="uk-margin-small-top uk-modal-content uk-form"><p><input type="text" class="uk-width-1-1"></p></div>',
+                '<div class="uk-modal-footer uk-text-right"><button class="uk-button uk-modal-close">' + options.labels.Cancel + '</button> <button class="uk-button uk-button-primary js-modal-ok">' + options.labels.Ok + '</button></div>'
+            ]).join(""), options),
 
-        input = modal.element.find("input[type='text']").val(value || '').on('keyup', function(e){
-            if (e.keyCode == 13) {
-                modal.element.find(".js-modal-ok").trigger('click');
-            }
-        });
+            input = modal.element.find("input[type='text']").val(value || '').on('keyup', function (e) {
+                if (e.keyCode == 13) {
+                    modal.element.find(".js-modal-ok").trigger('click');
+                }
+            });
 
-        modal.element.find(".js-modal-ok").on("click", function(){
-            if (onsubmit(input.val())!==false){
+        modal.element.find(".js-modal-ok").on("click", function () {
+            if (onsubmit(input.val()) !== false) {
                 modal.hide();
             }
         });
 
-        modal.on('show.uk.modal', function(){
-            setTimeout(function(){
+        modal.on('show.uk.modal', function () {
+            setTimeout(function () {
                 input.focus();
             }, 50);
         });
@@ -2805,11 +2847,11 @@
         return modal.show();
     };
 
-    UI.modal.blockUI = function(content, options) {
+    UI.modal.blockUI = function (content, options) {
 
         var modal = UI.modal.dialog(([
-            '<div class="uk-margin uk-modal-content">'+String(content || '<div class="uk-text-center">...</div>')+'</div>'
-        ]).join(""), UI.$.extend({bgclose:false, keyboard:false, modal:false}, options));
+            '<div class="uk-margin uk-modal-content">' + String(content || '<div class="uk-text-center">...</div>') + '</div>'
+        ]).join(""), UI.$.extend({bgclose: false, keyboard: false, modal: false}, options));
 
         modal.content = modal.element.find('.uk-modal-content:first');
 
@@ -2824,25 +2866,25 @@
 
 
     // helper functions
-    function setContent(content, modal){
+    function setContent(content, modal) {
 
-        if(!modal) return;
+        if (!modal) return;
 
         if (typeof content === 'object') {
 
             // convert DOM object to a jQuery object
             content = content instanceof jQuery ? content : UI.$(content);
 
-            if(content.parent().length) {
+            if (content.parent().length) {
                 modal.persist = content;
                 modal.persist.data("modalPersistParent", content.parent());
             }
-        }else if (typeof content === 'string' || typeof content === 'number') {
-                // just insert the data as innerHTML
-                content = UI.$('<div></div>').html(content);
-        }else {
-                // unsupported data type!
-                content = UI.$('<div></div>').html('UIkit.modal Error: Unsupported data type: ' + typeof content);
+        } else if (typeof content === 'string' || typeof content === 'number') {
+            // just insert the data as innerHTML
+            content = UI.$('<div></div>').html(content);
+        } else {
+            // unsupported data type!
+            content = UI.$('<div></div>').html('UIkit.modal Error: Unsupported data type: ' + typeof content);
         }
 
         content.appendTo(modal.element.find('.uk-modal-dialog'));
@@ -2852,7 +2894,7 @@
 
 })(UIkit);
 
-(function(UI) {
+(function (UI) {
 
     "use strict";
 
@@ -2864,12 +2906,12 @@
             "multiple": false
         },
 
-        boot: function() {
+        boot: function () {
 
             // init code
-            UI.ready(function(context) {
+            UI.ready(function (context) {
 
-                UI.$("[data-uk-nav]", context).each(function() {
+                UI.$("[data-uk-nav]", context).each(function () {
                     var nav = UI.$(this);
 
                     if (!nav.data("nav")) {
@@ -2879,23 +2921,23 @@
             });
         },
 
-        init: function() {
+        init: function () {
 
             var $this = this;
 
-            this.on("click.uikit.nav", this.options.toggle, function(e) {
+            this.on("click.uikit.nav", this.options.toggle, function (e) {
                 e.preventDefault();
                 var ele = UI.$(this);
                 $this.open(ele.parent()[0] == $this.element[0] ? ele : ele.parent("li"));
             });
 
-            this.find(this.options.lists).each(function() {
-                var $ele   = UI.$(this),
+            this.find(this.options.lists).each(function () {
+                var $ele = UI.$(this),
                     parent = $ele.parent(),
                     active = parent.hasClass("uk-active");
 
                 $ele.wrap('<div style="overflow:hidden;height:0;position:relative;"></div>');
-                parent.data("list-container", $ele.parent()[active ? 'removeClass':'addClass']('uk-hidden'));
+                parent.data("list-container", $ele.parent()[active ? 'removeClass' : 'addClass']('uk-hidden'));
 
                 // Init ARIA
                 parent.attr('aria-expanded', parent.hasClass("uk-open"));
@@ -2905,18 +2947,18 @@
 
         },
 
-        open: function(li, noanimation) {
+        open: function (li, noanimation) {
 
             var $this = this, element = this.element, $li = UI.$(li), $container = $li.data('list-container');
 
             if (!this.options.multiple) {
 
-                element.children('.uk-open').not(li).each(function() {
+                element.children('.uk-open').not(li).each(function () {
 
                     var ele = UI.$(this);
 
                     if (ele.data('list-container')) {
-                        ele.data('list-container').stop().animate({height: 0}, function() {
+                        ele.data('list-container').stop().animate({height: 0}, function () {
                             UI.$(this).parent().removeClass('uk-open').end().addClass('uk-hidden');
                         });
                     }
@@ -2948,7 +2990,7 @@
 
                     $container.stop().animate({
                         height: ($li.hasClass('uk-open') ? getHeight($container.find('ul:first')) : 0)
-                    }, function() {
+                    }, function () {
 
                         if (!$li.hasClass('uk-open')) {
                             $container.addClass('uk-hidden');
@@ -2988,148 +3030,156 @@
 
 })(UIkit);
 
-(function(UI) {
+(function (UI) {
 
     "use strict";
 
     var scrollpos = {x: window.scrollX, y: window.scrollY},
-        $win      = UI.$win,
-        $doc      = UI.$doc,
-        $html     = UI.$html,
+        $win = UI.$win,
+        $doc = UI.$doc,
+        $html = UI.$html,
         Offcanvas = {
 
-        show: function(element) {
+            show: function (element) {
 
-            element = UI.$(element);
+                element = UI.$(element);
 
-            if (!element.length) return;
+                if (!element.length) return;
 
-            var $body     = UI.$('body'),
-                bar       = element.find(".uk-offcanvas-bar:first"),
-                rtl       = (UI.langdirection == "right"),
-                flip      = bar.hasClass("uk-offcanvas-bar-flip") ? -1:1,
-                dir       = flip * (rtl ? -1 : 1),
+                var $body = UI.$('body'),
+                    bar = element.find(".uk-offcanvas-bar:first"),
+                    rtl = (UI.langdirection == "right"),
+                    flip = bar.hasClass("uk-offcanvas-bar-flip") ? -1 : 1,
+                    dir = flip * (rtl ? -1 : 1),
 
-                scrollbarwidth =  window.innerWidth - $body.width();
+                    scrollbarwidth = window.innerWidth - $body.width();
 
-            scrollpos = {x: window.pageXOffset, y: window.pageYOffset};
+                scrollpos = {x: window.pageXOffset, y: window.pageYOffset};
 
-            element.addClass("uk-active");
+                element.addClass("uk-active");
 
-            $body.css({"width": window.innerWidth - scrollbarwidth, "height": window.innerHeight}).addClass("uk-offcanvas-page");
-            $body.css((rtl ? "margin-right" : "margin-left"), (rtl ? -1 : 1) * (bar.outerWidth() * dir)).width(); // .width() - force redraw
+                $body.css({
+                    "width": window.innerWidth - scrollbarwidth,
+                    "height": window.innerHeight
+                }).addClass("uk-offcanvas-page");
+                $body.css((rtl ? "margin-right" : "margin-left"), (rtl ? -1 : 1) * (bar.outerWidth() * dir)).width(); // .width() - force redraw
 
-            $html.css('margin-top', scrollpos.y * -1);
+                $html.css('margin-top', scrollpos.y * -1);
 
-            bar.addClass("uk-offcanvas-bar-show");
+                bar.addClass("uk-offcanvas-bar-show");
 
-            this._initElement(element);
+                this._initElement(element);
 
-            bar.trigger('show.uk.offcanvas', [element, bar]);
+                bar.trigger('show.uk.offcanvas', [element, bar]);
 
-            // Update ARIA
-            element.attr('aria-hidden', 'false');
-        },
+                // Update ARIA
+                element.attr('aria-hidden', 'false');
+            },
 
-        hide: function(force) {
+            hide: function (force) {
 
-            var $body = UI.$('body'),
-                panel = UI.$(".uk-offcanvas.uk-active"),
-                rtl   = (UI.langdirection == "right"),
-                bar   = panel.find(".uk-offcanvas-bar:first"),
-                finalize = function() {
-                    $body.removeClass("uk-offcanvas-page").css({"width": "", "height": "", "margin-left": "", "margin-right": ""});
-                    panel.removeClass("uk-active");
+                var $body = UI.$('body'),
+                    panel = UI.$(".uk-offcanvas.uk-active"),
+                    rtl = (UI.langdirection == "right"),
+                    bar = panel.find(".uk-offcanvas-bar:first"),
+                    finalize = function () {
+                        $body.removeClass("uk-offcanvas-page").css({
+                            "width": "",
+                            "height": "",
+                            "margin-left": "",
+                            "margin-right": ""
+                        });
+                        panel.removeClass("uk-active");
 
-                    bar.removeClass("uk-offcanvas-bar-show");
-                    $html.css('margin-top', '');
-                    window.scrollTo(scrollpos.x, scrollpos.y);
-                    bar.trigger('hide.uk.offcanvas', [panel, bar]);
+                        bar.removeClass("uk-offcanvas-bar-show");
+                        $html.css('margin-top', '');
+                        window.scrollTo(scrollpos.x, scrollpos.y);
+                        bar.trigger('hide.uk.offcanvas', [panel, bar]);
 
-                    // Update ARIA
-                    panel.attr('aria-hidden', 'true');
-                };
+                        // Update ARIA
+                        panel.attr('aria-hidden', 'true');
+                    };
 
-            if (!panel.length) return;
+                if (!panel.length) return;
 
-            if (UI.support.transition && !force) {
+                if (UI.support.transition && !force) {
 
-                $body.one(UI.support.transition.end, function() {
+                    $body.one(UI.support.transition.end, function () {
+                        finalize();
+                    }).css((rtl ? "margin-right" : "margin-left"), "");
+
+                    setTimeout(function () {
+                        bar.removeClass("uk-offcanvas-bar-show");
+                    }, 0);
+
+                } else {
                     finalize();
-                }).css((rtl ? "margin-right" : "margin-left"), "");
-
-                setTimeout(function(){
-                    bar.removeClass("uk-offcanvas-bar-show");
-                }, 0);
-
-            } else {
-                finalize();
-            }
-        },
-
-        _initElement: function(element) {
-
-            if (element.data("OffcanvasInit")) return;
-
-            element.on("click.uk.offcanvas swipeRight.uk.offcanvas swipeLeft.uk.offcanvas", function(e) {
-
-                var target = UI.$(e.target);
-
-                if (!e.type.match(/swipe/)) {
-
-                    if (!target.hasClass("uk-offcanvas-close")) {
-                        if (target.hasClass("uk-offcanvas-bar")) return;
-                        if (target.parents(".uk-offcanvas-bar:first").length) return;
-                    }
                 }
+            },
 
-                e.stopImmediatePropagation();
-                Offcanvas.hide();
-            });
+            _initElement: function (element) {
 
-            element.on("click", "a[href*='#']", function(e){
+                if (element.data("OffcanvasInit")) return;
 
-                var link = UI.$(this),
-                    href = link.attr("href");
+                element.on("click.uk.offcanvas swipeRight.uk.offcanvas swipeLeft.uk.offcanvas", function (e) {
 
-                if (href == "#") {
-                    return;
-                }
+                    var target = UI.$(e.target);
 
-                UI.$doc.one('hide.uk.offcanvas', function() {
+                    if (!e.type.match(/swipe/)) {
 
-                    var target;
-
-                    try {
-                        target = UI.$(link[0].hash);
-                    } catch (e){
-                        target = '';
+                        if (!target.hasClass("uk-offcanvas-close")) {
+                            if (target.hasClass("uk-offcanvas-bar")) return;
+                            if (target.parents(".uk-offcanvas-bar:first").length) return;
+                        }
                     }
 
-                    if (!target.length) {
-                        target = UI.$('[name="'+link[0].hash.replace('#','')+'"]');
-                    }
-
-                    if (target.length && UI.Utils.scrollToElement) {
-                        UI.Utils.scrollToElement(target, UI.Utils.options(link.attr('data-uk-smooth-scroll') || '{}'));
-                    } else {
-                        window.location.href = href;
-                    }
+                    e.stopImmediatePropagation();
+                    Offcanvas.hide();
                 });
 
-                Offcanvas.hide();
-            });
+                element.on("click", "a[href*='#']", function (e) {
 
-            element.data("OffcanvasInit", true);
-        }
-    };
+                    var link = UI.$(this),
+                        href = link.attr("href");
+
+                    if (href == "#") {
+                        return;
+                    }
+
+                    UI.$doc.one('hide.uk.offcanvas', function () {
+
+                        var target;
+
+                        try {
+                            target = UI.$(link[0].hash);
+                        } catch (e) {
+                            target = '';
+                        }
+
+                        if (!target.length) {
+                            target = UI.$('[name="' + link[0].hash.replace('#', '') + '"]');
+                        }
+
+                        if (target.length && UI.Utils.scrollToElement) {
+                            UI.Utils.scrollToElement(target, UI.Utils.options(link.attr('data-uk-smooth-scroll') || '{}'));
+                        } else {
+                            window.location.href = href;
+                        }
+                    });
+
+                    Offcanvas.hide();
+                });
+
+                element.data("OffcanvasInit", true);
+            }
+        };
 
     UI.component('offcanvasTrigger', {
 
-        boot: function() {
+        boot: function () {
 
             // init code
-            $html.on("click.offcanvas.uikit", "[data-uk-offcanvas]", function(e) {
+            $html.on("click.offcanvas.uikit", "[data-uk-offcanvas]", function (e) {
 
                 e.preventDefault();
 
@@ -3141,7 +3191,7 @@
                 }
             });
 
-            $html.on('keydown.uk.offcanvas', function(e) {
+            $html.on('keydown.uk.offcanvas', function (e) {
 
                 if (e.keyCode === 27) { // ESC
                     Offcanvas.hide();
@@ -3149,7 +3199,7 @@
             });
         },
 
-        init: function() {
+        init: function () {
 
             var $this = this;
 
@@ -3157,7 +3207,7 @@
                 "target": $this.element.is("a") ? $this.element.attr("href") : false
             }, this.options);
 
-            this.on("click", function(e) {
+            this.on("click", function (e) {
                 e.preventDefault();
                 Offcanvas.show($this.options.target);
             });
@@ -3168,7 +3218,7 @@
 
 })(UIkit);
 
-(function(UI) {
+(function (UI) {
 
     "use strict";
 
@@ -3177,22 +3227,22 @@
     UI.component('switcher', {
 
         defaults: {
-            connect   : false,
-            toggle    : ">*",
-            active    : 0,
-            animation : false,
-            duration  : 200,
-            swiping   : true
+            connect: false,
+            toggle: ">*",
+            active: 0,
+            animation: false,
+            duration: 200,
+            swiping: true
         },
 
         animating: false,
 
-        boot: function() {
+        boot: function () {
 
             // init code
-            UI.ready(function(context) {
+            UI.ready(function (context) {
 
-                UI.$("[data-uk-switcher]", context).each(function() {
+                UI.$("[data-uk-switcher]", context).each(function () {
                     var switcher = UI.$(this);
 
                     if (!switcher.data("switcher")) {
@@ -3202,11 +3252,11 @@
             });
         },
 
-        init: function() {
+        init: function () {
 
             var $this = this;
 
-            this.on("click.uikit.switcher", this.options.toggle, function(e) {
+            this.on("click.uikit.switcher", this.options.toggle, function (e) {
                 e.preventDefault();
                 $this.show(this);
             });
@@ -3223,7 +3273,7 @@
                     // Init ARIA for connect
                     this.connect.children().attr('aria-hidden', 'true');
 
-                    this.connect.on("click", '[data-uk-switcher-item]', function(e) {
+                    this.connect.on("click", '[data-uk-switcher-item]', function (e) {
 
                         e.preventDefault();
 
@@ -3231,10 +3281,10 @@
 
                         if ($this.index == item) return;
 
-                        switch(item) {
+                        switch (item) {
                             case 'next':
                             case 'previous':
-                                $this.show($this.index + (item=='next' ? 1:-1));
+                                $this.show($this.index + (item == 'next' ? 1 : -1));
                                 break;
                             default:
                                 $this.show(parseInt(item, 10));
@@ -3243,9 +3293,9 @@
 
                     if (this.options.swiping) {
 
-                        this.connect.on('swipeRight swipeLeft', function(e) {
+                        this.connect.on('swipeRight swipeLeft', function (e) {
                             e.preventDefault();
-                            if(!window.getSelection().toString()) {
+                            if (!window.getSelection().toString()) {
                                 $this.show($this.index + (e.type == 'swipeLeft' ? 1 : -1));
                             }
                         });
@@ -3253,13 +3303,13 @@
                 }
 
                 var toggles = this.find(this.options.toggle),
-                    active  = toggles.filter(".uk-active");
+                    active = toggles.filter(".uk-active");
 
                 if (active.length) {
                     this.show(active, false);
                 } else {
 
-                    if (this.options.active===false) return;
+                    if (this.options.active === false) return;
 
                     active = toggles.eq(this.options.active);
                     this.show(active.length ? active : toggles.eq(0), false);
@@ -3269,14 +3319,14 @@
                 toggles.not(active).attr('aria-expanded', 'false');
                 active.attr('aria-expanded', 'true');
 
-                this.on('changed.uk.dom', function() {
+                this.on('changed.uk.dom', function () {
                     $this.connect = UI.$($this.options.connect);
                 });
             }
 
         },
 
-        show: function(tab, animate) {
+        show: function (tab, animate) {
 
             if (this.animating) {
                 return;
@@ -3288,32 +3338,32 @@
 
                 var toggles = this.find(this.options.toggle);
 
-                tab = tab < 0 ? toggles.length-1 : tab;
+                tab = tab < 0 ? toggles.length - 1 : tab;
                 tab = toggles.eq(toggles[tab] ? tab : 0);
             }
 
-            var $this     = this,
-                toggles   = this.find(this.options.toggle),
-                active    = UI.$(tab),
-                animation = Animations[this.options.animation] || function(current, next) {
+            var $this = this,
+                toggles = this.find(this.options.toggle),
+                active = UI.$(tab),
+                animation = Animations[this.options.animation] || function (current, next) {
 
-                    if (!$this.options.animation) {
-                        return Animations.none.apply($this);
-                    }
+                        if (!$this.options.animation) {
+                            return Animations.none.apply($this);
+                        }
 
-                    var anim = $this.options.animation.split(',');
+                        var anim = $this.options.animation.split(',');
 
-                    if (anim.length == 1) {
-                        anim[1] = anim[0];
-                    }
+                        if (anim.length == 1) {
+                            anim[1] = anim[0];
+                        }
 
-                    anim[0] = anim[0].trim();
-                    anim[1] = anim[1].trim();
+                        anim[0] = anim[0].trim();
+                        anim[1] = anim[1].trim();
 
-                    return coreAnimation.apply($this, [anim, current, next]);
-                };
+                        return coreAnimation.apply($this, [anim, current, next]);
+                    };
 
-            if (animate===false || !UI.support.animation) {
+            if (animate === false || !UI.support.animation) {
                 animation = Animations.none;
             }
 
@@ -3330,33 +3380,33 @@
 
                 this.index = this.find(this.options.toggle).index(active);
 
-                if (this.index == -1 ) {
+                if (this.index == -1) {
                     this.index = 0;
                 }
 
-                this.connect.each(function() {
+                this.connect.each(function () {
 
                     var container = UI.$(this),
-                        children  = UI.$(container.children()),
-                        current   = UI.$(children.filter('.uk-active')),
-                        next      = UI.$(children.eq($this.index));
+                        children = UI.$(container.children()),
+                        current = UI.$(children.filter('.uk-active')),
+                        next = UI.$(children.eq($this.index));
 
-                        $this.animating = true;
+                    $this.animating = true;
 
-                        animation.apply($this, [current, next]).then(function(){
+                    animation.apply($this, [current, next]).then(function () {
 
-                            current.removeClass("uk-active");
-                            next.addClass("uk-active");
+                        current.removeClass("uk-active");
+                        next.addClass("uk-active");
 
-                            // Update ARIA for connect
-                            current.attr('aria-hidden', 'true');
-                            next.attr('aria-hidden', 'false');
+                        // Update ARIA for connect
+                        current.attr('aria-hidden', 'true');
+                        next.attr('aria-hidden', 'false');
 
-                            UI.Utils.checkDisplay(next, true);
+                        UI.Utils.checkDisplay(next, true);
 
-                            $this.animating = false;
+                        $this.animating = false;
 
-                        });
+                    });
                 });
             }
 
@@ -3366,25 +3416,25 @@
 
     Animations = {
 
-        'none': function() {
+        'none': function () {
             var d = UI.$.Deferred();
             d.resolve();
             return d.promise();
         },
 
-        'fade': function(current, next) {
+        'fade': function (current, next) {
             return coreAnimation.apply(this, ['uk-animation-fade', current, next]);
         },
 
-        'slide-bottom': function(current, next) {
+        'slide-bottom': function (current, next) {
             return coreAnimation.apply(this, ['uk-animation-slide-bottom', current, next]);
         },
 
-        'slide-top': function(current, next) {
+        'slide-top': function (current, next) {
             return coreAnimation.apply(this, ['uk-animation-slide-top', current, next]);
         },
 
-        'slide-vertical': function(current, next, dir) {
+        'slide-vertical': function (current, next, dir) {
 
             var anim = ['uk-animation-slide-top', 'uk-animation-slide-bottom'];
 
@@ -3395,15 +3445,15 @@
             return coreAnimation.apply(this, [anim, current, next]);
         },
 
-        'slide-left': function(current, next) {
+        'slide-left': function (current, next) {
             return coreAnimation.apply(this, ['uk-animation-slide-left', current, next]);
         },
 
-        'slide-right': function(current, next) {
+        'slide-right': function (current, next) {
             return coreAnimation.apply(this, ['uk-animation-slide-right', current, next]);
         },
 
-        'slide-horizontal': function(current, next, dir) {
+        'slide-horizontal': function (current, next, dir) {
 
             var anim = ['uk-animation-slide-right', 'uk-animation-slide-left'];
 
@@ -3414,7 +3464,7 @@
             return coreAnimation.apply(this, [anim, current, next]);
         },
 
-        'scale': function(current, next) {
+        'scale': function (current, next) {
             return coreAnimation.apply(this, ['uk-animation-scale-up', current, next]);
         }
     };
@@ -3428,42 +3478,42 @@
 
         var d = UI.$.Deferred(), clsIn = cls, clsOut = cls, release;
 
-        if (next[0]===current[0]) {
+        if (next[0] === current[0]) {
             d.resolve();
             return d.promise();
         }
 
         if (typeof(cls) == 'object') {
-            clsIn  = cls[0];
+            clsIn = cls[0];
             clsOut = cls[1] || cls[0];
         }
 
         UI.$body.css('overflow-x', 'hidden'); // fix scroll jumping in iOS
 
-        release = function() {
+        release = function () {
 
-            if (current) current.hide().removeClass('uk-active '+clsOut+' uk-animation-reverse');
+            if (current) current.hide().removeClass('uk-active ' + clsOut + ' uk-animation-reverse');
 
-            next.addClass(clsIn).one(UI.support.animation.end, function() {
+            next.addClass(clsIn).one(UI.support.animation.end, function () {
 
-                next.removeClass(''+clsIn+'').css({opacity:'', display:''});
+                next.removeClass('' + clsIn + '').css({opacity: '', display: ''});
 
                 d.resolve();
 
                 UI.$body.css('overflow-x', '');
 
-                if (current) current.css({opacity:'', display:''});
+                if (current) current.css({opacity: '', display: ''});
 
             }.bind(this)).show();
         };
 
-        next.css('animation-duration', this.options.duration+'ms');
+        next.css('animation-duration', this.options.duration + 'ms');
 
         if (current && current.length) {
 
-            current.css('animation-duration', this.options.duration+'ms');
+            current.css('animation-duration', this.options.duration + 'ms');
 
-            current.css('display', 'none').addClass(clsOut+' uk-animation-reverse').one(UI.support.animation.end, function() {
+            current.css('display', 'none').addClass(clsOut + ' uk-animation-reverse').one(UI.support.animation.end, function () {
                 release();
             }.bind(this)).css('display', '');
 
@@ -3477,27 +3527,27 @@
 
 })(UIkit);
 
-(function(UI) {
+(function (UI) {
 
     "use strict";
 
     UI.component('tab', {
 
         defaults: {
-            'target'    : '>li:not(.uk-tab-responsive, .uk-disabled)',
-            'connect'   : false,
-            'active'    : 0,
-            'animation' : false,
-            'duration'  : 200,
-            'swiping'   : true
+            'target': '>li:not(.uk-tab-responsive, .uk-disabled)',
+            'connect': false,
+            'active': 0,
+            'animation': false,
+            'duration': 200,
+            'swiping': true
         },
 
-        boot: function() {
+        boot: function () {
 
             // init code
-            UI.ready(function(context) {
+            UI.ready(function (context) {
 
-                UI.$("[data-uk-tab]", context).each(function() {
+                UI.$("[data-uk-tab]", context).each(function () {
 
                     var tab = UI.$(this);
 
@@ -3508,13 +3558,13 @@
             });
         },
 
-        init: function() {
+        init: function () {
 
             var $this = this;
 
             this.current = false;
 
-            this.on("click.uikit.tab", this.options.target, function(e) {
+            this.on("click.uikit.tab", this.options.target, function (e) {
 
                 e.preventDefault();
 
@@ -3545,13 +3595,13 @@
             this.responsivetab = UI.$('<li class="uk-tab-responsive uk-active"><a></a></li>').append('<div class="uk-dropdown uk-dropdown-small"><ul class="uk-nav uk-nav-dropdown"></ul><div>');
 
             this.responsivetab.dropdown = this.responsivetab.find('.uk-dropdown');
-            this.responsivetab.lst      = this.responsivetab.dropdown.find('ul');
-            this.responsivetab.caption  = this.responsivetab.find('a:first');
+            this.responsivetab.lst = this.responsivetab.dropdown.find('ul');
+            this.responsivetab.caption = this.responsivetab.find('a:first');
 
             if (this.element.hasClass("uk-tab-bottom")) this.responsivetab.dropdown.addClass("uk-dropdown-up");
 
             // handle click
-            this.responsivetab.lst.on('click.uikit.tab', 'a', function(e) {
+            this.responsivetab.lst.on('click.uikit.tab', 'a', function (e) {
 
                 e.preventDefault();
                 e.stopPropagation();
@@ -3561,7 +3611,7 @@
                 $this.element.children('li:not(.uk-tab-responsive)').eq(link.data('index')).trigger('click');
             });
 
-            this.on('show.uk.switcher change.uk.tab', function(e, tab) {
+            this.on('show.uk.switcher change.uk.tab', function (e, tab) {
                 $this.responsivetab.caption.html(tab.text());
             });
 
@@ -3570,12 +3620,12 @@
             // init UIkit components
             if (this.options.connect) {
                 this.switcher = UI.switcher(this.element, {
-                    'toggle'    : '>li:not(.uk-tab-responsive)',
-                    'connect'   : this.options.connect,
-                    'active'    : this.options.active,
-                    'animation' : this.options.animation,
-                    'duration'  : this.options.duration,
-                    'swiping'   : this.options.swiping
+                    'toggle': '>li:not(.uk-tab-responsive)',
+                    'connect': this.options.connect,
+                    'active': this.options.active,
+                    'animation': this.options.animation,
+                    'duration': this.options.duration,
+                    'swiping': this.options.swiping
                 });
             }
 
@@ -3586,16 +3636,16 @@
 
             this.check();
 
-            UI.$win.on('resize orientationchange', UI.Utils.debounce(function(){
+            UI.$win.on('resize orientationchange', UI.Utils.debounce(function () {
                 if ($this.element.is(":visible"))  $this.check();
             }, 100));
 
-            this.on('display.uk.check', function(){
+            this.on('display.uk.check', function () {
                 if ($this.element.is(":visible"))  $this.check();
             });
         },
 
-        check: function() {
+        check: function () {
 
             var children = this.element.children('li:not(.uk-tab-responsive)').removeClass('uk-hidden');
 
@@ -3604,13 +3654,13 @@
                 return;
             }
 
-            var top          = (children.eq(0).offset().top + Math.ceil(children.eq(0).height()/2)),
+            var top = (children.eq(0).offset().top + Math.ceil(children.eq(0).height() / 2)),
                 doresponsive = false,
                 item, link, clone;
 
             this.responsivetab.lst.empty();
 
-            children.each(function(){
+            children.each(function () {
 
                 if (UI.$(this).offset().top > top) {
                     doresponsive = true;
@@ -3621,14 +3671,14 @@
 
                 for (var i = 0; i < children.length; i++) {
 
-                    item  = UI.$(children.eq(i));
-                    link  = item.find('a');
+                    item = UI.$(children.eq(i));
+                    link = item.find('a');
 
                     if (item.css('float') != 'none' && !item.attr('uk-dropdown')) {
 
                         if (!item.hasClass('uk-disabled')) {
 
-                            clone = item[0].outerHTML.replace('<a ', '<a data-index="'+i+'" ');
+                            clone = item[0].outerHTML.replace('<a ', '<a data-index="' + i + '" ');
 
                             this.responsivetab.lst.append(clone);
                         }
@@ -3638,48 +3688,48 @@
                 }
             }
 
-            this.responsivetab[this.responsivetab.lst.children('li').length ? 'removeClass':'addClass']('uk-hidden');
+            this.responsivetab[this.responsivetab.lst.children('li').length ? 'removeClass' : 'addClass']('uk-hidden');
         }
     });
 
 })(UIkit);
 
-(function(UI){
+(function (UI) {
 
     "use strict";
 
     UI.component('cover', {
 
         defaults: {
-            automute : true
+            automute: true
         },
 
-        boot: function() {
+        boot: function () {
 
             // auto init
-            UI.ready(function(context) {
+            UI.ready(function (context) {
 
-                UI.$("[data-uk-cover]", context).each(function(){
+                UI.$("[data-uk-cover]", context).each(function () {
 
                     var ele = UI.$(this);
 
-                    if(!ele.data("cover")) {
+                    if (!ele.data("cover")) {
                         var plugin = UI.cover(ele, UI.Utils.options(ele.attr("data-uk-cover")));
                     }
                 });
             });
         },
 
-        init: function() {
+        init: function () {
 
             this.parent = this.element.parent();
 
-            UI.$win.on('load resize orientationchange', UI.Utils.debounce(function(){
+            UI.$win.on('load resize orientationchange', UI.Utils.debounce(function () {
                 this.check();
             }.bind(this), 100));
 
-            this.on("display.uk.check", function(e) {
-                if(this.element.is(":visible")) this.check();
+            this.on("display.uk.check", function (e) {
+                if (this.element.is(":visible")) this.check();
             }.bind(this));
 
             this.check();
@@ -3688,19 +3738,19 @@
 
                 var src = this.element.attr('src');
 
-                this.element.attr('src', '').on('load', function(){
+                this.element.attr('src', '').on('load', function () {
 
                     this.contentWindow.postMessage('{ "event": "command", "func": "mute", "method":"setVolume", "value":0}', '*');
 
-                }).attr('src', [src, (src.indexOf('?') > -1 ? '&':'?'), 'enablejsapi=1&api=1'].join(''));
+                }).attr('src', [src, (src.indexOf('?') > -1 ? '&' : '?'), 'enablejsapi=1&api=1'].join(''));
             }
         },
 
-        check: function() {
+        check: function () {
 
             this.element.css({
-                'width'  : '',
-                'height' : ''
+                'width': '',
+                'height': ''
             });
 
             this.dimension = {w: this.element.width(), h: this.element.height()};
@@ -3713,26 +3763,26 @@
                 this.dimension.h = this.element.attr('height');
             }
 
-            this.ratio     = this.dimension.w / this.dimension.h;
+            this.ratio = this.dimension.w / this.dimension.h;
 
             var w = this.parent.width(), h = this.parent.height(), width, height;
 
             // if element height < parent height (gap underneath)
             if ((w / this.ratio) < h) {
 
-                width  = Math.ceil(h * this.ratio);
+                width = Math.ceil(h * this.ratio);
                 height = h;
 
-            // element width < parent width (gap to right)
+                // element width < parent width (gap to right)
             } else {
 
-                width  = w;
+                width = w;
                 height = Math.ceil(w / this.ratio);
             }
 
             this.element.css({
-                'width'  : width,
-                'height' : height
+                'width': width,
+                'height': height
             });
         }
     });
@@ -3740,7 +3790,7 @@
 })(UIkit);
 
 /*! UIkit 2.24.3 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
-(function(addon) {
+(function (addon) {
     var component;
 
     if (window.UIkit) {
@@ -3748,39 +3798,39 @@
     }
 
     if (typeof define == "function" && define.amd) {
-        define("uikit-accordion", ["uikit"], function(){
+        define("uikit-accordion", ["uikit"], function () {
             return component || addon(UIkit);
         });
     }
-})(function(UI){
+})(function (UI) {
 
     "use strict";
 
     UI.component('accordion', {
 
         defaults: {
-            showfirst  : true,
-            collapse   : true,
-            animate    : true,
-            easing     : 'swing',
-            duration   : 300,
-            toggle     : '.uk-accordion-title',
-            containers : '.uk-accordion-content',
-            clsactive  : 'uk-active'
+            showfirst: true,
+            collapse: true,
+            animate: true,
+            easing: 'swing',
+            duration: 300,
+            toggle: '.uk-accordion-title',
+            containers: '.uk-accordion-content',
+            clsactive: 'uk-active'
         },
 
-        boot:  function() {
+        boot: function () {
 
             // init code
-            UI.ready(function(context) {
+            UI.ready(function (context) {
 
-                setTimeout(function(){
+                setTimeout(function () {
 
-                    UI.$("[data-uk-accordion]", context).each(function(){
+                    UI.$("[data-uk-accordion]", context).each(function () {
 
                         var ele = UI.$(this);
 
-                        if(!ele.data("accordion")) {
+                        if (!ele.data("accordion")) {
                             UI.accordion(ele, UI.Utils.options(ele.attr('data-uk-accordion')));
                         }
                     });
@@ -3789,11 +3839,11 @@
             });
         },
 
-        init: function() {
+        init: function () {
 
             var $this = this;
 
-            this.element.on('click.uikit.accordion', this.options.toggle, function(e) {
+            this.element.on('click.uikit.accordion', this.options.toggle, function (e) {
 
                 e.preventDefault();
 
@@ -3807,7 +3857,7 @@
             }
         },
 
-        toggleItem: function(wrapper, animated, collapse) {
+        toggleItem: function (wrapper, animated, collapse) {
 
             var $this = this;
 
@@ -3819,22 +3869,27 @@
             if (collapse) {
                 this.toggle.not(wrapper.data('toggle')).removeClass(this.options.clsactive);
                 this.content.not(wrapper.data('content')).removeClass(this.options.clsactive)
-                    .parent().stop().css('overflow', 'hidden').animate({ height: 0 }, {easing: this.options.easing, duration: animated ? this.options.duration : 0}).attr('aria-expanded', 'false');
+                    .parent().stop().css('overflow', 'hidden').animate({height: 0}, {
+                    easing: this.options.easing,
+                    duration: animated ? this.options.duration : 0
+                }).attr('aria-expanded', 'false');
             }
 
             wrapper.stop().css('overflow', 'hidden');
 
             if (animated) {
 
-                wrapper.animate({ height: active ? getHeight(wrapper.data('content')) : 0 }, {easing: this.options.easing, duration: this.options.duration, complete: function() {
+                wrapper.animate({height: active ? getHeight(wrapper.data('content')) : 0}, {
+                    easing: this.options.easing, duration: this.options.duration, complete: function () {
 
-                    if (active) {
-                        wrapper.css({'overflow': '', 'height': 'auto'});
-                        UI.Utils.checkDisplay(wrapper.data('content'));
+                        if (active) {
+                            wrapper.css({'overflow': '', 'height': 'auto'});
+                            UI.Utils.checkDisplay(wrapper.data('content'));
+                        }
+
+                        $this.trigger('display.uk.check');
                     }
-
-                    $this.trigger('display.uk.check');
-                }});
+                });
 
             } else {
 
@@ -3854,14 +3909,14 @@
             this.element.trigger('toggle.uk.accordion', [active, wrapper.data('toggle'), wrapper.data('content')]);
         },
 
-        update: function() {
+        update: function () {
 
             var $this = this, $content, $wrapper, $toggle;
 
             this.toggle = this.find(this.options.toggle);
             this.content = this.find(this.options.containers);
 
-            this.content.each(function(index) {
+            this.content.each(function (index) {
 
                 $content = UI.$(this);
 
@@ -3898,9 +3953,9 @@
         } else {
 
             var tmp = {
-                position   : $ele.css("position"),
-                visibility : $ele.css("visibility"),
-                display    : $ele.css("display")
+                position: $ele.css("position"),
+                visibility: $ele.css("visibility"),
+                display: $ele.css("display")
             };
 
             height = $ele.css({position: 'absolute', visibility: 'hidden', display: 'block'}).outerHeight();
@@ -3915,7 +3970,7 @@
 });
 
 /*! UIkit 2.24.3 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
-(function(addon) {
+(function (addon) {
 
     var component;
 
@@ -3924,12 +3979,12 @@
     }
 
     if (typeof define == "function" && define.amd) {
-        define("uikit-autocomplete", ["uikit"], function(){
+        define("uikit-autocomplete", ["uikit"], function () {
             return component || addon(UIkit);
         });
     }
 
-})(function(UI){
+})(function (UI) {
 
     "use strict";
 
@@ -3954,14 +4009,14 @@
             template: '<ul class="uk-nav uk-nav-autocomplete uk-autocomplete-results">{{~items}}<li data-value="{{$item.value}}"><a>{{$item.value}}</a></li>{{/items}}</ul>'
         },
 
-        visible  : false,
-        value    : null,
-        selected : null,
+        visible: false,
+        value: null,
+        selected: null,
 
-        boot: function() {
+        boot: function () {
 
             // init code
-            UI.$html.on("focus.autocomplete.uikit", "[data-uk-autocomplete]", function(e) {
+            UI.$html.on("focus.autocomplete.uikit", "[data-uk-autocomplete]", function (e) {
 
                 var ele = UI.$(this);
 
@@ -3971,17 +4026,17 @@
             });
 
             // register outer click for autocompletes
-            UI.$html.on("click.autocomplete.uikit", function(e) {
-                if (active && e.target!=active.input[0]) active.hide();
+            UI.$html.on("click.autocomplete.uikit", function (e) {
+                if (active && e.target != active.input[0]) active.hide();
             });
         },
 
-        init: function() {
+        init: function () {
 
-            var $this   = this,
-                select  = false,
-                trigger = UI.Utils.debounce(function(e) {
-                    if(select) {
+            var $this = this,
+                select = false,
+                trigger = UI.Utils.debounce(function (e) {
+                    if (select) {
                         return (select = false);
                     }
                     $this.handle();
@@ -3991,10 +4046,10 @@
             this.dropdown = this.find('.uk-dropdown');
             this.template = this.find('script[type="text/autocomplete"]').html();
             this.template = UI.Utils.template(this.template || this.options.template);
-            this.input    = this.find("input:first").attr("autocomplete", "off");
+            this.input = this.find("input:first").attr("autocomplete", "off");
 
             if (!this.dropdown.length) {
-               this.dropdown = UI.$('<div class="uk-dropdown"></div>').appendTo(this.element);
+                this.dropdown = UI.$('<div class="uk-dropdown"></div>').appendTo(this.element);
             }
 
             if (this.options.flipDropdown) {
@@ -4004,7 +4059,7 @@
             this.dropdown.attr('aria-expanded', 'false');
 
             this.input.on({
-                "keydown": function(e) {
+                "keydown": function (e) {
 
                     if (e && e.which && !e.shiftKey) {
 
@@ -4038,18 +4093,18 @@
                 "keyup": trigger
             });
 
-            this.dropdown.on("click", ".uk-autocomplete-results > *", function(){
+            this.dropdown.on("click", ".uk-autocomplete-results > *", function () {
                 $this.select();
             });
 
-            this.dropdown.on("mouseover", ".uk-autocomplete-results > *", function(){
+            this.dropdown.on("mouseover", ".uk-autocomplete-results > *", function () {
                 $this.pick(UI.$(this));
             });
 
             this.triggercomplete = trigger;
         },
 
-        handle: function() {
+        handle: function () {
 
             var $this = this, old = this.value;
 
@@ -4064,10 +4119,10 @@
             return this;
         },
 
-        pick: function(item, scrollinview) {
+        pick: function (item, scrollinview) {
 
-            var $this    = this,
-                items    = UI.$(this.dropdown.find('.uk-autocomplete-results').children(':not(.'+this.options.skipClass+')')),
+            var $this = this,
+                items = UI.$(this.dropdown.find('.uk-autocomplete-results').children(':not(.' + this.options.skipClass + ')')),
                 selected = false;
 
             if (typeof item !== "string" && !item.hasClass(this.options.skipClass)) {
@@ -4098,20 +4153,20 @@
                 // jump to selected if not in view
                 if (scrollinview) {
 
-                    var top       = selected.position().top,
+                    var top = selected.position().top,
                         scrollTop = $this.dropdown.scrollTop(),
-                        dpheight  = $this.dropdown.height();
+                        dpheight = $this.dropdown.height();
 
-                    if (top > dpheight ||  top < 0) {
+                    if (top > dpheight || top < 0) {
                         $this.dropdown.scrollTop(scrollTop + top);
                     }
                 }
             }
         },
 
-        select: function() {
+        select: function () {
 
-            if(!this.selected) return;
+            if (!this.selected) return;
 
             var data = this.selected.data();
 
@@ -4124,12 +4179,12 @@
             this.hide();
         },
 
-        show: function() {
+        show: function () {
             if (this.visible) return;
             this.visible = true;
             this.element.addClass("uk-open");
 
-            if (active && active!==this) {
+            if (active && active !== this) {
                 active.hide();
             }
 
@@ -4141,7 +4196,7 @@
             return this;
         },
 
-        hide: function() {
+        hide: function () {
             if (!this.visible) return;
             this.visible = false;
             this.element.removeClass("uk-open");
@@ -4156,12 +4211,12 @@
             return this;
         },
 
-        request: function() {
+        request: function () {
 
-            var $this   = this,
-                release = function(data) {
+            var $this = this,
+                release = function (data) {
 
-                    if(data) {
+                    if (data) {
                         $this.render(data);
                     }
 
@@ -4174,7 +4229,7 @@
 
                 var source = this.options.source;
 
-                switch(typeof(this.options.source)) {
+                switch (typeof(this.options.source)) {
                     case 'function':
 
                         this.options.source.apply(this, [release]);
@@ -4183,12 +4238,12 @@
 
                     case 'object':
 
-                        if(source.length) {
+                        if (source.length) {
 
                             var items = [];
 
-                            source.forEach(function(item){
-                                if(item.value && item.value.toLowerCase().indexOf($this.value.toLowerCase())!=-1) {
+                            source.forEach(function (item) {
+                                if (item.value && item.value.toLowerCase().indexOf($this.value.toLowerCase()) != -1) {
                                     items.push(item);
                                 }
                             });
@@ -4200,7 +4255,7 @@
 
                     case 'string':
 
-                        var params ={};
+                        var params = {};
 
                         params[this.options.param] = this.value;
 
@@ -4209,7 +4264,7 @@
                             data: params,
                             type: this.options.method,
                             dataType: 'json'
-                        }).done(function(json) {
+                        }).done(function (json) {
                             release(json || []);
                         });
 
@@ -4224,7 +4279,7 @@
             }
         },
 
-        render: function(data) {
+        render: function (data) {
 
             this.dropdown.empty();
 
@@ -4234,9 +4289,9 @@
 
                 this.options.renderer.apply(this, [data]);
 
-            } else if(data && data.length) {
+            } else if (data && data.length) {
 
-                this.dropdown.append(this.template({"items":data}));
+                this.dropdown.append(this.template({"items": data}));
                 this.show();
 
                 this.trigger('show.uk.autocomplete');
@@ -4253,7 +4308,7 @@
 // removed moment_js from core
 // customized by tzd
 
-(function(addon) {
+(function (addon) {
 
     var component;
 
@@ -4262,12 +4317,12 @@
     }
 
     if (typeof define == "function" && define.amd) {
-        define("uikit-datepicker", ["uikit"], function(){
+        define("uikit-datepicker", ["uikit"], function () {
             return component || addon(UIkit);
         });
     }
 
-})(function(UI){
+})(function (UI) {
 
     "use strict";
 
@@ -4281,8 +4336,8 @@
             mobile: false,
             weekstart: 1,
             i18n: {
-                months        : ['January','February','March','April','May','June','July','August','September','October','November','December'],
-                weekdays      : ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']
+                months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                weekdays: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
             },
             format: "DD.MM.YYYY",
             offsettop: 5,
@@ -4290,7 +4345,7 @@
             minDate: false,
             pos: 'auto',
             addClass: '',
-            template: function(data, opts) {
+            template: function (data, opts) {
 
                 var content = '', i;
 
@@ -4302,15 +4357,15 @@
 
                     var currentyear = (new Date()).getFullYear(), options = [], months, years, minYear, maxYear;
 
-                    for (i=0;i<opts.i18n.months.length;i++) {
-                        if(i==data.month) {
-                            options.push('<option value="'+i+'" selected>'+opts.i18n.months[i]+'</option>');
+                    for (i = 0; i < opts.i18n.months.length; i++) {
+                        if (i == data.month) {
+                            options.push('<option value="' + i + '" selected>' + opts.i18n.months[i] + '</option>');
                         } else {
-                            options.push('<option value="'+i+'">'+opts.i18n.months[i]+'</option>');
+                            options.push('<option value="' + i + '">' + opts.i18n.months[i] + '</option>');
                         }
                     }
 
-                    months = '<span class="uk-form-select">'+ opts.i18n.months[data.month] + '<select class="update-picker-month">'+options.join('')+'</select></span>';
+                    months = '<span class="uk-form-select">' + opts.i18n.months[data.month] + '<select class="update-picker-month">' + options.join('') + '</select></span>';
 
                     // --
 
@@ -4319,47 +4374,47 @@
                     minYear = data.minDate ? data.minDate.year() : currentyear - 50;
                     maxYear = data.maxDate ? data.maxDate.year() : currentyear + 20;
 
-                    for (i=minYear;i<=maxYear;i++) {
+                    for (i = minYear; i <= maxYear; i++) {
                         if (i == data.year) {
-                            options.push('<option value="'+i+'" selected>'+i+'</option>');
+                            options.push('<option value="' + i + '" selected>' + i + '</option>');
                         } else {
-                            options.push('<option value="'+i+'">'+i+'</option>');
+                            options.push('<option value="' + i + '">' + i + '</option>');
                         }
                     }
 
-                    years  = '<span class="uk-form-select">'+ data.year + '<select class="update-picker-year">'+options.join('')+'</select></span>';
+                    years = '<span class="uk-form-select">' + data.year + '<select class="update-picker-year">' + options.join('') + '</select></span>';
 
-                    content += '<div class="uk-datepicker-heading">'+ months + ' ' + years +'</div>';
+                    content += '<div class="uk-datepicker-heading">' + months + ' ' + years + '</div>';
 
                 } else {
-                    content += '<div class="uk-datepicker-heading">'+ opts.i18n.months[data.month] +' '+ data.year+'</div>';
+                    content += '<div class="uk-datepicker-heading">' + opts.i18n.months[data.month] + ' ' + data.year + '</div>';
                 }
 
                 content += '</div>';
 
                 content += '<table class="uk-datepicker-table">';
                 content += '<thead>';
-                for(i = 0; i < data.weekdays.length; i++) {
+                for (i = 0; i < data.weekdays.length; i++) {
                     if (data.weekdays[i]) {
-                        content += '<th>'+data.weekdays[i]+'</th>';
+                        content += '<th>' + data.weekdays[i] + '</th>';
                     }
                 }
                 content += '</thead>';
 
                 content += '<tbody>';
-                for(i = 0; i < data.days.length; i++) {
-                    if (data.days[i] && data.days[i].length){
+                for (i = 0; i < data.days.length; i++) {
+                    if (data.days[i] && data.days[i].length) {
                         content += '<tr>';
-                        for(var d = 0; d < data.days[i].length; d++) {
+                        for (var d = 0; d < data.days[i].length; d++) {
                             if (data.days[i][d]) {
                                 var day = data.days[i][d],
                                     cls = [];
 
-                                if(!day.inmonth) cls.push("uk-datepicker-table-muted");
-                                if(day.selected) cls.push("uk-active");
-                                if(day.disabled) cls.push('uk-datepicker-date-disabled uk-datepicker-table-muted');
+                                if (!day.inmonth) cls.push("uk-datepicker-table-muted");
+                                if (day.selected) cls.push("uk-active");
+                                if (day.disabled) cls.push('uk-datepicker-date-disabled uk-datepicker-table-muted');
 
-                                content += '<td><a href="" class="'+cls.join(" ")+'" data-date="'+day.day.format()+'">'+day.day.format("D")+'</a></td>';
+                                content += '<td><a href="" class="' + cls.join(" ") + '" data-date="' + day.day.format() + '">' + day.day.format("D") + '</a></td>';
                             }
                         }
                         content += '</tr>';
@@ -4373,9 +4428,9 @@
             }
         },
 
-        boot: function() {
+        boot: function () {
 
-            UI.$win.on("resize orientationchange", function() {
+            UI.$win.on("resize orientationchange", function () {
 
                 if (active) {
                     active.hide();
@@ -4383,7 +4438,7 @@
             });
 
             // init code
-            UI.$html.on("focus.datepicker.uikit", "[data-uk-datepicker]", function(e) {
+            UI.$html.on("focus.datepicker.uikit", "[data-uk-datepicker]", function (e) {
 
                 var ele = UI.$(this);
 
@@ -4394,7 +4449,7 @@
                 }
             });
 
-            UI.$html.on("click focus", '*', function(e) {
+            UI.$html.on("click focus", '*', function (e) {
 
                 var target = UI.$(e.target);
 
@@ -4404,20 +4459,20 @@
             });
         },
 
-        init: function() {
+        init: function () {
 
             // use native datepicker on touch devices
-            if (UI.support.touch && this.element.attr('type')=='date' && !this.options.mobile) {
+            if (UI.support.touch && this.element.attr('type') == 'date' && !this.options.mobile) {
                 return;
             }
 
             var $this = this;
 
-            this.current  = this.element.val() ? moment(this.element.val(), this.options.format) : moment();
+            this.current = this.element.val() ? moment(this.element.val(), this.options.format) : moment();
 
-            this.on("click focus", function(){
-                if (active!==$this) $this.pick(this.value ? this.value:($this.options.minDate ? $this.options.minDate :''));
-            }).on("change", function(){
+            this.on("click focus", function () {
+                if (active !== $this) $this.pick(this.value ? this.value : ($this.options.minDate ? $this.options.minDate : ''));
+            }).on("change", function () {
                 if ($this.element.val() && !moment($this.element.val(), $this.options.format).isValid()) {
                     $this.element.val(moment().format($this.options.format));
                 }
@@ -4426,9 +4481,9 @@
             // init dropdown
             if (!dropdown) {
 
-                dropdown = UI.$('<div class="uk-dropdown uk-datepicker '+$this.options.addClass+'"></div>');
-                
-                dropdown.on("click", ".uk-datepicker-next, .uk-datepicker-previous, [data-date]", function(e){
+                dropdown = UI.$('<div class="uk-dropdown uk-datepicker ' + $this.options.addClass + '"></div>');
+
+                dropdown.on("click", ".uk-datepicker-next, .uk-datepicker-previous, [data-date]", function (e) {
 
                     e.stopPropagation();
                     e.preventDefault();
@@ -4441,26 +4496,26 @@
                         active.current = moment(ele.data("date"));
                         active.element.val(active.current.format(active.options.format)).trigger("change");
                         dropdown.removeClass('uk-dropdown-shown');
-                        setTimeout(function() {
+                        setTimeout(function () {
                             dropdown.removeClass('uk-dropdown-active')
-                        },280);
+                        }, 280);
                         active.hide();
                     } else {
-                        active.add((ele.hasClass("uk-datepicker-next") ? 1:-1), "months");
+                        active.add((ele.hasClass("uk-datepicker-next") ? 1 : -1), "months");
                     }
                 });
 
-                dropdown.on('change', '.update-picker-month, .update-picker-year', function(){
+                dropdown.on('change', '.update-picker-month, .update-picker-year', function () {
 
                     var select = UI.$(this);
-                    active[select.is('.update-picker-year') ? 'setYear':'setMonth'](Number(select.val()));
+                    active[select.is('.update-picker-year') ? 'setYear' : 'setMonth'](Number(select.val()));
                 });
 
                 dropdown.appendTo("body");
             }
         },
 
-        pick: function(initdate) {
+        pick: function (initdate) {
 
             var offset = this.element.offset(),
                 offset_left = parseInt(offset.left),
@@ -4470,17 +4525,17 @@
                     'right': ""
                 };
 
-            this.current  = isNaN(initdate) ? moment(initdate, this.options.format):moment();
+            this.current = isNaN(initdate) ? moment(initdate, this.options.format) : moment();
             this.initdate = this.current.format("YYYY-MM-DD");
 
             this.update();
 
-            if (UI.langdirection == 'right' || ( window.innerWidth - offset_left - dropdown.outerWidth() < 0 ) ) {
+            if (UI.langdirection == 'right' || ( window.innerWidth - offset_left - dropdown.outerWidth() < 0 )) {
                 css.right = (window.innerWidth - (window.innerWidth - $('body').width())) - (css.left + this.element.outerWidth());
-                css.left  = "";
+                css.left = "";
             }
 
-            var posTop    = (offset_top - this.element.outerHeight() + this.element.height()) - this.options.offsettop - dropdown.outerHeight(),
+            var posTop = (offset_top - this.element.outerHeight() + this.element.height()) - this.options.offsettop - dropdown.outerHeight(),
                 posBottom = offset_top + this.element.outerHeight() + this.options.offsettop;
 
             css.top = posBottom;
@@ -4488,7 +4543,7 @@
             if (this.options.pos == 'top') {
                 css.top = posTop;
                 dropdown.addClass('dp-top');
-            } else if(this.options.pos == 'auto' && (window.innerHeight - posBottom - dropdown.outerHeight() + UI.$win.scrollTop() < 0 && posTop >= 0) ) {
+            } else if (this.options.pos == 'auto' && (window.innerHeight - posBottom - dropdown.outerHeight() + UI.$win.scrollTop() < 0 && posTop >= 0)) {
                 css.top = posTop;
                 dropdown.addClass('dp-top');
             }
@@ -4502,51 +4557,51 @@
             active = this;
         },
 
-        add: function(unit, value) {
+        add: function (unit, value) {
             this.current.add(unit, value);
             this.update();
         },
 
-        setMonth: function(month) {
+        setMonth: function (month) {
             this.current.month(month);
             this.update();
         },
 
-        setYear: function(year) {
+        setYear: function (year) {
             this.current.year(year);
             this.update();
         },
 
-        update: function() {
+        update: function () {
 
             var data = this.getRows(this.current.year(), this.current.month()),
-                tpl  = this.options.template(data, this.options);
+                tpl = this.options.template(data, this.options);
 
             dropdown.html(tpl);
 
             this.trigger('update.uk.datepicker');
         },
 
-        getRows: function(year, month) {
+        getRows: function (year, month) {
 
-            var opts   = this.options,
-                now    = moment().format('YYYY-MM-DD'),
-                days   = [31, (year % 4 === 0 && year % 100 !== 0 || year % 400 === 0) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month],
+            var opts = this.options,
+                now = moment().format('YYYY-MM-DD'),
+                days = [31, (year % 4 === 0 && year % 100 !== 0 || year % 400 === 0) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month],
                 before = new Date(year, month, 1, 12).getDay(),
-                data   = {"month":month, "year":year,"weekdays":[],"days":[], "maxDate": false, "minDate": false},
-                row    = [];
+                data = {"month": month, "year": year, "weekdays": [], "days": [], "maxDate": false, "minDate": false},
+                row = [];
 
-            if (opts.maxDate!==false){
+            if (opts.maxDate !== false) {
                 data.maxDate = isNaN(opts.maxDate) ? moment(opts.maxDate, opts.format) : moment().add(opts.maxDate, 'days');
             }
 
-            if (opts.minDate!==false){
-                data.minDate = isNaN(opts.minDate) ? moment(opts.minDate, opts.format) : moment().add(opts.minDate-1, 'days');
+            if (opts.minDate !== false) {
+                data.minDate = isNaN(opts.minDate) ? moment(opts.minDate, opts.format) : moment().add(opts.minDate - 1, 'days');
             }
 
-            data.weekdays = (function(){
+            data.weekdays = (function () {
 
-                for (var i=0, arr=[]; i < 7; i++) {
+                for (var i = 0, arr = []; i < 7; i++) {
 
                     var day = i + (opts.weekstart || 0);
 
@@ -4569,7 +4624,9 @@
 
             var cells = days + before, after = cells;
 
-            while(after > 7) { after -= 7; }
+            while (after > 7) {
+                after -= 7;
+            }
 
             cells += 7 - after;
 
@@ -4577,16 +4634,22 @@
 
             for (var i = 0, r = 0; i < cells; i++) {
 
-                day        = new Date(year, month, 1 + (i - before), 12);
+                day = new Date(year, month, 1 + (i - before), 12);
                 isDisabled = (data.minDate && data.minDate > day) || (data.maxDate && day > data.maxDate);
-                isInMonth  = !(i < before || i >= (days + before));
+                isInMonth = !(i < before || i >= (days + before));
 
                 day = moment(day);
 
                 isSelected = this.initdate == day.format("YYYY-MM-DD");
-                isToday    = now == day.format("YYYY-MM-DD");
+                isToday = now == day.format("YYYY-MM-DD");
 
-                row.push({"selected": isSelected, "today": isToday, "disabled": isDisabled, "day":day, "inmonth":isInMonth});
+                row.push({
+                    "selected": isSelected,
+                    "today": isToday,
+                    "disabled": isDisabled,
+                    "day": day,
+                    "inmonth": isInMonth
+                });
 
                 if (++r === 7) {
                     data.days.push(row);
@@ -4598,13 +4661,13 @@
             return data;
         },
 
-        hide: function() {
+        hide: function () {
 
             if (active && active === this) {
                 dropdown.removeClass('uk-dropdown-shown');
-                setTimeout(function() {
+                setTimeout(function () {
                     dropdown.removeClass('uk-dropdown-active dp-top')
-                },280);
+                }, 280);
                 active = false;
                 this.trigger('hide.uk.datepicker');
             }
@@ -4616,7 +4679,7 @@
     return UI.datepicker;
 });
 /*! UIkit 2.24.3 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
-(function(addon) {
+(function (addon) {
 
     var component;
 
@@ -4625,12 +4688,12 @@
     }
 
     if (typeof define == "function" && define.amd) {
-        define("uikit-form-password", ["uikit"], function(){
+        define("uikit-form-password", ["uikit"], function () {
             return component || addon(UIkit);
         });
     }
 
-})(function(UI){
+})(function (UI) {
 
     "use strict";
 
@@ -4641,9 +4704,9 @@
             "lblHide": "Hide"
         },
 
-        boot: function() {
+        boot: function () {
             // init code
-            UI.$html.on("click.formpassword.uikit", "[data-uk-form-password]", function(e) {
+            UI.$html.on("click.formpassword.uikit", "[data-uk-form-password]", function (e) {
 
                 var ele = UI.$(this);
 
@@ -4657,23 +4720,23 @@
             });
         },
 
-        init: function() {
+        init: function () {
 
             var $this = this;
 
-            this.on("click", function(e) {
+            this.on("click", function (e) {
 
                 e.preventDefault();
 
-                if($this.input.length) {
+                if ($this.input.length) {
                     var type = $this.input.attr("type");
-                    $this.input.attr("type", type=="text" ? "password":"text");
-                    $this.element.html($this.options[type=="text" ? "lblShow":"lblHide"]);
+                    $this.input.attr("type", type == "text" ? "password" : "text");
+                    $this.element.html($this.options[type == "text" ? "lblShow" : "lblHide"]);
                 }
             });
 
             this.input = this.element.next("input").length ? this.element.next("input") : this.element.prev("input");
-            this.element.html(this.options[this.input.is("[type='password']") ? "lblShow":"lblHide"]);
+            this.element.html(this.options[this.input.is("[type='password']") ? "lblShow" : "lblHide"]);
 
 
             this.element.data("formPassword", this);
@@ -4684,7 +4747,7 @@
 });
 
 /*! UIkit 2.24.3 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
-(function(addon) {
+(function (addon) {
 
     var component;
 
@@ -4693,12 +4756,12 @@
     }
 
     if (typeof define == "function" && define.amd) {
-        define("uikit-form-select", ["uikit"], function(){
+        define("uikit-form-select", ["uikit"], function () {
             return component || addon(UIkit);
         });
     }
 
-})(function(UI){
+})(function (UI) {
 
     "use strict";
 
@@ -4709,11 +4772,11 @@
             'activeClass': 'uk-active'
         },
 
-        boot: function() {
+        boot: function () {
             // init code
-            UI.ready(function(context) {
+            UI.ready(function (context) {
 
-                UI.$("[data-uk-form-select]", context).each(function(){
+                UI.$("[data-uk-form-select]", context).each(function () {
 
                     var ele = UI.$(this);
 
@@ -4724,22 +4787,23 @@
             });
         },
 
-        init: function() {
+        init: function () {
             var $this = this;
 
-            this.target  = this.find(this.options.target);
-            this.select  = this.find('select');
+            this.target = this.find(this.options.target);
+            this.select = this.find('select');
 
             // init + on change event
-            this.select.on("change", (function(){
+            this.select.on("change", (function () {
 
-                var select = $this.select[0], fn = function(){
+                var select = $this.select[0], fn = function () {
 
                     try {
                         $this.target.text(select.options[select.selectedIndex].text);
-                    } catch(e) {}
+                    } catch (e) {
+                    }
 
-                    $this.element[$this.select.val() ? 'addClass':'removeClass']($this.options.activeClass);
+                    $this.element[$this.select.val() ? 'addClass' : 'removeClass']($this.options.activeClass);
 
                     return fn;
                 };
@@ -4755,7 +4819,7 @@
 });
 
 /*! UIkit 2.24.3 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
-(function(addon) {
+(function (addon) {
 
     var component;
 
@@ -4764,48 +4828,48 @@
     }
 
     if (typeof define == "function" && define.amd) {
-        define("uikit-grid", ["uikit"], function(){
+        define("uikit-grid", ["uikit"], function () {
             return component || addon(UIkit);
         });
     }
 
-})(function(UI){
+})(function (UI) {
 
     "use strict";
 
     UI.component('grid', {
 
         defaults: {
-            colwidth  : 'auto',
-            animation : true,
-            duration  : 300,
-            gutter    : 0,
-            controls  : false,
-            filter    : false
+            colwidth: 'auto',
+            animation: true,
+            duration: 300,
+            gutter: 0,
+            controls: false,
+            filter: false
         },
 
-        boot:  function() {
+        boot: function () {
 
             // init code
-            UI.ready(function(context) {
+            UI.ready(function (context) {
 
-                UI.$('[data-uk-grid]', context).each(function(){
+                UI.$('[data-uk-grid]', context).each(function () {
 
                     var ele = UI.$(this);
 
-                    if(!ele.data("grid")) {
+                    if (!ele.data("grid")) {
                         UI.grid(ele, UI.Utils.options(ele.attr('data-uk-grid')));
                     }
                 });
             });
         },
 
-        init: function() {
+        init: function () {
 
             var $this = this, gutter = String(this.options.gutter).trim().split(' ');
 
-            this.gutterv  = parseInt(gutter[0], 10);
-            this.gutterh  = parseInt((gutter[1] || gutter[0]), 10);
+            this.gutterv = parseInt(gutter[0], 10);
+            this.gutterh = parseInt((gutter[1] || gutter[0]), 10);
 
             // make sure parent element has the right position property
             this.element.css({'position': 'relative'});
@@ -4817,20 +4881,20 @@
                 this.controls = UI.$(this.options.controls);
 
                 // filter
-                this.controls.on('click', '[data-uk-filter]', function(e){
+                this.controls.on('click', '[data-uk-filter]', function (e) {
                     e.preventDefault();
                     $this.filter(UI.$(this).data('ukFilter'));
                 });
 
                 // sort
-                this.controls.on('click', '[data-uk-sort]', function(e){
+                this.controls.on('click', '[data-uk-sort]', function (e) {
                     e.preventDefault();
                     var cmd = UI.$(this).attr('data-uk-sort').split(':');
                     $this.sort(cmd[0], cmd[1]);
                 });
             }
 
-            UI.$win.on('load resize orientationchange', UI.Utils.debounce(function(){
+            UI.$win.on('load resize orientationchange', UI.Utils.debounce(function () {
 
                 if ($this.currentfilter) {
                     $this.filter($this.currentfilter);
@@ -4840,11 +4904,11 @@
 
             }.bind(this), 100));
 
-            this.on('display.uk.check', function(){
+            this.on('display.uk.check', function () {
                 if ($this.element.is(":visible"))  $this.updateLayout();
             });
 
-            UI.$html.on("changed.uk.dom", function(e) {
+            UI.$html.on("changed.uk.dom", function (e) {
                 $this.updateLayout();
             });
 
@@ -4855,7 +4919,7 @@
             }
         },
 
-        _prepareElements: function() {
+        _prepareElements: function () {
 
             var children = this.element.children(':not([data-grid-prepared])'), css;
 
@@ -4865,14 +4929,14 @@
             }
 
             css = {
-                'position'   : 'absolute',
-                'box-sizing' : 'border-box',
-                'width'      : this.options.colwidth == 'auto' ? '' : this.options.colwidth
+                'position': 'absolute',
+                'box-sizing': 'border-box',
+                'width': this.options.colwidth == 'auto' ? '' : this.options.colwidth
             };
 
             if (this.options.gutter) {
 
-                css['padding-left']   = this.gutterh;
+                css['padding-left'] = this.gutterh;
                 css['padding-bottom'] = this.gutterv;
 
                 this.element.css('margin-left', this.gutterh * -1);
@@ -4881,72 +4945,78 @@
             children.attr('data-grid-prepared', 'true').css(css);
         },
 
-        updateLayout: function(elements) {
+        updateLayout: function (elements) {
 
             this._prepareElements();
 
             elements = elements || this.element.children(':visible');
 
-            var children  = elements,
-                maxwidth  = this.element.width() + (2*this.gutterh) + 2,
-                left      = 0,
-                top       = 0,
+            var children = elements,
+                maxwidth = this.element.width() + (2 * this.gutterh) + 2,
+                left = 0,
+                top = 0,
                 positions = [],
 
                 item, width, height, pos, i, z, max, size;
 
             this.trigger('beforeupdate.uk.grid', [children]);
 
-            children.each(function(index){
+            children.each(function (index) {
 
-                size   = getElementSize(this);
+                size = getElementSize(this);
 
-                item   = UI.$(this);
-                width  = size.outerWidth;
+                item = UI.$(this);
+                width = size.outerWidth;
                 height = size.outerHeight;
-                left   = 0;
-                top    = 0;
+                left = 0;
+                top = 0;
 
-                for (i=0,max=positions.length;i<max;i++) {
+                for (i = 0, max = positions.length; i < max; i++) {
 
                     pos = positions[i];
 
-                    if (left <= pos.aX) { left = pos.aX; }
-                    if (maxwidth < (left + width)) { left = 0; }
-                    if (top <= pos.aY) { top = pos.aY; }
+                    if (left <= pos.aX) {
+                        left = pos.aX;
+                    }
+                    if (maxwidth < (left + width)) {
+                        left = 0;
+                    }
+                    if (top <= pos.aY) {
+                        top = pos.aY;
+                    }
                 }
 
                 positions.push({
-                    "ele"    : item,
-                    "top"    : top,
-                    "left"   : left,
-                    "width"  : width,
-                    "height" : height,
-                    "aY"     : (top  + height),
-                    "aX"     : (left + width)
+                    "ele": item,
+                    "top": top,
+                    "left": left,
+                    "width": width,
+                    "height": height,
+                    "aY": (top + height),
+                    "aX": (left + width)
                 });
             });
 
             var posPrev, maxHeight = 0;
 
             // fix top
-            for (i=0,max=positions.length;i<max;i++) {
+            for (i = 0, max = positions.length; i < max; i++) {
 
                 pos = positions[i];
                 top = 0;
 
-                for (z=0;z<i;z++) {
+                for (z = 0; z < i; z++) {
 
                     posPrev = positions[z];
 
                     // (posPrev.left + 1) fixex 1px bug when using % based widths
-                    if (pos.left < posPrev.aX && (posPrev.left +1) < pos.aX) {
+                    if (pos.left < posPrev.aX && (posPrev.left + 1) < pos.aX) {
                         top = posPrev.aY;
                     }
                 }
 
                 pos.top = top;
-                pos.aY  = top + pos.height;
+                pos.aY = top + pos.height;
 
                 maxHeight = Math.max(maxHeight, pos.aY);
             }
@@ -4957,7 +5027,7 @@
 
                 this.element.stop().animate({'height': maxHeight}, 100);
 
-                positions.forEach(function(pos){
+                positions.forEach(function (pos) {
                     pos.ele.stop().animate({"top": pos.top, "left": pos.left, opacity: 1}, this.options.duration);
                 }.bind(this));
 
@@ -4965,20 +5035,20 @@
 
                 this.element.css('height', maxHeight);
 
-                positions.forEach(function(pos){
+                positions.forEach(function (pos) {
                     pos.ele.css({"top": pos.top, "left": pos.left, opacity: 1});
                 }.bind(this));
             }
 
             // make sure to trigger possible scrollpies etc.
-            setTimeout(function() {
+            setTimeout(function () {
                 UI.$doc.trigger('scrolling.uk.document');
-            }, 2 * this.options.duration * (this.options.animation ? 1:0));
+            }, 2 * this.options.duration * (this.options.animation ? 1 : 0));
 
             this.trigger('afterupdate.uk.grid', [children]);
         },
 
-        filter: function(filter) {
+        filter: function (filter) {
 
             this.currentfilter = filter;
 
@@ -4989,30 +5059,41 @@
             }
 
             if (typeof(filter) === 'string') {
-                filter = filter.split(/,/).map(function(item){ return item.trim(); });
+                filter = filter.split(/,/).map(function (item) {
+                    return item.trim();
+                });
             }
 
-            var $this = this, children = this.element.children(), elements = {"visible": [], "hidden": []}, visible, hidden;
+            var $this = this, children = this.element.children(), elements = {
+                "visible": [],
+                "hidden": []
+            }, visible, hidden;
 
-            children.each(function(index){
+            children.each(function (index) {
 
                 var ele = UI.$(this), f = ele.attr('data-uk-filter'), infilter = filter.length ? false : true;
 
                 if (f) {
 
-                    f = f.split(/,/).map(function(item){ return item.trim(); });
+                    f = f.split(/,/).map(function (item) {
+                        return item.trim();
+                    });
 
-                    filter.forEach(function(item){
+                    filter.forEach(function (item) {
                         if (f.indexOf(item) > -1) infilter = true;
                     });
                 }
 
-                elements[infilter ? "visible":"hidden"].push(ele);
+                elements[infilter ? "visible" : "hidden"].push(ele);
             });
 
             // convert to jQuery collections
-            elements.hidden  = UI.$(elements.hidden).map(function () {return this[0];});
-            elements.visible = UI.$(elements.visible).map(function () {return this[0];});
+            elements.hidden = UI.$(elements.hidden).map(function () {
+                return this[0];
+            });
+            elements.visible = UI.$(elements.visible).map(function () {
+                return this[0];
+            });
 
             elements.hidden.attr('aria-hidden', 'true').filter(':visible').fadeOut(this.options.duration);
             elements.visible.attr('aria-hidden', 'false').filter(':hidden').css('opacity', 0).show();
@@ -5020,11 +5101,11 @@
             $this.updateLayout(elements.visible);
 
             if (this.controls && this.controls.length) {
-                this.controls.find('[data-uk-filter]').removeClass('uk-active').filter('[data-uk-filter="'+filter+'"]').addClass('uk-active');
+                this.controls.find('[data-uk-filter]').removeClass('uk-active').filter('[data-uk-filter="' + filter + '"]').addClass('uk-active');
             }
         },
 
-        sort: function(by, order){
+        sort: function (by, order) {
 
             order = order || 1;
 
@@ -5035,42 +5116,42 @@
 
             var elements = this.element.children();
 
-            elements.sort(function(a, b){
+            elements.sort(function (a, b) {
 
                 a = UI.$(a);
                 b = UI.$(b);
 
-                return (b.data(by) || '') < (a.data(by) || '') ? order : (order*-1);
+                return (b.data(by) || '') < (a.data(by) || '') ? order : (order * -1);
 
             }).appendTo(this.element);
 
             this.updateLayout(elements.filter(':visible'));
 
             if (this.controls && this.controls.length) {
-                this.controls.find('[data-uk-sort]').removeClass('uk-active').filter('[data-uk-sort="'+by+':'+(order == -1 ? 'desc':'asc')+'"]').addClass('uk-active');
+                this.controls.find('[data-uk-sort]').removeClass('uk-active').filter('[data-uk-sort="' + by + ':' + (order == -1 ? 'desc' : 'asc') + '"]').addClass('uk-active');
             }
         }
     });
 
 
     /*!
-    * getSize v1.2.2
-    * measure size of elements
-    * MIT license
-    * https://github.com/desandro/get-size
-    */
-    var _getSize = (function(){
+     * getSize v1.2.2
+     * measure size of elements
+     * MIT license
+     * https://github.com/desandro/get-size
+     */
+    var _getSize = (function () {
 
         var prefixes = 'Webkit Moz ms Ms O'.split(' ');
         var docElemStyle = document.documentElement.style;
 
-        function getStyleProperty( propName ) {
-            if ( !propName ) {
+        function getStyleProperty(propName) {
+            if (!propName) {
                 return;
             }
 
             // test standard property first
-            if ( typeof docElemStyle[ propName ] === 'string' ) {
+            if (typeof docElemStyle[propName] === 'string') {
                 return propName;
             }
 
@@ -5079,9 +5160,9 @@
 
             // test vendor specific properties
             var prefixed;
-            for ( var i=0, len = prefixes.length; i < len; i++ ) {
+            for (var i = 0, len = prefixes.length; i < len; i++) {
                 prefixed = prefixes[i] + propName;
-                if ( typeof docElemStyle[ prefixed ] === 'string' ) {
+                if (typeof docElemStyle[prefixed] === 'string') {
                     return prefixed;
                 }
             }
@@ -5090,17 +5171,18 @@
         // -------------------------- helpers -------------------------- //
 
         // get a number from a string, not a percentage
-        function getStyleSize( value ) {
-            var num = parseFloat( value );
+        function getStyleSize(value) {
+            var num = parseFloat(value);
             // not a percent like '100%', and a number
-            var isValid = value.indexOf('%') === -1 && !isNaN( num );
+            var isValid = value.indexOf('%') === -1 && !isNaN(num);
             return isValid && num;
         }
 
-        function noop() {}
+        function noop() {
+        }
 
-        var logError = typeof console === 'undefined' ? noop : function( message ) {
-            console.error( message );
+        var logError = typeof console === 'undefined' ? noop : function (message) {
+            console.error(message);
         };
 
         // -------------------------- measurements -------------------------- //
@@ -5129,9 +5211,9 @@
                 outerWidth: 0,
                 outerHeight: 0
             };
-            for ( var i=0, len = measurements.length; i < len; i++ ) {
+            for (var i = 0, len = measurements.length; i < len; i++) {
                 var measurement = measurements[i];
-                size[ measurement ] = 0;
+                size[measurement] = 0;
             }
             return size;
         }
@@ -5143,33 +5225,33 @@
         var getStyle, boxSizingProp, isBoxSizeOuter;
 
         /**
-        * setup vars and functions
-        * do it on initial getSize(), rather than on script load
-        * For Firefox bug https://bugzilla.mozilla.org/show_bug.cgi?id=548397
-        */
+         * setup vars and functions
+         * do it on initial getSize(), rather than on script load
+         * For Firefox bug https://bugzilla.mozilla.org/show_bug.cgi?id=548397
+         */
         function setup() {
             // setup once
-            if ( isSetup ) {
+            if (isSetup) {
                 return;
             }
             isSetup = true;
 
             var getComputedStyle = window.getComputedStyle;
-            getStyle = ( function() {
+            getStyle = (function () {
                 var getStyleFn = getComputedStyle ?
-                function( elem ) {
-                    return getComputedStyle( elem, null );
-                } :
-                function( elem ) {
-                    return elem.currentStyle;
-                };
+                    function (elem) {
+                        return getComputedStyle(elem, null);
+                    } :
+                    function (elem) {
+                        return elem.currentStyle;
+                    };
 
-                return function getStyle( elem ) {
-                    var style = getStyleFn( elem );
-                    if ( !style ) {
-                        logError( 'Style returned ' + style +
-                        '. Are you running this code in a hidden iframe on Firefox? ' +
-                        'See http://bit.ly/getsizebug1' );
+                return function getStyle(elem) {
+                    var style = getStyleFn(elem);
+                    if (!style) {
+                        logError('Style returned ' + style +
+                            '. Are you running this code in a hidden iframe on Firefox? ' +
+                            'See http://bit.ly/getsizebug1');
                     }
                     return style;
                 };
@@ -5180,46 +5262,46 @@
             boxSizingProp = getStyleProperty('boxSizing');
 
             /**
-            * WebKit measures the outer-width on style.width on border-box elems
-            * IE & Firefox measures the inner-width
-            */
-            if ( boxSizingProp ) {
+             * WebKit measures the outer-width on style.width on border-box elems
+             * IE & Firefox measures the inner-width
+             */
+            if (boxSizingProp) {
                 var div = document.createElement('div');
                 div.style.width = '200px';
                 div.style.padding = '1px 2px 3px 4px';
                 div.style.borderStyle = 'solid';
                 div.style.borderWidth = '1px 2px 3px 4px';
-                div.style[ boxSizingProp ] = 'border-box';
+                div.style[boxSizingProp] = 'border-box';
 
                 var body = document.body || document.documentElement;
-                body.appendChild( div );
-                var style = getStyle( div );
+                body.appendChild(div);
+                var style = getStyle(div);
 
-                isBoxSizeOuter = getStyleSize( style.width ) === 200;
-                body.removeChild( div );
+                isBoxSizeOuter = getStyleSize(style.width) === 200;
+                body.removeChild(div);
             }
 
         }
 
         // -------------------------- getSize -------------------------- //
 
-        function getSize( elem ) {
+        function getSize(elem) {
             setup();
 
             // use querySeletor if elem is string
-            if ( typeof elem === 'string' ) {
-                elem = document.querySelector( elem );
+            if (typeof elem === 'string') {
+                elem = document.querySelector(elem);
             }
 
             // do not proceed on non-objects
-            if ( !elem || typeof elem !== 'object' || !elem.nodeType ) {
+            if (!elem || typeof elem !== 'object' || !elem.nodeType) {
                 return;
             }
 
-            var style = getStyle( elem );
+            var style = getStyle(elem);
 
             // if hidden, everything is 0
-            if ( style.display === 'none' ) {
+            if (style.display === 'none') {
                 return getZeroSize();
             }
 
@@ -5228,16 +5310,16 @@
             size.height = elem.offsetHeight;
 
             var isBorderBox = size.isBorderBox = !!( boxSizingProp &&
-                style[ boxSizingProp ] && style[ boxSizingProp ] === 'border-box' );
+            style[boxSizingProp] && style[boxSizingProp] === 'border-box' );
 
             // get all measurements
-            for ( var i=0, len = measurements.length; i < len; i++ ) {
+            for (var i = 0, len = measurements.length; i < len; i++) {
                 var measurement = measurements[i];
-                var value = style[ measurement ];
+                var value = style[measurement];
 
-                var num = parseFloat( value );
+                var num = parseFloat(value);
                 // any 'auto', 'medium' value will be 0
-                size[ measurement ] = !isNaN( num ) ? num : 0;
+                size[measurement] = !isNaN(num) ? num : 0;
             }
 
             var paddingWidth = size.paddingLeft + size.paddingRight;
@@ -5250,18 +5332,18 @@
             var isBorderBoxSizeOuter = isBorderBox && isBoxSizeOuter;
 
             // overwrite width and height if we can get it from style
-            var styleWidth = getStyleSize( style.width );
-            if ( styleWidth !== false ) {
+            var styleWidth = getStyleSize(style.width);
+            if (styleWidth !== false) {
                 size.width = styleWidth +
-                // add padding and border unless it's already including it
-                ( isBorderBoxSizeOuter ? 0 : paddingWidth + borderWidth );
+                        // add padding and border unless it's already including it
+                    ( isBorderBoxSizeOuter ? 0 : paddingWidth + borderWidth );
             }
 
-            var styleHeight = getStyleSize( style.height );
-            if ( styleHeight !== false ) {
+            var styleHeight = getStyleSize(style.height);
+            if (styleHeight !== false) {
                 size.height = styleHeight +
-                // add padding and border unless it's already including it
-                ( isBorderBoxSizeOuter ? 0 : paddingHeight + borderHeight );
+                        // add padding and border unless it's already including it
+                    ( isBorderBoxSizeOuter ? 0 : paddingHeight + borderHeight );
             }
 
             size.innerWidth = size.width - ( paddingWidth + borderWidth );
@@ -5283,7 +5365,7 @@
 });
 
 /*! UIkit 2.24.3 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
-(function(addon) {
+(function (addon) {
 
     var component;
 
@@ -5292,12 +5374,12 @@
     }
 
     if (typeof define == "function" && define.amd) { // AMD
-        define("uikit-lightbox", ["uikit"], function(){
+        define("uikit-lightbox", ["uikit"], function () {
             return component || addon(UIkit);
         });
     }
 
-})(function(UI){
+})(function (UI) {
 
     "use strict";
 
@@ -5306,17 +5388,17 @@
     UI.component('lightbox', {
 
         defaults: {
-            "group"      : false,
-            "duration"   : 400,
-            "keyboard"   : true
+            "group": false,
+            "duration": 400,
+            "keyboard": true
         },
 
-        index : 0,
-        items : false,
+        index: 0,
+        items: false,
 
-        boot: function() {
+        boot: function () {
 
-            UI.$html.on('click', '[data-uk-lightbox]', function(e){
+            UI.$html.on('click', '[data-uk-lightbox]', function (e) {
 
                 e.preventDefault();
 
@@ -5331,13 +5413,13 @@
             });
 
             // keyboard navigation
-            UI.$doc.on('keyup', function(e) {
+            UI.$doc.on('keyup', function (e) {
 
                 if (modal && modal.is(':visible') && modal.lightbox.options.keyboard) {
 
                     e.preventDefault();
 
-                    switch(e.keyCode) {
+                    switch (e.keyCode) {
                         case 37:
                             modal.lightbox.previous();
                             break;
@@ -5349,33 +5431,33 @@
             });
         },
 
-        init: function() {
+        init: function () {
 
             var siblings = [];
 
-            this.index    = 0;
+            this.index = 0;
             this.siblings = [];
 
             if (this.element && this.element.length) {
 
-                var domSiblings  = this.options.group ? UI.$([
-                    '[data-uk-lightbox*="'+this.options.group+'"]',
-                    "[data-uk-lightbox*='"+this.options.group+"']"
+                var domSiblings = this.options.group ? UI.$([
+                    '[data-uk-lightbox*="' + this.options.group + '"]',
+                    "[data-uk-lightbox*='" + this.options.group + "']"
                 ].join(',')) : this.element;
 
-                domSiblings.each(function() {
+                domSiblings.each(function () {
 
                     var ele = UI.$(this);
 
                     siblings.push({
                         'source': ele.attr('href'),
-                        'title' : ele.attr('data-title') || ele.attr('title'),
-                        'type'  : ele.attr("data-lightbox-type") || 'auto',
-                        'link'  : ele
+                        'title': ele.attr('data-title') || ele.attr('title'),
+                        'type': ele.attr("data-lightbox-type") || 'auto',
+                        'link': ele
                     });
                 });
 
-                this.index    = domSiblings.index(this.element);
+                this.index = domSiblings.index(this.element);
                 this.siblings = siblings;
 
             } else if (this.options.group && this.options.group.length) {
@@ -5385,7 +5467,7 @@
             this.trigger('lightbox-init', [this]);
         },
 
-        show: function(index) {
+        show: function (index) {
 
             this.modal = getModal(this);
 
@@ -5400,7 +5482,7 @@
             // index is a jQuery object or DOM element
             if (typeof(index) == 'object') {
 
-                this.siblings.forEach(function(s, idx){
+                this.siblings.forEach(function (s, idx) {
 
                     if (index[0] === s.link[0]) {
                         index = idx;
@@ -5409,26 +5491,26 @@
             }
 
             // fix index if needed
-            if ( index < 0 ) {
+            if (index < 0) {
                 index = this.siblings.length - index;
             } else if (!this.siblings[index]) {
                 index = 0;
             }
 
-            item   = this.siblings[index];
+            item = this.siblings[index];
 
             data = {
-                "lightbox" : $this,
-                "source"   : item.source,
-                "type"     : item.type,
-                "index"    : index,
-                "promise"  : promise,
-                "title"    : item.title,
-                "item"     : item,
-                "meta"     : {
-                    "content" : '',
-                    "width"   : null,
-                    "height"  : null
+                "lightbox": $this,
+                "source": item.source,
+                "type": item.type,
+                "index": index,
+                "promise": promise,
+                "title": item.title,
+                "item": item,
+                "meta": {
+                    "content": '',
+                    "width": null,
+                    "height": null
                 }
             };
 
@@ -5437,22 +5519,22 @@
             this.modal.content.empty();
 
             if (!this.modal.is(':visible')) {
-                this.modal.content.css({width:'', height:''}).empty();
+                this.modal.content.css({width: '', height: ''}).empty();
                 this.modal.modal.show();
             }
 
             this.modal.loader.removeClass('uk-hidden');
 
-            promise.promise().done(function() {
+            promise.promise().done(function () {
 
                 $this.data = data;
                 $this.fitSize(data);
 
-            }).fail(function(){
+            }).fail(function () {
 
                 data.meta.content = '<div class="uk-position-cover uk-flex uk-flex-middle uk-flex-center"><strong>Loading resource failed!</strong></div>';
-                data.meta.width   = 400;
-                data.meta.height  = 300;
+                data.meta.width = 400;
+                data.meta.height = 300;
 
                 $this.data = data;
                 $this.fitSize(data);
@@ -5461,15 +5543,15 @@
             $this.trigger('showitem.uk.lightbox', [data]);
         },
 
-        fitSize: function() {
+        fitSize: function () {
 
-            var $this    = this,
-                data     = this.data,
-                pad      = this.modal.dialog.outerWidth() - this.modal.dialog.width(),
-                dpadTop  = parseInt(this.modal.dialog.css('margin-top'), 10),
-                dpadBot  = parseInt(this.modal.dialog.css('margin-bottom'), 10),
-                dpad     = dpadTop + dpadBot,
-                content  = data.meta.content,
+            var $this = this,
+                data = this.data,
+                pad = this.modal.dialog.outerWidth() - this.modal.dialog.width(),
+                dpadTop = parseInt(this.modal.dialog.css('margin-top'), 10),
+                dpadBot = parseInt(this.modal.dialog.css('margin-bottom'), 10),
+                dpad = dpadTop + dpadBot,
+                content = data.meta.content,
                 duration = $this.options.duration;
 
             if (this.siblings.length > 1) {
@@ -5483,19 +5565,19 @@
 
             // calculate width
             var tmp = UI.$('<div>&nbsp;</div>').css({
-                'opacity'   : 0,
-                'position'  : 'absolute',
-                'top'       : 0,
-                'left'      : 0,
-                'width'     : '100%',
-                'max-width' : $this.modal.dialog.css('max-width'),
-                'padding'   : $this.modal.dialog.css('padding'),
-                'margin'    : $this.modal.dialog.css('margin')
+                'opacity': 0,
+                'position': 'absolute',
+                'top': 0,
+                'left': 0,
+                'width': '100%',
+                'max-width': $this.modal.dialog.css('max-width'),
+                'padding': $this.modal.dialog.css('padding'),
+                'margin': $this.modal.dialog.css('margin')
             }), maxwidth, maxheight, w = data.meta.width, h = data.meta.height;
 
             tmp.appendTo('body').width();
 
-            maxwidth  = tmp.width();
+            maxwidth = tmp.width();
             maxheight = window.innerHeight - dpad;
 
             tmp.remove();
@@ -5503,20 +5585,20 @@
             this.modal.dialog.find('.uk-modal-caption').remove();
 
             if (data.title) {
-                this.modal.dialog.append('<div class="uk-modal-caption">'+data.title+'</div>');
+                this.modal.dialog.append('<div class="uk-modal-caption">' + data.title + '</div>');
                 maxheight -= this.modal.dialog.find('.uk-modal-caption').outerHeight();
             }
 
             if (maxwidth < data.meta.width) {
 
-                h = Math.floor( h * (maxwidth / w) );
+                h = Math.floor(h * (maxwidth / w));
                 w = maxwidth;
             }
 
             if (maxheight < h) {
 
                 h = Math.floor(maxheight);
-                w = Math.ceil(data.meta.width * (maxheight/data.meta.height));
+                w = Math.ceil(data.meta.width * (maxheight / data.meta.height));
             }
 
             this.modal.content.css('opacity', 0).width(w).html(content);
@@ -5525,20 +5607,22 @@
                 this.modal.content.find('iframe:first').height(h);
             }
 
-            var dh   = h + pad,
-                t    = Math.floor(window.innerHeight/2 - dh/2) - dpad;
+            var dh = h + pad,
+                t = Math.floor(window.innerHeight / 2 - dh / 2) - dpad;
 
-            if (t < 0) { t = 0; }
+            if (t < 0) {
+                t = 0;
+            }
 
             this.modal.closer.addClass('uk-hidden');
 
-            if ($this.modal.data('mwidth') == w &&  $this.modal.data('mheight') == h) {
+            if ($this.modal.data('mwidth') == w && $this.modal.data('mheight') == h) {
                 duration = 0;
             }
 
-            this.modal.dialog.animate({width: w + pad, height: h + pad, top: t }, duration, 'swing', function() {
+            this.modal.dialog.animate({width: w + pad, height: h + pad, top: t}, duration, 'swing', function () {
                 $this.modal.loader.addClass('uk-hidden');
-                $this.modal.content.css({width:''}).animate({'opacity': 1}, function() {
+                $this.modal.content.css({width: ''}).animate({'opacity': 1}, function () {
                     $this.modal.closer.removeClass('uk-hidden');
                 });
 
@@ -5546,12 +5630,12 @@
             });
         },
 
-        next: function() {
-            this.show(this.siblings[(this.index+1)] ? (this.index+1) : 0);
+        next: function () {
+            this.show(this.siblings[(this.index + 1)] ? (this.index + 1) : 0);
         },
 
-        previous: function() {
-            this.show(this.siblings[(this.index-1)] ? (this.index-1) : this.siblings.length-1);
+        previous: function () {
+            this.show(this.siblings[(this.index - 1)] ? (this.index - 1) : this.siblings.length - 1);
         }
     });
 
@@ -5560,18 +5644,18 @@
 
     UI.plugin('lightbox', 'image', {
 
-        init: function(lightbox) {
+        init: function (lightbox) {
 
-            lightbox.on("showitem.uk.lightbox", function(e, data){
+            lightbox.on("showitem.uk.lightbox", function (e, data) {
 
                 if (data.type == 'image' || data.source && data.source.match(/\.(jpg|jpeg|png|gif|svg)$/i)) {
 
-                    var resolve = function(source, width, height) {
+                    var resolve = function (source, width, height) {
 
                         data.meta = {
-                            "content" : '<img class="uk-responsive-width" width="'+width+'" height="'+height+'" src ="'+source+'">',
-                            "width"   : width,
-                            "height"  : height
+                            "content": '<img class="uk-responsive-width" width="' + width + '" height="' + height + '" src ="' + source + '">',
+                            "width": width,
+                            "height": height
                         };
 
                         data.type = 'image';
@@ -5583,11 +5667,11 @@
 
                         var img = new Image();
 
-                        img.onerror = function(){
+                        img.onerror = function () {
                             data.promise.reject('Loading image failed');
                         };
 
-                        img.onload = function(){
+                        img.onload = function () {
                             cache[data.source] = {width: img.width, height: img.height};
                             resolve(data.source, cache[data.source].width, cache[data.source].height);
                         };
@@ -5604,18 +5688,18 @@
 
     UI.plugin("lightbox", "youtube", {
 
-        init: function(lightbox) {
+        init: function (lightbox) {
 
             var youtubeRegExp = /(\/\/.*?youtube\.[a-z]+)\/watch\?v=([^&]+)&?(.*)/,
                 youtubeRegExpShort = /youtu\.be\/(.*)/;
 
 
-            lightbox.on("showitem.uk.lightbox", function(e, data){
+            lightbox.on("showitem.uk.lightbox", function (e, data) {
 
-                var id, matches, resolve = function(id, width, height) {
+                var id, matches, resolve = function (id, width, height) {
 
                     data.meta = {
-                        'content': '<iframe src="//www.youtube.com/embed/'+id+'" width="'+width+'" height="'+height+'" style="max-width:100%;"></iframe>',
+                        'content': '<iframe src="//www.youtube.com/embed/' + id + '" width="' + width + '" height="' + height + '" style="max-width:100%;"></iframe>',
                         'width': width,
                         'height': height
                     };
@@ -5635,16 +5719,16 @@
 
                 if (id) {
 
-                    if(!cache[id]) {
+                    if (!cache[id]) {
 
                         var img = new Image(), lowres = false;
 
-                        img.onerror = function(){
-                            cache[id] = {width:640, height:320};
+                        img.onerror = function () {
+                            cache[id] = {width: 640, height: 320};
                             resolve(id, cache[id].width, cache[id].height);
                         };
 
-                        img.onload = function(){
+                        img.onload = function () {
                             //youtube default 404 thumb, fall back to lowres
                             if (img.width == 120 && img.height == 90) {
                                 if (!lowres) {
@@ -5660,7 +5744,7 @@
                             }
                         };
 
-                        img.src = '//img.youtube.com/vi/'+id+'/maxresdefault.jpg';
+                        img.src = '//img.youtube.com/vi/' + id + '/maxresdefault.jpg';
 
                     } else {
                         resolve(id, cache[id].width, cache[id].height);
@@ -5675,17 +5759,17 @@
 
     UI.plugin("lightbox", "vimeo", {
 
-        init: function(lightbox) {
+        init: function (lightbox) {
 
             var regex = /(\/\/.*?)vimeo\.[a-z]+\/([0-9]+).*?/, matches;
 
 
-            lightbox.on("showitem.uk.lightbox", function(e, data){
+            lightbox.on("showitem.uk.lightbox", function (e, data) {
 
-                var id, resolve = function(id, width, height) {
+                var id, resolve = function (id, width, height) {
 
                     data.meta = {
-                        'content': '<iframe src="//player.vimeo.com/video/'+id+'" width="'+width+'" height="'+height+'" style="width:100%;box-sizing:border-box;"></iframe>',
+                        'content': '<iframe src="//player.vimeo.com/video/' + id + '" width="' + width + '" height="' + height + '" style="width:100%;box-sizing:border-box;"></iframe>',
                         'width': width,
                         'height': height
                     };
@@ -5699,15 +5783,15 @@
 
                     id = matches[2];
 
-                    if(!cache[id]) {
+                    if (!cache[id]) {
 
                         UI.$.ajax({
-                            type     : 'GET',
-                            url      : 'http://vimeo.com/api/oembed.json?url=' + encodeURI(data.source),
-                            jsonp    : 'callback',
-                            dataType : 'jsonp',
-                            success  : function(data) {
-                                cache[id] = {width:data.width, height:data.height};
+                            type: 'GET',
+                            url: 'http://vimeo.com/api/oembed.json?url=' + encodeURI(data.source),
+                            jsonp: 'callback',
+                            dataType: 'jsonp',
+                            success: function (data) {
+                                cache[id] = {width: data.width, height: data.height};
                                 resolve(id, cache[id].width, cache[id].height);
                             }
                         });
@@ -5724,15 +5808,15 @@
 
     UI.plugin("lightbox", "video", {
 
-        init: function(lightbox) {
+        init: function (lightbox) {
 
-            lightbox.on("showitem.uk.lightbox", function(e, data){
+            lightbox.on("showitem.uk.lightbox", function (e, data) {
 
 
-                var resolve = function(source, width, height) {
+                var resolve = function (source, width, height) {
 
                     data.meta = {
-                        'content': '<video class="uk-responsive-width" src="'+source+'" width="'+width+'" height="'+height+'" controls></video>',
+                        'content': '<video class="uk-responsive-width" src="' + source + '" width="' + width + '" height="' + height + '" controls></video>',
                         'width': width,
                         'height': height
                     };
@@ -5748,7 +5832,7 @@
 
                         var vid = UI.$('<video style="position:fixed;visibility:hidden;top:-10000px;"></video>').attr('src', data.source).appendTo('body');
 
-                        var idle = setInterval(function() {
+                        var idle = setInterval(function () {
 
                             if (vid[0].videoWidth) {
                                 clearInterval(idle);
@@ -5778,34 +5862,34 @@
         // init lightbox container
         modal = UI.$([
             '<div class="uk-modal">',
-                '<div class="uk-modal-dialog uk-modal-dialog-lightbox uk-slidenav-position" style="margin-left:auto;margin-right:auto;width:200px;height:200px;top:'+Math.abs(window.innerHeight/2 - 200)+'px;">',
-                    '<a href="#" class="uk-modal-close uk-close uk-close-alt"></a>',
-                    '<div class="uk-lightbox-content"></div>',
-                    '<div class="uk-modal-spinner uk-hidden"></div>',
-                '</div>',
+            '<div class="uk-modal-dialog uk-modal-dialog-lightbox uk-slidenav-position" style="margin-left:auto;margin-right:auto;width:200px;height:200px;top:' + Math.abs(window.innerHeight / 2 - 200) + 'px;">',
+            '<a href="#" class="uk-modal-close uk-close uk-close-alt"></a>',
+            '<div class="uk-lightbox-content"></div>',
+            '<div class="uk-modal-spinner uk-hidden"></div>',
+            '</div>',
             '</div>'
         ].join('')).appendTo('body');
 
-        modal.dialog  = modal.find('.uk-modal-dialog:first');
+        modal.dialog = modal.find('.uk-modal-dialog:first');
         modal.content = modal.find('.uk-lightbox-content:first');
-        modal.loader  = modal.find('.uk-modal-spinner:first');
-        modal.closer  = modal.find('.uk-close.uk-close-alt');
-        modal.modal   = UI.modal(modal, {modal:false});
+        modal.loader = modal.find('.uk-modal-spinner:first');
+        modal.closer = modal.find('.uk-close.uk-close-alt');
+        modal.modal = UI.modal(modal, {modal: false});
 
         // next / previous
-        modal.on("swipeRight swipeLeft", function(e) {
-            modal.lightbox[e.type=='swipeLeft' ? 'next':'previous']();
-        }).on("click", "[data-lightbox-previous], [data-lightbox-next]", function(e){
+        modal.on("swipeRight swipeLeft", function (e) {
+            modal.lightbox[e.type == 'swipeLeft' ? 'next' : 'previous']();
+        }).on("click", "[data-lightbox-previous], [data-lightbox-next]", function (e) {
             e.preventDefault();
-            modal.lightbox[UI.$(this).is('[data-lightbox-next]') ? 'next':'previous']();
+            modal.lightbox[UI.$(this).is('[data-lightbox-next]') ? 'next' : 'previous']();
         });
 
         // destroy content on modal hide
-        modal.on("hide.uk.modal", function(e) {
+        modal.on("hide.uk.modal", function (e) {
             modal.content.html('');
         });
 
-        UI.$win.on('load resize orientationchange', UI.Utils.debounce(function(e){
+        UI.$win.on('load resize orientationchange', UI.Utils.debounce(function (e) {
             if (modal.is(':visible') && !UI.Utils.isFullscreen()) modal.lightbox.fitSize();
         }.bind(this), 100));
 
@@ -5814,23 +5898,23 @@
         return modal;
     }
 
-    UI.lightbox.create = function(items, options) {
+    UI.lightbox.create = function (items, options) {
 
         if (!items) return;
 
         var group = [], o;
 
-        items.forEach(function(item) {
+        items.forEach(function (item) {
 
             group.push(UI.$.extend({
-                'source' : '',
-                'title'  : '',
-                'type'   : 'auto',
-                'link'   : false
+                'source': '',
+                'title': '',
+                'type': 'auto',
+                'link': false
             }, (typeof(item) == 'string' ? {'source': item} : item)));
         });
 
-        o = UI.lightbox(UI.$.extend({}, options, {'group':group}));
+        o = UI.lightbox(UI.$.extend({}, options, {'group': group}));
 
         return o;
     };
@@ -5842,7 +5926,7 @@
 /*
  * Based on Nestable jQuery Plugin - Copyright (c) 2012 David Bushell - http://dbushell.com/
  */
-(function(addon) {
+(function (addon) {
 
     var component;
 
@@ -5851,67 +5935,67 @@
     }
 
     if (typeof define == "function" && define.amd) {
-        define("uikit-nestable", ["uikit"], function(){
+        define("uikit-nestable", ["uikit"], function () {
             return component || addon(UIkit);
         });
     }
 
-})(function(UI) {
+})(function (UI) {
 
     "use strict";
 
-    var hasTouch     = 'ontouchstart' in window,
-        html         = UI.$html,
+    var hasTouch = 'ontouchstart' in window,
+        html = UI.$html,
         touchedlists = [],
-        $win         = UI.$win,
+        $win = UI.$win,
         draggingElement;
 
-    var eStart  = hasTouch ? 'touchstart'  : 'mousedown',
-        eMove   = hasTouch ? 'touchmove'   : 'mousemove',
-        eEnd    = hasTouch ? 'touchend'    : 'mouseup',
+    var eStart = hasTouch ? 'touchstart' : 'mousedown',
+        eMove = hasTouch ? 'touchmove' : 'mousemove',
+        eEnd = hasTouch ? 'touchend' : 'mouseup',
         eCancel = hasTouch ? 'touchcancel' : 'mouseup';
 
 
     UI.component('nestable', {
 
         defaults: {
-            listBaseClass   : 'uk-nestable',
-            listClass       : 'uk-nestable-list',
-            listItemClass   : 'uk-nestable-item',
-            dragClass       : 'uk-nestable-dragged',
-            movingClass     : 'uk-nestable-moving',
-            emptyClass      : 'uk-nestable-empty',
-            handleClass     : '',
-            collapsedClass  : 'uk-collapsed',
+            listBaseClass: 'uk-nestable',
+            listClass: 'uk-nestable-list',
+            listItemClass: 'uk-nestable-item',
+            dragClass: 'uk-nestable-dragged',
+            movingClass: 'uk-nestable-moving',
+            emptyClass: 'uk-nestable-empty',
+            handleClass: '',
+            collapsedClass: 'uk-collapsed',
             placeholderClass: 'uk-nestable-placeholder',
-            noDragClass     : 'uk-nestable-nodrag',
-            group           : false,
-            maxDepth        : 10,
-            threshold       : 20,
-            idlethreshold   : 10,
+            noDragClass: 'uk-nestable-nodrag',
+            group: false,
+            maxDepth: 10,
+            threshold: 20,
+            idlethreshold: 10,
         },
 
-        boot: function() {
+        boot: function () {
 
             // adjust document scrolling
-            UI.$html.on('mousemove touchmove', function(e) {
+            UI.$html.on('mousemove touchmove', function (e) {
 
                 if (draggingElement) {
 
                     var top = draggingElement.offset().top;
 
                     if (top < UI.$win.scrollTop()) {
-                        UI.$win.scrollTop(UI.$win.scrollTop() - Math.ceil(draggingElement.height()/2));
-                    } else if ( (top + draggingElement.height()) > (window.innerHeight + UI.$win.scrollTop()) ) {
-                        UI.$win.scrollTop(UI.$win.scrollTop() + Math.ceil(draggingElement.height()/2));
+                        UI.$win.scrollTop(UI.$win.scrollTop() - Math.ceil(draggingElement.height() / 2));
+                    } else if ((top + draggingElement.height()) > (window.innerHeight + UI.$win.scrollTop())) {
+                        UI.$win.scrollTop(UI.$win.scrollTop() + Math.ceil(draggingElement.height() / 2));
                     }
                 }
             });
 
             // init code
-            UI.ready(function(context) {
+            UI.ready(function (context) {
 
-                UI.$("[data-uk-nestable]", context).each(function(){
+                UI.$("[data-uk-nestable]", context).each(function () {
 
                     var ele = UI.$(this);
 
@@ -5922,14 +6006,14 @@
             });
         },
 
-        init: function() {
+        init: function () {
 
             var $this = this;
 
-            Object.keys(this.options).forEach(function(key){
+            Object.keys(this.options).forEach(function (key) {
 
-                if(String(key).indexOf('Class')!=-1) {
-                    $this.options['_'+key] = '.' + $this.options[key];
+                if (String(key).indexOf('Class') != -1) {
+                    $this.options['_' + key] = '.' + $this.options[key];
                 }
             });
 
@@ -5940,11 +6024,11 @@
             this.reset();
             this.element.data('nestable-group', this.options.group || UI.Utils.uid('nestable-group'));
 
-            this.find(this.options._listItemClass).each(function() {
+            this.find(this.options._listItemClass).each(function () {
                 $this.setParent(UI.$(this));
             });
 
-            this.on('click', '[data-nestable-action]', function(e) {
+            this.on('click', '[data-nestable-action]', function (e) {
 
                 if ($this.dragEl || (!hasTouch && e.button !== 0)) {
                     return;
@@ -5954,7 +6038,7 @@
 
                 var target = UI.$(e.currentTarget),
                     action = target.data('nestableAction'),
-                    item   = target.closest($this.options._listItemClass);
+                    item = target.closest($this.options._listItemClass);
 
                 if (action === 'collapse') {
                     $this.collapseItem(item);
@@ -5967,7 +6051,7 @@
                 }
             });
 
-            var onStartEvent = function(e) {
+            var onStartEvent = function (e) {
 
                 var handle = UI.$(e.target);
 
@@ -5998,7 +6082,7 @@
                     e = evt.originalEvent.touches[0];
                 }
 
-                $this.delayMove = function(evt) {
+                $this.delayMove = function (evt) {
 
                     evt.preventDefault();
                     $this.dragStart(e);
@@ -6007,14 +6091,14 @@
                     $this.delayMove = false;
                 };
 
-                $this.delayMove.x         = parseInt(e.pageX, 10);
-                $this.delayMove.y         = parseInt(e.pageY, 10);
+                $this.delayMove.x = parseInt(e.pageX, 10);
+                $this.delayMove.y = parseInt(e.pageY, 10);
                 $this.delayMove.threshold = $this.options.idlethreshold;
 
                 e.preventDefault();
             };
 
-            var onMoveEvent = function(e) {
+            var onMoveEvent = function (e) {
 
                 if (e.originalEvent && e.originalEvent.touches) {
                     e = e.originalEvent.touches[0];
@@ -6036,7 +6120,7 @@
                 }
             };
 
-            var onEndEvent = function(e) {
+            var onEndEvent = function (e) {
 
                 if ($this.dragEl) {
                     e.preventDefault();
@@ -6060,20 +6144,20 @@
 
         },
 
-        serialize: function() {
+        serialize: function () {
 
             var data,
                 depth = 0,
-                list  = this,
-                step  = function(level, depth) {
+                list = this,
+                step = function (level, depth) {
 
-                    var array = [ ], items = level.children(list.options._listItemClass);
+                    var array = [], items = level.children(list.options._listItemClass);
 
-                    items.each(function() {
+                    items.each(function () {
 
-                        var li    = UI.$(this),
-                            item  = {}, attribute,
-                            sub   = li.children(list.options._listClass);
+                        var li = UI.$(this),
+                            item = {}, attribute,
+                            sub = li.children(list.options._listClass);
 
                         for (var i = 0; i < li[0].attributes.length; i++) {
                             attribute = li[0].attributes[i];
@@ -6097,19 +6181,23 @@
             return data;
         },
 
-        list: function(options) {
+        list: function (options) {
 
-            var data  = [],
-                list  = this,
+            var data = [],
+                list = this,
                 depth = 0,
-                step  = function(level, depth, parent) {
+                step = function (level, depth, parent) {
 
                     var items = level.children(options._listItemClass);
 
-                    items.each(function(index) {
-                        var li   = UI.$(this),
-                            item = UI.$.extend({parent_id: (parent ? parent : null), depth: depth, order: index}, li.data()),
-                            sub  = li.children(options._listClass);
+                    items.each(function (index) {
+                        var li = UI.$(this),
+                            item = UI.$.extend({
+                                parent_id: (parent ? parent : null),
+                                depth: depth,
+                                order: index
+                            }, li.data()),
+                            sub = li.children(options._listClass);
 
                         data.push(item);
 
@@ -6126,88 +6214,88 @@
             return data;
         },
 
-        reset: function() {
+        reset: function () {
 
             this.mouse = {
-                offsetX   : 0,
-                offsetY   : 0,
-                startX    : 0,
-                startY    : 0,
-                lastX     : 0,
-                lastY     : 0,
-                nowX      : 0,
-                nowY      : 0,
-                distX     : 0,
-                distY     : 0,
-                dirAx     : 0,
-                dirX      : 0,
-                dirY      : 0,
-                lastDirX  : 0,
-                lastDirY  : 0,
-                distAxX   : 0,
-                distAxY   : 0
+                offsetX: 0,
+                offsetY: 0,
+                startX: 0,
+                startY: 0,
+                lastX: 0,
+                lastY: 0,
+                nowX: 0,
+                nowY: 0,
+                distX: 0,
+                distY: 0,
+                dirAx: 0,
+                dirX: 0,
+                dirY: 0,
+                lastDirX: 0,
+                lastDirY: 0,
+                distAxX: 0,
+                distAxY: 0
             };
-            this.moving     = false;
-            this.dragEl     = null;
+            this.moving = false;
+            this.dragEl = null;
             this.dragRootEl = null;
-            this.dragDepth  = 0;
+            this.dragDepth = 0;
             this.hasNewRoot = false;
-            this.pointEl    = null;
+            this.pointEl = null;
 
-            for (var i=0; i<touchedlists.length; i++) {
+            for (var i = 0; i < touchedlists.length; i++) {
                 this.checkEmptyList(touchedlists[i]);
             }
 
             touchedlists = [];
         },
 
-        toggleItem: function(li) {
-            this[li.hasClass(this.options.collapsedClass) ? "expandItem":"collapseItem"](li);
+        toggleItem: function (li) {
+            this[li.hasClass(this.options.collapsedClass) ? "expandItem" : "collapseItem"](li);
         },
 
-        expandItem: function(li) {
+        expandItem: function (li) {
             li.removeClass(this.options.collapsedClass);
         },
 
-        collapseItem: function(li) {
+        collapseItem: function (li) {
             var lists = li.children(this.options._listClass);
             if (lists.length) {
                 li.addClass(this.options.collapsedClass);
             }
         },
 
-        expandAll: function() {
+        expandAll: function () {
             var list = this;
-            this.find(list.options._listItemClass).each(function() {
+            this.find(list.options._listItemClass).each(function () {
                 list.expandItem(UI.$(this));
             });
         },
 
-        collapseAll: function() {
+        collapseAll: function () {
             var list = this;
-            this.find(list.options._listItemClass).each(function() {
+            this.find(list.options._listItemClass).each(function () {
                 list.collapseItem(UI.$(this));
             });
         },
 
-        setParent: function(li) {
+        setParent: function (li) {
 
             if (li.children(this.options._listClass).length) {
                 li.addClass("uk-parent");
             }
         },
 
-        unsetParent: function(li) {
-            li.removeClass('uk-parent '+this.options.collapsedClass);
+        unsetParent: function (li) {
+            li.removeClass('uk-parent ' + this.options.collapsedClass);
             li.children(this.options._listClass).remove();
         },
 
-        dragStart: function(e) {
+        dragStart: function (e) {
 
-            var mouse    = this.mouse,
-                target   = UI.$(e.target),
+            var mouse = this.mouse,
+                target = UI.$(e.target),
                 dragItem = target.closest(this.options._listItemClass),
-                offset   = dragItem.offset();
+                offset = dragItem.offset();
 
             this.placeEl = dragItem;
 
@@ -6230,15 +6318,15 @@
             UI.$body.append(this.dragEl);
 
             this.dragEl.css({
-                left : offset.left,
-                top  : offset.top
+                left: offset.left,
+                top: offset.top
             });
 
             // total depth of dragging item
             var i, depth, items = this.dragEl.find(this.options._listItemClass);
 
             for (i = 0; i < items.length; i++) {
-                depth = UI.$(items[i]).parents(this.options._listClass+','+this.options._listBaseClass).length;
+                depth = UI.$(items[i]).parents(this.options._listClass + ',' + this.options._listBaseClass).length;
                 if (depth > this.dragDepth) {
                     this.dragDepth = depth;
                 }
@@ -6247,21 +6335,21 @@
             html.addClass(this.options.movingClass);
         },
 
-        dragStop: function(e) {
+        dragStop: function (e) {
 
-            var el       = UI.$(this.placeEl),
-                root     = this.placeEl.parents(this.options._listBaseClass+':first');
+            var el = UI.$(this.placeEl),
+                root = this.placeEl.parents(this.options._listBaseClass + ':first');
 
             this.placeEl.removeClass(this.options.placeholderClass);
             this.dragEl.remove();
 
             if (this.element[0] !== root[0]) {
 
-                root.trigger('change.uk.nestable',[root.data('nestable'), el, 'added']);
+                root.trigger('change.uk.nestable', [root.data('nestable'), el, 'added']);
                 this.element.trigger('change.uk.nestable', [this, el, 'removed']);
 
             } else {
-                this.element.trigger('change.uk.nestable',[this, el, "moved"]);
+                this.element.trigger('change.uk.nestable', [this, el, "moved"]);
             }
 
             this.trigger('stop.uk.nestable', [this, el]);
@@ -6271,23 +6359,23 @@
             html.removeClass(this.options.movingClass);
         },
 
-        dragMove: function(e) {
+        dragMove: function (e) {
             var list, parent, prev, next, depth,
-                opt      = this.options,
-                mouse    = this.mouse,
+                opt = this.options,
+                mouse = this.mouse,
                 maxDepth = this.dragRootEl ? this.dragRootEl.data('nestable').options.maxDepth : opt.maxDepth;
 
             this.dragEl.css({
-                left : e.pageX - mouse.offsetX,
-                top  : e.pageY - mouse.offsetY
+                left: e.pageX - mouse.offsetX,
+                top: e.pageY - mouse.offsetY
             });
 
             // mouse position last events
             mouse.lastX = mouse.nowX;
             mouse.lastY = mouse.nowY;
             // mouse position this events
-            mouse.nowX  = e.pageX;
-            mouse.nowY  = e.pageY;
+            mouse.nowX = e.pageX;
+            mouse.nowY = e.pageY;
             // distance mouse moved between events
             mouse.distX = mouse.nowX - mouse.lastX;
             mouse.distY = mouse.nowY - mouse.lastY;
@@ -6298,11 +6386,11 @@
             mouse.dirX = mouse.distX === 0 ? 0 : mouse.distX > 0 ? 1 : -1;
             mouse.dirY = mouse.distY === 0 ? 0 : mouse.distY > 0 ? 1 : -1;
             // axis mouse is now moving on
-            var newAx   = Math.abs(mouse.distX) > Math.abs(mouse.distY) ? 1 : 0;
+            var newAx = Math.abs(mouse.distX) > Math.abs(mouse.distY) ? 1 : 0;
 
             // do nothing on first move
             if (!mouse.moving) {
-                mouse.dirAx  = newAx;
+                mouse.dirAx = newAx;
                 mouse.moving = true;
                 return;
             }
@@ -6338,7 +6426,7 @@
                     list = prev.find(opt._listClass).last();
 
                     // check if depth limit has reached
-                    depth = this.placeEl.parents(opt._listClass+','+opt._listBaseClass).length;
+                    depth = this.placeEl.parents(opt._listClass + ',' + opt._listBaseClass).length;
 
                     if (depth + this.dragDepth <= maxDepth) {
 
@@ -6414,8 +6502,8 @@
 
             // find parent list of item under cursor
             var pointElRoot = this.element,
-                tmpRoot     = this.pointEl.closest(this.options._listBaseClass),
-                isNewRoot   = pointElRoot[0] != tmpRoot[0];
+                tmpRoot = this.pointEl.closest(this.options._listBaseClass),
+                isNewRoot = pointElRoot[0] != tmpRoot[0];
 
             /**
              * move vertical
@@ -6430,7 +6518,7 @@
                 }
 
                 // check depth limit
-                depth = this.dragDepth - 1 + this.pointEl.parents(opt._listClass+','+opt._listBaseClass).length;
+                depth = this.dragDepth - 1 + this.pointEl.parents(opt._listClass + ',' + opt._listBaseClass).length;
 
                 if (depth > maxDepth) {
                     return;
@@ -6463,12 +6551,12 @@
             }
         },
 
-        checkEmptyList: function(list) {
+        checkEmptyList: function (list) {
 
-            list  = list ? UI.$(list) : this.element;
+            list = list ? UI.$(list) : this.element;
 
             if (this.options.emptyClass) {
-                list[!list.children().length ? 'addClass':'removeClass'](this.options.emptyClass);
+                list[!list.children().length ? 'addClass' : 'removeClass'](this.options.emptyClass);
             }
         }
 
@@ -6478,7 +6566,7 @@
 });
 
 /*! UIkit 2.24.3 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
-(function(addon) {
+(function (addon) {
 
     var component;
 
@@ -6487,51 +6575,55 @@
     }
 
     if (typeof define == "function" && define.amd) {
-        define("uikit-notify", ["uikit"], function(){
+        define("uikit-notify", ["uikit"], function () {
             return component || addon(UIkit);
         });
     }
 
-})(function(UI){
+})(function (UI) {
 
     "use strict";
 
     var containers = {},
-        messages   = {},
+        messages = {},
 
-        notify     =  function(options){
+        notify = function (options) {
 
             if (UI.$.type(options) == 'string') {
-                options = { message: options };
+                options = {message: options};
             }
 
             if (arguments[1]) {
-                options = UI.$.extend(options, UI.$.type(arguments[1]) == 'string' ? {status:arguments[1]} : arguments[1]);
+                options = UI.$.extend(options, UI.$.type(arguments[1]) == 'string' ? {status: arguments[1]} : arguments[1]);
             }
 
             return (new Message(options)).show();
         },
-        closeAll  = function(group, instantly){
+        closeAll = function (group, instantly) {
 
             var id;
 
             if (group) {
-                for(id in messages) { if(group===messages[id].group) messages[id].close(instantly); }
+                for (id in messages) {
+                    if (group === messages[id].group) messages[id].close(instantly);
+                }
             } else {
-                for(id in messages) { messages[id].close(instantly); }
+                for (id in messages) {
+                    messages[id].close(instantly);
+                }
             }
         };
 
-    var Message = function(options){
+    var Message = function (options) {
 
         this.options = UI.$.extend({}, Message.defaults, options);
 
-        this.uuid    = UI.Utils.uid("notifymsg");
+        this.uuid = UI.Utils.uid("notifymsg");
         this.element = UI.$([
 
             '<div class="uk-notify-message">',
-                '<a class="uk-close"></a>',
-                '<div></div>',
+            '<a class="uk-close"></a>',
+            '<div></div>',
             '</div>'
 
         ].join('')).data("notifyMessage", this);
@@ -6540,7 +6632,7 @@
 
         // status
         if (this.options.status) {
-            this.element.addClass('uk-notify-message-'+this.options.status);
+            this.element.addClass('uk-notify-message-' + this.options.status);
             this.currentstatus = this.options.status;
         }
 
@@ -6548,8 +6640,8 @@
 
         messages[this.uuid] = this;
 
-        if(!containers[this.options.pos]) {
-            containers[this.options.pos] = UI.$('<div class="uk-notify uk-notify-'+this.options.pos+'"></div>').appendTo('body').on("click", ".uk-notify-message", function(){
+        if (!containers[this.options.pos]) {
+            containers[this.options.pos] = UI.$('<div class="uk-notify uk-notify-' + this.options.pos + '"></div>').appendTo('body').on("click", ".uk-notify-message", function () {
 
                 var message = UI.$(this).data("notifyMessage");
 
@@ -6568,7 +6660,7 @@
         currentstatus: "",
         group: false,
 
-        show: function() {
+        show: function () {
 
             if (this.element.is(":visible")) return;
 
@@ -6578,17 +6670,27 @@
 
             var marginbottom = parseInt(this.element.css("margin-bottom"), 10);
 
-            this.element.css({"opacity":0, "margin-top": -1*this.element.outerHeight(), "margin-bottom":0}).animate({"opacity":1, "margin-top": 0, "margin-bottom":marginbottom}, function(){
+            this.element.css({
+                "opacity": 0,
+                "margin-top": -1 * this.element.outerHeight(),
+                "margin-bottom": 0
+            }).animate({"opacity": 1, "margin-top": 0, "margin-bottom": marginbottom}, function () {
 
                 if ($this.options.timeout) {
 
-                    var closefn = function(){ $this.close(); };
+                    var closefn = function () {
+                        $this.close();
+                    };
 
                     $this.timeout = setTimeout(closefn, $this.options.timeout);
 
                     $this.element.hover(
-                        function() { clearTimeout($this.timeout); },
-                        function() { $this.timeout = setTimeout(closefn, $this.options.timeout);  }
+                        function () {
+                            clearTimeout($this.timeout);
+                        },
+                        function () {
+                            $this.timeout = setTimeout(closefn, $this.options.timeout);
+                        }
                     );
                 }
 
@@ -6597,10 +6699,10 @@
             return this;
         },
 
-        close: function(instantly) {
+        close: function (instantly) {
 
-            var $this    = this,
-                finalize = function(){
+            var $this = this,
+                finalize = function () {
                     $this.element.remove();
 
                     if (!containers[$this.options.pos].children().length) {
@@ -6618,17 +6720,21 @@
             if (instantly) {
                 finalize();
             } else {
-                this.element.animate({"opacity":0, "margin-top": -1* this.element.outerHeight(), "margin-bottom":0}, function(){
+                this.element.animate({
+                    "opacity": 0,
+                    "margin-top": -1 * this.element.outerHeight(),
+                    "margin-bottom": 0
+                }, function () {
                     finalize();
                 });
             }
         },
 
-        content: function(html){
+        content: function (html) {
 
             var container = this.element.find(">div");
 
-            if(!html) {
+            if (!html) {
                 return container.html();
             }
 
@@ -6637,13 +6743,13 @@
             return this;
         },
 
-        status: function(status) {
+        status: function (status) {
 
             if (!status) {
                 return this.currentstatus;
             }
 
-            this.element.removeClass('uk-notify-message-'+this.currentstatus).addClass('uk-notify-message-'+status);
+            this.element.removeClass('uk-notify-message-' + this.currentstatus).addClass('uk-notify-message-' + status);
 
             this.currentstatus = status;
 
@@ -6657,18 +6763,19 @@
         timeout: 5000,
         group: null,
         pos: 'top-center',
-        onClose: function() {}
+        onClose: function () {
+        }
     };
 
-    UI.notify          = notify;
-    UI.notify.message  = Message;
+    UI.notify = notify;
+    UI.notify.message = Message;
     UI.notify.closeAll = closeAll;
 
     return notify;
 });
 
 /*! UIkit 2.24.3 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
-(function(addon) {
+(function (addon) {
 
     var component;
 
@@ -6677,12 +6784,12 @@
     }
 
     if (typeof define == "function" && define.amd) {
-        define("uikit-slideshow", ["uikit"], function() {
+        define("uikit-slideshow", ["uikit"], function () {
             return component || addon(UIkit);
         });
     }
 
-})(function(UI) {
+})(function (UI) {
 
     "use strict";
 
@@ -6691,18 +6798,18 @@
     UI.component('slideshow', {
 
         defaults: {
-            animation          : "fade",
-            duration           : 500,
-            height             : "auto",
-            start              : 0,
-            autoplay           : false,
-            autoplayInterval   : 7000,
-            videoautoplay      : true,
-            videomute          : true,
-            slices             : 15,
-            pauseOnHover       : true,
-            kenburns           : false,
-            kenburnsanimations : [
+            animation: "fade",
+            duration: 500,
+            height: "auto",
+            start: 0,
+            autoplay: false,
+            autoplayInterval: 7000,
+            videoautoplay: true,
+            videomute: true,
+            slices: 15,
+            pauseOnHover: true,
+            kenburns: false,
+            kenburnsanimations: [
                 'uk-animation-middle-left',
                 'uk-animation-top-right',
                 'uk-animation-bottom-left',
@@ -6712,16 +6819,16 @@
             ]
         },
 
-        current  : false,
-        interval : null,
-        hovering : false,
+        current: false,
+        interval: null,
+        hovering: false,
 
-        boot: function() {
+        boot: function () {
 
             // init code
-            UI.ready(function(context) {
+            UI.ready(function (context) {
 
-                UI.$('[data-uk-slideshow]', context).each(function() {
+                UI.$('[data-uk-slideshow]', context).each(function () {
 
                     var slideshow = UI.$(this);
 
@@ -6732,21 +6839,21 @@
             });
         },
 
-        init: function() {
+        init: function () {
 
             var $this = this, canvas, kbanimduration;
 
-            this.container     = this.element.hasClass('uk-slideshow') ? this.element : UI.$(this.find('.uk-slideshow'));
-            this.slides        = this.container.children();
-            this.slidesCount   = this.slides.length;
-            this.current       = this.options.start;
-            this.animating     = false;
-            this.triggers      = this.find('[data-uk-slideshow-item]');
+            this.container = this.element.hasClass('uk-slideshow') ? this.element : UI.$(this.find('.uk-slideshow'));
+            this.slides = this.container.children();
+            this.slidesCount = this.slides.length;
+            this.current = this.options.start;
+            this.animating = false;
+            this.triggers = this.find('[data-uk-slideshow-item]');
             this.fixFullscreen = navigator.userAgent.match(/(iPad|iPhone|iPod)/g) && this.container.hasClass('uk-slideshow-fullscreen'); // viewport unit fix for height:100vh - should be fixed in iOS 8
 
             if (this.options.kenburns) {
 
-                kbanimduration = this.options.kenburns === true ? '15s': this.options.kenburns;
+                kbanimduration = this.options.kenburns === true ? '15s' : this.options.kenburns;
 
                 if (!String(kbanimduration).match(/(ms|s)$/)) {
                     kbanimduration += 'ms';
@@ -6757,7 +6864,7 @@
                 }
             }
 
-            this.slides.each(function(index) {
+            this.slides.each(function (index) {
 
                 var slide = UI.$(this),
                     media = slide.children('img,video,iframe').eq(0);
@@ -6769,28 +6876,31 @@
 
                     var placeholder;
 
-                    switch(media[0].nodeName) {
+                    switch (media[0].nodeName) {
                         case 'IMG':
 
-                            var cover = UI.$('<div class="uk-cover-background uk-position-cover"></div>').css({'background-image':'url('+ media.attr('src') + ')'});
+                            var cover = UI.$('<div class="uk-cover-background uk-position-cover"></div>').css({'background-image': 'url(' + media.attr('src') + ')'});
 
                             if (media.attr('width') && media.attr('height')) {
-                                placeholder = UI.$('<canvas></canvas>').attr({width:media.attr('width'), height:media.attr('height')});
+                                placeholder = UI.$('<canvas></canvas>').attr({
+                                    width: media.attr('width'),
+                                    height: media.attr('height')
+                                });
                                 media.replaceWith(placeholder);
                                 media = placeholder;
                                 placeholder = undefined;
                             }
 
-                            media.css({width: '100%',height: 'auto', opacity:0});
+                            media.css({width: '100%', height: 'auto', opacity: 0});
                             slide.prepend(cover).data('cover', cover);
                             break;
 
                         case 'IFRAME':
 
-                            var src = media[0].src, iframeId = 'sw-'+(++playerId);
+                            var src = media[0].src, iframeId = 'sw-' + (++playerId);
 
                             media
-                                .attr('src', '').on('load', function(){
+                                .attr('src', '').on('load', function () {
 
                                     if (index !== $this.current || (index == $this.current && !$this.options.videoautoplay)) {
                                         $this.pausemedia(media);
@@ -6800,8 +6910,8 @@
 
                                         $this.mutemedia(media);
 
-                                        var inv = setInterval((function(ic) {
-                                            return function() {
+                                        var inv = setInterval((function (ic) {
+                                            return function () {
                                                 $this.mutemedia(media);
                                                 if (++ic >= 4) clearInterval(inv);
                                             }
@@ -6811,11 +6921,11 @@
                                 })
                                 .data('slideshow', $this)  // add self-reference for the vimeo-ready listener
                                 .attr('data-player-id', iframeId)  // add frameId for the vimeo-ready listener
-                                .attr('src', [src, (src.indexOf('?') > -1 ? '&':'?'), 'enablejsapi=1&api=1&player_id='+iframeId].join(''))
+                                .attr('src', [src, (src.indexOf('?') > -1 ? '&' : '?'), 'enablejsapi=1&api=1&player_id=' + iframeId].join(''))
                                 .addClass('uk-position-absolute');
 
                             // disable pointer events
-                            if(!UI.support.touch) media.css('pointer-events', 'none');
+                            if (!UI.support.touch) media.css('pointer-events', 'none');
 
                             placeholder = true;
 
@@ -6835,7 +6945,7 @@
 
                     if (placeholder) {
 
-                        canvas  = UI.$('<canvas></canvas>').attr({'width': media[0].width, 'height': media[0].height});
+                        canvas = UI.$('<canvas></canvas>').attr({'width': media[0].width, 'height': media[0].height});
                         var img = UI.$('<img style="width:100%;height:auto;">').attr('src', canvas[0].toDataURL());
 
                         slide.prepend(img);
@@ -6855,7 +6965,7 @@
                 }
             });
 
-            this.on("click.uikit.slideshow", '[data-uk-slideshow-item]', function(e) {
+            this.on("click.uikit.slideshow", '[data-uk-slideshow-item]', function (e) {
 
                 e.preventDefault();
 
@@ -6863,10 +6973,10 @@
 
                 if ($this.current == slide) return;
 
-                switch(slide) {
+                switch (slide) {
                     case 'next':
                     case 'previous':
-                        $this[slide=='next' ? 'next':'previous']();
+                        $this[slide == 'next' ? 'next' : 'previous']();
                         break;
                     default:
                         $this.show(parseInt(slide, 10));
@@ -6877,9 +6987,9 @@
 
             // Set start slide
             this.slides.attr('aria-hidden', 'true').eq(this.current).addClass('uk-active').attr('aria-hidden', 'false');
-            this.triggers.filter('[data-uk-slideshow-item="'+this.current+'"]').addClass('uk-active');
+            this.triggers.filter('[data-uk-slideshow-item="' + this.current + '"]').addClass('uk-active');
 
-            UI.$win.on("resize load", UI.Utils.debounce(function() {
+            UI.$win.on("resize load", UI.Utils.debounce(function () {
                 $this.resize();
 
                 if ($this.fixFullscreen) {
@@ -6889,7 +6999,7 @@
             }, 100));
 
             // chrome image load fix
-            setTimeout(function(){
+            setTimeout(function () {
                 $this.resize();
             }, 80);
 
@@ -6907,15 +7017,19 @@
             }
 
             this.container.on({
-                mouseenter: function() { if ($this.options.pauseOnHover) $this.hovering = true;  },
-                mouseleave: function() { $this.hovering = false; }
+                mouseenter: function () {
+                    if ($this.options.pauseOnHover) $this.hovering = true;
+                },
+                mouseleave: function () {
+                    $this.hovering = false;
+                }
             });
 
-            this.on('swipeRight swipeLeft', function(e) {
-                $this[e.type=='swipeLeft' ? 'next' : 'previous']();
+            this.on('swipeRight swipeLeft', function (e) {
+                $this[e.type == 'swipeLeft' ? 'next' : 'previous']();
             });
 
-            this.on('display.uk.check', function(){
+            this.on('display.uk.check', function () {
                 if ($this.element.is(":visible")) {
 
                     $this.resize();
@@ -6929,7 +7043,7 @@
         },
 
 
-        resize: function() {
+        resize: function () {
 
             if (this.container.hasClass('uk-slideshow-fullscreen')) return;
 
@@ -6939,7 +7053,7 @@
 
                 height = 0;
 
-                this.slides.css('height', '').each(function() {
+                this.slides.css('height', '').each(function () {
                     height = Math.max(height, UI.$(this).height());
                 });
             }
@@ -6948,20 +7062,20 @@
             this.slides.css('height', height);
         },
 
-        show: function(index, direction) {
+        show: function (index, direction) {
 
             if (this.animating || this.current == index) return;
 
             this.animating = true;
 
-            var $this        = this,
-                current      = this.slides.eq(this.current),
-                next         = this.slides.eq(index),
-                dir          = direction ? direction : this.current < index ? 1 : -1,
+            var $this = this,
+                current = this.slides.eq(this.current),
+                next = this.slides.eq(index),
+                dir = direction ? direction : this.current < index ? 1 : -1,
                 currentmedia = current.data('media'),
-                animation    = Animations[this.options.animation] ? this.options.animation : 'fade',
-                nextmedia    = next.data('media'),
-                finalize     = function() {
+                animation = Animations[this.options.animation] ? this.options.animation : 'fade',
+                nextmedia = next.data('media'),
+                finalize = function () {
 
                     if (!$this.animating) return;
 
@@ -6977,7 +7091,7 @@
                     current.removeClass("uk-active").attr('aria-hidden', 'true');
 
                     $this.animating = false;
-                    $this.current   = index;
+                    $this.current = index;
 
                     UI.Utils.checkDisplay(next, '[class*="uk-animation-"]:not(.uk-cover-background.uk-position-cover)');
 
@@ -6992,65 +7106,65 @@
             }
 
             current = UI.$(current);
-            next    = UI.$(next);
+            next = UI.$(next);
 
             $this.trigger('beforeshow.uk.slideshow', [next, current, $this]);
 
             Animations[animation].apply(this, [current, next, dir]).then(finalize);
 
             $this.triggers.removeClass('uk-active');
-            $this.triggers.filter('[data-uk-slideshow-item="'+index+'"]').addClass('uk-active');
+            $this.triggers.filter('[data-uk-slideshow-item="' + index + '"]').addClass('uk-active');
         },
 
-        applyKenBurns: function(slide) {
+        applyKenBurns: function (slide) {
 
             if (!this.hasKenBurns(slide)) {
                 return;
             }
 
             var animations = this.options.kenburnsanimations,
-                index      = this.kbindex || 0;
+                index = this.kbindex || 0;
 
 
             slide.data('cover').attr('class', 'uk-cover-background uk-position-cover').width();
             slide.data('cover').addClass(['uk-animation-scale', 'uk-animation-reverse', animations[index].trim()].join(' '));
 
-            this.kbindex = animations[index + 1] ? (index+1):0;
+            this.kbindex = animations[index + 1] ? (index + 1) : 0;
         },
 
-        hasKenBurns: function(slide) {
+        hasKenBurns: function (slide) {
             return (this.options.kenburns && slide.data('cover'));
         },
 
-        next: function() {
+        next: function () {
             this.show(this.slides[this.current + 1] ? (this.current + 1) : 0, 1);
         },
 
-        previous: function() {
+        previous: function () {
             this.show(this.slides[this.current - 1] ? (this.current - 1) : (this.slides.length - 1), -1);
         },
 
-        start: function() {
+        start: function () {
 
             this.stop();
 
             var $this = this;
 
-            this.interval = setInterval(function() {
+            this.interval = setInterval(function () {
                 if (!$this.hovering) $this.next();
             }, this.options.autoplayInterval);
 
         },
 
-        stop: function() {
+        stop: function () {
             if (this.interval) clearInterval(this.interval);
         },
 
-        playmedia: function(media) {
+        playmedia: function (media) {
 
             if (!(media && media[0])) return;
 
-            switch(media[0].nodeName) {
+            switch (media[0].nodeName) {
                 case 'VIDEO':
 
                     if (!this.options.videomute) {
@@ -7070,9 +7184,9 @@
             }
         },
 
-        pausemedia: function(media) {
+        pausemedia: function (media) {
 
-            switch(media[0].nodeName) {
+            switch (media[0].nodeName) {
                 case 'VIDEO':
                     media[0].pause();
                     break;
@@ -7082,9 +7196,9 @@
             }
         },
 
-        mutemedia: function(media) {
+        mutemedia: function (media) {
 
-            switch(media[0].nodeName) {
+            switch (media[0].nodeName) {
                 case 'VIDEO':
                     media[0].muted = true;
                     break;
@@ -7097,21 +7211,21 @@
 
     Animations = {
 
-        'none': function() {
+        'none': function () {
 
             var d = UI.$.Deferred();
             d.resolve();
             return d.promise();
         },
 
-        'scroll': function(current, next, dir) {
+        'scroll': function (current, next, dir) {
 
             var d = UI.$.Deferred();
 
-            current.css('animation-duration', this.options.duration+'ms');
-            next.css('animation-duration', this.options.duration+'ms');
+            current.css('animation-duration', this.options.duration + 'ms');
+            next.css('animation-duration', this.options.duration + 'ms');
 
-            next.css('opacity', 1).one(UI.support.animation.end, function() {
+            next.css('opacity', 1).one(UI.support.animation.end, function () {
 
                 current.removeClass(dir == -1 ? 'uk-slideshow-scroll-backward-out' : 'uk-slideshow-scroll-forward-out');
                 next.css('opacity', '').removeClass(dir == -1 ? 'uk-slideshow-scroll-backward-in' : 'uk-slideshow-scroll-forward-in');
@@ -7126,14 +7240,14 @@
             return d.promise();
         },
 
-        'swipe': function(current, next, dir) {
+        'swipe': function (current, next, dir) {
 
             var d = UI.$.Deferred();
 
-            current.css('animation-duration', this.options.duration+'ms');
-            next.css('animation-duration', this.options.duration+'ms');
+            current.css('animation-duration', this.options.duration + 'ms');
+            next.css('animation-duration', this.options.duration + 'ms');
 
-            next.css('opacity', 1).one(UI.support.animation.end, function() {
+            next.css('opacity', 1).one(UI.support.animation.end, function () {
 
                 current.removeClass(dir === -1 ? 'uk-slideshow-swipe-backward-out' : 'uk-slideshow-swipe-forward-out');
                 next.css('opacity', '').removeClass(dir === -1 ? 'uk-slideshow-swipe-backward-in' : 'uk-slideshow-swipe-forward-in');
@@ -7148,16 +7262,16 @@
             return d.promise();
         },
 
-        'scale': function(current, next, dir) {
+        'scale': function (current, next, dir) {
 
             var d = UI.$.Deferred();
 
-            current.css('animation-duration', this.options.duration+'ms');
-            next.css('animation-duration', this.options.duration+'ms');
+            current.css('animation-duration', this.options.duration + 'ms');
+            next.css('animation-duration', this.options.duration + 'ms');
 
             next.css('opacity', 1);
 
-            current.one(UI.support.animation.end, function() {
+            current.one(UI.support.animation.end, function () {
 
                 current.removeClass('uk-slideshow-scale-out');
                 next.css('opacity', '');
@@ -7171,24 +7285,24 @@
             return d.promise();
         },
 
-        'fade': function(current, next, dir) {
+        'fade': function (current, next, dir) {
 
             var d = UI.$.Deferred();
 
-            current.css('animation-duration', this.options.duration+'ms');
-            next.css('animation-duration', this.options.duration+'ms');
+            current.css('animation-duration', this.options.duration + 'ms');
+            next.css('animation-duration', this.options.duration + 'ms');
 
             next.css('opacity', 1);
 
             // for plain text content slides - looks smoother
             if (!(next.data('cover') || next.data('placeholder'))) {
 
-                next.css('opacity', 1).one(UI.support.animation.end, function() {
+                next.css('opacity', 1).one(UI.support.animation.end, function () {
                     next.removeClass('uk-slideshow-fade-in');
                 }).addClass('uk-slideshow-fade-in');
             }
 
-            current.one(UI.support.animation.end, function() {
+            current.one(UI.support.animation.end, function () {
 
                 current.removeClass('uk-slideshow-fade-out');
                 next.css('opacity', '');
@@ -7214,13 +7328,13 @@
 
             try {
                 data = JSON.parse(data);
-            } catch(err) {
+            } catch (err) {
                 data = {};
             }
         }
 
         if (e.origin && e.origin.indexOf('vimeo') > -1 && data.event == 'ready' && data.player_id) {
-            iframe = UI.$('[data-player-id="'+ data.player_id+'"]');
+            iframe = UI.$('[data-player-id="' + data.player_id + '"]');
 
             if (iframe.length) {
                 iframe.data('slideshow').mutemedia(iframe);
@@ -7232,9 +7346,9 @@
 
 /*! UIkit 2.24.3 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /*
-  * Based on nativesortable - Copyright (c) Brian Grinstead - https://github.com/bgrins/nativesortable
-  */
-(function(addon) {
+ * Based on nativesortable - Copyright (c) Brian Grinstead - https://github.com/bgrins/nativesortable
+ */
+(function (addon) {
 
     var component;
 
@@ -7243,16 +7357,16 @@
     }
 
     if (typeof define == "function" && define.amd) {
-        define("uikit-sortable", ["uikit"], function(){
+        define("uikit-sortable", ["uikit"], function () {
             return component || addon(UIkit);
         });
     }
 
-})(function(UI){
+})(function (UI) {
 
     "use strict";
 
-    var supportsTouch       = ('ontouchstart' in window) || (window.DocumentTouch && document instanceof DocumentTouch),
+    var supportsTouch = ('ontouchstart' in window) || (window.DocumentTouch && document instanceof DocumentTouch),
         draggingPlaceholder, currentlyDraggingElement, currentlyDraggingTarget, dragging, moving, clickedlink, delayIdle, touchedlists, moved, overElement;
 
     function closestSortable(ele) {
@@ -7264,7 +7378,7 @@
                 return ele;
             }
             ele = UI.$(ele).parent();
-        } while(ele.length);
+        } while (ele.length);
 
         return ele;
     }
@@ -7273,42 +7387,45 @@
 
         defaults: {
 
-            animation        : 150,
-            threshold        : 10,
+            animation: 150,
+            threshold: 10,
 
-            childClass       : 'uk-sortable-item',
-            placeholderClass : 'uk-sortable-placeholder',
-            overClass        : 'uk-sortable-over',
-            draggingClass    : 'uk-sortable-dragged',
-            dragMovingClass  : 'uk-sortable-moving',
-            baseClass        : 'uk-sortable',
-            noDragClass      : 'uk-sortable-nodrag',
-            emptyClass       : 'uk-sortable-empty',
-            dragCustomClass  : '',
-            handleClass      : false,
-            group            : false,
+            childClass: 'uk-sortable-item',
+            placeholderClass: 'uk-sortable-placeholder',
+            overClass: 'uk-sortable-over',
+            draggingClass: 'uk-sortable-dragged',
+            dragMovingClass: 'uk-sortable-moving',
+            baseClass: 'uk-sortable',
+            noDragClass: 'uk-sortable-nodrag',
+            emptyClass: 'uk-sortable-empty',
+            dragCustomClass: '',
+            handleClass: false,
+            group: false,
 
-            stop             : function() {},
-            start            : function() {},
-            change           : function() {}
+            stop: function () {
+            },
+            start: function () {
+            },
+            change: function () {
+            }
         },
 
-        boot: function() {
+        boot: function () {
 
             // auto init
-            UI.ready(function(context) {
+            UI.ready(function (context) {
 
-                UI.$("[data-uk-sortable]", context).each(function(){
+                UI.$("[data-uk-sortable]", context).each(function () {
 
                     var ele = UI.$(this);
 
-                    if(!ele.data("sortable")) {
+                    if (!ele.data("sortable")) {
                         UI.sortable(ele, UI.Utils.options(ele.attr("data-uk-sortable")));
                     }
                 });
             });
 
-            UI.$html.on('mousemove touchmove', function(e) {
+            UI.$html.on('mousemove touchmove', function (e) {
 
                 if (delayIdle) {
 
@@ -7332,26 +7449,26 @@
                     }
 
                     var offset = draggingPlaceholder.data('mouse-offset'),
-                        left   = parseInt(e.originalEvent.pageX, 10) + offset.left,
-                        top    = parseInt(e.originalEvent.pageY, 10) + offset.top;
+                        left = parseInt(e.originalEvent.pageX, 10) + offset.left,
+                        top = parseInt(e.originalEvent.pageY, 10) + offset.top;
 
-                    draggingPlaceholder.css({'left': left, 'top': top });
+                    draggingPlaceholder.css({'left': left, 'top': top});
 
                     // adjust document scrolling
 
-                    if (top + (draggingPlaceholder.height()/3) > document.body.offsetHeight) {
+                    if (top + (draggingPlaceholder.height() / 3) > document.body.offsetHeight) {
                         return;
                     }
 
                     if (top < UI.$win.scrollTop()) {
-                        UI.$win.scrollTop(UI.$win.scrollTop() - Math.ceil(draggingPlaceholder.height()/3));
-                    } else if ( (top + (draggingPlaceholder.height()/3)) > (window.innerHeight + UI.$win.scrollTop()) ) {
-                        UI.$win.scrollTop(UI.$win.scrollTop() + Math.ceil(draggingPlaceholder.height()/3));
+                        UI.$win.scrollTop(UI.$win.scrollTop() - Math.ceil(draggingPlaceholder.height() / 3));
+                    } else if ((top + (draggingPlaceholder.height() / 3)) > (window.innerHeight + UI.$win.scrollTop())) {
+                        UI.$win.scrollTop(UI.$win.scrollTop() + Math.ceil(draggingPlaceholder.height() / 3));
                     }
                 }
             });
 
-            UI.$html.on('mouseup touchend', function(e) {
+            UI.$html.on('mouseup touchend', function (e) {
 
                 delayIdle = clickedlink = false;
 
@@ -7363,9 +7480,9 @@
                 }
 
                 // inside or outside of sortable?
-                var sortable  = closestSortable(e.target),
+                var sortable = closestSortable(e.target),
                     component = draggingPlaceholder.$sortable,
-                    ev        = { type: e.type };
+                    ev = {type: e.type};
 
                 if (sortable[0]) {
                     component.dragDrop(ev, component.element);
@@ -7374,9 +7491,9 @@
             });
         },
 
-        init: function() {
+        init: function () {
 
-            var $this   = this,
+            var $this = this,
                 element = this.element[0];
 
             touchedlists = [];
@@ -7385,14 +7502,14 @@
 
             this.element.data('sortable-group', this.options.group ? this.options.group : UI.Utils.uid('sortable-group'));
 
-            var handleDragStart = delegate(function(e) {
+            var handleDragStart = delegate(function (e) {
 
                 if (e.data && e.data.sortable) {
                     return;
                 }
 
                 var $target = UI.$(e.target),
-                    $link   = $target.is('a[href]') ? $target:$target.parents('a[href]');
+                    $link = $target.is('a[href]') ? $target : $target.parents('a[href]');
 
                 if ($target.is(':input')) {
                     return;
@@ -7402,10 +7519,10 @@
 
                 if (!supportsTouch && $link.length) {
 
-                    $link.one('click', function(e){
+                    $link.one('click', function (e) {
                         e.preventDefault();
-                    }).one('mouseup', function(){
-                        if(!moved) $link.trigger('click');
+                    }).one('mouseup', function () {
+                        if (!moved) $link.trigger('click');
                     });
                 }
 
@@ -7416,7 +7533,7 @@
                 return $this.dragStart(e, this);
             });
 
-            var handleDragOver = delegate(function(e) {
+            var handleDragOver = delegate(function (e) {
 
                 if (!currentlyDraggingElement) {
                     return true;
@@ -7429,11 +7546,11 @@
                 return false;
             });
 
-            var handleDragEnter = delegate(UI.Utils.debounce(function(e) {
+            var handleDragEnter = delegate(UI.Utils.debounce(function (e) {
                 return $this.dragEnter(e, this);
             }), 40);
 
-            var handleDragLeave = delegate(function(e) {
+            var handleDragLeave = delegate(function (e) {
 
                 // Prevent dragenter on a child from allowing a dragleave on the container
                 var previousCounter = $this.dragenterData(this);
@@ -7446,7 +7563,7 @@
                 }
             });
 
-            var handleTouchMove = delegate(function(e) {
+            var handleTouchMove = delegate(function (e) {
 
                 if (!currentlyDraggingElement ||
                     currentlyDraggingElement === this ||
@@ -7485,7 +7602,7 @@
                 // document.removeEventListener("selectstart", prevent, false);
             }
 
-            this.addDragHandlers    = addDragHandlers;
+            this.addDragHandlers = addDragHandlers;
             this.removeDragHandlers = removeDragHandlers;
 
             function handleDragMove(e) {
@@ -7499,12 +7616,12 @@
 
             function delegate(fn) {
 
-                return function(e) {
+                return function (e) {
 
                     var touch, target, context;
 
                     if (e) {
-                        touch  = (supportsTouch && e.touches && e.touches[0]) || { };
+                        touch = (supportsTouch && e.touches && e.touches[0]) || {};
                         target = touch.target || e.target;
 
                         // Fix event.target for a touch event
@@ -7530,25 +7647,25 @@
             }
 
             window.addEventListener(supportsTouch ? 'touchmove' : 'mousemove', handleDragMove, false);
-            element.addEventListener(supportsTouch ? 'touchstart': 'mousedown', handleDragStart, false);
+            element.addEventListener(supportsTouch ? 'touchstart' : 'mousedown', handleDragStart, false);
         },
 
-        dragStart: function(e, elem) {
+        dragStart: function (e, elem) {
 
-            moved    = false;
-            moving   = false;
+            moved = false;
+            moving = false;
             dragging = false;
 
-            var $this    = this,
-                target   = UI.$(e.target);
+            var $this = this,
+                target = UI.$(e.target);
 
-            if (!supportsTouch && e.button==2) {
+            if (!supportsTouch && e.button == 2) {
                 return;
             }
 
             if ($this.options.handleClass) {
 
-                var handle = target.hasClass($this.options.handleClass) ? target : target.closest('.'+$this.options.handleClass, $this.element);
+                var handle = target.hasClass($this.options.handleClass) ? target : target.closest('.' + $this.options.handleClass, $this.element);
 
                 if (!handle.length) {
                     //e.preventDefault();
@@ -7556,7 +7673,7 @@
                 }
             }
 
-            if (target.is('.'+$this.options.noDragClass) || target.closest('.'+$this.options._noDragClass).length) {
+            if (target.is('.' + $this.options.noDragClass) || target.closest('.' + $this.options._noDragClass).length) {
                 return;
             }
 
@@ -7576,27 +7693,27 @@
 
             delayIdle = {
 
-                pos       : { x:e.pageX, y:e.pageY },
-                threshold : $this.options.threshold,
-                apply     : function(evt) {
+                pos: {x: e.pageX, y: e.pageY},
+                threshold: $this.options.threshold,
+                apply: function (evt) {
 
-                    draggingPlaceholder = UI.$('<div class="'+([$this.options.draggingClass, $this.options.dragCustomClass].join(' '))+'"></div>').css({
-                        display : 'none',
-                        top     : offset.top,
-                        left    : offset.left,
-                        width   : $current.width(),
-                        height  : $current.height(),
-                        padding : $current.css('padding')
+                    draggingPlaceholder = UI.$('<div class="' + ([$this.options.draggingClass, $this.options.dragCustomClass].join(' ')) + '"></div>').css({
+                        display: 'none',
+                        top: offset.top,
+                        left: offset.left,
+                        width: $current.width(),
+                        height: $current.height(),
+                        padding: $current.css('padding')
                     }).data({
                         'mouse-offset': {
-                            'left'   : offset.left - parseInt(evt.pageX, 10),
-                            'top'    : offset.top  - parseInt(evt.pageY, 10)
+                            'left': offset.left - parseInt(evt.pageX, 10),
+                            'top': offset.top - parseInt(evt.pageY, 10)
                         },
-                        'origin' : $this.element,
-                        'index'  : $current.index()
+                        'origin': $this.element,
+                        'index': $current.index()
                     }).append($current.html()).appendTo('body');
 
-                    draggingPlaceholder.$current  = $current;
+                    draggingPlaceholder.$current = $current;
                     draggingPlaceholder.$sortable = $this;
 
                     $current.data({
@@ -7610,20 +7727,20 @@
                     $this.options.start(this, currentlyDraggingElement);
                     $this.trigger('start.uk.sortable', [$this, currentlyDraggingElement]);
 
-                    moved     = true;
+                    moved = true;
                     delayIdle = false;
                 }
             };
         },
 
-        dragMove: function(e, elem) {
+        dragMove: function (e, elem) {
 
             overElement = UI.$(document.elementFromPoint(e.pageX - (document.body.scrollLeft || document.scrollLeft || 0), e.pageY - (document.body.scrollTop || document.documentElement.scrollTop || 0)));
 
-            var overRoot     = overElement.closest('.'+this.options.baseClass),
-                groupOver    = overRoot.data("sortable-group"),
-                $current     = UI.$(currentlyDraggingElement),
-                currentRoot  = $current.parent(),
+            var overRoot = overElement.closest('.' + this.options.baseClass),
+                groupOver = overRoot.data("sortable-group"),
+                $current = UI.$(currentlyDraggingElement),
+                currentRoot = $current.parent(),
                 groupCurrent = $current.data("sortable-group"),
                 overChild;
 
@@ -7636,7 +7753,7 @@
 
                 // swap root
                 if (overRoot.children().length > 0) {
-                    overChild = overElement.closest('.'+this.options.childClass);
+                    overChild = overElement.closest('.' + this.options.childClass);
 
                     if (overChild.length) {
                         overChild.before($current);
@@ -7655,7 +7772,7 @@
             this.checkEmptyList(currentRoot);
         },
 
-        dragEnter: function(e, elem) {
+        dragEnter: function (e, elem) {
 
             if (!currentlyDraggingElement || currentlyDraggingElement === elem) {
                 return true;
@@ -7669,14 +7786,14 @@
             if (previousCounter === 0) {
 
                 var currentlist = UI.$(elem).parent(),
-                    startlist   = UI.$(currentlyDraggingElement).data("start-list");
+                    startlist = UI.$(currentlyDraggingElement).data("start-list");
 
                 if (currentlist[0] !== startlist[0]) {
 
-                    var groupOver    = currentlist.data('sortable-group'),
+                    var groupOver = currentlist.data('sortable-group'),
                         groupCurrent = UI.$(currentlyDraggingElement).data("sortable-group");
 
-                    if ((groupOver ||  groupCurrent) && (groupOver != groupCurrent)) {
+                    if ((groupOver || groupCurrent) && (groupOver != groupCurrent)) {
                         return false;
                     }
                 }
@@ -7688,7 +7805,7 @@
             return false;
         },
 
-        dragEnd: function(e, elem) {
+        dragEnd: function (e, elem) {
 
             var $this = this;
 
@@ -7700,11 +7817,11 @@
             }
 
             currentlyDraggingElement = null;
-            currentlyDraggingTarget  = null;
+            currentlyDraggingTarget = null;
 
             touchedlists.push(this.element);
-            touchedlists.forEach(function(el, i) {
-                UI.$(el).children().each(function() {
+            touchedlists.forEach(function (el, i) {
+                UI.$(el).children().each(function () {
                     if (this.nodeType === 1) {
                         UI.$(this).removeClass($this.options.overClass)
                             .removeClass($this.options.placeholderClass)
@@ -7726,7 +7843,7 @@
             }
         },
 
-        dragDrop: function(e, elem) {
+        dragDrop: function (e, elem) {
 
             if (e.type === 'drop') {
 
@@ -7742,22 +7859,25 @@
             this.triggerChangeEvents();
         },
 
-        triggerChangeEvents: function() {
+        triggerChangeEvents: function () {
 
             // trigger events once
             if (!currentlyDraggingElement) return;
 
             var $current = UI.$(currentlyDraggingElement),
-                oldRoot  = draggingPlaceholder.data("origin"),
-                newRoot  = $current.closest('.'+this.options.baseClass),
+                oldRoot = draggingPlaceholder.data("origin"),
+                newRoot = $current.closest('.' + this.options.baseClass),
                 triggers = [],
-                el       = UI.$(currentlyDraggingElement);
+                el = UI.$(currentlyDraggingElement);
 
             // events depending on move inside lists or across lists
-            if (oldRoot[0] === newRoot[0] && draggingPlaceholder.data('index') != $current.index() ) {
+            if (oldRoot[0] === newRoot[0] && draggingPlaceholder.data('index') != $current.index()) {
                 triggers.push({sortable: this, mode: 'moved'});
             } else if (oldRoot[0] != newRoot[0]) {
-                triggers.push({sortable: UI.$(newRoot).data('sortable'), mode: 'added'}, {sortable: UI.$(oldRoot).data('sortable'), mode: 'removed'});
+                triggers.push({
+                    sortable: UI.$(newRoot).data('sortable'),
+                    mode: 'added'
+                }, {sortable: UI.$(oldRoot).data('sortable'), mode: 'removed'});
             }
 
             triggers.forEach(function (trigger, i) {
@@ -7765,7 +7885,7 @@
             });
         },
 
-        dragenterData: function(element, val) {
+        dragenterData: function (element, val) {
 
             element = UI.$(element);
 
@@ -7778,15 +7898,15 @@
             }
         },
 
-        moveElementNextTo: function(element, elementToMoveNextTo) {
+        moveElementNextTo: function (element, elementToMoveNextTo) {
 
             dragging = true;
 
-            var $this    = this,
-                list     = UI.$(element).parent().css('min-height', ''),
-                next     = isBelow(element, elementToMoveNextTo) ? elementToMoveNextTo : elementToMoveNextTo.nextSibling,
+            var $this = this,
+                list = UI.$(element).parent().css('min-height', ''),
+                next = isBelow(element, elementToMoveNextTo) ? elementToMoveNextTo : elementToMoveNextTo.nextSibling,
                 children = list.children(),
-                count    = children.length;
+                count = children.length;
 
             if (!$this.options.animation) {
                 elementToMoveNextTo.parentNode.insertBefore(element, next);
@@ -7796,11 +7916,11 @@
 
             list.css('min-height', list.height());
 
-            children.stop().each(function(){
+            children.stop().each(function () {
                 var ele = UI.$(this),
                     offset = ele.position();
 
-                    offset.width = ele.width();
+                offset.width = ele.width();
 
                 ele.data('offset-before', offset);
             });
@@ -7809,41 +7929,47 @@
 
             UI.Utils.checkDisplay($this.element.parent());
 
-            children = list.children().each(function() {
-                var ele    = UI.$(this);
+            children = list.children().each(function () {
+                var ele = UI.$(this);
                 ele.data('offset-after', ele.position());
-            }).each(function() {
-                var ele    = UI.$(this),
+            }).each(function () {
+                var ele = UI.$(this),
                     before = ele.data('offset-before');
-                ele.css({'position':'absolute', 'top':before.top, 'left':before.left, 'min-width':before.width });
+                ele.css({'position': 'absolute', 'top': before.top, 'left': before.left, 'min-width': before.width});
             });
 
-            children.each(function(){
+            children.each(function () {
 
-                var ele    = UI.$(this),
+                var ele = UI.$(this),
                     before = ele.data('offset-before'),
                     offset = ele.data('offset-after');
 
-                    ele.css('pointer-events', 'none').width();
+                ele.css('pointer-events', 'none').width();
 
-                    setTimeout(function(){
-                        ele.animate({'top':offset.top, 'left':offset.left}, $this.options.animation, function() {
-                            ele.css({'position':'','top':'', 'left':'', 'min-width': '', 'pointer-events':''}).removeClass($this.options.overClass).removeData('child-dragenter');
-                            count--;
-                            if (!count) {
-                                list.css('min-height', '');
-                                UI.Utils.checkDisplay($this.element.parent());
-                            }
-                        });
-                    }, 0);
+                setTimeout(function () {
+                    ele.animate({'top': offset.top, 'left': offset.left}, $this.options.animation, function () {
+                        ele.css({
+                            'position': '',
+                            'top': '',
+                            'left': '',
+                            'min-width': '',
+                            'pointer-events': ''
+                        }).removeClass($this.options.overClass).removeData('child-dragenter');
+                        count--;
+                        if (!count) {
+                            list.css('min-height', '');
+                            UI.Utils.checkDisplay($this.element.parent());
+                        }
+                    });
+                }, 0);
             });
         },
 
-        serialize: function() {
+        serialize: function () {
 
             var data = [], item, attribute;
 
-            this.element.children().each(function(j, child) {
+            this.element.children().each(function (j, child) {
                 item = {};
                 for (var i = 0; i < child.attributes.length; i++) {
                     attribute = child.attributes[i];
@@ -7857,12 +7983,12 @@
             return data;
         },
 
-        checkEmptyList: function(list) {
+        checkEmptyList: function (list) {
 
-            list  = list ? UI.$(list) : this.element;
+            list = list ? UI.$(list) : this.element;
 
             if (this.options.emptyClass) {
-                list[!list.children().length ? 'addClass':'removeClass'](this.options.emptyClass);
+                list[!list.children().length ? 'addClass' : 'removeClass'](this.options.emptyClass);
             }
         }
     });
@@ -7891,7 +8017,9 @@
 
     function moveUpToChildNode(parent, child) {
         var cur = child;
-        if (cur == parent) { return null; }
+        if (cur == parent) {
+            return null;
+        }
 
         while (cur) {
             if (cur.parentNode === parent) {
@@ -7899,7 +8027,7 @@
             }
 
             cur = cur.parentNode;
-            if ( !cur || !cur.ownerDocument || cur.nodeType === 11 ) {
+            if (!cur || !cur.ownerDocument || cur.nodeType === 11) {
                 break;
             }
         }
@@ -7920,7 +8048,7 @@
 });
 
 /*! UIkit 2.24.3 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
-(function(addon) {
+(function (addon) {
 
     var component;
 
@@ -7929,47 +8057,47 @@
     }
 
     if (typeof define == "function" && define.amd) {
-        define("uikit-sticky", ["uikit"], function(){
+        define("uikit-sticky", ["uikit"], function () {
             return component || addon(UIkit);
         });
     }
 
-})(function(UI){
+})(function (UI) {
 
     "use strict";
 
-    var $win         = UI.$win,
-        $doc         = UI.$doc,
-        sticked      = [],
-        direction    = 1;
+    var $win = UI.$win,
+        $doc = UI.$doc,
+        sticked = [],
+        direction = 1;
 
     UI.component('sticky', {
 
         defaults: {
-            top          : 0,
-            bottom       : 0,
-            animation    : '',
-            clsinit      : 'uk-sticky-init',
-            clsactive    : 'uk-active',
-            clsinactive  : '',
-            getWidthFrom : '',
-            showup      : false,
-            boundary     : false,
-            media        : false,
-            target       : false,
-            disabled     : false
+            top: 0,
+            bottom: 0,
+            animation: '',
+            clsinit: 'uk-sticky-init',
+            clsactive: 'uk-active',
+            clsinactive: '',
+            getWidthFrom: '',
+            showup: false,
+            boundary: false,
+            media: false,
+            target: false,
+            disabled: false
         },
 
-        boot: function() {
+        boot: function () {
 
             // should be more efficient than using $win.scroll(checkscrollposition):
-            UI.$doc.on('scrolling.uk.document', function(e, data) {
+            UI.$doc.on('scrolling.uk.document', function (e, data) {
                 if (!data || !data.dir) return;
                 direction = data.dir.y;
                 checkscrollposition();
             });
 
-            UI.$win.on('resize orientationchange', UI.Utils.debounce(function() {
+            UI.$win.on('resize orientationchange', UI.Utils.debounce(function () {
 
                 if (!sticked.length) return;
 
@@ -7982,15 +8110,15 @@
             }, 100));
 
             // init code
-            UI.ready(function(context) {
+            UI.ready(function (context) {
 
-                setTimeout(function(){
+                setTimeout(function () {
 
-                    UI.$("[data-uk-sticky]", context).each(function(){
+                    UI.$("[data-uk-sticky]", context).each(function () {
 
                         var $ele = UI.$(this);
 
-                        if(!$ele.data("sticky")) {
+                        if (!$ele.data("sticky")) {
                             UI.sticky($ele, UI.Utils.options($ele.attr('data-uk-sticky')));
                         }
                     });
@@ -8000,9 +8128,9 @@
             });
         },
 
-        init: function() {
+        init: function () {
 
-            var wrapper  = UI.$('<div class="uk-sticky-placeholder"></div>'), boundary = this.options.boundary, boundtoparent;
+            var wrapper = UI.$('<div class="uk-sticky-placeholder"></div>'), boundary = this.options.boundary, boundtoparent;
 
             this.wrapper = this.element.css('margin', 0).wrap(wrapper).parent();
 
@@ -8012,7 +8140,7 @@
 
                 if (boundary === true || boundary[0] === '!') {
 
-                    boundary      = boundary === true ? this.wrapper.parent() : this.wrapper.closest(boundary.substr(1));
+                    boundary = boundary === true ? this.wrapper.parent() : this.wrapper.closest(boundary.substr(1));
                     boundtoparent = true;
 
                 } else if (typeof boundary === "string") {
@@ -8021,17 +8149,17 @@
             }
 
             this.sticky = {
-                self          : this,
-                options       : this.options,
-                element       : this.element,
-                currentTop    : null,
-                wrapper       : this.wrapper,
-                init          : false,
-                getWidthFrom  : UI.$(this.options.getWidthFrom || this.wrapper),
-                boundary      : boundary,
-                boundtoparent : boundtoparent,
-                top           : 0,
-                calcTop       : function() {
+                self: this,
+                options: this.options,
+                element: this.element,
+                currentTop: null,
+                wrapper: this.wrapper,
+                init: false,
+                getWidthFrom: UI.$(this.options.getWidthFrom || this.wrapper),
+                boundary: boundary,
+                boundtoparent: boundtoparent,
+                top: 0,
+                calcTop: function () {
 
                     var top = this.options.top;
 
@@ -8040,8 +8168,8 @@
 
                         // e.g. 50vh
                         if (this.options.top.match(/^(-|)(\d+)vh$/)) {
-                            top = window.innerHeight * parseInt(this.options.top, 10)/100;
-                        // e.g. #elementId, or .class-1,class-2,.class-3 (first found is used)
+                            top = window.innerHeight * parseInt(this.options.top, 10) / 100;
+                            // e.g. #elementId, or .class-1,class-2,.class-3 (first found is used)
                         } else {
 
                             var topElement = UI.$(this.options.top).first();
@@ -8056,18 +8184,18 @@
                     this.top = top;
                 },
 
-                reset: function(force) {
+                reset: function (force) {
 
                     this.calcTop();
 
-                    var finalize = function() {
-                        this.element.css({"position":"", "top":"", "width":"", "left":"", "margin":"0"});
+                    var finalize = function () {
+                        this.element.css({"position": "", "top": "", "width": "", "left": "", "margin": "0"});
                         this.element.removeClass([this.options.animation, 'uk-animation-reverse', this.options.clsactive].join(' '));
                         this.element.addClass(this.options.clsinactive);
                         this.element.trigger('inactive.uk.sticky');
 
                         this.currentTop = null;
-                        this.animate    = false;
+                        this.animate = false;
                     }.bind(this);
 
 
@@ -8075,17 +8203,17 @@
 
                         this.animate = true;
 
-                        this.element.removeClass(this.options.animation).one(UI.support.animation.end, function(){
+                        this.element.removeClass(this.options.animation).one(UI.support.animation.end, function () {
                             finalize();
                         }).width(); // force redraw
 
-                        this.element.addClass(this.options.animation+' '+'uk-animation-reverse');
+                        this.element.addClass(this.options.animation + ' ' + 'uk-animation-reverse');
                     } else {
                         finalize();
                     }
                 },
 
-                check: function() {
+                check: function () {
 
                     if (this.options.disabled) {
                         return false;
@@ -8093,7 +8221,7 @@
 
                     if (this.options.media) {
 
-                        switch(typeof(this.options.media)) {
+                        switch (typeof(this.options.media)) {
                             case 'number':
                                 if (window.innerWidth < this.options.media) {
                                     return false;
@@ -8107,13 +8235,13 @@
                         }
                     }
 
-                    var scrollTop      = $win.scrollTop(),
+                    var scrollTop = $win.scrollTop(),
                         documentHeight = $doc.height(),
-                        dwh            = documentHeight - window.innerHeight,
-                        extra          = (scrollTop > dwh) ? dwh - scrollTop : 0,
-                        elementTop     = this.wrapper.offset().top,
-                        etse           = elementTop - this.top - extra,
-                        active         = (scrollTop  >= etse);
+                        dwh = documentHeight - window.innerHeight,
+                        extra = (scrollTop > dwh) ? dwh - scrollTop : 0,
+                        elementTop = this.wrapper.offset().top,
+                        etse = elementTop - this.top - extra,
+                        active = (scrollTop >= etse);
 
                     if (active && this.options.showup) {
 
@@ -8137,26 +8265,26 @@
             sticked.push(this.sticky);
         },
 
-        update: function() {
+        update: function () {
             checkscrollposition(this.sticky);
         },
 
-        enable: function() {
+        enable: function () {
             this.options.disabled = false;
             this.update();
         },
 
-        disable: function(force) {
+        disable: function (force) {
             this.options.disabled = true;
             this.sticky.reset(force);
         },
 
-        computeWrapper: function() {
+        computeWrapper: function () {
 
             this.wrapper.css({
-                'height' : ['absolute','fixed'].indexOf(this.element.css('position')) == -1 ? this.element.outerHeight() : '',
-                'float'  : this.element.css('float') != 'none' ? this.element.css('float') : '',
-                'margin' : this.element.css('margin')
+                'height': ['absolute', 'fixed'].indexOf(this.element.css('position')) == -1 ? this.element.outerHeight() : '',
+                'float': this.element.css('float') != 'none' ? this.element.css('float') : '',
+                'margin': this.element.css('margin')
             });
 
             if (this.element.css('position') == 'fixed') {
@@ -8173,11 +8301,11 @@
 
         if (!stickies.length || $win.scrollTop() < 0) return;
 
-        var scrollTop       = $win.scrollTop(),
-            documentHeight  = $doc.height(),
-            windowHeight    = $win.height(),
-            dwh             = documentHeight - windowHeight,
-            extra           = (scrollTop > dwh) ? dwh - scrollTop : 0,
+        var scrollTop = $win.scrollTop(),
+            documentHeight = $doc.height(),
+            windowHeight = $win.height(),
+            dwh = documentHeight - windowHeight,
+            extra = (scrollTop > dwh) ? dwh - scrollTop : 0,
             newTop, containerBottom, stickyHeight, sticky;
 
         for (var i = 0; i < stickies.length; i++) {
@@ -8221,10 +8349,10 @@
                 if (sticky.currentTop != newTop) {
 
                     sticky.element.css({
-                        position : "fixed",
-                        top      : newTop,
-                        width    : sticky.getWidthFrom.length ? sticky.getWidthFrom.width() : sticky.element.width(),
-                        left     : sticky.wrapper.offset().left
+                        position: "fixed",
+                        top: newTop,
+                        width: sticky.getWidthFrom.length ? sticky.getWidthFrom.width() : sticky.element.width(),
+                        left: sticky.wrapper.offset().left
                     });
 
                     if (!sticky.init) {
@@ -8237,14 +8365,14 @@
 
                             if ($target.length) {
 
-                                setTimeout((function($target, sticky){
+                                setTimeout((function ($target, sticky) {
 
-                                    return function() {
+                                    return function () {
 
                                         sticky.element.width(); // force redraw
 
-                                        var offset       = $target.offset(),
-                                            maxoffset    = offset.top + $target.outerHeight(),
+                                        var offset = $target.offset(),
+                                            maxoffset = offset.top + $target.outerHeight(),
                                             stickyOffset = sticky.element.offset(),
                                             stickyHeight = sticky.element.outerHeight(),
                                             stickyMaxOffset = stickyOffset.top + stickyHeight;
@@ -8280,7 +8408,7 @@
 });
 
 /*! UIkit 2.24.3 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
-(function(addon) {
+(function (addon) {
     var component;
 
     if (window.UIkit) {
@@ -8288,12 +8416,12 @@
     }
 
     if (typeof define == "function" && define.amd) {
-        define("uikit-tooltip", ["uikit"], function(){
+        define("uikit-tooltip", ["uikit"], function () {
             return component || addon(UIkit);
         });
     }
 
-})(function(UI){
+})(function (UI) {
 
     "use strict";
 
@@ -8309,7 +8437,7 @@
             "delay": 0, // in miliseconds
             "cls": "",
             "activeClass": "uk-active",
-            "src": function(ele) {
+            "src": function (ele) {
                 var title = ele.attr('title');
 
                 if (title !== undefined) {
@@ -8322,10 +8450,10 @@
 
         tip: "",
 
-        boot: function() {
+        boot: function () {
 
             // init code
-            UI.$html.on("mouseenter.tooltip.uikit focus.tooltip.uikit", "[data-uk-tooltip]", function(e) {
+            UI.$html.on("mouseenter.tooltip.uikit focus.tooltip.uikit", "[data-uk-tooltip]", function (e) {
                 var ele = UI.$(this);
 
                 if (!ele.data("tooltip")) {
@@ -8335,7 +8463,7 @@
             });
         },
 
-        init: function() {
+        init: function () {
 
             var $this = this;
 
@@ -8344,49 +8472,60 @@
             }
 
             this.on({
-                focus      : function(e) { $this.show(); },
-                blur       : function(e) { $this.hide(); },
-                mouseenter : function(e) { $this.show(); },
-                mouseleave : function(e) { $this.hide(); }
+                focus: function (e) {
+                    $this.show();
+                },
+                blur: function (e) {
+                    $this.hide();
+                },
+                mouseenter: function (e) {
+                    $this.show();
+                },
+                mouseleave: function (e) {
+                    $this.hide();
+                }
             });
         },
 
-        show: function() {
+        show: function () {
 
             this.tip = typeof(this.options.src) === "function" ? this.options.src(this.element) : this.options.src;
 
             if (tooltipdelay)     clearTimeout(tooltipdelay);
             if (checkdelay)       clearTimeout(checkdelay);
 
-            if (typeof(this.tip) === 'string' ? !this.tip.length:true) return;
+            if (typeof(this.tip) === 'string' ? !this.tip.length : true) return;
 
             $tooltip.stop().css({"top": -2000, "visibility": "hidden"}).removeClass(this.options.activeClass).show();
             $tooltip.html('<div class="uk-tooltip-inner">' + this.tip + '</div>');
 
-            var $this      = this,
-                pos        = UI.$.extend({}, this.element.offset(), {width: this.element[0].offsetWidth, height: this.element[0].offsetHeight}),
-                width      = $tooltip[0].offsetWidth,
-                height     = $tooltip[0].offsetHeight,
-                offset     = typeof(this.options.offset) === "function" ? this.options.offset.call(this.element) : this.options.offset,
-                position   = typeof(this.options.pos) === "function" ? this.options.pos.call(this.element) : this.options.pos,
-                tmppos     = position.split("-"),
-                tcss       = {
-                    "display"    : "none",
-                    "visibility" : "visible",
-                    "top"        : (pos.top + pos.height + height),
-                    "left"       : pos.left
+            var $this = this,
+                pos = UI.$.extend({}, this.element.offset(), {
+                    width: this.element[0].offsetWidth,
+                    height: this.element[0].offsetHeight
+                }),
+                width = $tooltip[0].offsetWidth,
+                height = $tooltip[0].offsetHeight,
+                offset = typeof(this.options.offset) === "function" ? this.options.offset.call(this.element) : this.options.offset,
+                position = typeof(this.options.pos) === "function" ? this.options.pos.call(this.element) : this.options.pos,
+                tmppos = position.split("-"),
+                tcss = {
+                    "display": "none",
+                    "visibility": "visible",
+                    "top": (pos.top + pos.height + height),
+                    "left": pos.left
                 };
 
 
             // prevent strange position
             // when tooltip is in offcanvas etc.
-            if (UI.$html.css('position')=='fixed' || UI.$body.css('position')=='fixed'){
+            if (UI.$html.css('position') == 'fixed' || UI.$body.css('position') == 'fixed') {
                 var bodyoffset = UI.$('body').offset(),
                     htmloffset = UI.$('html').offset(),
-                    docoffset  = {'top': (htmloffset.top + bodyoffset.top), 'left': (htmloffset.left + bodyoffset.left)};
+                    docoffset = {'top': (htmloffset.top + bodyoffset.top), 'left': (htmloffset.left + bodyoffset.left)};
 
                 pos.left -= docoffset.left;
-                pos.top  -= docoffset.top;
+                pos.top -= docoffset.top;
             }
 
 
@@ -8394,11 +8533,11 @@
                 tmppos[0] = tmppos[0] == "left" ? "right" : "left";
             }
 
-            var variants =  {
-                "bottom"  : {top: pos.top + pos.height + offset, left: pos.left + pos.width / 2 - width / 2},
-                "top"     : {top: pos.top - height - offset, left: pos.left + pos.width / 2 - width / 2},
-                "left"    : {top: pos.top + pos.height / 2 - height / 2, left: pos.left - width - offset},
-                "right"   : {top: pos.top + pos.height / 2 - height / 2, left: pos.left + pos.width + offset}
+            var variants = {
+                "bottom": {top: pos.top + pos.height + offset, left: pos.left + pos.width / 2 - width / 2},
+                "top": {top: pos.top - height - offset, left: pos.left + pos.width / 2 - width / 2},
+                "left": {top: pos.top + pos.height / 2 - height / 2, left: pos.left - width - offset},
+                "right": {top: pos.top + pos.height / 2 - height / 2, left: pos.left + pos.width + offset}
             };
 
             UI.$.extend(tcss, variants[tmppos[0]]);
@@ -8407,33 +8546,33 @@
 
             var boundary = this.checkBoundary(tcss.left, tcss.top, width, height);
 
-            if(boundary) {
+            if (boundary) {
 
-                switch(boundary) {
+                switch (boundary) {
                     case "x":
 
                         if (tmppos.length == 2) {
-                            position = tmppos[0]+"-"+(tcss.left < 0 ? "left": "right");
+                            position = tmppos[0] + "-" + (tcss.left < 0 ? "left" : "right");
                         } else {
-                            position = tcss.left < 0 ? "right": "left";
+                            position = tcss.left < 0 ? "right" : "left";
                         }
 
                         break;
 
                     case "y":
                         if (tmppos.length == 2) {
-                            position = (tcss.top < 0 ? "bottom": "top")+"-"+tmppos[1];
+                            position = (tcss.top < 0 ? "bottom" : "top") + "-" + tmppos[1];
                         } else {
-                            position = (tcss.top < 0 ? "bottom": "top");
+                            position = (tcss.top < 0 ? "bottom" : "top");
                         }
 
                         break;
 
                     case "xy":
                         if (tmppos.length == 2) {
-                            position = (tcss.top < 0 ? "bottom": "top")+"-"+(tcss.left < 0 ? "left": "right");
+                            position = (tcss.top < 0 ? "bottom" : "top") + "-" + (tcss.left < 0 ? "left" : "right");
                         } else {
-                            position = tcss.left < 0 ? "right": "left";
+                            position = tcss.left < 0 ? "right" : "left";
                         }
 
                         break;
@@ -8450,12 +8589,15 @@
 
             tcss.left -= UI.$body.position().left;
 
-            tooltipdelay = setTimeout(function(){
+            tooltipdelay = setTimeout(function () {
 
-                $tooltip.css(tcss).attr("class", ["uk-tooltip", "uk-tooltip-"+position, $this.options.cls].join(' '));
+                $tooltip.css(tcss).attr("class", ["uk-tooltip", "uk-tooltip-" + position, $this.options.cls].join(' '));
 
                 if ($this.options.animation) {
-                    $tooltip.css({opacity: 0, display: 'block'}).addClass($this.options.activeClass).animate({opacity: 1}, parseInt($this.options.animation, 10) || 400);
+                    $tooltip.css({
+                        opacity: 0,
+                        display: 'block'
+                    }).addClass($this.options.activeClass).animate({opacity: 1}, parseInt($this.options.animation, 10) || 400);
                 } else {
                     $tooltip.show().addClass($this.options.activeClass);
                 }
@@ -8463,17 +8605,17 @@
                 tooltipdelay = false;
 
                 // close tooltip if element was removed or hidden
-                checkdelay = setInterval(function(){
-                    if(!$this.element.is(':visible')) $this.hide();
+                checkdelay = setInterval(function () {
+                    if (!$this.element.is(':visible')) $this.hide();
                 }, 150);
 
             }, parseInt(this.options.delay, 10) || 0);
         },
 
-        hide: function() {
-            if(this.element.is("input") && this.element[0]===document.activeElement) return;
+        hide: function () {
+            if (this.element.is("input") && this.element[0] === document.activeElement) return;
 
-            if(tooltipdelay) clearTimeout(tooltipdelay);
+            if (tooltipdelay) clearTimeout(tooltipdelay);
             if (checkdelay)  clearTimeout(checkdelay);
 
             $tooltip.stop();
@@ -8482,7 +8624,7 @@
 
                 var $this = this;
 
-                $tooltip.fadeOut(parseInt(this.options.animation, 10) || 400, function(){
+                $tooltip.fadeOut(parseInt(this.options.animation, 10) || 400, function () {
                     $tooltip.removeClass($this.options.activeClass)
                 });
 
@@ -8491,20 +8633,20 @@
             }
         },
 
-        content: function() {
+        content: function () {
             return this.tip;
         },
 
-        checkBoundary: function(left, top, width, height) {
+        checkBoundary: function (left, top, width, height) {
 
             var axis = "";
 
-            if(left < 0 || ((left - UI.$win.scrollLeft())+width) > window.innerWidth) {
-               axis += "x";
+            if (left < 0 || ((left - UI.$win.scrollLeft()) + width) > window.innerWidth) {
+                axis += "x";
             }
 
-            if(top < 0 || ((top - UI.$win.scrollTop())+height) > window.innerHeight) {
-               axis += "y";
+            if (top < 0 || ((top - UI.$win.scrollTop()) + height) > window.innerHeight) {
+                axis += "y";
             }
 
             return axis;
@@ -8515,7 +8657,7 @@
 });
 
 /*! UIkit 2.24.3 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
-(function(addon) {
+(function (addon) {
 
     var component;
 
@@ -8524,12 +8666,12 @@
     }
 
     if (typeof define == "function" && define.amd) {
-        define("uikit-timepicker", ["uikit"], function(){
+        define("uikit-timepicker", ["uikit"], function () {
             return component || addon(UIkit);
         });
     }
 
-})(function(UI){
+})(function (UI) {
 
     "use strict";
 
@@ -8537,37 +8679,37 @@
     UI.component('timepicker', {
 
         defaults: {
-            format : '24h',
-            delay  : 0,
-            start  : 0,
-            end    : 24
+            format: '24h',
+            delay: 0,
+            start: 0,
+            end: 24
         },
 
-        boot: function() {
+        boot: function () {
 
             // init code
-            UI.$html.on("focus.timepicker.uikit", "[data-uk-timepicker]", function(e) {
+            UI.$html.on("focus.timepicker.uikit", "[data-uk-timepicker]", function (e) {
 
                 var ele = UI.$(this);
 
                 if (!ele.data("timepicker")) {
                     var obj = UI.timepicker(ele, UI.Utils.options(ele.attr("data-uk-timepicker")));
 
-                    setTimeout(function(){
+                    setTimeout(function () {
                         obj.autocomplete.input.focus();
                     }, 40);
                 }
             });
         },
 
-        init: function() {
+        init: function () {
 
-            var $this  = this, times = getTimeRange(this.options.start, this.options.end), container;
+            var $this = this, times = getTimeRange(this.options.start, this.options.end), container;
 
             this.options.minLength = 0;
-            this.options.template  = '<ul class="uk-nav uk-nav-autocomplete uk-autocomplete-results">{{~items}}<li data-value="{{$item.value}}"><a class="needsclick">{{$item.value}}</a></li>{{/items}}</ul>';
+            this.options.template = '<ul class="uk-nav uk-nav-autocomplete uk-autocomplete-results">{{~items}}<li data-value="{{$item.value}}"><a class="needsclick">{{$item.value}}</a></li>{{/items}}</ul>';
 
-            this.options.source = function(release) {
+            this.options.source = function (release) {
                 release(times[$this.options.format] || times['12h']);
             };
 
@@ -8581,28 +8723,28 @@
             this.autocomplete = UI.autocomplete(container, this.options);
             this.autocomplete.dropdown.addClass('uk-dropdown-small uk-dropdown-scrollable');
 
-            this.autocomplete.on('show.uk.autocomplete', function() {
+            this.autocomplete.on('show.uk.autocomplete', function () {
 
-                var selected = $this.autocomplete.dropdown.find('[data-value="'+$this.autocomplete.input.val()+'"]');
+                var selected = $this.autocomplete.dropdown.find('[data-value="' + $this.autocomplete.input.val() + '"]');
 
-                setTimeout(function(){
+                setTimeout(function () {
                     $this.autocomplete.pick(selected, true);
                 }, 10);
             });
 
-            this.autocomplete.input.on('focus', function(){
+            this.autocomplete.input.on('focus', function () {
 
                 $this.autocomplete.value = Math.random();
                 $this.autocomplete.triggercomplete();
 
-            }).on('blur', UI.Utils.debounce(function() {
+            }).on('blur', UI.Utils.debounce(function () {
                 $this.checkTime();
             }, 100));
 
             this.element.data("timepicker", this);
         },
 
-        checkTime: function() {
+        checkTime: function () {
 
             var arr, timeArray, meridian = 'AM', hour, minute, time = this.autocomplete.input.val();
 
@@ -8614,7 +8756,7 @@
                 timeArray = time.split(':');
             }
 
-            hour   = parseInt(timeArray[0], 10);
+            hour = parseInt(timeArray[0], 10);
             minute = parseInt(timeArray[1], 10);
 
             if (isNaN(hour))   hour = 0;
@@ -8655,7 +8797,7 @@
             this.autocomplete.input.val(this.formatTime(hour, minute, meridian)).trigger('change');
         },
 
-        formatTime: function(hour, minute, meridian) {
+        formatTime: function (hour, minute, meridian) {
             hour = hour < 10 ? '0' + hour : hour;
             minute = minute < 10 ? '0' + minute : minute;
             return hour + ':' + minute + (this.options.format == '12h' ? ' ' + meridian : '');
@@ -8667,38 +8809,38 @@
     function getTimeRange(start, end) {
 
         start = start || 0;
-        end   = end || 24;
+        end = end || 24;
 
-        var times = {'12h':[], '24h':[]}, i, h;
+        var times = {'12h': [], '24h': []}, i, h;
 
-        for (i = start, h=''; i<end; i++) {
+        for (i = start, h = ''; i < end; i++) {
 
-            h = ''+i;
+            h = '' + i;
 
-            if (i<10)  h = '0'+h;
+            if (i < 10)  h = '0' + h;
 
-            times['24h'].push({value: (h+':00')});
-            times['24h'].push({value: (h+':30')});
+            times['24h'].push({value: (h + ':00')});
+            times['24h'].push({value: (h + ':30')});
 
             if (i === 0) {
                 h = 12;
-                times['12h'].push({value: (h+':00 AM')});
-                times['12h'].push({value: (h+':30 AM')});
+                times['12h'].push({value: (h + ':00 AM')});
+                times['12h'].push({value: (h + ':30 AM')});
             }
 
-            if (i > 0 && i<13 && i!==12) {
-                times['12h'].push({value: (h+':00 AM')});
-                times['12h'].push({value: (h+':30 AM')});
+            if (i > 0 && i < 13 && i !== 12) {
+                times['12h'].push({value: (h + ':00 AM')});
+                times['12h'].push({value: (h + ':30 AM')});
             }
 
             if (i >= 12) {
 
-                h = h-12;
+                h = h - 12;
                 if (h === 0) h = 12;
-                if (h < 10) h = '0'+String(h);
+                if (h < 10) h = '0' + String(h);
 
-                times['12h'].push({value: (h+':00 PM')});
-                times['12h'].push({value: (h+':30 PM')});
+                times['12h'].push({value: (h + ':00 PM')});
+                times['12h'].push({value: (h + ':30 PM')});
             }
         }
 
@@ -8708,7 +8850,7 @@
 });
 
 /*! UIkit 2.24.3 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
-(function(addon) {
+(function (addon) {
 
     var component;
 
@@ -8717,22 +8859,22 @@
     }
 
     if (typeof define == "function" && define.amd) {
-        define("uikit-upload", ["uikit"], function(){
+        define("uikit-upload", ["uikit"], function () {
             return component || addon(UIkit);
         });
     }
 
-})(function(UI){
+})(function (UI) {
 
     "use strict";
 
     UI.component('uploadSelect', {
 
-        init: function() {
+        init: function () {
 
             var $this = this;
 
-            this.on("change", function() {
+            this.on("change", function () {
                 xhrupload($this.element[0].files, $this.options);
                 var twin = $this.element.clone(true).data('uploadSelect', $this);
                 $this.element.replaceWith(twin);
@@ -8747,11 +8889,11 @@
             'dragoverClass': 'uk-dragover'
         },
 
-        init: function() {
+        init: function () {
 
             var $this = this, hasdragCls = false;
 
-            this.on("drop", function(e){
+            this.on("drop", function (e) {
 
                 if (e.dataTransfer && e.dataTransfer.files) {
 
@@ -8764,10 +8906,10 @@
                     xhrupload(e.dataTransfer.files, $this.options);
                 }
 
-            }).on("dragenter", function(e){
+            }).on("dragenter", function (e) {
                 e.stopPropagation();
                 e.preventDefault();
-            }).on("dragover", function(e){
+            }).on("dragover", function (e) {
                 e.stopPropagation();
                 e.preventDefault();
 
@@ -8775,7 +8917,7 @@
                     $this.element.addClass($this.options.dragoverClass);
                     hasdragCls = true;
                 }
-            }).on("dragleave", function(e){
+            }).on("dragleave", function (e) {
                 e.stopPropagation();
                 e.preventDefault();
                 $this.element.removeClass($this.options.dragoverClass);
@@ -8785,49 +8927,52 @@
     });
 
 
-    UI.support.ajaxupload = (function() {
+    UI.support.ajaxupload = (function () {
 
         function supportFileAPI() {
-            var fi = document.createElement('INPUT'); fi.type = 'file'; return 'files' in fi;
+            var fi = document.createElement('INPUT');
+            fi.type = 'file';
+            return 'files' in fi;
         }
 
         function supportAjaxUploadProgressEvents() {
-            var xhr = new XMLHttpRequest(); return !! (xhr && ('upload' in xhr) && ('onprogress' in xhr.upload));
+            var xhr = new XMLHttpRequest();
+            return !!(xhr && ('upload' in xhr) && ('onprogress' in xhr.upload));
         }
 
         function supportFormData() {
-            return !! window.FormData;
+            return !!window.FormData;
         }
 
         return supportFileAPI() && supportAjaxUploadProgressEvents() && supportFormData();
     })();
 
-    if (UI.support.ajaxupload){
+    if (UI.support.ajaxupload) {
         UI.$.event.props.push("dataTransfer");
     }
 
     function xhrupload(files, settings) {
 
-        if (!UI.support.ajaxupload){
+        if (!UI.support.ajaxupload) {
             return this;
         }
 
         settings = UI.$.extend({}, xhrupload.defaults, settings);
 
-        if (!files.length){
+        if (!files.length) {
             return;
         }
 
         if (settings.allow !== '*.*') {
 
-            for(var i=0,file;file=files[i];i++) {
+            for (var i = 0, file; file = files[i]; i++) {
 
-                if(!matchName(settings.allow, file.name)) {
+                if (!matchName(settings.allow, file.name)) {
 
-                    if(typeof(settings.notallowed) == 'string') {
-                       alert(settings.notallowed);
+                    if (typeof(settings.notallowed) == 'string') {
+                        alert(settings.notallowed);
                     } else {
-                       settings.notallowed(file, settings);
+                        settings.notallowed(file, settings);
                     }
                     return;
                 }
@@ -8836,36 +8981,36 @@
 
         var complete = settings.complete;
 
-        if (settings.single){
+        if (settings.single) {
 
-            var count    = files.length,
+            var count = files.length,
                 uploaded = 0,
-                allow    = true;
+                allow = true;
 
-                settings.beforeAll(files);
+            settings.beforeAll(files);
 
-                settings.complete = function(response, xhr){
+            settings.complete = function (response, xhr) {
 
-                    uploaded = uploaded + 1;
+                uploaded = uploaded + 1;
 
-                    complete(response, xhr);
+                complete(response, xhr);
 
-                    if (settings.filelimit && uploaded >= settings.filelimit){
-                        allow = false;
-                    }
+                if (settings.filelimit && uploaded >= settings.filelimit) {
+                    allow = false;
+                }
 
-                    if (allow && uploaded<count){
-                        upload([files[uploaded]], settings);
-                    } else {
-                        settings.allcomplete(response, xhr);
-                    }
-                };
+                if (allow && uploaded < count) {
+                    upload([files[uploaded]], settings);
+                } else {
+                    settings.allcomplete(response, xhr);
+                }
+            };
 
-                upload([files[0]], settings);
+            upload([files[0]], settings);
 
         } else {
 
-            settings.complete = function(response, xhr){
+            settings.complete = function (response, xhr) {
                 complete(response, xhr);
                 settings.allcomplete(response, xhr);
             };
@@ -8873,46 +9018,60 @@
             upload(files, settings);
         }
 
-        function upload(files, settings){
+        function upload(files, settings) {
 
             // upload all at once
             var formData = new FormData(), xhr = new XMLHttpRequest();
 
-            if (settings.before(settings, files)===false) return;
+            if (settings.before(settings, files) === false) return;
 
-            for (var i = 0, f; f = files[i]; i++) { formData.append(settings.param, f); }
-            for (var p in settings.params) { formData.append(p, settings.params[p]); }
+            for (var i = 0, f; f = files[i]; i++) {
+                formData.append(settings.param, f);
+            }
+            for (var p in settings.params) {
+                formData.append(p, settings.params[p]);
+            }
 
             // Add any event handlers here...
-            xhr.upload.addEventListener("progress", function(e){
-                var percent = (e.loaded / e.total)*100;
+            xhr.upload.addEventListener("progress", function (e) {
+                var percent = (e.loaded / e.total) * 100;
                 settings.progress(percent, e);
             }, false);
 
-            xhr.addEventListener("loadstart", function(e){ settings.loadstart(e); }, false);
-            xhr.addEventListener("load",      function(e){ settings.load(e);      }, false);
-            xhr.addEventListener("loadend",   function(e){ settings.loadend(e);   }, false);
-            xhr.addEventListener("error",     function(e){ settings.error(e);     }, false);
-            xhr.addEventListener("abort",     function(e){ settings.abort(e);     }, false);
+            xhr.addEventListener("loadstart", function (e) {
+                settings.loadstart(e);
+            }, false);
+            xhr.addEventListener("load", function (e) {
+                settings.load(e);
+            }, false);
+            xhr.addEventListener("loadend", function (e) {
+                settings.loadend(e);
+            }, false);
+            xhr.addEventListener("error", function (e) {
+                settings.error(e);
+            }, false);
+            xhr.addEventListener("abort", function (e) {
+                settings.abort(e);
+            }, false);
 
             xhr.open(settings.method, settings.action, true);
 
-            if (settings.type=="json") {
+            if (settings.type == "json") {
                 xhr.setRequestHeader("Accept", "application/json");
             }
 
-            xhr.onreadystatechange = function() {
+            xhr.onreadystatechange = function () {
 
                 settings.readystatechange(xhr);
 
-                if (xhr.readyState==4){
+                if (xhr.readyState == 4) {
 
                     var response = xhr.responseText;
 
-                    if (settings.type=="json") {
+                    if (settings.type == "json") {
                         try {
                             response = UI.$.parseJSON(response);
-                        } catch(e) {
+                        } catch (e) {
                             response = false;
                         }
                     }
@@ -8929,34 +9088,45 @@
         'action': '',
         'single': true,
         'method': 'POST',
-        'param' : 'files[]',
+        'param': 'files[]',
         'params': {},
-        'allow' : '*.*',
-        'type'  : 'text',
+        'allow': '*.*',
+        'type': 'text',
         'filelimit': false,
 
         // events
-        'before'          : function(o){},
-        'beforeSend'      : function(xhr){},
-        'beforeAll'       : function(){},
-        'loadstart'       : function(){},
-        'load'            : function(){},
-        'loadend'         : function(){},
-        'error'           : function(){},
-        'abort'           : function(){},
-        'progress'        : function(){},
-        'complete'        : function(){},
-        'allcomplete'     : function(){},
-        'readystatechange': function(){},
-        'notallowed'      : function(file, settings){ alert('Only the following file types are allowed: '+settings.allow); }
+        'before': function (o) {
+        },
+        'beforeSend': function (xhr) {
+        },
+        'beforeAll': function () {
+        },
+        'loadstart': function () {
+        },
+        'load': function () {
+        },
+        'loadend': function () {
+        },
+        'error': function () {
+        },
+        'abort': function () {
+        },
+        'progress': function () {
+        },
+        'complete': function () {
+        },
+        'allcomplete': function () {
+        },
+        'readystatechange': function () {
+        },
+        'notallowed': function (file, settings) {
+            alert('Only the following file types are allowed: ' + settings.allow);
+        }
     };
 
     function matchName(pattern, path) {
 
-        var parsedPattern = '^' + pattern.replace(/\//g, '\\/').
-            replace(/\*\*/g, '(\\/[^\\/]+)*').
-            replace(/\*/g, '[^\\/]+').
-            replace(/((?!\\))\?/g, '$1.') + '$';
+        var parsedPattern = '^' + pattern.replace(/\//g, '\\/').replace(/\*\*/g, '(\\/[^\\/]+)*').replace(/\*/g, '[^\\/]+').replace(/((?!\\))\?/g, '$1.') + '$';
 
         parsedPattern = '^' + parsedPattern + '$';
 
@@ -8989,10 +9159,10 @@ if (typeof UIkit !== 'undefined') {
                 delay: 50
             });
 
-            (function() {
+            (function () {
                 var old_show_function = UIkit.components.dropdown.prototype.show;
 
-                UIkit.components.dropdown.prototype.show = function() {
+                UIkit.components.dropdown.prototype.show = function () {
 
                     this.dropdown
                         .css({
@@ -9004,18 +9174,18 @@ if (typeof UIkit !== 'undefined') {
                 }
             })();
 
-            (function() {
+            (function () {
                 var old_hide_function = UIkit.components.dropdown.prototype.hide;
 
-                UIkit.components.dropdown.prototype.hide = function() {
+                UIkit.components.dropdown.prototype.hide = function () {
 
                     var this_dropdown = this.dropdown;
 
                     this_dropdown.removeClass('uk-dropdown-shown');
 
-                    var dropdown_timeout = setTimeout(function() {
+                    var dropdown_timeout = setTimeout(function () {
                         this_dropdown.removeClass('uk-dropdown-active')
-                    },280);
+                    }, 280);
 
                     return old_hide_function.apply(this, arguments);
                 }
@@ -9069,7 +9239,7 @@ if (typeof UIkit !== 'undefined') {
 
         // sortable
         if (typeof UIkit.components.sortable !== "undefined") { // check if sortable component is defined
-            if(Modernizr.touch) {
+            if (Modernizr.touch) {
                 $('[data-uk-sortable]').children().addClass('needsclick');
             }
         }

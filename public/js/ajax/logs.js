@@ -45,7 +45,7 @@ logs = function () {
         });
     }
 
-    this.saveMail = function saveMail(json_data){
+    this.saveMail = function saveMail(json_data) {
         $.ajax({
             url: '/campaign/action/saveMail',
             type: 'POST',

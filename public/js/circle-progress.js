@@ -1,12 +1,12 @@
 /*
-jquery-circle-progress - jQuery Plugin to draw animated circular progress bars
+ jquery-circle-progress - jQuery Plugin to draw animated circular progress bars
 
-URL: http://kottenator.github.io/jquery-circle-progress/
-Author: Rostyslav Bryzgunov <kottenator@gmail.com>
-Version: 1.1.3
-License: MIT
-*/
-(function($) {
+ URL: http://kottenator.github.io/jquery-circle-progress/
+ Author: Rostyslav Bryzgunov <kottenator@gmail.com>
+ Version: 1.1.3
+ License: MIT
+ */
+(function ($) {
     function CircleProgress(config) {
         this.init(config);
     }
@@ -141,7 +141,7 @@ License: MIT
          * Init/re-init the widget
          * @param {object} config - Config
          */
-        init: function(config) {
+        init: function (config) {
             $.extend(this, config);
             this.radius = this.size / 2;
             this.initWidget();
@@ -152,7 +152,7 @@ License: MIT
         /**
          * @protected
          */
-        initWidget: function() {
+        initWidget: function () {
             var canvas = this.canvas = this.canvas || $('<canvas>').prependTo(this.el)[0];
             canvas.width = this.size;
             canvas.height = this.size;
@@ -164,7 +164,7 @@ License: MIT
          * It could do this async (on image load)
          * @protected
          */
-        initFill: function() {
+        initFill: function () {
             var self = this,
                 fill = this.fill,
                 ctx = this.ctx,
@@ -184,11 +184,11 @@ License: MIT
                 } else if (gr.length > 1) {
                     var ga = fill.gradientAngle || 0, // gradient direction angle; 0 by default
                         gd = fill.gradientDirection || [
-                            size / 2 * (1 - Math.cos(ga)), // x0
-                            size / 2 * (1 + Math.sin(ga)), // y0
-                            size / 2 * (1 + Math.cos(ga)), // x1
-                            size / 2 * (1 - Math.sin(ga))  // y1
-                        ];
+                                size / 2 * (1 - Math.cos(ga)), // x0
+                                size / 2 * (1 + Math.sin(ga)), // y0
+                                size / 2 * (1 + Math.cos(ga)), // x1
+                                size / 2 * (1 - Math.sin(ga))  // y1
+                            ];
 
                     var lg = ctx.createLinearGradient.apply(ctx, gd);
 
@@ -234,7 +234,7 @@ License: MIT
             }
         },
 
-        draw: function() {
+        draw: function () {
             if (this.animation)
                 this.drawAnimated(this.value);
             else
@@ -245,7 +245,7 @@ License: MIT
          * @protected
          * @param {number} v - Frame value
          */
-        drawFrame: function(v) {
+        drawFrame: function (v) {
             this.lastFrameValue = v;
             this.ctx.clearRect(0, 0, this.size, this.size);
             this.drawEmptyArc(v);
@@ -256,7 +256,7 @@ License: MIT
          * @protected
          * @param {number} v - Frame value
          */
-        drawArc: function(v) {
+        drawArc: function (v) {
             var ctx = this.ctx,
                 r = this.radius,
                 t = this.getThickness(),
@@ -282,7 +282,7 @@ License: MIT
          * @protected
          * @param {number} v - Frame value
          */
-        drawEmptyArc: function(v) {
+        drawEmptyArc: function (v) {
             var ctx = this.ctx,
                 r = this.radius,
                 t = this.getThickness(),
@@ -313,7 +313,7 @@ License: MIT
          * @protected
          * @param {number} v - Value
          */
-        drawAnimated: function(v) {
+        drawAnimated: function (v) {
             var self = this,
                 el = this.el,
                 canvas = $(this.canvas);
@@ -323,8 +323,8 @@ License: MIT
             el.trigger('circle-animation-start');
 
             canvas
-                .css({ animationProgress: 0 })
-                .animate({ animationProgress: 1 }, $.extend({}, this.animation, {
+                .css({animationProgress: 0})
+                .animate({animationProgress: 1}, $.extend({}, this.animation, {
                     step: function (animationProgress) {
                         var stepValue = self.animationStartValue * (1 - animationProgress) + v * animationProgress;
                         self.drawFrame(stepValue);
@@ -332,7 +332,7 @@ License: MIT
                     }
                 }))
                 .promise()
-                .always(function() {
+                .always(function () {
                     // trigger on both successful & failure animation end
                     el.trigger('circle-animation-end');
                 });
@@ -342,15 +342,15 @@ License: MIT
          * @protected
          * @returns {number}
          */
-        getThickness: function() {
+        getThickness: function () {
             return $.isNumeric(this.thickness) ? this.thickness : this.size / 14;
         },
 
-        getValue: function() {
+        getValue: function () {
             return this.value;
         },
 
-        setValue: function(newValue) {
+        setValue: function (newValue) {
             if (this.animation)
                 this.animationStartValue = this.lastFrameValue;
             this.value = newValue;
@@ -365,7 +365,7 @@ License: MIT
     };
 
     // ease-in-out-cubic
-    $.easing.circleProgressEasing = function(x, t, b, c, d) {
+    $.easing.circleProgressEasing = function (x, t, b, c, d) {
         if ((t /= d / 2) < 1)
             return c / 2 * t * t * t + b;
         return c / 2 * ((t -= 2) * t * t + 2) + b;
@@ -393,7 +393,7 @@ License: MIT
      *
      * @param commandArgument - Some commands (like 'value') may require an argument
      */
-    $.fn.circleProgress = function(configOrCommand, commandArgument) {
+    $.fn.circleProgress = function (configOrCommand, commandArgument) {
         var dataName = 'circle-progress',
             firstInstance = this.data(dataName);
 
@@ -410,13 +410,13 @@ License: MIT
                 return firstInstance.getValue();
             } else {
                 var newValue = arguments[1];
-                return this.each(function() {
+                return this.each(function () {
                     $(this).data(dataName).setValue(newValue);
                 });
             }
         }
 
-        return this.each(function() {
+        return this.each(function () {
             var el = $(this),
                 instance = el.data(dataName),
                 config = $.isPlainObject(configOrCommand) ? configOrCommand : {};

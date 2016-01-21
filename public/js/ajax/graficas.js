@@ -34,12 +34,12 @@ graficas = function () {
         return chart4;
     }
 //------------------------grafica de barra para los años y edades
-    this.genderAge = function genderAge( men , women ){
+    this.genderAge = function genderAge(men, women) {
 
         // Data gathered from http://populationpyramid.net/germany/2015/
         $(function () {
             // Age categories
-            var categories = ['0-17','18-20','21-30', '31-40', '41-50','51-60',
+            var categories = ['0-17', '18-20', '21-30', '31-40', '41-50', '51-60',
                 '61-70', '71-80', '81-90', '91-100 +'];
             //var categories = [''];
             var elemento;
@@ -54,7 +54,7 @@ graficas = function () {
                     text: ' DISTRIBUCION POR EDADES<a href="http://populationpyramid.net/germany/2015/"></a>'
                 },
                 xAxis: [{
-                    categories: ['','','','','','','','','',''],//se le pasa el arreglo de categorias
+                    categories: ['', '', '', '', '', '', '', '', '', ''],//se le pasa el arreglo de categorias
                     reversed: false,// para decirle el orden en que van a parecer las categorias
                     labels: {
                         step: 1
@@ -62,7 +62,7 @@ graficas = function () {
                 }, { // mirror axis on right side
                     opposite: true, //para que en la grafica se muestren las barras encontradas o no en la misma direccion
                     reversed: false,
-                    categories: ['','','','','','','','','',''],
+                    categories: ['', '', '', '', '', '', '', '', '', ''],
                     linkedTo: 0,
                     labels: {
                         step: 1 //es como decirle cuantos numeros de la categoria  aparescan en la grafica
@@ -86,18 +86,18 @@ graficas = function () {
                 tooltip: {
                     formatter: function () {//funcion para hacer operaciones para mostrar los datos
                         return '<div  style="background-color: #FFF; padding-top: 0px; margin-top: 0px; top: 0px;"> <b>' + this.series.name + ', age ' + categories[this.point.index] + '</b><br/>' +
-                            'usuarios: ' + Highcharts.numberFormat(Math.abs(this.point.y), 0)+'</div>';
+                            'usuarios: ' + Highcharts.numberFormat(Math.abs(this.point.y), 0) + '</div>';
                     }
                 },
 
                 series: [{
                     name: 'Male',
-                    color:'#5294C2',
-                    data: [men[1],men[2],men[3],men[4],men[5],men[6],men[7],men[8],men[9],men[10] ]
+                    color: '#5294C2',
+                    data: [men[1], men[2], men[3], men[4], men[5], men[6], men[7], men[8], men[9], men[10]]
                 }, {
                     name: 'Female',
-                    color:'#fc92cc',
-                    data: [women[1],women[2],women[3],women[4],women[5],women[6],women[7],women[8],women[9],women[10]]
+                    color: '#fc92cc',
+                    data: [women[1], women[2], women[3], women[4], women[5], women[6], women[7], women[8], women[9], women[10]]
                 }]
             });
             return elemento;
@@ -110,11 +110,11 @@ graficas = function () {
             bindto: '#intPerDay',
             data: {
                 columns: [
-                    ['hace 1 dia',  dia1 ],
-                    ['hace 2 dia',  dia2 ],
-                    ['hace 3 dia',  dia3 ],
-                    ['hace 4 dia',  dia4 ],
-                    ['hace 5 dia',  dia5 ]
+                    ['hace 1 dia', dia1],
+                    ['hace 2 dia', dia2],
+                    ['hace 3 dia', dia3],
+                    ['hace 4 dia', dia4],
+                    ['hace 5 dia', dia5]
                     /*['Android', 30, 200, 200, 400, 150, 250],
                      ['Blackberry', 130, 100, 100, 200, 150, 50],
                      ['IOS', 230, 200, 200, 300, 250, 250],
@@ -138,16 +138,16 @@ graficas = function () {
         return gender;
     }
 //------------------------grafica de barra para las interacciones por dia
-    this.intPerDay = function intPerDay (dias) {
+    this.intPerDay = function intPerDay(dias) {
         //        Interacciones por modelos
         var chart3 = c3.generate({
             bindto: '#intPerDay',
             data: {
-                x:'x',
+                x: 'x',
                 columns: [
-                    ['x', dia1['num'], ],
+                    ['x', dia1['num'],],
                     //                            ['interacciones por dia '],
-                    ['interacciones', dias, dia2,dia3, dia4,dia5,dia6,dia7]
+                    ['interacciones', dias, dia2, dia3, dia4, dia5, dia6, dia7]
                 ],
                 type: 'bar'
             },
@@ -180,22 +180,22 @@ graficas = function () {
     }
 
     /*function ajax(json_data, paso) {
-        $.ajax({
-            url: '/interaction/logs/' + paso,
-            type: 'POST',
-            dataType: 'JSON',
-            data: json_data
-        }).done(function (data) {
-            console.log("success");
-            console.log(data);
-        }).fail(function (jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR);
-            console.log(textStatus);
-            console.log(errorThrown);
-        }).always(function () {
-            console.log("complete-");
-        });
-    }*/
+     $.ajax({
+     url: '/interaction/logs/' + paso,
+     type: 'POST',
+     dataType: 'JSON',
+     data: json_data
+     }).done(function (data) {
+     console.log("success");
+     console.log(data);
+     }).fail(function (jqXHR, textStatus, errorThrown) {
+     console.log(jqXHR);
+     console.log(textStatus);
+     console.log(errorThrown);
+     }).always(function () {
+     console.log("complete-");
+     });
+     }*/
 };
 
 //------------------------------------------------------------------
@@ -243,10 +243,10 @@ var chart3 = c3.generate({
             ['Windows Phone', 230, 200, 200, 300, 250, 250],
             ['other', 230, 200, 200, 300, 250, 250]
         ],
-    type: 'bar',
-    /*groups: [
-     ['Android', 'Blackberry', 'IOS', 'Windows Phone', 'other']
-     ]*/
+        type: 'bar',
+        /*groups: [
+         ['Android', 'Blackberry', 'IOS', 'Windows Phone', 'other']
+         ]*/
     },
     color: {
         pattern: ['red', '#aec7e8', '#ff7f0e', '#ffbb78', '#2ca02c', '#98df8a', '#d62728', '#ff9896', '#9467bd', '#c5b0d5', '#8c564b', '#c49c94', '#e377c2', '#f7b6d2', '#7f7f7f', '#c7c7c7', '#bcbd22', '#dbdb8d', '#17becf', '#9edae5']
@@ -256,7 +256,7 @@ var chart3 = c3.generate({
             padding: {top: 200, bottom: 0}
         }
     }
-    });
+});
 
 //        Visitantes por edades
 var chart4 = c3.generate({

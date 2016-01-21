@@ -46,7 +46,7 @@
                                     </li>
                                 </ul>
                             </div>
-                            <a class="md-fab md-fab-small md-fab-accent" href="{!! url('profile/edit ') !!}">
+                            <a class="md-fab md-fab-small md-fab-accent" href="javascript:void(0)">
                                 <i class="material-icons">&#xE150;</i>
                             </a>
                         </div>

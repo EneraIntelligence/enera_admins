@@ -95,7 +95,7 @@
                     <div class="uk-button-dropdown" data-uk-dropdown="{mode:'click'}"
                          style="position: fixed; top: 13px; margin-left: 10px;">
                         <a href="#" class="top_menu_toggle" style="color: #FFFFff;">
-                            <img src="{!! URL::asset('img/icon_publisher.png') !!}" alt="Enera"
+                            <img src="{!! URL::asset('assets/img/logo_enera_admins.png') !!}" alt="Enera"
                                  style="top: -0px; left: 0; position: relative;"> <span class="uk-hidden-small"
                                                                                         style="top: 2px; position: relative;">Admins</span>
                         </a>
@@ -273,7 +273,7 @@
 
                             <div class="uk-dropdown uk-dropdown-small uk-dropdown-flip">
                                 <ul class="uk-nav js-uk-prevent">
-                                    <li><a href="#">Mi cuenta</a></li>
+                                    <li><a href="{!! url('profile') !!}">Mi cuenta</a></li>
                                     <li><a href="#">Ajustes</a></li>
                                     <li><a href="#">Salir</a></li>
                                 </ul>
