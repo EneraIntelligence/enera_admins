@@ -3,6 +3,7 @@
 namespace Admins\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App;
 
 class AppServiceProvider extends ServiceProvider
 {
