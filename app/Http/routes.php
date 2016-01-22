@@ -11,9 +11,9 @@
 |
 */
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth', 'guardian']], function () {
     Route::get('/', ['as' => 'home', 'uses' => 'DashboardController@index']);
-    Route::match(['post', 'get'], '/logout', ['as' => 'logout', 'uses' => 'AuthController@logout']);
+    Route::match(['post', 'get'], '/logout', ['as' => 'auth.logout', 'uses' => 'AuthController@logout']);
 
     Route::group(['prefix' => 'campaigns', 'as' => 'campaigns::'], function () {
         Route::get('/', ['as' => 'index', 'uses' => 'CampaignsController@index']);
@@ -31,6 +31,6 @@ Route::group(['middleware' => 'auth.ready'], function () {
     Route::post('/login', ['as' => 'auth.login', 'uses' => 'AuthController@login']);
 });
 
-Route::get('/choose',function(){
+Route::get('/choose', function () {
     return view('choose');
 });
