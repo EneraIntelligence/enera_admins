@@ -1,3 +1,5 @@
+process.env.DISABLE_NOTIFIER = true;
+
 var elixir = require('laravel-elixir');
 
 /*
@@ -16,4 +18,5 @@ elixir(function(mix) {
     mix.sass('campaign.scss','public/assets/css/campaign.css');
     mix.sass('loader.scss','public/assets/css/loader.css');
     mix.sass('profile.scss','public/assets/css/profile.css');
+    mix.sass('login_enera.scss','public/assets/css/login_enera.css');
 });

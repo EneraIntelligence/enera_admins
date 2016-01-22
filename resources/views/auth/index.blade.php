@@ -19,6 +19,7 @@
 
             <!-- altair admin login page -->
     {!! HTML::style('assets/css/login_page.min.css') !!}
+    {!! HTML::style('assets/css/login_enera.css') !!}
     {!! HTML::style('assets/css/main.min.css') !!}
     <style>
         span {
@@ -29,7 +30,7 @@
         }
     </style>
 </head>
-<body class="login_page">
+<body class="login_page login_body">
 <div class="login_page_wrapper">
 
     <div class="md-card" id="login_card">
