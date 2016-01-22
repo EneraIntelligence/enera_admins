@@ -76,20 +76,20 @@
 </div>
 
 <!-- Create campaign button -->
-            <!-- main header -->
-    <header id="header_main">
-        <div class="header_main_content">
-            <nav class="uk-navbar">
-                <!-- main sidebar switch -->
-                {{--OLD ID sidebar_main_toggle--}}
-                <a href="{{ route("home") }}" id="" class="sSwitch sSwitch_left ">
-                    <img src="{!! URL::asset('img/Logo Enera Blanco-01.png') !!}" alt="Enera"
-                         style="top: -10px; left: 15px; position: relative;">
-                </a>
-                <!-- secondary sidebar switch -->
-                {{--<a href="#" id="sidebar_secondary_toggle" class="sSwitch sSwitch_right sidebar_secondary_check">--}}
-                {{--<span class="sSwitchIcon"></span>--}}
-                {{--</a>--}}
+<!-- main header -->
+<header id="header_main">
+    <div class="header_main_content">
+        <nav class="uk-navbar">
+            <!-- main sidebar switch -->
+            {{--OLD ID sidebar_main_toggle--}}
+            <a href="{{ route("home") }}" id="" class="sSwitch sSwitch_left ">
+                <img src="{!! URL::asset('img/Logo Enera Blanco-01.png') !!}" alt="Enera"
+                     style="top: -10px; left: 15px; position: relative;">
+            </a>
+            <!-- secondary sidebar switch -->
+            {{--<a href="#" id="sidebar_secondary_toggle" class="sSwitch sSwitch_right sidebar_secondary_check">--}}
+            {{--<span class="sSwitchIcon"></span>--}}
+            {{--</a>--}}
 
                 <div id="menu_top" class="uk-float-left ">
                     <div class="uk-button-dropdown" data-uk-dropdown="{mode:'click'}"
@@ -100,176 +100,173 @@
                                                                                         style="top: 2px; position: relative;">Admins</span>
                         </a>
 
-                        <div class="uk-dropdown uk-dropdown-width-3" style="top: -20px;">
-                            <div class="uk-grid uk-dropdown-grid" data-uk-grid-margin>
-                                <div class="uk-width-2-3">
-                                    <div class="uk-grid uk-grid-width-medium-1-3 uk-margin-top uk-margin-bottom uk-text-center"
-                                         data-uk-grid-margin>
-                                        <a href="{!! route('campaigns::index') !!}">
-                                            <i class="material-icons md-36  md-color-red-600">&#xE8DF;</i>
-                                            {{--<i class="material-icons md-36 md-bg-red-400">event</i>--}}
-                                            <span class="uk-text-muted uk-display-block">Campañas</span>
-                                        </a>
-                                        {{--<a href="{!! route('reports::index') !!}">--}}
-                                        <a href="#">
-                                            <i class="material-icons md-36 md-color-red-600">&#xE1BA;</i>
-                                            {{--<i class="material-icons md-36 md-bg-red-400">assessment</i>--}}
-                                            <span class="uk-text-muted uk-display-block">Redes</span>
-                                        </a>
-                                        <a href="#">
-                                            <i class="material-icons md-36  md-color-red-600">&#xE7EF;</i>
-                                            {{--<i class="material-icons md-36 md-bg-red-400">attach_money</i>--}}
-                                            <span class="uk-text-muted uk-display-block">Clientes</span>
-                                        </a>
-                                    </div>
+
+                    <div class="uk-dropdown uk-dropdown-width-3" style="top: -20px;">
+                        <div class="uk-grid uk-dropdown-grid" data-uk-grid-margin>
+                            <div class="uk-width-2-3">
+                                <div class="uk-grid uk-grid-width-medium-1-3 uk-margin-top uk-margin-bottom uk-text-center"
+                                     data-uk-grid-margin>
+                                    <a href="{!! route('campaigns::index') !!}">
+                                        <i class="material-icons md-36  md-color-red-600">&#xE8DF;</i>
+                                        <span class="uk-text-muted uk-display-block">Campañas</span>
+                                    </a>
+                                    <a href="#">
+                                        <i class="material-icons md-36 md-color-red-600">&#xE63E;</i>
+                                        <span class="uk-text-muted uk-display-block">Redes</span>
+                                    </a>
+                                    <a href="#">
+                                        <i class="material-icons md-36  md-color-red-600">&#xE7EF;</i>
+                                        <span class="uk-text-muted uk-display-block">Clientes</span>
+                                    </a>
                                 </div>
-                                <div class="uk-width-1-3 uk-hidden-small">
-                                    <ul class="uk-nav uk-nav-dropdown uk-panel">
-                                        <li class="uk-nav-header">Recientes</li>
-                                        <li><a href="#">Buttons</a></li>
-                                        <li><a href="#">Notifications</a></li>
-                                        <li><a href="#">Sortable</a></li>
-                                        <li><a href="#">Tabs</a></li>
-                                    </ul>
-                                </div>
+                            </div>
+                            <div class="uk-width-1-3 uk-hidden-small">
+                                <ul class="uk-nav uk-nav-dropdown uk-panel">
+                                    <li class="uk-nav-header">Recientes</li>
+                                    <li><a href="#">Buttons</a></li>
+                                    <li><a href="#">Notifications</a></li>
+                                    <li><a href="#">Sortable</a></li>
+                                    <li><a href="#">Tabs</a></li>
+                                </ul>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="uk-navbar-flip">
-                    <ul class="uk-navbar-nav user_actions">
-                        <li><a href="#" id="main_search_btn" class="user_action_icon"><i
-                                        class="material-icons md-20 md-light">&#xE8B6;</i></a></li>
-                        <li data-uk-dropdown="{mode:'click'}">
-                            <a href="#" class="user_action_icon"><i class="material-icons md-20 md-light">
-                                    &#xE7F4;</i><span
-                                        class="uk-badge">99</span></a>
+            </div>
+            <div class="uk-navbar-flip">
+                <ul class="uk-navbar-nav user_actions">
+                    <li><a href="#" id="main_search_btn" class="user_action_icon"><i
+                                    class="material-icons md-20 md-light">&#xE8B6;</i></a></li>
+                    <li data-uk-dropdown="{mode:'click'}">
+                        <a href="#" class="user_action_icon"><i class="material-icons md-20 md-light">
+                                &#xE7F4;</i><span
+                                    class="uk-badge">99</span></a>
 
-                            <div class="uk-dropdown uk-dropdown-xlarge uk-dropdown-flip">
-                                <div class="md-card-content">
-                                    <ul class="uk-tab uk-tab-grid"
-                                        data-uk-tab="{connect:'#header_alerts',animation:'slide-horizontal'}">
-                                        <li class="uk-width-1-2 uk-active"><a href="#"
-                                                                              class="js-uk-prevent uk-text-small">Mensajes
-                                                (12)</a></li>
-                                        <li class="uk-width-1-2"><a href="#" class="js-uk-prevent uk-text-small">Alertas
-                                                (4)</a></li>
-                                    </ul>
-                                    <ul id="header_alerts" class="uk-switcher uk-margin">
-                                        <li>
-                                            <ul class="md-list md-list-addon">
-                                                <li>
-                                                    <div class="md-list-addon-element">
-                                                        <span class="md-user-letters md-bg-cyan">se</span>
-                                                    </div>
-                                                    <div class="md-list-content">
+                        <div class="uk-dropdown uk-dropdown-xlarge uk-dropdown-flip">
+                            <div class="md-card-content">
+                                <ul class="uk-tab uk-tab-grid"
+                                    data-uk-tab="{connect:'#header_alerts',animation:'slide-horizontal'}">
+                                    <li class="uk-width-1-2 uk-active"><a href="#"
+                                                                          class="js-uk-prevent uk-text-small">Mensajes
+                                            (12)</a></li>
+                                    <li class="uk-width-1-2"><a href="#" class="js-uk-prevent uk-text-small">Alertas
+                                            (4)</a></li>
+                                </ul>
+                                <ul id="header_alerts" class="uk-switcher uk-margin">
+                                    <li>
+                                        <ul class="md-list md-list-addon">
+                                            <li>
+                                                <div class="md-list-addon-element">
+                                                    <span class="md-user-letters md-bg-cyan">se</span>
+                                                </div>
+                                                <div class="md-list-content">
                                                     <span class="md-list-heading"><a href="pages_mailbox.html">Nobis
                                                             ipsum.</a></span>
-                                                        <span class="uk-text-small uk-text-muted">Ratione dolore nisi ut quis expedita fugiat dolor porro.</span>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="md-list-addon-element">
-                                                        <img class="md-user-image md-list-addon-avatar"
-                                                             src="assets/img/avatars/avatar_07_tn.png" alt=""/>
-                                                    </div>
-                                                    <div class="md-list-content">
+                                                    <span class="uk-text-small uk-text-muted">Ratione dolore nisi ut quis expedita fugiat dolor porro.</span>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="md-list-addon-element">
+                                                    <img class="md-user-image md-list-addon-avatar"
+                                                         src="assets/img/avatars/avatar_07_tn.png" alt=""/>
+                                                </div>
+                                                <div class="md-list-content">
                                                     <span class="md-list-heading"><a href="pages_mailbox.html">Quia
                                                             praesentium.</a></span>
-                                                        <span class="uk-text-small uk-text-muted">Aliquid harum mollitia in repudiandae officiis assumenda rem.</span>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="md-list-addon-element">
-                                                        <span class="md-user-letters md-bg-light-green">tg</span>
-                                                    </div>
-                                                    <div class="md-list-content">
+                                                    <span class="uk-text-small uk-text-muted">Aliquid harum mollitia in repudiandae officiis assumenda rem.</span>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="md-list-addon-element">
+                                                    <span class="md-user-letters md-bg-light-green">tg</span>
+                                                </div>
+                                                <div class="md-list-content">
                                                     <span class="md-list-heading"><a href="pages_mailbox.html">Et
                                                             accusamus.</a></span>
-                                                        <span class="uk-text-small uk-text-muted">Enim ex ipsam odio id.</span>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="md-list-addon-element">
-                                                        <img class="md-user-image md-list-addon-avatar"
-                                                             src="assets/img/avatars/avatar_02_tn.png" alt=""/>
-                                                    </div>
-                                                    <div class="md-list-content">
+                                                    <span class="uk-text-small uk-text-muted">Enim ex ipsam odio id.</span>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="md-list-addon-element">
+                                                    <img class="md-user-image md-list-addon-avatar"
+                                                         src="assets/img/avatars/avatar_02_tn.png" alt=""/>
+                                                </div>
+                                                <div class="md-list-content">
                                                     <span class="md-list-heading"><a href="pages_mailbox.html">Voluptas
                                                             dignissimos.</a></span>
-                                                        <span class="uk-text-small uk-text-muted">Ut rerum fugit doloribus blanditiis culpa impedit facilis voluptatem sed est eius.</span>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="md-list-addon-element">
-                                                        <img class="md-user-image md-list-addon-avatar"
-                                                             src="assets/img/avatars/avatar_09_tn.png" alt=""/>
-                                                    </div>
-                                                    <div class="md-list-content">
+                                                    <span class="uk-text-small uk-text-muted">Ut rerum fugit doloribus blanditiis culpa impedit facilis voluptatem sed est eius.</span>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="md-list-addon-element">
+                                                    <img class="md-user-image md-list-addon-avatar"
+                                                         src="assets/img/avatars/avatar_09_tn.png" alt=""/>
+                                                </div>
+                                                <div class="md-list-content">
                                                     <span class="md-list-heading"><a href="pages_mailbox.html">Inventore
                                                             fuga molestias.</a></span>
-                                                        <span class="uk-text-small uk-text-muted">Sit libero officia nulla saepe sed incidunt alias est earum aperiam.</span>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                            <div class="uk-text-center uk-margin-top uk-margin-small-bottom">
-                                                <a href="page_mailbox.html"
-                                                   class="md-btn md-btn-flat md-btn-flat-primary js-uk-prevent">Show
-                                                    All</a>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <ul class="md-list md-list-addon">
-                                                <li>
-                                                    <div class="md-list-addon-element">
-                                                        <i class="md-list-addon-icon material-icons uk-text-warning">
-                                                            &#xE8B2;</i>
-                                                    </div>
-                                                    <div class="md-list-content">
-                                                        <span class="md-list-heading">Quas itaque quas.</span>
-                                                        <span class="uk-text-small uk-text-muted uk-text-truncate">Asperiores odio impedit eius voluptatem est.</span>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="md-list-addon-element">
-                                                        <i class="md-list-addon-icon material-icons uk-text-success">
-                                                            &#xE88F;</i>
-                                                    </div>
-                                                    <div class="md-list-content">
-                                                        <span class="md-list-heading">Tenetur non blanditiis.</span>
-                                                        <span class="uk-text-small uk-text-muted uk-text-truncate">Tempora explicabo consequatur dignissimos pariatur.</span>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="md-list-addon-element">
-                                                        <i class="md-list-addon-icon material-icons uk-text-danger">
-                                                            &#xE001;</i>
-                                                    </div>
-                                                    <div class="md-list-content">
-                                                        <span class="md-list-heading">Omnis sapiente.</span>
-                                                        <span class="uk-text-small uk-text-muted uk-text-truncate">Ut voluptatem dolorem corporis adipisci similique minima.</span>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="md-list-addon-element">
-                                                        <i class="md-list-addon-icon material-icons uk-text-primary">
-                                                            &#xE8FD;</i>
-                                                    </div>
-                                                    <div class="md-list-content">
-                                                        <span class="md-list-heading">Modi et asperiores.</span>
-                                                        <span class="uk-text-small uk-text-muted uk-text-truncate">Corporis qui aut maiores eveniet ipsum officia blanditiis.</span>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </div>
+                                                    <span class="uk-text-small uk-text-muted">Sit libero officia nulla saepe sed incidunt alias est earum aperiam.</span>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <div class="uk-text-center uk-margin-top uk-margin-small-bottom">
+                                            <a href="page_mailbox.html"
+                                               class="md-btn md-btn-flat md-btn-flat-primary js-uk-prevent">Show
+                                                All</a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <ul class="md-list md-list-addon">
+                                            <li>
+                                                <div class="md-list-addon-element">
+                                                    <i class="md-list-addon-icon material-icons uk-text-warning">
+                                                        &#xE8B2;</i>
+                                                </div>
+                                                <div class="md-list-content">
+                                                    <span class="md-list-heading">Quas itaque quas.</span>
+                                                    <span class="uk-text-small uk-text-muted uk-text-truncate">Asperiores odio impedit eius voluptatem est.</span>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="md-list-addon-element">
+                                                    <i class="md-list-addon-icon material-icons uk-text-success">
+                                                        &#xE88F;</i>
+                                                </div>
+                                                <div class="md-list-content">
+                                                    <span class="md-list-heading">Tenetur non blanditiis.</span>
+                                                    <span class="uk-text-small uk-text-muted uk-text-truncate">Tempora explicabo consequatur dignissimos pariatur.</span>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="md-list-addon-element">
+                                                    <i class="md-list-addon-icon material-icons uk-text-danger">
+                                                        &#xE001;</i>
+                                                </div>
+                                                <div class="md-list-content">
+                                                    <span class="md-list-heading">Omnis sapiente.</span>
+                                                    <span class="uk-text-small uk-text-muted uk-text-truncate">Ut voluptatem dolorem corporis adipisci similique minima.</span>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="md-list-addon-element">
+                                                    <i class="md-list-addon-icon material-icons uk-text-primary">
+                                                        &#xE8FD;</i>
+                                                </div>
+                                                <div class="md-list-content">
+                                                    <span class="md-list-heading">Modi et asperiores.</span>
+                                                    <span class="uk-text-small uk-text-muted uk-text-truncate">Corporis qui aut maiores eveniet ipsum officia blanditiis.</span>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
                             </div>
-                        </li>
-                        <li data-uk-dropdown="{mode:'click'}">
-                            <a href="#" class="user_action_image">
-                                <i class="material-icons md-36" style="color: white;">account_circle</i>
-                            </a>
+                        </div>
+                    </li>
+                    <li data-uk-dropdown="{mode:'click'}">
+                        <a href="#" class="user_action_image">
+                            <i class="material-icons md-36" style="color: white;">account_circle</i>
+                        </a>
 
                             <div class="uk-dropdown uk-dropdown-small uk-dropdown-flip">
                                 <ul class="uk-nav js-uk-prevent">
@@ -286,15 +283,15 @@
         <div class="header_main_search_form">
             <i class="md-icon header_main_search_close material-icons">&#xE5CD;</i>
 
-            <form class="uk-form">
-                <input type="text" class="header_main_search_input"/>
-                <button class="header_main_search_btn uk-button-link"><i class="md-icon material-icons">&#xE8B6;</i>
-                </button>
-            </form>
-        </div>
-    </header><!-- main header end -->
+        <form class="uk-form">
+            <input type="text" class="header_main_search_input"/>
+            <button class="header_main_search_btn uk-button-link"><i class="md-icon material-icons">&#xE8B6;</i>
+            </button>
+        </form>
+    </div>
+</header><!-- main header end -->
 
-    <img style="display:none" src="{!! URL::asset('assets/img/spinners/spinner.gif') !!}" alt="">
+<img style="display:none" src="{!! URL::asset('assets/img/spinners/spinner.gif') !!}" alt="">
 
 
     @yield('content')
@@ -329,46 +326,45 @@
             <!-- altair common functions/helpers -->
     {!! HTML::script('assets/js/altair_admin_common.min.js') !!}
 
-    <script>
-        // load parsley config (altair_admin_common.js)
-        altair_forms.parsley_validation_config();
-    </script>
+<script>
+    // load parsley config (altair_admin_common.js)
+    altair_forms.parsley_validation_config();
+</script>
 
 
-    {!! HTML::script('bower_components/d3/d3.min.js') !!}
-    {!! HTML::script('bower_components/c3js-chart/c3.min.js') !!}
+{!! HTML::script('bower_components/d3/d3.min.js') !!}
+{!! HTML::script('bower_components/c3js-chart/c3.min.js') !!}
 
 
-    {!! HTML::script('bower_components/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js') !!}
-    {!! HTML::script('assets/js/pages/kendoui.min.js') !!}
+{!! HTML::script('bower_components/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js') !!}
+{!! HTML::script('assets/js/pages/kendoui.min.js') !!}
 
-            <!-- animation library -->
-    {!! HTML::script('js/greensock/TweenLite.min.js') !!}
-    {!! HTML::script('js/greensock/plugins/CSSPlugin.min.js') !!}
-    {!! HTML::script('js/greensock/easing/EasePack.min.js') !!}
+        <!-- animation library -->
+{!! HTML::script('js/greensock/TweenLite.min.js') !!}
+{!! HTML::script('js/greensock/plugins/CSSPlugin.min.js') !!}
+{!! HTML::script('js/greensock/easing/EasePack.min.js') !!}
 
 
+<script>
+    $(function () {
+        // enable hires images
+        altair_helpers.retina_images();
+        // fastClick (touch devices)
+        if (Modernizr.touch) {
+            FastClick.attach(document.body);
+        }
+    });
 
-    <script>
-        $(function () {
-            // enable hires images
-            altair_helpers.retina_images();
-            // fastClick (touch devices)
-            if (Modernizr.touch) {
-                FastClick.attach(document.body);
+    window.onload = function () {
+        //remove loader
+        TweenLite.to("#loader", .3, {
+            "autoAlpha": 0, onComplete: function () {
+                $("#loader").css("display", "none");
             }
         });
+    }
 
-        window.onload = function () {
-            //remove loader
-            TweenLite.to("#loader", .3, {
-                "autoAlpha": 0, onComplete: function () {
-                    $("#loader").css("display", "none");
-                }
-            });
-        }
-
-    </script>
-    @yield('scripts')
+</script>
+@yield('scripts')
 </body>
 </html>
