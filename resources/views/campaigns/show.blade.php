@@ -1,17 +1,19 @@
 @extends('layout.main')
 @section('head_scripts')
-    <style>
-        li p {
-            font: 400 14px/18px Roboto, sans-serif;
-            color: #000000;
-            margin-bottom: 0;
-        }
+        <!-- c3.js (charts) -->
+{!! HTML::style('bower_components/c3js-chart/c3.min.css') !!}
 
-        .p {
-            list-style: none;
+<style>
+    li p {
+        font: 400 14px/18px Roboto, sans-serif;
+        color: #000000;
+        margin-bottom: 0;
+    }
 
-        }
-    </style>
+    .p {
+        list-style: none;
+    }
+</style>
 @endsection
 
 @section('content')
@@ -33,7 +35,7 @@
                             <div class="user_heading_avatar">
                                 <div>
                                     <div id="circle" style="max-width:98px;max-height:98px;margin:auto;">
-                                        <img style="background-image:none!important;margin:-96px 9px;"
+                                        <img style="background-image:none!important;"
                                              src="{!! URL::asset('img/icons/'.
                                                                 CampaignStyle::getCampaignIcon( $cam->interaction['name']
                                                              ) ) !!}"
@@ -528,7 +530,7 @@
                                         <div class="uk-grid uk-margin-medium-top" data="uk-grid-margin">
                                             <div class="uk-width-1-1">
                                                 <div class="uk-width-medium-1-6">
-                                                    <a class="md-btn md-btn-primary"
+                                                    <a class="md-btn md-btn-primary">
                                                        {{--href="{{route('analytics::single', ['id' => $cam->_id])}}">--}}
                                                         <span class="uk-display-block">Reportes</span>
                                                     </a>
@@ -549,23 +551,38 @@
     @section('scripts')
 
             <!-- slider script -->
+
     {!! HTML::script('bower_components/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js') !!}
-    {!! HTML::script('bower_components/ion.rangeslider/js/ion.rangeSlider.min.js') !!}
+    {!! HTML::script('bower_components/ionrangeslider/js/ion.rangeSlider.min.js') !!}
     {!! HTML::script('bower_components/countUp.js/countUp.js') !!}
     {!! HTML::script('js/circle-progress.js') !!}
     {!! HTML::style('css/show.css') !!}
             <!-- links para que funcione la grafica demografica  -->
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    {{--{!! HTML::script('js/ajax/graficas.js') !!}--}}
+    <!-- page specific plugins -->
+    <!-- d3 -->
+    {{--<script src="bower_components/d3/d3.min.js"></script>--}}
+    {!! HTML::script('bower_components/d3/d3.min.js') !!}
+            <!-- metrics graphics (charts) -->
+    {{--<script src="bower_components/metrics-graphics/dist/metricsgraphics.min.js"></script>--}}
+            <!-- c3.js (charts) -->
+    {!! HTML::script('bower_components/c3js-chart/c3.min.js') !!}
+            <!-- chartist -->
+    {{--<script src="bower_components/chartist/dist/chartist.min.js"></script>--}}
+
+            <!--  charts functions -->
+    {{--<script src="assets/js/pages/plugins_charts.min.js"></script>--}}
+
+    {!! HTML::script('js/ajax/graficas.js') !!}
     <script>
         $(Document).ready(function () {
             //-------------------------------------- animacion del circulo  ---------------------------------------------
             $('#circle').circleProgress({
-                value:.20, //lo que se va a llenar con el color
-                size: 98,   //tamaño del circulo
+                value: {{$cam->porcentaje}}, //lo que se va a llenar con el color
+                size:  98,   //tamaño del circulo
                 startAngle: -300, //de donde va a empezar la animacion
-                reverse: true, //empieza la animacion al contrario
+                reverse:  true, //empieza la animacion al contrario
                 thickness: 8,  //el grosor la linea
                 fill: {color: "{!! CampaignStyle::getStatusColor($cam->status) !!}"} //el color de la linea
             }).on('circle-animation-progress', function (event, progress) {

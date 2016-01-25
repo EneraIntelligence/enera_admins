@@ -12,7 +12,7 @@
 
     <link rel="icon" type="image/png" href="{!! URL::asset('images/favicon.png') !!}" sizes="32x32">
 
-    <title>Enera Publishers</title>
+    <title>Enera Admins</title>
     <link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500' rel='stylesheet' type='text/css'>
     <!-- uikit -->
     {!! HTML::style('bower_components/uikit/css/uikit.almost-flat.min.css') !!}
