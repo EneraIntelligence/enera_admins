@@ -95,7 +95,7 @@
                     <div class="uk-button-dropdown" data-uk-dropdown="{mode:'click'}"
                          style="position: fixed; top: 13px; margin-left: 10px;">
                         <a href="#" class="top_menu_toggle" style="color: #FFFFff;">
-                            <img src="{!! URL::asset('images/logo_enera_admins.png') !!}" alt="Enera"
+                            <img src="{!! URL::asset('assets/img/logo_enera_admins.png') !!}" alt="Enera"
                                  style="top: -0px; left: 0; position: relative;"> <span class="uk-hidden-small"
                                                                                         style="top: 2px; position: relative;">Admins</span>
                         </a>
