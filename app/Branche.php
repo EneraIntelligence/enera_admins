@@ -13,5 +13,10 @@ class Branche extends Model
     {
         return $this->belongsTo('Admins\Network');
     }
+
+    public function campaign_logs()
+    {
+        return $this->hasMany('Admins\CampaignLog', 'device.branch_id');
+    }
     // end relations
 }
