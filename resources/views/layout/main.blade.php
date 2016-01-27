@@ -95,7 +95,7 @@
                     <div class="uk-button-dropdown" data-uk-dropdown="{mode:'click'}"
                          style="position: fixed; top: 13px; margin-left: 10px;">
                         <a href="#" class="top_menu_toggle" style="color: #FFFFff;">
-                            <img src="{!! URL::asset('assets/img/logo_enera_admins.png') !!}" alt="Enera"
+                            <img src="{!! URL::asset('assets/images/logo_enera_admins.png') !!}" alt="Enera"
                                  style="top: -0px; left: 0; position: relative;"> <span class="uk-hidden-small"
                                                                                         style="top: 2px; position: relative;">Admins</span>
                         </a>
@@ -168,7 +168,7 @@
                                             <li>
                                                 <div class="md-list-addon-element">
                                                     <img class="md-user-image md-list-addon-avatar"
-                                                         src="assets/img/avatars/avatar_07_tn.png" alt=""/>
+                                                         src="assets/images/avatars/avatar_07_tn.png" alt=""/>
                                                 </div>
                                                 <div class="md-list-content">
                                                     <span class="md-list-heading"><a href="pages_mailbox.html">Quia
@@ -189,7 +189,7 @@
                                             <li>
                                                 <div class="md-list-addon-element">
                                                     <img class="md-user-image md-list-addon-avatar"
-                                                         src="assets/img/avatars/avatar_02_tn.png" alt=""/>
+                                                         src="assets/images/avatars/avatar_02_tn.png" alt=""/>
                                                 </div>
                                                 <div class="md-list-content">
                                                     <span class="md-list-heading"><a href="pages_mailbox.html">Voluptas
@@ -200,7 +200,7 @@
                                             <li>
                                                 <div class="md-list-addon-element">
                                                     <img class="md-user-image md-list-addon-avatar"
-                                                         src="assets/img/avatars/avatar_09_tn.png" alt=""/>
+                                                         src="assets/images/avatars/avatar_09_tn.png" alt=""/>
                                                 </div>
                                                 <div class="md-list-content">
                                                     <span class="md-list-heading"><a href="pages_mailbox.html">Inventore
@@ -291,7 +291,7 @@
     </div>
 </header><!-- main header end -->
 
-<img style="display:none" src="{!! URL::asset('assets/img/spinners/spinner.gif') !!}" alt="">
+<img style="display:none" src="{!! URL::asset('assets/images/spinners/spinner.gif') !!}" alt="">
 
 
     @yield('content')
