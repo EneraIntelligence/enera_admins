@@ -83,7 +83,7 @@
             <!-- main sidebar switch -->
             {{--OLD ID sidebar_main_toggle--}}
             <a href="{{ route("home") }}" id="" class="sSwitch sSwitch_left ">
-                <img src="{!! URL::asset('img/Logo Enera Blanco-01.png') !!}" alt="Enera"
+                <img src="{!! URL::asset('images/Logo Enera Blanco-01.png') !!}" alt="Enera"
                      style="top: -10px; left: 15px; position: relative;">
             </a>
             <!-- secondary sidebar switch -->
@@ -95,7 +95,7 @@
                     <div class="uk-button-dropdown" data-uk-dropdown="{mode:'click'}"
                          style="position: fixed; top: 13px; margin-left: 10px;">
                         <a href="#" class="top_menu_toggle" style="color: #FFFFff;">
-                            <img src="{!! URL::asset('assets/images/logo_enera_admins.png') !!}" alt="Enera"
+                            <img src="{!! URL::asset('images/logo_enera_admins.png') !!}" alt="Enera"
                                  style="top: -0px; left: 0; position: relative;"> <span class="uk-hidden-small"
                                                                                         style="top: 2px; position: relative;">Admins</span>
                         </a>
