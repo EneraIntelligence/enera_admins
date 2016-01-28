@@ -2,12 +2,14 @@
 
 namespace Admins\Http\Controllers;
 
+use Admins\Branche;
 use DateTime;
 use Admins\CampaignLog;
 use Illuminate\Http\Request;
 use Auth;
 use Admins\Campaign;
 use Admins\Libraries\CampaignStyleHelper;
+use Mail;
 
 
 class CampaignsController extends Controller
@@ -221,10 +223,31 @@ class CampaignsController extends Controller
 
     public function admin($id)
     {
-        $id = '568af201ea4a8a7b0500421a';
-        $cam = Campaign::where('_id', $id)->first();
-//        dd($cam->interaction['name']);
-        return view('campaigns.admin', ['cam' => $cam]);
+        $cam = Campaign::find($id);
+        if($cam == null)
+        {
+          return redirect()->action('CampaignsController@index')->with('data', 'not_found');
+        }
+        else
+        {
+            return view('campaigns.admin', ['cam' => $cam]);
+        }
+    }
+
+    public function active($id)
+    {
+        $cam = Campaign::find($id);
+        $cam->status = 'active';
+        $cam->save();
+        $user = $cam->administrator;
+
+        Mail::send('emails.active', ['cam' => $cam, 'user' => $user], function ($m) use ($user) {
+            $m->from('soporte@enera.mx', 'Enera Intelligence');
+            $m->to('darkdreke@gmail.com', $user->name['first'] . ' ' . $user->name['last'])->subject('Campaña Activada');
+        });
+
+        return redirect()->action('CampaignsController@index')->with('data', 'active');
+
     }
 
 

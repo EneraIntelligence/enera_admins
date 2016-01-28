@@ -11,9 +11,9 @@
             <div class="md-card-content">
                 <div class="uk-margin-bottom" data-uk-margin>
                     <div class="md-btn-group">
-                        <a class="md-btn" href="#"><i class="material-icons">&#xE876;</i>Aceptar</a>
-                        <a href="#" class="md-btn"><i class="material-icons">&#xE14C;</i>Rechazar</a>
-                        <a href="#" class="md-btn"><i class="material-icons">&#xE002;</i>Borrar</a>
+                        <a class="md-btn" href="{{ route('campaigns::active::campaign', [$cam->id]) }}"><i class="material-icons">&#xE876;</i>Aceptar</a>
+                        <a class="md-btn" href="#" ><i class="material-icons">&#xE14C;</i>Rechazar</a>
+                        <a class="md-btn" href="#" ><i class="material-icons">&#xE002;</i>Borrar</a>
                     </div>
                 </div>
                 <hr/>
