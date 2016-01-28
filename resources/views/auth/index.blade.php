@@ -37,7 +37,7 @@
         <div class="md-card-content large-padding" id="login_form">
             <div class="login_heading">
                 <div style="width: 290px;height: 100px; display:inline-block;text-align:center;">
-                    <img src="img/admins.png" alt="">
+                    <img src="images/admins.png" alt="">
                 </div>
                 @if(session('data')=='active')
                     <div class="uk-alert uk-alert-success" style="padding-right:10px">
