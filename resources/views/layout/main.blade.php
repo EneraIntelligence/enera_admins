@@ -120,7 +120,7 @@
                                     </a>
                                     @if(count(auth()->user()->role->platform) > 1)
                                         <a href="{!! route('choose.platform') !!}" class="uk-margin-top">
-                                            <i class="material-icons md-36 md-color-light-blue-A700">swap_horiz</i>
+                                            <i class="material-icons md-36 md-color-light-red-600">swap_horiz</i>
                                             <span class="uk-text-muted uk-display-block">Plataformas</span>
                                         </a>
                                     @endif
