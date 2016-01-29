@@ -99,7 +99,7 @@ class CampaignsController extends Controller
 
 //        dd($campaign->logs()->where('user.id','exists',true)->get());
 
-        if ($campaign && $campaign->administrator_id == auth()->user()->_id) {
+        if ($campaign) {
 //            dd($campaign);
             //este arreglo se usa para poder convertir los numeros de los dias a letras
             //$semana = array(0 => '', 1 => 'lunes', 2 => 'martes', 3 => 'miércoles', 4 => 'jueves', 5 => 'viernes', 6 => 'sabado', 7 => 'domingo');
