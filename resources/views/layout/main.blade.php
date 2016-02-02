@@ -91,14 +91,14 @@
             {{--<span class="sSwitchIcon"></span>--}}
             {{--</a>--}}
 
-                <div id="menu_top" class="uk-float-left ">
-                    <div class="uk-button-dropdown" data-uk-dropdown="{mode:'click'}"
-                         style="position: fixed; top: 13px; margin-left: 10px;">
-                        <a href="#" class="top_menu_toggle" style="color: #FFFFff;">
-                            <img src="{!! URL::asset('assets/img/logo_enera_admins.png') !!}" alt="Enera"
-                                 style="top: -0px; left: 0; position: relative;"> <span class="uk-hidden-small"
-                                                                                        style="top: 2px; position: relative;">Admins</span>
-                        </a>
+            <div id="menu_top" class="uk-float-left ">
+                <div class="uk-button-dropdown" data-uk-dropdown="{mode:'click'}"
+                     style="position: fixed; top: 13px; margin-left: 10px;">
+                    <a href="#" class="top_menu_toggle" style="color: #FFFFff;">
+                        <img src="{!! URL::asset('assets/img/logo_enera_admins.png') !!}" alt="Enera"
+                             style="top: -0px; left: 0; position: relative;"> <span class="uk-hidden-small"
+                                                                                    style="top: 2px; position: relative;">Admins</span>
+                    </a>
 
 
                     <div class="uk-dropdown uk-dropdown-width-3" style="margin-top: 14px;">
@@ -118,6 +118,12 @@
                                         <i class="material-icons md-36  md-color-red-600">&#xE7EF;</i>
                                         <span class="uk-text-muted uk-display-block">Clientes</span>
                                     </a>
+                                    @if(count(auth()->user()->role->platform) > 1)
+                                        <a href="{!! route('choose.platform') !!}" class="uk-margin-top">
+                                            <i class="material-icons md-36 md-colorW-red-600">swap_horiz</i>
+                                            <span class="uk-text-muted uk-display-block">Plataformas</span>
+                                        </a>
+                                    @endif
                                 </div>
                             </div>
                             <div class="uk-width-1-3 uk-hidden-small">
@@ -268,20 +274,20 @@
                             <i class="material-icons md-36" style="color: white;">account_circle</i>
                         </a>
 
-                            <div class="uk-dropdown uk-dropdown-small uk-dropdown-flip">
-                                <ul class="uk-nav js-uk-prevent">
-                                    <li><a href="{!! url('profile') !!}">Mi cuenta</a></li>
-                                    <li><a href="#">Ajustes</a></li>
-                                    <li><a href="#">Salir</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
-        <div class="header_main_search_form">
-            <i class="md-icon header_main_search_close material-icons">&#xE5CD;</i>
+                        <div class="uk-dropdown uk-dropdown-small uk-dropdown-flip">
+                            <ul class="uk-nav js-uk-prevent">
+                                <li><a href="{!! url('profile') !!}">Mi cuenta</a></li>
+                                <li><a href="#">Ajustes</a></li>
+                                <li><a href="#">Salir</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="header_main_search_form">
+        <i class="md-icon header_main_search_close material-icons">&#xE5CD;</i>
 
         <form class="uk-form">
             <input type="text" class="header_main_search_input"/>
@@ -294,37 +300,37 @@
 <img style="display:none" src="{!! URL::asset('assets/images/spinners/spinner.gif') !!}" alt="">
 
 
-    @yield('content')
-            <!-- google web fonts -->
-    <script>
-        WebFontConfig = {
-            google: {
-                families: [
-                    'Source+Code+Pro:400,700:latin',
-                    'Roboto:400,300,500,700,400italic:latin'
-                ]
-            }
-        };
-        (function () {
-            var wf = document.createElement('script');
-            wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
-                    '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
-            wf.type = 'text/javascript';
-            wf.async = 'true';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(wf, s);
-        })();
-    </script>
+@yield('content')
+        <!-- google web fonts -->
+<script>
+    WebFontConfig = {
+        google: {
+            families: [
+                'Source+Code+Pro:400,700:latin',
+                'Roboto:400,300,500,700,400italic:latin'
+            ]
+        }
+    };
+    (function () {
+        var wf = document.createElement('script');
+        wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+                '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+        wf.type = 'text/javascript';
+        wf.async = 'true';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(wf, s);
+    })();
+</script>
 
-    <!-- common functions -->
-    {{--{!! HTML::script('bower_components/peity/test/jquery-1.6.2.min.js') !!}--}}
-    {!! HTML::script('assets/js/common.min.js') !!}
-            <!-- uikit functions -->
-    {!! HTML::script('assets/js/uikit_custom.js') !!}
-            <!-- kendo functions -->
-    {!! HTML::script('assets/js/kendoui_custom.min.js') !!}
-            <!-- altair common functions/helpers -->
-    {!! HTML::script('assets/js/altair_admin_common.min.js') !!}
+<!-- common functions -->
+{{--{!! HTML::script('bower_components/peity/test/jquery-1.6.2.min.js') !!}--}}
+{!! HTML::script('assets/js/common.min.js') !!}
+        <!-- uikit functions -->
+{!! HTML::script('assets/js/uikit_custom.js') !!}
+        <!-- kendo functions -->
+{!! HTML::script('assets/js/kendoui_custom.min.js') !!}
+        <!-- altair common functions/helpers -->
+{!! HTML::script('assets/js/altair_admin_common.min.js') !!}
 
 <script>
     // load parsley config (altair_admin_common.js)

@@ -34,7 +34,7 @@ class CampaignsController extends Controller
         //$campaigns = Campaign::where('status', 'active')->latest()->get();
         //CityBranchesScript::saveCityBranches();
         $grafica = array();
-        $campaigns = Auth::user()->campaigns()->latest()->get();
+        $campaigns = Campaign::where('status','pending')->latest()->get();
         $subcampaigns = Auth::user()->subcampaigns()->latest()->get();
 
         /****  for each para sacar los datos de cada campaña   ****/
@@ -102,7 +102,7 @@ class CampaignsController extends Controller
 
 //        dd($campaign->logs()->where('user.id','exists',true)->get());
 
-        if ($campaign && $campaign->administrator_id == auth()->user()->_id) {
+        if ($campaign) {
 //            dd($campaign);
             //este arreglo se usa para poder convertir los numeros de los dias a letras
             //$semana = array(0 => '', 1 => 'lunes', 2 => 'martes', 3 => 'miércoles', 4 => 'jueves', 5 => 'viernes', 6 => 'sabado', 7 => 'domingo');
