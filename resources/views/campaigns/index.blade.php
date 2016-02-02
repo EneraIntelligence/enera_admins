@@ -24,6 +24,15 @@
                 </div>
             </div>
         @endif
+
+        @if(Session::get('data') == 'rejected')
+            <div class="uk-margin-top">
+                <div class="uk-alert uk-alert-warning uk-container-center uk-width-1-3" data-uk-alert="">
+                    <a href="" class="uk-alert-close uk-close"></a>
+                    <p>La campaña ha sido rechazada</p>
+                </div>
+            </div>
+        @endif
         <div class="uk-grid" id="grid">
             <div class="uk-width-8-10 uk-container-center">
                 {{--id="container-center">--}}
