@@ -124,6 +124,9 @@ class CampaignsController extends Controller
                 case 'rejected':
                     $porcentaje = 0.0;
                     break;
+                case 'filed':
+                    $porcentaje = 0.0;
+                    break;
                 case 'ended':
                     $ended = new DateTime($campaign->history->where('status', 'ended')->first()->date);
                     $total = $start->diff($end);

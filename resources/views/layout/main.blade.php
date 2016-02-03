@@ -297,7 +297,7 @@
     </div>
 </header><!-- main header end -->
 
-<img style="display:none" src="{!! URL::asset('assets/images/spinners/spinner.gif') !!}" alt="">
+<img style="display:none" src="{!! URL::asset('assets/img/spinners/spinner.gif') !!}" alt="">
 
 
 @yield('content')
@@ -324,7 +324,7 @@
 
 <!-- common functions -->
 {{--{!! HTML::script('bower_components/peity/test/jquery-1.6.2.min.js') !!}--}}
-{!! HTML::script('assets/js/common.min.js') !!}
+{!! HTML::script('assets/js/common.js') !!}
         <!-- uikit functions -->
 {!! HTML::script('assets/js/uikit_custom.js') !!}
         <!-- kendo functions -->
@@ -332,11 +332,10 @@
         <!-- altair common functions/helpers -->
 {!! HTML::script('assets/js/altair_admin_common.min.js') !!}
 
-<script>
+{{--<script>
     // load parsley config (altair_admin_common.js)
     altair_forms.parsley_validation_config();
-</script>
-
+</script>--}}
 
 {!! HTML::script('bower_components/d3/d3.min.js') !!}
 {!! HTML::script('bower_components/c3js-chart/c3.min.js') !!}
@@ -372,5 +371,17 @@
 
 </script>
 @yield('scripts')
+<script>
+    $(document).ready(function () {
+        var notification = '{!! session('n_type') !!}';
+        if (notification) {
+            //<i class="material-icons uk-icon-large">' + msg_session.status == 'danger' ? "&#xE002;" : "&#xE877;" + '</i>
+            UIkit.notify('&nbsp;&nbsp;{{ session('n_msg') }}<span style="float:right"><i class="material-icons uk-icon-large">clear</i></span>', {
+                timeout: {!! Session::has('n_timeout')?session('n_timeout'):0 !!},
+                status: '{!! session('n_type') !!}'
+            });
+        }
+    });
+</script>
 </body>
 </html>
