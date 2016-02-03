@@ -35,10 +35,10 @@
                             <div class="user_heading_avatar">
                                 <div>
                                     <div id="circle" style="max-width:98px;max-height:98px;margin:auto;">
-                                        <img class="svg" style="background-image:none!important;margin:-96px 9px;background:transparent;border:none;"
+                                        <img class="" style="background-image:none!important;margin:-103px 0px;"
                                              src="{!! URL::asset('images/icons/'.
                                                                 CampaignStyle::getCampaignIcon( $cam->interaction['name']
-                                                             ) ) !!}2.svg"
+                                                             ) ) !!}.svg"
                                              alt="producto"/>
                                     </div>
                                 </div>
@@ -566,7 +566,7 @@
     <script>
         //-------------------------------------- animacion del circulo  ---------------------------------------------
         $('#circle').circleProgress({
-            value: 0.5, //lo que se va a llenar con el color
+            value: {!! $cam->porcentaje !!}, //lo que se va a llenar con el color
             size:  98,   //tamaño del circulo
             startAngle: -300, //de donde va a empezar la animacion
             reverse:  true, //empieza la animacion al contrario
