@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Remove Tap Highlight on Windows Phone IE -->
     <meta name="msapplication-tap-highlight" content="no"/>
-
+    <link rel="icon" type="image/png" href="{!! URL::asset('images/favicon.png') !!}" sizes="32x32">
     {{--<link rel="icon" type="image/png" href="assets/img/favicon-16x16.png" sizes="16x16">
     <link rel="icon" type="image/png" href="assets/img/favicon-32x32.png" sizes="32x32">--}}
     <link rel="icon" type="image/png" href="{!! URL::asset('img/favicon.png') !!}" sizes="32x32">
@@ -101,7 +101,7 @@
                     </a>
 
 
-                    <div class="uk-dropdown uk-dropdown-width-3" style="top: -20px;">
+                    <div class="uk-dropdown uk-dropdown-width-3" style="margin-top: 14px;">
                         <div class="uk-grid uk-dropdown-grid" data-uk-grid-margin>
                             <div class="uk-width-2-3">
                                 <div class="uk-grid uk-grid-width-medium-1-3 uk-margin-top uk-margin-bottom uk-text-center"
@@ -120,7 +120,7 @@
                                     </a>
                                     @if(count(auth()->user()->role->platform) > 1)
                                         <a href="{!! route('choose.platform') !!}" class="uk-margin-top">
-                                            <i class="material-icons md-36 md-colorW-red-600">swap_horiz</i>
+                                            <i class="material-icons md-36 md-color-red-600">swap_horiz</i>
                                             <span class="uk-text-muted uk-display-block">Plataformas</span>
                                         </a>
                                     @endif

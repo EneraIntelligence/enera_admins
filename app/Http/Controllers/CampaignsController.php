@@ -3,12 +3,15 @@
 namespace Admins\Http\Controllers;
 
 use Admins\Branche;
+use Admins\Jobs\ActiveJob;
+use Admins\Jobs\RejectJob;
 use DateTime;
 use Admins\CampaignLog;
 use Illuminate\Http\Request;
 use Auth;
 use Admins\Campaign;
 use Admins\Libraries\CampaignStyleHelper;
+use Input;
 use Mail;
 
 
@@ -227,12 +230,9 @@ class CampaignsController extends Controller
     public function admin($id)
     {
         $cam = Campaign::find($id);
-        if($cam == null)
-        {
-          return redirect()->action('CampaignsController@index')->with('data', 'not_found');
-        }
-        else
-        {
+        if ($cam == null) {
+            return redirect()->action('CampaignsController@index')->with('data', 'not_found');
+        } else {
             return view('campaigns.admin', ['cam' => $cam]);
         }
     }
@@ -244,12 +244,39 @@ class CampaignsController extends Controller
         $cam->save();
         $user = $cam->administrator;
 
-        Mail::send('emails.active', ['cam' => $cam, 'user' => $user], function ($m) use ($user) {
-            $m->from('soporte@enera.mx', 'Enera Intelligence');
-            $m->to('darkdreke@gmail.com', $user->name['first'] . ' ' . $user->name['last'])->subject('Campaña Activada');
-        });
+        $this->dispatch(new ActiveJob($cam, $user));
+
+//        Mail::send('emails.active', ['cam' => $cam, 'user' => $user], function ($m) use ($user) {
+//            $m->from('soporte@enera.mx', 'Enera Intelligence');
+//            $m->to($user->email , $user->name['first'] . ' ' . $user->name['last'])->subject('Campaña Activada');
+//        });
 
         return redirect()->action('CampaignsController@index')->with('data', 'active');
+
+    }
+
+    /**
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function reject()
+    {
+        $cam = Campaign::find(Input::get('campaign_id'));
+        $user = $cam->administrator;
+        $cam->status = 'rejected';
+        $cam->save();
+        $cam->history()->create(array('administrator_id' => auth()->user()->id,
+                                                'status' => 'rejected',
+                                                  'date' => date('Y-m-d  h:m:s'),
+                                                  'note' => Input::get('razon').', '.Input::get('motivo')));
+
+        $this->dispatch(new RejectJob($cam, $user));
+
+//        Mail::send('emails.reject', ['cam' => $cam, 'user' => $user, 'razon' => Input::get('razon'), 'mensaje' => Input::get('motivo')], function ($m) use ($user) {
+//            $m->from('soporte@enera.mx', 'Enera Intelligence');
+//            $m->to($user->email , $user->name['first'] . ' ' . $user->name['last'])->subject('Campaña Rechazada');
+//        });
+
+        return redirect()->action('CampaignsController@index')->with('data', 'reject');
 
     }
 
