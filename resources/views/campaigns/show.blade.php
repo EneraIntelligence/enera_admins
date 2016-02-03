@@ -35,10 +35,10 @@
                             <div class="user_heading_avatar">
                                 <div>
                                     <div id="circle" style="max-width:98px;max-height:98px;margin:auto;">
-                                        <img class="" style="background-image:none!important;margin:-103px 0px;"
+                                        <img class="svg" style="background-image:none!important;margin:-103px 0px;background:transparent;border:none;"
                                              src="{!! URL::asset('images/icons/'.
                                                                 CampaignStyle::getCampaignIcon( $cam->interaction['name']
-                                                             ) ) !!}.svg"
+                                                             ) ) !!}2.svg"
                                              alt="producto"/>
                                     </div>
                                 </div>
