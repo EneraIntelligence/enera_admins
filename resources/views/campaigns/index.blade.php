@@ -166,7 +166,7 @@
                                     </h4>
 
 
-                                    <img src="{!! URL::asset('img/icons/banner_new.svg') !!}" alt="">
+                                    <img src="{!! URL::asset('images/icons/banner_new.svg') !!}" alt="">
 
                                     <h4 class="heading_a"><br>
                                         <span></span>
@@ -209,7 +209,7 @@
                                                     <div class="uk-vertical-align" id="name"
                                                          data-uk-tooltip="{cls:'long-text'}"
                                                          title="{{$campaign->interaction['name']}} - {!! $campaign->status !!}">
-                                                        <img src="{!! URL::asset('img/icons/'.
+                                                        <img src="{!! URL::asset('images/icons/'.
                                                                 CampaignStyle::getCampaignIcon( $campaign->interaction['name']
                                                              ) ) !!}" alt="">
 
