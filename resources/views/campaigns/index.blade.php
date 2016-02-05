@@ -339,8 +339,7 @@
                                                 @if($campaign->status=="pending")
                                                         <!-- check campaign button -->
                                                 <div class="uk-width-medium-2-10  uk-width-small-1-2 uk-flex uk-flex-center uk-flex-middle">
-                                                    <a class="md-btn md-btn-warning"
-                                                       href=" {{ route('campaigns::admin::campaign', ['id' => $campaign->id]) }} ">
+                                                    <a class="md-btn md-btn-warning">
                                                         Revisar campaña
                                                     </a>
                                                 </div>
@@ -370,42 +369,25 @@
                                                         <div class="interaction-icon uk-width-large-1-10 uk-hidden-small uk-width-medium-1-4 uk-hidden-medium">
                                                             <div class="uk-vertical-align" id="name"
                                                                  data-uk-tooltip="{cls:'long-text'}"
-                                                                 title="{{$sub->interaction['name']}} - {!! $sub->status !!}"
-                                                            >
-
+                                                                 title="{{$sub->interaction['name']}} - {!! $sub->status !!}">
                                                                 <img src="{!! URL::asset('images/icons/mailing.svg') !!}"
                                                                      alt="">
-
                                                             </div>
-
                                                         </div>
-
                                                         <div id="campaign-title"
                                                              class="uk-width-large-5-10 uk-grid-width-small-2-3  uk-width-medium-1-4 uk-width-large-1">
                                                             <h4>Subcampaña de mailing</h4>
                                                             <h2>{{$sub->name}}</h2>
-
                                                         </div>
-
-
                                                     </div>
-
-
                                                 </div>
                                             </div>
-
                                         @endif
-
                                     @endforeach
-
-
                                 @endforeach
-
-
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

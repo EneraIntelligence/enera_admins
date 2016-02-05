@@ -4,7 +4,7 @@ namespace Admins\Jobs;
 
 use Admins\Campaign;
 use Admins\Jobs\Job;
-use Admins\User;
+use Admins\Administrator;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Bus\SelfHandling;
@@ -21,11 +21,11 @@ class ActiveJob extends Job implements SelfHandling, ShouldQueue
      * Create a new job instance.
      *
      * @param Campaign $campaign
-     * @param User $user
+     * @param Administrator $user
      */
-    public function __construct(Campaign $campaign, User $user)
+    public function __construct(Campaign $campaign, Administrator $user)
     {
-        $this->cam = $campaign;
+        $this->campaign = $campaign;
         $this->user = $user;
     }
 
@@ -37,9 +37,9 @@ class ActiveJob extends Job implements SelfHandling, ShouldQueue
     public function handle()
     {
         $user = $this->user;
-        Mail::send('emails.active', ['cam' => $this->cam, 'user' => $user], function ($m) use ($user) {
+        Mail::send('emails.active', ['cam' => $this->campaign, 'user' => $user], function ($m) use ($user) {
             $m->from('soporte@enera.mx', 'Enera Intelligence');
-            $m->to($user->email , $user->name['first'] . ' ' . $user->name['last'])->subject('Campaña Activada');
+            $m->to('darkdreke@gmail.com' , $user->name['first'] . ' ' . $user->name['last'])->subject('Campaña Activada');
         });
     }
 }

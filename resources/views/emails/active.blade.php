@@ -21,12 +21,12 @@
 </div>
 <div>
     <p>Estimado {{$user->name['first']. ' '. $user->name['last'].':'}}</p>
-    <p>Le informamos que la campaña <b><u>{{$cam->name}}</u></b> ha sido revisada por el equipo de Enera y ha sido
+    <p>Le informamos que la campaña <b><u>{{$cam->name}}</u></b> ha sido revisada por el equipo de Enera Publishers y ha sido
         aprobada, la cual comenzara el {{date('d-m-Y', $cam->filters['date']['start']->sec)}} as
         las {{date('h:m:s', $cam->filters['date']['start']->sec)}} horas como se tiene programado.</p>
     <br>
-    <p>Este correo se genero de forma automatica, para mayo infomación le invitamos a ingresar a su cuenta de publisher
-        o mandar un correo a contacto@enera.mx</p>
+    <p>Este correo se genero de forma automatica, para mayor infomación le invitamos a ingresar a su cuenta de enera Publishers
+        o enviar un correo a contacto@enera.mx</p>
     <p>Atte.</p>
 </div>
 <div style="text-align: center;">
