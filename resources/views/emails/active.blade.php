@@ -25,7 +25,7 @@
         aprobada, la cual comenzara el {{date('d-m-Y', $cam->filters['date']['start']->sec)}} as
         las {{date('h:m:s', $cam->filters['date']['start']->sec)}} horas como se tiene programado.</p>
     <br>
-    <p>Este correo se genero de forma automatica, para mayor infomación le invitamos a ingresar a su cuenta de enera Publishers
+    <p>Este correo se genero de forma automatica, para mayor infomación le invitamos a ingresar a su cuenta de Enera Publishers
         o enviar un correo a contacto@enera.mx</p>
     <p>Atte.</p>
 </div>

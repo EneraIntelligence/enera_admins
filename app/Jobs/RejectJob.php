@@ -39,9 +39,9 @@ class RejectJob extends Job implements SelfHandling, ShouldQueue
     public function handle()
     {
         $user = $this->user;
-        Mail::send('emails.reject', ['cam' => $this->campaign, 'user' => $this->user, 'razon' => Input::get('razon'), 'mensaje' => Input::get('motivo')], function ($m) use ($user) {
+        Mail::send('emails.reject', ['cam' => $this->campaign, 'user' => $this->user, 'razon' =>    Input::get('razon'), 'mensaje' => Input::get('motivo')], function ($m) use ($user) {
             $m->from('soporte@enera.mx', 'Enera Intelligence');
-            $m->to('darkdreke@gmail.com', $user->name['first'] . ' ' . $user->name['last'])->subject('Campaña Rechazada');
+            $m->to($user->email, $user->name['first'] . ' ' . $user->name['last'])->subject('Campaña Rechazada');
         });
     }
 }

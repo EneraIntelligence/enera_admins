@@ -13,6 +13,12 @@
     .p {
         list-style: none;
     }
+
+    #button {
+        position: fixed;
+        bottom: 25px;
+        right: 25px;
+    }
 </style>
 @endsection
 
@@ -58,17 +64,17 @@
                         </div>
                         <div class="md-card-content">
                             <div class="user_content">
-                                @if($cam->status == 'pending')
-                                    <div class="uk-margin-bottom" data-uk-margin>
-                                        <div class="md-btn-group">
-                                            <a class="md-btn"
-                                               href="{{ route('campaigns::active::campaign', [$cam->id]) }}"><i
-                                                        class="material-icons">&#xE876;</i>Aceptar</a>
-                                            <a class="md-btn" href="#" data-uk-modal="{target:'#reject',bgclose:false}"><i
-                                                        class="material-icons">&#xE14C;</i>Rechazar</a>
-                                        </div>
-                                    </div>
-                                @endif
+                                {{--@if($cam->status == 'pending')--}}
+                                {{--<div class="uk-margin-bottom" data-uk-margin>--}}
+                                {{--<div class="md-btn-group">--}}
+                                {{--<a class="md-btn"--}}
+                                {{--href="{{ route('campaigns::active::campaign', [$cam->id]) }}"><i--}}
+                                {{--class="material-icons">&#xE876;</i>Aceptar</a>--}}
+                                {{--<a class="md-btn" href="#" data-uk-modal="{target:'#reject',bgclose:false}"><i--}}
+                                {{--class="material-icons">&#xE14C;</i>Rechazar</a>--}}
+                                {{--</div>--}}
+                                {{--</div>--}}
+                                {{--@endif--}}
                                 <div class="uk-grid uk-margin-medium-top uk-width-large-1-1 " data-uk-grid-margin>
                                     <div class="uk-width-large-1-2">
                                         <div class="uk-grid">
@@ -535,6 +541,19 @@
             </div>
         </div>
     </div>
+    @if($cam->status == 'pending')
+        <div class="md-fab-wrapper md-fab-in-card" id="button">
+            <div class="md-fab md-fab-accent md-fab-sheet">
+                <i class="material-icons md-color-white">&#xE8DD;</i>
+                <div class="md-fab-sheet-actions">
+                    <a href="{{ route('campaigns::active::campaign', [$cam->id]) }}" class="md-color-white"><i
+                                class="material-icons md-color-white">&#xE8DC;</i> Aceptar</a>
+                    <a href="#" data-uk-modal="{target:'#reject',bgclose:false}" class="md-color-white"><i
+                                class="material-icons md-color-white">&#xE8DB;</i> Rechazar</a>
+                </div>
+            </div>
+        </div>
+    @endif
 
     {{--modal de rechazo--}}
     <div id="reject" class="uk-modal">
@@ -576,6 +595,8 @@
             </form>
         </div>
     </div>
+
+
     @stop
 
     @section('scripts')

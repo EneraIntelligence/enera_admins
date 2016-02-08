@@ -39,7 +39,7 @@ class ActiveJob extends Job implements SelfHandling, ShouldQueue
         $user = $this->user;
         Mail::send('emails.active', ['cam' => $this->campaign, 'user' => $user], function ($m) use ($user) {
             $m->from('soporte@enera.mx', 'Enera Intelligence');
-            $m->to('darkdreke@gmail.com' , $user->name['first'] . ' ' . $user->name['last'])->subject('Campaña Activada');
+            $m->to($user->email , $user->name['first'] . ' ' . $user->name['last'])->subject('Campaña Activada');
         });
     }
 }
