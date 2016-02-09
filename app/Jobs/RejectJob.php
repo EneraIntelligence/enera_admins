@@ -18,17 +18,23 @@ class RejectJob extends Job implements SelfHandling, ShouldQueue
 
     protected $campaign;
     protected $user;
+    protected $razon;
+    protected $motivo;
 
     /**
      * Create a new job instance.
      *
      * @param Campaign $campaign
      * @param Administrator $user
+     * @param $razon
+     * @param $motivo
      */
-    public function __construct(Campaign $campaign, Administrator $user)
+    public function __construct(Campaign $campaign, Administrator $user, $razon, $motivo)
     {
         $this->campaign = $campaign;
         $this->user = $user;
+        $this->razon = $razon;
+        $this->motivo = $motivo;
     }
 
     /**
@@ -39,7 +45,7 @@ class RejectJob extends Job implements SelfHandling, ShouldQueue
     public function handle()
     {
         $user = $this->user;
-        Mail::send('emails.reject', ['cam' => $this->campaign, 'user' => $this->user, 'razon' =>    Input::get('razon'), 'mensaje' => Input::get('motivo')], function ($m) use ($user) {
+        Mail::send('emails.reject', ['cam' => $this->campaign, 'user' => $this->user,  'razon' =>  $this->razon, 'mensaje' => $this->motivo], function ($m) use ($user) {
             $m->from('soporte@enera.mx', 'Enera Intelligence');
             $m->to($user->email, $user->name['first'] . ' ' . $user->name['last'])->subject('Campaña Rechazada');
         });

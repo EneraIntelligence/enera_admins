@@ -2,6 +2,7 @@
 
 namespace Admins\Http\Controllers;
 
+use Admins\Administrator;
 use Admins\Branche;
 use Admins\Jobs\ActiveJob;
 use Admins\Jobs\RejectJob;
@@ -264,12 +265,31 @@ class CampaignsController extends Controller
         $user = $cam->administrator;
         $cam->status = 'rejected';
         $cam->save();
-        $cam->history()->create(array('administrator_id' => auth()->user()->id,
+        $user->wallet->increment('current', $cam->balance['current']);
+
+        $admin_movement = auth()->user()->movements()->create([
+            'client_id' => $user->client_id,
+            'movement' => [
+                'type' => 'refund',
+                'concept' => 'refund',
+                'from' => 'campaign',
+                'to' => 'wallet'
+            ],
+            'reference_id' => $cam->id,
+            'reference_type' => 'Campaign',
+            'admistrator_id' => $user->id,
+            'amount' => $cam->balance['current'],
+            'balance' => ($user->wallet->current + $cam->balance['current'])
+        ]);
+
+
+        $cam->history()->create(array('administrator_id' => $user->id,
                                                 'status' => 'rejected',
                                                   'date' => date('Y-m-d  h:m:s'),
-                                                  'note' => Input::get('razon').', '.Input::get('motivo')));
+                                                  'note' => Input::get('razon').', '.Input::get('motivo'). 'Se regreso el dinero a la cuenta del administrador por la cantidad de '. $cam->balance['current']));
 
-        $this->dispatch(new RejectJob($cam, $user));
+
+        $this->dispatch(new RejectJob($cam, $user, Input::get('razon'), Input::get('motivo')));
 
 //        Mail::send('emails.reject', ['cam' => $cam, 'user' => $user, 'razon' => Input::get('razon'), 'mensaje' => Input::get('motivo')], function ($m) use ($user) {
 //            $m->from('soporte@enera.mx', 'Enera Intelligence');
