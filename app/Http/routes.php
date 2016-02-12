@@ -30,7 +30,7 @@ Route::group(['middleware' => ['auth', 'guardian', 'preview']], function () {
     Route::group(['prefix' => 'admin', 'as' => 'admin::'], function () {
         /**     clients     **/
         Route::group(['prefix' => 'clients', 'as' => 'clients::'], function () {
-            Route::get('/', ['as' => 'index', 'uses' => 'clientsController@index']);
+            Route::get('/', ['as' => 'index', 'uses' => 'ClientsController@index']);
         });
     });
 
