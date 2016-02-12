@@ -152,7 +152,7 @@
                                     <div class="md-card-list-item-avatar-wrapper">
                                         <img src="{!! URL::asset('images/icons/'.
                                                                 CampaignStyle::getCampaignIcon( $campaign->interaction['name']
-                                                             ) ) !!}.svg" style="background: none;"
+                                                             ) ) !!}.svg" style="background: #d9d9d9; border: solid 1px {!! CampaignStyle::getStatusColor($campaign->status) !!};"
                                              class="md-card-list-item-avatar dense-image dense-ready" alt="">
                                     </div>
                                     <div class="md-card-list-item-sender">

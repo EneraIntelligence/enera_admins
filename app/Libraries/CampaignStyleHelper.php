@@ -7,7 +7,7 @@ class CampaignStyleHelper
 {
     private static $STATUS_COLOR = array(
         'active'=>'#7cb342',
-        'pending'=>'#2d7091',
+        'pending'=>'#0d47a1',
         'rejected'=>'#e53935',
         'ended'=>'#0d47a1',
         'close'=>'#0d47a1',
@@ -122,5 +122,18 @@ class CampaignStyleHelper
         return '';
     }
 
+    public static function getOppositeColor($status)
+    {
+        $color = self::getStatusColor($status);
+        $color = str_replace('#', '', $color);
+        if (strlen($color) != 6){ return '000000'; }
+        $rgb = '';
+        for ($x=0;$x<3;$x++){
+            $c = 255 - hexdec(substr($color,(2*$x),2));
+            $c = ($c < 0) ? 0 : dechex($c);
+            $rgb .= (strlen($c) < 2) ? '0'.$c : $c;
+        }
+        return '#'.$rgb;
+    }
 
 }
