@@ -26,6 +26,13 @@ Route::group(['middleware' => ['auth', 'guardian', 'preview']], function () {
     Route::group(['prefix' => 'profile', 'as' => 'profile::'], function () {
         Route::get('/', ['as' => 'index', 'uses' => 'UserController@index']);
     });
+/**     admin  **/
+    Route::group(['prefix' => 'admin', 'as' => 'admin::'], function () {
+        /**     clients     **/
+        Route::group(['prefix' => 'clients', 'as' => 'clients::'], function () {
+            Route::get('/', ['as' => 'index', 'uses' => 'ClientsController@index']);
+        });
+    });
 
 });
 

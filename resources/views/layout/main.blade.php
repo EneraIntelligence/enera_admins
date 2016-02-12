@@ -111,7 +111,7 @@
                                         <i class="material-icons md-36 md-color-red-600">&#xE63E;</i>
                                         <span class="uk-text-muted uk-display-block">Redes</span>
                                     </a>
-                                    <a href="#">
+                                    <a href="{!! route('admin::clients::index') !!}">
                                         <i class="material-icons md-36  md-color-red-600">&#xE7EF;</i>
                                         <span class="uk-text-muted uk-display-block">Clientes</span>
                                     </a>
@@ -180,8 +180,7 @@
                                             </li>
                                             <li>
                                                 <div class="md-list-addon-element">
-                                                    <img class="md-user-image md-list-addon-avatar"
-                                                         src="assets/images/avatars/avatar_07_tn.png" alt=""/>
+                                                    <span class="md-user-letters md-bg-cyan">se</span>
                                                 </div>
                                                 <div class="md-list-content">
                                                     <span class="md-list-heading"><a href="pages_mailbox.html">Quia
@@ -201,8 +200,8 @@
                                             </li>
                                             <li>
                                                 <div class="md-list-addon-element">
-                                                    <img class="md-user-image md-list-addon-avatar"
-                                                         src="assets/images/avatars/avatar_02_tn.png" alt=""/>
+                                                    {{--<img class="md-user-image md-list-addon-avatar" src="assets/images/avatars/avatar_02_tn.png" alt=""/>--}}
+                                                    <span class="md-user-letters md-bg-cyan">se</span>
                                                 </div>
                                                 <div class="md-list-content">
                                                     <span class="md-list-heading"><a href="pages_mailbox.html">Voluptas
@@ -212,8 +211,7 @@
                                             </li>
                                             <li>
                                                 <div class="md-list-addon-element">
-                                                    <img class="md-user-image md-list-addon-avatar"
-                                                         src="assets/images/avatars/avatar_09_tn.png" alt=""/>
+                                                    <span class="md-user-letters md-bg-cyan">se</span>
                                                 </div>
                                                 <div class="md-list-content">
                                                     <span class="md-list-heading"><a href="pages_mailbox.html">Inventore

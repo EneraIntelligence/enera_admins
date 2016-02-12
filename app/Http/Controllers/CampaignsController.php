@@ -6,14 +6,17 @@ use Admins\Administrator;
 use Admins\Branche;
 use Admins\Jobs\ActiveJob;
 use Admins\Jobs\RejectJob;
+use Carbon\Carbon;
 use DateTime;
 use Admins\CampaignLog;
+use DB;
 use Illuminate\Http\Request;
 use Auth;
 use Admins\Campaign;
 use Admins\Libraries\CampaignStyleHelper;
 use Input;
 use Mail;
+use MongoDate;
 
 
 class CampaignsController extends Controller
@@ -35,7 +38,7 @@ class CampaignsController extends Controller
         //$campaigns = Campaign::where('status', 'active')->latest()->get();
         //CityBranchesScript::saveCityBranches();
         $grafica = array();
-        $campaigns = Campaign::where('status','pending')->latest()->get();
+        $campaigns = Campaign::where('status', 'pending')->latest()->get();
         $subcampaigns = Auth::user()->subcampaigns()->latest()->get();
 
         /****  for each para sacar los datos de cada campaña   ****/
@@ -98,24 +101,23 @@ class CampaignsController extends Controller
      */
     public function show($id)
     {
-//        $this->genderAge($id);
+        $porcentaje = 0.0;
+        $lugares = '';
+        /**     ARREGLO PARA GUARDAR LAS HORAS **/
+        $IntXDias = [
+            '00' => ['hora' => '00', 'cntC' => 0, 'cntL' => 0], '01' => ['hora' => '01', 'cntC' => 0, 'cntL' => 0], '02' => ['hora' => '02', 'cntC' => 0, 'cntL' => 0], '03' => ['hora' => '03', 'cntC' => 0, 'cntL' => 0],
+            '04' => ['hora' => '04', 'cntC' => 0, 'cntL' => 0], '05' => ['hora' => '05', 'cntC' => 0, 'cntL' => 0], '06' => ['hora' => '06', 'cntC' => 0, 'cntL' => 0], '07' => ['hora' => '07', 'cntC' => 0, 'cntL' => 0],
+            '08' => ['hora' => '08', 'cntC' => 0, 'cntL' => 0], '09' => ['hora' => '09', 'cntC' => 0, 'cntL' => 0], '10' => ['hora' => '10', 'cntC' => 0, 'cntL' => 0], '11' => ['hora' => '11', 'cntC' => 0, 'cntL' => 0],
+            '12' => ['hora' => '12', 'cntC' => 0, 'cntL' => 0], '13' => ['hora' => '13', 'cntC' => 0, 'cntL' => 0], '14' => ['hora' => '14', 'cntC' => 0, 'cntL' => 0], '15' => ['hora' => '15', 'cntC' => 0, 'cntL' => 0],
+            '16' => ['hora' => '16', 'cntC' => 0, 'cntL' => 0], '17' => ['hora' => '17', 'cntC' => 0, 'cntL' => 0], '18' => ['hora' => '18', 'cntC' => 0, 'cntL' => 0], '19' => ['hora' => '19', 'cntC' => 0, 'cntL' => 0],
+            '20' => ['hora' => '20', 'cntC' => 0, 'cntL' => 0], '21' => ['hora' => '21', 'cntC' => 0, 'cntL' => 0], '22' => ['hora' => '22', 'cntC' => 0, 'cntL' => 0], '23' => ['hora' => '23', 'cntC' => 0, 'cntL' => 0],
+        ];
         $campaign = Campaign::find($id); //busca la campaña
-
-//        dd($campaign->logs()->where('user.id','exists',true)->get());
-
         if ($campaign) {
-//            dd($campaign);
-            //este arreglo se usa para poder convertir los numeros de los dias a letras
-            //$semana = array(0 => '', 1 => 'lunes', 2 => 'martes', 3 => 'miércoles', 4 => 'jueves', 5 => 'viernes', 6 => 'sabado', 7 => 'domingo');
-
-            //$imagen = $this->filecloud->getImagen('image.png');
-
             /******     saca el color y el icono que se va a usar regresa un array  ********/
-            //$sColor = new StatusColor();
             $color = [];
             $color['icon'] = CampaignStyleHelper::getStatusIcon($campaign->status);
             $color['color'] = CampaignStyleHelper::getStatusColor($campaign->status);
-//            dd($color);
 
             /****         OBTENER PORCENTAJE DEL TIEMPO TRANSCURRIDO       ***************/
             $start = new DateTime(date('Y-m-d H:i:s', $campaign->filters['date']['start']->sec));
@@ -128,9 +130,6 @@ class CampaignsController extends Controller
                 case 'rejected':
                     $porcentaje = 0.0;
                     break;
-                case 'filed':
-                    $porcentaje = 0.0;
-                    break;
                 case 'ended':
                     $ended = new DateTime($campaign->history->where('status', 'ended')->first()->date);
                     $total = $start->diff($end);
@@ -140,7 +139,6 @@ class CampaignsController extends Controller
                 case 'active':
                     $today = new DateTime();
                     if ($today < $start) {
-//                    dd('hoy es menor a incio');
                         $porcentaje = 0;
                     } else {
                         $today = new DateTime();
@@ -156,57 +154,135 @@ class CampaignsController extends Controller
                     $porcentaje = $diff->format('%a') / $total->format('%a');
                     break;
             }
-//            dd($porcentaje);
-            $campaign->porcentaje = $porcentaje;
+
+
             /*******         OBTENER LAS INTERACCIONES POR DIAS       ***************/
             $men['1'] = -$campaign->logs()->where('interaction.loaded', 'exists', true)->where('user.gender', 'male')
-                ->where('user.age', '>=', 0)->where('user.age', '<=', 17)->distinct('user_id')->count();
+                ->where('user.age', '>=', 0)->where('user.age', '<=', 17)->distinct('user.id')->count();
             $men['2'] = -$campaign->logs()->where('interaction.loaded', 'exists', true)->where('user.gender', 'male')
-                ->where('user.age', '>=', 18)->where('user.age', '<=', 20)->distinct('user_id')->count();
+                ->where('user.age', '>=', 18)->where('user.age', '<=', 20)->distinct('user.id')->count();
             $men['3'] = -$campaign->logs()->where('interaction.loaded', 'exists', true)->where('user.gender', 'male')
-                ->where('user.age', '>=', 21)->where('user.age', '<=', 30)->distinct('user_id')->count();
+                ->where('user.age', '>=', 21)->where('user.age', '<=', 30)->distinct('user.id')->count();
             $men['4'] = -$campaign->logs()->where('interaction.loaded', 'exists', true)->where('user.gender', 'male')
-                ->where('user.age', '>=', 31)->where('user.age', '<=', 40)->distinct('user_id')->count();
+                ->where('user.age', '>=', 31)->where('user.age', '<=', 40)->distinct('user.id')->count();
             $men['5'] = -$campaign->logs()->where('interaction.loaded', 'exists', true)->where('user.gender', 'male')
-                ->where('user.age', '>=', 41)->where('user.age', '<=', 50)->distinct('user_id')->count();
+                ->where('user.age', '>=', 41)->where('user.age', '<=', 50)->distinct('user.id')->count();
             $men['6'] = -$campaign->logs()->where('interaction.loaded', 'exists', true)->where('user.gender', 'male')
-                ->where('user.age', '>=', 51)->where('user.age', '<=', 60)->distinct('user_id')->count();
+                ->where('user.age', '>=', 51)->where('user.age', '<=', 60)->distinct('user.id')->count();
             $men['7'] = -$campaign->logs()->where('interaction.loaded', 'exists', true)->where('user.gender', 'male')
-                ->where('user.age', '>=', 61)->where('user.age', '<=', 70)->distinct('user_id')->count();
+                ->where('user.age', '>=', 61)->where('user.age', '<=', 70)->distinct('user.id')->count();
             $men['8'] = -$campaign->logs()->where('interaction.loaded', 'exists', true)->where('user.gender', 'male')
-                ->where('user.age', '>=', 71)->where('user.age', '<=', 80)->distinct('user_id')->count();
+                ->where('user.age', '>=', 71)->where('user.age', '<=', 80)->distinct('user.id')->count();
             $men['9'] = -$campaign->logs()->where('interaction.loaded', 'exists', true)->where('user.gender', 'male')
-                ->where('user.age', '>=', 81)->where('user.age', '<=', 90)->distinct('user_id')->count();
+                ->where('user.age', '>=', 81)->where('user.age', '<=', 90)->distinct('user.id')->count();
             $men['10'] = -$campaign->logs()->where('interaction.loaded', 'exists', true)->where('user.gender', 'male')
                 ->where('user.age', '>=', 90)->distinct('user_id')->count();
 
             $women['1'] = $campaign->logs()->where('interaction.loaded', 'exists', true)->where('user.gender', 'female')
-                ->where('user.age', '>=', 0)->where('user.age', '<=', 17)->distinct('user_id')->count();
+                ->where('user.age', '>=', 0)->where('user.age', '<=', 17)->distinct('user.id')->count();
             $women['2'] = $campaign->logs()->where('interaction.loaded', 'exists', true)->where('user.gender', 'female')
-                ->where('user.age', '>=', 18)->where('user.age', '<=', 20)->distinct('user_id')->count();
+                ->where('user.age', '>=', 18)->where('user.age', '<=', 20)->distinct('user.id')->count();
             $women['3'] = $campaign->logs()->where('interaction.loaded', 'exists', true)->where('user.gender', 'female')
-                ->where('user.age', '>=', 21)->where('user.age', '<=', 30)->distinct('user_id')->count();
+                ->where('user.age', '>=', 21)->where('user.age', '<=', 30)->distinct('user.id')->count();
             $women['4'] = $campaign->logs()->where('interaction.loaded', 'exists', true)->where('user.gender', 'female')
-                ->where('user.age', '>=', 31)->where('user.age', '<=', 40)->distinct('user_id')->count();
+                ->where('user.age', '>=', 31)->where('user.age', '<=', 40)->distinct('user.id')->count();
             $women['5'] = $campaign->logs()->where('interaction.loaded', 'exists', true)->where('user.gender', 'female')
-                ->where('user.age', '>=', 41)->where('user.age', '<=', 50)->distinct('user_id')->count();
+                ->where('user.age', '>=', 41)->where('user.age', '<=', 50)->distinct('user.id')->count();
             $women['6'] = $campaign->logs()->where('interaction.loaded', 'exists', true)->where('user.gender', 'female')
-                ->where('user.age', '>=', 51)->where('user.age', '<=', 60)->distinct('user_id')->count();
+                ->where('user.age', '>=', 51)->where('user.age', '<=', 60)->distinct('user.id')->count();
             $women['7'] = $campaign->logs()->where('interaction.loaded', 'exists', true)->where('user.gender', 'female')
-                ->where('user.age', '>=', 61)->where('user.age', '<=', 70)->distinct('user_id')->count();
+                ->where('user.age', '>=', 61)->where('user.age', '<=', 70)->distinct('user.id')->count();
             $women['8'] = $campaign->logs()->where('interaction.loaded', 'exists', true)->where('user.gender', 'female')
-                ->where('user.age', '>=', 71)->where('user.age', '<=', 80)->distinct('user_id')->count();
+                ->where('user.age', '>=', 71)->where('user.age', '<=', 80)->distinct('user.id')->count();
             $women['9'] = $campaign->logs()->where('interaction.loaded', 'exists', true)->where('user.gender', 'female')
-                ->where('user.age', '>=', 81)->where('user.age', '<=', 90)->distinct('user_id')->count();
+                ->where('user.age', '>=', 81)->where('user.age', '<=', 90)->distinct('user.id')->count();
             $women['10'] = $campaign->logs()->where('interaction.loaded', 'exists', true)->where('user.gender', 'female')
-                ->where('user.age', '>=', 90)->distinct('user_id')->count();
-            $campaign->men = $men;
-            $campaign->women = $women;
+                ->where('user.age', '>=', 90)->distinct('user.id')->count();
+
+            /*******         OBTENER LAS INTERACCIONES POR hora       ***************/
+            $collection = DB::getMongoDB()->selectCollection('campaign_logs');
+            $results = $collection->aggregate([
+                [
+                    '$match' => [
+                        'campaign_id' => $id,
+                        'interaction.loaded' => [
+                            '$gte' => new MongoDate(strtotime(Carbon::today()->subDays(30)->format('Y-m-d'))),
+                            '$lte' => new MongoDate(strtotime(Carbon::today()->subDays(0)->format('Y-m-d'))),
+                        ]
+                    ]
+                ],
+                [
+                    '$group' => [
+                        '_id' => [
+                            '$dateToString' => [
+                                'format' => '%H:00:00', 'date' => ['$subtract' => ['$created_at', 18000000]]
+                            ]
+                        ],
+                        'cnt' => [
+                            '$sum' => 1
+                        ]
+                    ],
+                ],
+                [
+                    '$sort' => [
+                        '_id' => 1
+                    ]
+                ]
+            ]);
+            $results2 = $collection->aggregate([
+                [
+                    '$match' => [
+                        'campaign_id' => $id,
+                        'interaction.completed' => [
+                            '$gte' => new MongoDate(strtotime(Carbon::today()->subDays(30)->format('Y-m-d'))),
+                            '$lte' => new MongoDate(strtotime(Carbon::today()->subDays(0)->format('Y-m-d'))),
+                        ]
+                    ]
+                ],
+                [
+                    '$group' => [
+                        '_id' => [
+                            '$dateToString' => [
+                                'format' => '%H:00:00', 'date' => ['$subtract' => ['$created_at', 18000000]]
+                            ]
+                        ],
+                        'cnt' => [
+                            '$sum' => 1
+                        ]
+                    ],
+                ],
+                [
+                    '$sort' => [
+                        '_id' => 1
+                    ]
+                ]
+            ]);
+
+            foreach ($results['result'] as $result => $valor) {
+
+                $time = explode(":", $valor['_id']);
+                if (array_key_exists($time[0], $IntXDias)) {
+//                    echo '<br>si esta<br>';
+                    $IntXDias[$time[0]]['cntL'] = $valor['cnt'];
+                } else {
+//                    echo '<br>no esta<br>';
+                    $IntXDias[$result][$time[0]] = 0;
+                }
+            }
+            foreach ($results2['result'] as $result => $valor) {
+                $time = explode(":", $valor['_id']);
+                if (array_key_exists($time[0], $IntXDias)) {
+                    $IntXDias[$time[0]]['cntC'] = $valor['cnt'];
+                } else {
+                    $IntXDias[$result][$time[0]] = 0;
+                }
+            }
+
             /****         SI EL BRANCH TIENE ALL SE MOSTRARA COMO GLOBAL       ***************/
             $today = new DateTime();
             if ($campaign->branches == 'all') {//SI TIENE ALL CAMBIO EL TEXTO POR GLOBAL
 //                echo 'tiene globales';
-                $campaign->branches = 'global';
+                $lugares = 'global';
             } else {//SI NO ES GLOBAL SACO EL NOMBRE DE LOS BRANCHES
 //                echo 'no tiene globales';
                 $branches = $campaign->branches;// saco los branches a otra bariable para que me sea mas facil manejar los datos
@@ -215,13 +291,16 @@ class CampaignsController extends Controller
                     $BRA = Branche::where('_id', $valor)->get(['name']); //guardo el valor de la consulta
                     $lugares[$clave] = $BRA[0]['original']['name'];//saco solo el valor que me interesa para no tener un array dentro de un array
                 }
-                $campaign->branches = $lugares;
-            }//FIN DEL ELSE PARA MANEJAR LOS BRANCHAS
+            }//FIN DEL ELSE PARA MANEJAR LOS BRANCHES
 
-//            dd($campaign);
             return view('campaigns.show', [
                 'cam' => $campaign,
+                'lugares' => $lugares,
+                'men' => $men,
+                'women' => $women,
                 'user' => auth()->user(),
+                'porcentaje' => $porcentaje,
+                'IntXDias' => $IntXDias
             ]);
         } else {
             return redirect()->route('campaigns::index')->with('data', 'errorCamp');
@@ -284,9 +363,9 @@ class CampaignsController extends Controller
 
 
         $cam->history()->create(array('administrator_id' => $user->id,
-                                                'status' => 'rejected',
-                                                  'date' => date('Y-m-d  h:m:s'),
-                                                  'note' => Input::get('razon').', '.Input::get('motivo'). 'Se regreso el dinero a la cuenta del administrador por la cantidad de '. $cam->balance['current']));
+            'status' => 'rejected',
+            'date' => date('Y-m-d  h:m:s'),
+            'note' => Input::get('razon') . ', ' . Input::get('motivo') . 'Se regreso el dinero a la cuenta del administrador por la cantidad de ' . $cam->balance['current']));
 
 
         $this->dispatch(new RejectJob($cam, $user, Input::get('razon'), Input::get('motivo')));
