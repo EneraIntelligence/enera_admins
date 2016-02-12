@@ -4,7 +4,7 @@
 
 @section('head_scripts')
     <style>
-        li.nav{
+        li.nav {
             width: 100% !important;
         }
     </style>
@@ -130,7 +130,7 @@
                                 <span class="md-card-list-item-date">Terminación</span>
                                 <span class="md-card-list-item-date">Loaded</span>
                                 <div class="md-card-list-item-avatar-wrapper">
-                                    <img src="assets/img/avatars/avatar_08_tn@2x.png"
+                                    <img src="assets/img/avatars/avatar_08_tn@2x.png" style="background: none;"
                                          class="md-card-list-item-avatar dense-image dense-ready" alt="">
                                 </div>
                                 <div class="md-card-list-item-sender">
@@ -144,7 +144,8 @@
                         <ul class=""
                             data-uk-grid="{controls: '#campaign-filter, #action-filter, #campaign-sort' }">
                             @foreach($campaigns as $campaign)
-                                <li  class="nav" style=" cursor: pointer; width: 100%; !important;" onclick="window.location.href='{!! route('home') !!}'"
+                                <li class="nav" style=" cursor: pointer; width: 100%; !important;"
+                                    onclick="window.location.href='{!! route('campaigns::show', [$campaign->id]) !!}'"
                                     data-uk-filter="campaign-{!! $campaign->status !!}, action-{!! $campaign->interaction['name'] !!}">
                                     <span class="md-card-list-item-date">{{date('Y-m-d',$campaign->filters['date']['end']->sec)}}</span>
                                     <span class="md-card-list-item-date"
@@ -152,7 +153,8 @@
                                     <div class="md-card-list-item-avatar-wrapper">
                                         <img src="{!! URL::asset('images/icons/'.
                                                                 CampaignStyle::getCampaignIcon( $campaign->interaction['name']
-                                                             ) ) !!}.svg" style="background: #d9d9d9; border: solid 1px {!! CampaignStyle::getStatusColor($campaign->status) !!};"
+                                                             ) ) !!}.svg"
+                                             style="background: #d9d9d9; border: solid 1px {!! CampaignStyle::getStatusColor($campaign->status) !!};"
                                              class="md-card-list-item-avatar dense-image dense-ready" alt="">
                                     </div>
                                     <div class="md-card-list-item-sender">
@@ -221,7 +223,7 @@
 @section('scripts')
 
     <script>
-            $("li.nav").css('width', '100%');
+        $("li.nav").css('width', '100%');
     </script>
 
 @stop
