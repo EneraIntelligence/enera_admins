@@ -22,7 +22,7 @@ class PreviewMiddleware
         $user = Administrator::where('_id', Auth::user()->_id)->first();
         $test = isset($user->routeAdmins) ? $user->routeAdmins : [];
 
-        if ($route != "home" && $route != 'auth.logout'
+        if ($route != "home" && $route != 'auth.logout' && $route != 'campaigns::show'
             && $route != 'edit.profile') {
             array_unshift($test, PreviewHelper::getNameRoute($route) . '/' . $route);
         }
