@@ -75,6 +75,9 @@
                                             <li data-uk-filter="action-video">
                                                 <a href="javascript:void(0)">Video</a>
                                             </li>
+                                            <li data-uk-filter="action-like">
+                                                <a href="javascript:void(0)">Like</a>
+                                            </li>
 
 
                                         </ul>
@@ -104,9 +107,6 @@
                                                 </li>
                                                 <li data-uk-sort="name">
                                                     <a href="#">Nombre</a>
-                                                </li>
-                                                <li data-uk-sort="company">
-                                                    <a href="#">Compañía</a>
                                                 </li>
                                                 <li data-uk-sort="action">
                                                     <a href="#">Interacción</a>
@@ -146,7 +146,12 @@
                             @foreach($campaigns as $campaign)
                                 <li class="nav" style=" cursor: pointer; width: 100%; !important;"
                                     onclick="window.location.href='{!! route('campaigns::show', [$campaign->id]) !!}'"
-                                    data-uk-filter="campaign-{!! $campaign->status !!}, action-{!! $campaign->interaction['name'] !!}">
+                                    data-uk-filter="campaign-{!! $campaign->status !!}, action-{!! $campaign->interaction['name'] !!}"
+                                    data-name="{!! $campaign->name !!}"
+                                    data-action="{!! $campaign->interaction['name'] !!}"
+                                    data-company="{!! $campaign->publishers_summary['client'] !!}"
+                                    data-status="{!! CampaignStyle::getStatusValue( $campaign->status )  !!}"
+                                    data-date="{!! $campaign->created_at !!}">
                                     <span class="md-card-list-item-date">{{date('Y-m-d',$campaign->filters['date']['end']->sec)}}</span>
                                     <span class="md-card-list-item-date"
                                           style="margin-right: 25px;">{{$campaign->logs()->where('interaction.loaded', 'exists', 'true')->count()}}</span>
