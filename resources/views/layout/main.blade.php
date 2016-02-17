@@ -124,6 +124,10 @@
                                             <span class="uk-text-muted uk-display-block">Plataformas</span>
                                         </a>
                                     @endif
+                                    <a href="#" class="uk-margin-top">
+                                        <i class="material-icons md-36 md-color-red-600">&#xE85D;</i>
+                                        <span class="uk-text-muted uk-display-block">Logs</span>
+                                    </a>
                                 </div>
                             </div>
                             <div class="uk-width-1-3 uk-hidden-small">
