@@ -83,6 +83,15 @@
                                                 <ul class="md-list md-list-addon ul">
                                                     <li>
                                                         <div class="md-list-addon-element">
+                                                            <i class="material-icons md-36">&#xE851;</i>
+                                                        </div>
+                                                        <div class="md-list-content">
+                                                            <span class="md-list-heading azul">Administrador</span>
+                                                            <span class="uk-text-small uk-text-muted">{{ $cam->administrator->name['first'].' '.$cam->administrator->name['last']  }}</span>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="md-list-addon-element">
                                                             <i class="md-list-addon-icon uk-icon-archive"></i>
                                                         </div>
                                                         <div class="md-list-content">
@@ -123,10 +132,10 @@
                                                         </div>
                                                         <div class="md-list-content azul">
                                                             <span class="md-list-heading">Lugares</span>
-                                                            @if($cam->branches!='global')
+                                                            @if($lugares!='global')
                                                                 {{--                                                                {!! var_dump($cam->branches) !!}--}}
-                                                                @foreach($cam->branches as $branches)
-                                                                    <span> {!! $branches !!}</span>
+                                                                @foreach($lugares as $lugar)
+                                                                    <span> {!! $lugar !!} , </span>
                                                                 @endforeach
                                                             @else
                                                                 <span> Global</span>
@@ -486,27 +495,43 @@
                                                     <div class="uk-width-medium-1-3 uk-width-small-1-3">
                                                         <div class="uk-width-medium-1-2 uk-width-small-1-2 uk-container-center">
                                                             <i class="uk-icon-eye uk-icon-medium"
-                                                               style="top: 25px; position: relative; left: 20px"
+
                                                                data-uk-tooltip="{pos:'top'}"
                                                                title="visto"></i>
-                                                            <h2 class="jumbo uk-float-left" id="vistos">0</h2>
+
                                                         </div>
                                                     </div>
                                                     <div class="uk-width-medium-1-3 uk-width-small-1-3">
                                                         <div class="uk-width-medium-1-2 uk-width-small-1-2 uk-container-center">
                                                             <i class="material-icons md-36"
-                                                               style="top: 25px; position: relative; left: 20px"
                                                                data-uk-tooltip="{pos:'top'}"
                                                                title="Completado">done</i>
-                                                            <h2 class="jumbo uk-float-left" id="completados">0</h2>
+
                                                         </div>
                                                     </div>
                                                     <div class="uk-width-medium-1-3 uk-width-small-1-3">
                                                         <div class="uk-kit-medium-2-3 uk-width-small-1-2 uk-container-center">
                                                             <i class="uk-icon-user uk-icon-medium "
-                                                               style="top: 25px; position: relative; left: 20px"
                                                                data-uk-tooltip="{pos:'top'}"
                                                                title="Usuario"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="uk-width-medium-1">
+                                                <div class="uk-grid">
+                                                    <div class="uk-width-medium-1-3 uk-width-small-1-3">
+                                                        <div class="uk-width-medium-1-2 uk-width-small-1-2 uk-container-center">
+                                                            <h2 class="jumbo uk-float-left" id="vistos">0</h2>
+                                                        </div>
+                                                    </div>
+                                                    <div class="uk-width-medium-1-3 uk-width-small-1-3">
+                                                        <div class="uk-width-medium-1-2 uk-width-small-1-2 uk-container-center">
+                                                            <h2 class="jumbo uk-float-left" id="completados">0</h2>
+                                                        </div>
+                                                    </div>
+                                                    <div class="uk-width-medium-1-3 uk-width-small-1-3">
+                                                        <div class="uk-kit-medium-2-3 uk-width-small-1-2 uk-container-center">
                                                             <h2 class="jumbo uk-float-left" id="usuarios">0</h2>
                                                         </div>
                                                     </div>
@@ -516,10 +541,11 @@
                                         <div class="md-card">
                                             <div id="graficas" class="md-card-content">
                                                 <h3 class="heading_a uk-margin-bottom">Analiticos</h3>
+                                                <div id='intXHour'
+                                                     class="uk-width-large-1-1 uk-margin-right"></div>
+                                                <h3 class="md-hr" style="margin: 10px;"></h3>
                                                 <div id='genderAge' class="uk-width-large-1-1 uk-panel-teaser"
                                                      style="height: 350px"></div>
-                                                <h3 class="md-hr" style="margin: 10px;"></h3>
-                                                <div id='gender' class="uk-width-large-1-1 uk-margin-right"></div>
                                             </div>
                                         </div>
                                         <div class="uk-grid uk-margin-medium-top" data="uk-grid-margin">
@@ -630,7 +656,7 @@
     <script>
         //-------------------------------------- animacion del circulo  ---------------------------------------------
         $('#circle').circleProgress({
-            value: {!! $cam->porcentaje !!}, //lo que se va a llenar con el color
+            value: {!! $porcentaje !!}, //lo que se va a llenar con el color
             size: 98,   //tamaño del circulo
             startAngle: -300, //de donde va a empezar la animacion
             reverse: true, //empieza la animacion al contrario
@@ -649,38 +675,26 @@
             prefix: '',
             suffix: ''
         };
-        var vistos = new CountUp("vistos", 0, {!! $cam->logs()->where('interaction.loaded','exists',true)->where('campaign_id',$cam->id)->count() !!}, 0, 5.0, options);
+        var vistos = new CountUp("vistos", 0, {!! $cam->logs()->where('interaction.loaded','exists',true)->count() !!}, 0, 5.0, options);
         vistos.start();
-        var completados = new CountUp("completados", 0, {!! $cam->logs()->where('interaction.completed','exists',true)->where('campaign_id',$cam->id)->count() !!}, 0, 5.0, options);
+        var completados = new CountUp("completados", 0, {!! $cam->logs()->where('interaction.completed','exists',true)->count() !!}, 0, 5.0, options);
         completados.start();
         var users = new CountUp("usuarios", 0, {!! count(DB::collection('campaign_logs')->where('campaign_id',$cam->id)->distinct('user.id')->get()) !!}, 0, 5.0, options);
         users.start();
-        //-------------------------------------- grafica de muestra se espera confirmacion de quitar  ---------------------------------------------
-        var chart = c3.generate({
-            bindto: '#gender',
-            data: {
-                columns: [
-                    ['Mujeres', 15],
-                    ['Hombres', 25]
-                ],
-                type: 'bar'
-            },
-            bar: {
-                width: {
-                    ratio: 0.5 // this makes bar width 50% of length between ticks
-                }
-                // or
-                //width: 100 // this makes bar width 100px
-            }
-        });
+
         //------------------------------------------Grafica---------------------------------------------
         var grafica = new graficas;
-        var menJson = '{!! json_encode($cam->men) !!}';
+        var menJson = '{!! json_encode($men) !!}';
         var menObj = JSON.parse(menJson);
-        var womenJson = '{!! json_encode($cam->women) !!}';
+        var womenJson = '{!! json_encode($women) !!}';
         var womenObj = JSON.parse(womenJson);
 
+        var intLJson = '{!! json_encode($IntXDias) !!}';
+        var intLObj = JSON.parse(intLJson);
+        //        console.log(intLObj);
+
         var gra = grafica.genderAge(menObj, womenObj);
+        var graf = grafica.intPerHour(intLObj);
     </script>
     <!-- enera custom scripts -->
     {{--{!! HTML::script('assets/js/enera/create_campaign_helper.js') !!}--}}

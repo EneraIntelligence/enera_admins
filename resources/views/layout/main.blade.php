@@ -10,9 +10,6 @@
     <!-- Remove Tap Highlight on Windows Phone IE -->
     <meta name="msapplication-tap-highlight" content="no"/>
     <link rel="icon" type="image/png" href="{!! URL::asset('images/favicon.png') !!}" sizes="32x32">
-    {{--<link rel="icon" type="image/png" href="assets/img/favicon-16x16.png" sizes="16x16">
-    <link rel="icon" type="image/png" href="assets/img/favicon-32x32.png" sizes="32x32">--}}
-    <link rel="icon" type="image/png" href="{!! URL::asset('img/favicon.png') !!}" sizes="32x32">
     <title>Enera Admins @yield('title')</title>
     @yield('head_scripts')
 
@@ -114,7 +111,7 @@
                                         <i class="material-icons md-36 md-color-red-600">&#xE63E;</i>
                                         <span class="uk-text-muted uk-display-block">Redes</span>
                                     </a>
-                                    <a href="#">
+                                    <a href="{!! route('admin::clients::index') !!}">
                                         <i class="material-icons md-36  md-color-red-600">&#xE7EF;</i>
                                         <span class="uk-text-muted uk-display-block">Clientes</span>
                                     </a>
@@ -133,10 +130,20 @@
                             <div class="uk-width-1-3 uk-hidden-small">
                                 <ul class="uk-nav uk-nav-dropdown uk-panel">
                                     <li class="uk-nav-header">Recientes</li>
-                                    <li><a href="#">Buttons</a></li>
-                                    <li><a href="#">Notifications</a></li>
-                                    <li><a href="#">Sortable</a></li>
-                                    <li><a href="#">Tabs</a></li>
+                                    <?php
+                                    if (!isset(auth()->user()->routeAdmins)) {
+                                        auth()->user()->routeAdmins = [];
+                                    }
+
+                                    ?>
+                                    @foreach(auth()->user()->routeAdmins as $preview)
+                                        <?php $last = explode('/', $preview) ?>
+                                        <li><a href="{!! route($last[1]) !!}">{{$last[0]}}</a></li>
+                                    @endforeach
+                                    {{--<li><a href="#">Buttons</a></li>--}}
+                                    {{--<li><a href="#">Notifications</a></li>--}}
+                                    {{--<li><a href="#">Sortable</a></li>--}}
+                                    {{--<li><a href="#">Tabs</a></li>--}}
                                 </ul>
                             </div>
                         </div>
@@ -177,8 +184,7 @@
                                             </li>
                                             <li>
                                                 <div class="md-list-addon-element">
-                                                    <img class="md-user-image md-list-addon-avatar"
-                                                         src="assets/images/avatars/avatar_07_tn.png" alt=""/>
+                                                    <span class="md-user-letters md-bg-cyan">se</span>
                                                 </div>
                                                 <div class="md-list-content">
                                                     <span class="md-list-heading"><a href="pages_mailbox.html">Quia
@@ -198,8 +204,8 @@
                                             </li>
                                             <li>
                                                 <div class="md-list-addon-element">
-                                                    <img class="md-user-image md-list-addon-avatar"
-                                                         src="assets/images/avatars/avatar_02_tn.png" alt=""/>
+                                                    {{--<img class="md-user-image md-list-addon-avatar" src="assets/images/avatars/avatar_02_tn.png" alt=""/>--}}
+                                                    <span class="md-user-letters md-bg-cyan">se</span>
                                                 </div>
                                                 <div class="md-list-content">
                                                     <span class="md-list-heading"><a href="pages_mailbox.html">Voluptas
@@ -209,8 +215,7 @@
                                             </li>
                                             <li>
                                                 <div class="md-list-addon-element">
-                                                    <img class="md-user-image md-list-addon-avatar"
-                                                         src="assets/images/avatars/avatar_09_tn.png" alt=""/>
+                                                    <span class="md-user-letters md-bg-cyan">se</span>
                                                 </div>
                                                 <div class="md-list-content">
                                                     <span class="md-list-heading"><a href="pages_mailbox.html">Inventore
