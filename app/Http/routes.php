@@ -26,12 +26,17 @@ Route::group(['middleware' => ['auth', 'guardian', 'preview']], function () {
     Route::group(['prefix' => 'profile', 'as' => 'profile::'], function () {
         Route::get('/', ['as' => 'index', 'uses' => 'UserController@index']);
     });
-/**     admin  **/
+    /* Admin */
     Route::group(['prefix' => 'admin', 'as' => 'admin::'], function () {
-        /**     clients     **/
+        /* clients */
         Route::group(['prefix' => 'clients', 'as' => 'clients::'], function () {
             Route::get('/', ['as' => 'index', 'uses' => 'ClientsController@index']);
         });
+    });
+
+    Route::group(['prefix' => 'issuetracker', 'as' => 'issuetracker::'], function () {
+        Route::get('/',['as'=>'index','uses'=>'IssueTrackerController@index']);
+        Route::get('/show/{id}',['as'=>'show','uses'=>'IssueTrackerController@show']);
     });
 
 });
