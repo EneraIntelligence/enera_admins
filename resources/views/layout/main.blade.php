@@ -121,9 +121,9 @@
                                             <span class="uk-text-muted uk-display-block">Plataformas</span>
                                         </a>
                                     @endif
-                                    <a href="#" class="uk-margin-top">
+                                    <a href="{{ route('issuetracker::index') }}" class="uk-margin-top">
                                         <i class="material-icons md-36 md-color-red-600">&#xE85D;</i>
-                                        <span class="uk-text-muted uk-display-block">Logs</span>
+                                        <span class="uk-text-muted uk-display-block">Issue Tracker</span>
                                     </a>
                                 </div>
                             </div>
