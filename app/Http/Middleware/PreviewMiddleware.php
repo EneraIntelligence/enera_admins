@@ -22,8 +22,9 @@ class PreviewMiddleware
         $user = Administrator::where('_id', Auth::user()->_id)->first();
         $test = isset($user->routeAdmins) ? $user->routeAdmins : [];
 
-        if ($route != "home" && $route != 'auth.logout' && $route != 'campaigns::show'
-            && $route != 'edit.profile') {
+        if ($route != "home" && $route != 'auth.logout' && $route != 'campaigns::show' &&  $route != 'admin::clients::index"'
+            && $route != 'edit.profile' && $route != 'campaigns::reject::campaign' && $route != 'campaigns::active::campaign'
+            && $route != 'campaigns::admin::campaign') {
             array_unshift($test, PreviewHelper::getNameRoute($route) . '/' . $route);
         }
         if (count($test) > 5) {
