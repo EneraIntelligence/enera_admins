@@ -51,7 +51,18 @@ class IssueTrackerController extends Controller
      */
     public function show($id)
     {
-        return view('issuetracker.show');
+        $issue = Issue::find($id);
+        if ($issue) {
+            return view('issuetracker.show', [
+                'issue' => $issue
+            ]);
+        } else {
+            return redirect()->route('issuetracker::index')->with([
+                'n_type' => 'danger',
+                'n_timeout' => 5000,
+                'n_msg' => '"Issue" no encontrado.'
+            ]);
+        }
     }
 
     /**
