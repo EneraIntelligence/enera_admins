@@ -58,8 +58,8 @@
                                 <h2 class="heading_c uk-margin-small-bottom">Variables de Sesión</h2>
                                 <pre class="line-numbers">
                                     <code class="language-php">$session_vars = [
-    @foreach($issue->session_vars as $k => $v)
-        "{{ $k }}" => "{{ $v }}",
+    @foreach($issue->session_vars as $key => $value)
+        '{{ $key }}' => "{{ $value }}",
     @endforeach
     ];
                                     </code>
