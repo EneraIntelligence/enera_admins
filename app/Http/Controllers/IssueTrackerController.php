@@ -52,6 +52,7 @@ class IssueTrackerController extends Controller
     public function show($id)
     {
         $issue = Issue::find($id);
+        dd($issue->session_vars);
         if ($issue) {
             return view('issuetracker.show', [
                 'issue' => $issue
