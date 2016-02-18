@@ -48,7 +48,7 @@
                                 <tr>
                                     </td>
                                     <td>
-                                        <a href="#">
+                                        <a href="{!! route('issuetracker::show', ['id' => $issue->_id]) !!}">
                                             {{ $issue->msg }}
                                         </a>
                                     </td>
