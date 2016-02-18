@@ -24,7 +24,7 @@
             </div>
             <h1>Issue Tracker</h1>
             <span class="uk-text-upper uk-text-small">
-                <a href="#">Rastreo automatico de errores</a>
+                Rastreo automatico de errores
             </span>
         </div>
         <div id="page_content_inner">
