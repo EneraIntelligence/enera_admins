@@ -45,13 +45,15 @@
                     <div class="uk-grid uk-grid-divider" data-uk-grid-margin>
                         <div class="uk-width-medium-3-4">
                             <div class="uk-margin-large-bottom">
-                                {{--<h2 class="heading_c uk-margin-small-bottom">Descripción</h2>--}}
-                                {{ $issue->url }}
+                                <h2 class="heading_c uk-margin-small-bottom">Contexto</h2>
                                 <pre class="line-numbers">
                                     <code class="language-php">
                                         {{ $issue->file['context'] }}
                                     </code>
                                 </pre>
+                            </div>
+                            <div class="uk-margin-large-bottom">
+                                {{ $issue->url }}
                             </div>
                             <div class="uk-margin-large-bottom">
                                 <h2 class="heading_c uk-margin-small-bottom">Comentarios</h2>
