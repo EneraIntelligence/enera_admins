@@ -57,7 +57,12 @@
                             <div class="uk-margin-large-bottom">
                                 <h2 class="heading_c uk-margin-small-bottom">Variables de Sesión</h2>
                                 <pre>
-                                    <code class="language-json">{{ json_encode($issue->session_vars) }}</code>
+                                    <code class="language-json">$session_vars = [
+    @foreach($issue->session_vars as $k => $v)
+        "{{ $k }}" => "{{ $v }}",
+    @endforeach
+    ];
+                                    </code>
                                 </pre>
                             </div>
                             <div class="uk-margin-large-bottom">
