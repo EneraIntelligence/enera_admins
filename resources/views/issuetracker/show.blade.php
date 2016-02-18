@@ -25,7 +25,7 @@
             </div>
             <h1>{{ $issue->msg }}</h1>
             <span class="uk-text-upper uk-text-small">
-                {{ $issuel->file['path'] }} ({{ $issue->file['line'] }})
+                {{ $issue->file['path'] }} ({{ $issue->file['line'] }})
             </span>
         </div>
 
