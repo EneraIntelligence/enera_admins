@@ -54,7 +54,7 @@ class IssueTrackerController extends Controller
         $issue = Issue::find($id);
         if ($issue) {
             return view('issuetracker.show', [
-                'issue' => $issue
+                'issue' => $issue,
             ]);
         } else {
             return redirect()->route('issuetracker::index')->with([
