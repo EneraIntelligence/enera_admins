@@ -2,6 +2,7 @@
 
 namespace Admins\Http\Controllers;
 
+use Admins\Issue;
 use Illuminate\Http\Request;
 
 use Admins\Http\Requests;
@@ -16,7 +17,9 @@ class IssueTrackerController extends Controller
      */
     public function index()
     {
-        return view('issuetracker.index');
+        return view('issuetracker.index', [
+            'issues' => Issue::where('status', '<>', 'closed')->orderBy('created_at', 'ASC')->get(),
+        ]);
     }
 
     /**
