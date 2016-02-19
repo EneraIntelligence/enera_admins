@@ -49,7 +49,7 @@
                             <div class="uk-margin-large-bottom">
                                 <h2 class="heading_c uk-margin-small-bottom">Contexto</h2>
                                 <pre data-start="{!! $issue->file['line'] > 9 ? $issue->file['line'] - 9 : 1 !!}"
-                                     class="line-numbers" style="max-height: 400px; !important;">
+                                     class="line-numbers" style="max-height: 380px; !important;">
                                     <code class="language-php"
                                           style="margin-top: -20px;">{!! $issue->file['context'] !!}</code>
                                 </pre>
