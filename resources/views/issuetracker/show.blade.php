@@ -67,7 +67,7 @@
                             </div>
                             <div class="uk-margin-large-bottom">
                                 <h2 class="heading_c uk-margin-small-bottom">
-                                    Exception Trace <i id="more_trace" data-pre="tracer" class="material-icons">&#x;</i>
+                                    Exception Trace <i id="more_trace" data-pre="tracer" class="material-icons">&#xE5CF;</i>
                                 </h2>
                                 <pre id="tracer" style="display: none;"><code
                                             style="margin-top: -20px;">{!! $issue->exception['trace'] !!}</code>
