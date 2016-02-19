@@ -66,8 +66,8 @@
                             </div>
                             <div class="uk-margin-large-bottom">
                                 <h2 class="heading_c uk-margin-small-bottom">Exception Trace</h2>
-                                <pre id="tracer">
-                                    <code style="margin-top: -20px;">{!! $issue->exception['trace'] !!}</code>
+                                <pre id="tracer"><code
+                                            style="margin-top: -20px;">{!! $issue->exception['trace'] !!}</code>
                                 </pre>
                             </div>
                             <div class="uk-margin-large-bottom">
