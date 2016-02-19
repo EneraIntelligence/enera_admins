@@ -218,7 +218,7 @@
             $(".issue-data-expand").click(function () {
                 var $this = $(this);
                 $("#" + $this.attr('data-pre')).slideToggle("slow", function () {
-                    $this.find('.material-icons').html($this.find('.material-icons').html()[0] == 'expand_more' ? 'expand_less' : 'expand_more');
+                    $this.find('.material-icons').html($this.find('.material-icons').html() == 'expand_more' ? 'expand_less' : 'expand_more');
                 });
             });
         });
