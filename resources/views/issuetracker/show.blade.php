@@ -46,13 +46,15 @@
                         <div class="uk-width-medium-3-4">
                             <div class="uk-margin-large-bottom">
                                 <h2 class="heading_c uk-margin-small-bottom">Contexto</h2>
-                                <pre class="line-numbers" style="height: 500px;">
+                                <pre class="line-numbers">
                                     <code class="language-php">{!! $issue->file['context'] !!}</code>
                                 </pre>
                             </div>
                             <div class="uk-margin-large-bottom">
                                 <h2 class="heading_c uk-margin-small-bottom">URL</h2>
-                                <a href="#">{{ $issue->url }}</a>
+                                <pre>
+                                    <a href="#">{{ $issue->url }}</a>
+                                </pre>
                             </div>
                             <div class="uk-margin-large-bottom">
                                 <h2 class="heading_c uk-margin-small-bottom">Variables de Sesión</h2>
