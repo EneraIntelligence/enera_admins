@@ -208,7 +208,7 @@
 @section('scripts')
     <script>
         $(document).ready(function () {
-            $("#more_trace").onclick(function () {
+            $("#more_trace").click(function () {
                 var $this = $(this);
                 $("#" + $this.attr('data-pre')).slideToggle("slow");
             });
