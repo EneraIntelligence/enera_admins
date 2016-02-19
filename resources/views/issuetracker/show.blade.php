@@ -48,9 +48,9 @@
                         <div class="uk-width-medium-3-4">
                             <div class="uk-margin-large-bottom">
                                 <h2 class="heading_c uk-margin-small-bottom">Contexto</h2>
-                                <pre class="line-numbers">
+                                <pre class="line-numbers" style="max-height: 500px !important;">
                                     <code class="language-php"
-                                          style="max-height: 500px !important; margin-top: -20px;">{!! $issue->file['context'] !!}</code>
+                                          style="margin-top: -20px;">{!! $issue->file['context'] !!}</code>
                                 </pre>
                             </div>
                             <div class="uk-margin-large-bottom">
