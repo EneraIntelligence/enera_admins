@@ -51,7 +51,7 @@
                                 <pre data-start="{!! $issue->file['line'] > 9 ? $issue->file['line'] - 9 : 1 !!}"
                                      class="line-numbers" style="max-height: 380px; !important;">
                                     <code class="language-php"
-                                          style="margin-top: -20px;">{!! $issue->file['context'] !!}</code>
+                                          style="margin-top: -18px;">{!! $issue->file['context'] !!}</code>
                                 </pre>
                             </div>
                             <div class="uk-margin-large-bottom">
