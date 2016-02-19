@@ -55,7 +55,7 @@
                             </div>
                             <div class="uk-margin-large-bottom">
                                 <h2 class="heading_c uk-margin-small-bottom">URL</h2>
-                                <pre class="line-numbers">{!! '\\n'.$issue->url.'\\n' !!}</pre>
+                                <pre class="line-numbers">{!! "\\n".$issue->url."\\n" !!}</pre>
                             </div>
                             <div class="uk-margin-large-bottom">
                                 <h2 class="heading_c uk-margin-small-bottom">Variables de Sesión</h2>
