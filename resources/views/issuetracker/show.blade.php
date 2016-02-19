@@ -42,9 +42,9 @@
                             <i class="material-icons">&#xE254;</i> Editar
                         </a>
                         <div class="md-btn-group">
-                            <a class="md-btn" href="#">Asignar</a>
-                            <a href="#" class="md-btn">Iniciar</a>
-                            <a href="#" class="md-btn">Cerrar</a>
+                            <a href="#" class="md-btn md-btn-primary">Asignar</a>
+                            <a href="#" class="md-btn md-btn-success">Iniciar</a>
+                            <a href="#" class="md-btn md-btn-danger">Cerrar</a>
                         </div>
                     </div>
                     <hr/>

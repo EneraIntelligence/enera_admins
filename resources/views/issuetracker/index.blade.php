@@ -35,7 +35,7 @@
                                id="ts_issues">
                             <thead>
                             <tr>
-                                <th width="20%">Issue</th>
+                                <th>Issue</th>
                                 <th>Responsable</th>
                                 <th>Prioridad</th>
                                 <th>Fecha</th>
