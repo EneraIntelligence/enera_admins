@@ -218,6 +218,7 @@
             $(".issue-data-expand").click(function () {
                 var $this = $(this);
                 $("#" + $this.attr('data-pre')).slideToggle("slow", function () {
+                    console.log($this.find('i'));
                     $this.find('i').html($this.find('i').html() == '&#xE5CF;' ? '&#xE5CE;' : '&#xE5CF;');
                 });
             });
