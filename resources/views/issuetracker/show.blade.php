@@ -83,7 +83,7 @@
                             <div class="uk-margin-large-bottom">
                                 <h2 class="heading_c uk-margin-small-bottom">Comentarios</h2>
                                 <ul class="uk-comment-list">
-                                    <li>
+                                    {{--<li>
                                         <article class="uk-comment">
                                             <header class="uk-comment-header">
                                                 <img class="md-user-image uk-comment-avatar"
@@ -114,37 +114,8 @@
                                                 </article>
                                             </li>
                                         </ul>
-                                    </li>
-                                    <li>
-                                        <article class="uk-comment">
-                                            <header class="uk-comment-header">
-                                                <img class="md-user-image uk-comment-avatar"
-                                                     src="assets/img/avatars/avatar_08_tn.png" alt="">
-                                                <h4 class="uk-comment-title">Ian Donnelly</h4>
-                                                <div class="uk-comment-meta">24/Jun/15 14:26</div>
-                                            </header>
-                                            <div class="uk-comment-body">
-                                                <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-                                                    nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
-                                                    erat, sed diam voluptua.</p>
-                                            </div>
-                                        </article>
-                                    </li>
-                                    <li>
-                                        <article class="uk-comment">
-                                            <header class="uk-comment-header">
-                                                <img class="md-user-image uk-comment-avatar"
-                                                     src="assets/img/avatars/avatar_07_tn.png" alt="">
-                                                <h4 class="uk-comment-title">Fern Grady</h4>
-                                                <div class="uk-comment-meta">24/Jun/15 14:26</div>
-                                            </header>
-                                            <div class="uk-comment-body">
-                                                <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-                                                    nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
-                                                    erat, sed diam voluptua.</p>
-                                            </div>
-                                        </article>
-                                    </li>
+                                    </li>--}}
+
                                 </ul>
                             </div>
                             <textarea cols="30" rows="4" class="md-input" placeholder="Add Comment..."></textarea>
@@ -170,7 +141,7 @@
                                 <li>
                                     <div class="md-list-addon-element">
                                         <img class="md-user-image md-list-addon-avatar"
-                                             src="assets/img/avatars/avatar_02_tn.png" alt=""/>
+                                             src="{!! $issue->responsible_id > 0 ? '' : '' !!}" alt=""/>
                                     </div>
                                     <div class="md-list-content">
                                         <span class="md-list-heading">
