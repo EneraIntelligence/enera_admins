@@ -52,9 +52,7 @@
                             </div>
                             <div class="uk-margin-large-bottom">
                                 <h2 class="heading_c uk-margin-small-bottom">URL</h2>
-                                <pre>
-                                    <a href="#">{{ $issue->url }}</a>
-                                </pre>
+                                <pre><a href="#">{{ $issue->url }}</a></pre>
                             </div>
                             <div class="uk-margin-large-bottom">
                                 <h2 class="heading_c uk-margin-small-bottom">Variables de Sesión</h2>
