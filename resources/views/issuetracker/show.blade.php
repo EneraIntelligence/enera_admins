@@ -65,11 +65,11 @@
                             </div>
                             <div class="uk-margin-large-bottom">
                                 <h2 class="heading_c uk-margin-small-bottom issue-data-expand" data-pre="session_vars">
-                                    Variables de Sesión <i class="material-icons">expand_more</i>
+                                    Variables de Sesión <i class="material-icons">expand_less</i>
                                 </h2>
-                                <pre id="session_vars" class="line-numbers" style="display: none;">
+                                <pre id="session_vars" class="line-numbers">
                                     <code class="language-php"
-                                          style="margin-top: -20px;">{!! print_r($issue->session_vars) !!}</code>
+                                          style="margin-top: -18px;">{!! print_r($issue->session_vars) !!}</code>
                                 </pre>
                             </div>
                             <div class="uk-margin-large-bottom">
