@@ -53,7 +53,7 @@ class IssueTrackerController extends Controller
     public function close($id)
     {
         $issue = Issue::find($id);
-        if ($issue) {
+        if ($issue && $issue->status != 'closed') {
             $issue->status = 'closed';
             $issue->responsible_id = $issue->responsible_id == 0 ? auth()->user()->_id : $issue->responsible_id;
             $issue->save();
