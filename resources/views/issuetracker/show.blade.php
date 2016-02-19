@@ -217,7 +217,9 @@
         $(document).ready(function () {
             $(".issue-data-expand").click(function () {
                 var $this = $(this);
-                $("#" + $this.attr('data-pre')).slideToggle("slow");
+                $("#" + $this.attr('data-pre')).slideToggle("slow", function () {
+                    $this.find('i').html($this.find('i').html() == '&#xE5CF;' ? '&#xE5CE;' : '&#xE5CF;');
+                });
             });
         });
     </script>
