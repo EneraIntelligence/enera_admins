@@ -1,7 +1,11 @@
 @extends('layout.main')
 @section('title', ' -  Issue Tracker Show')
 @section('head_scripts')
-
+    <style>
+        .issue-data-expand {
+            cursor: pointer;
+        }
+    </style>
 @endsection
 @section('content')
     <div id="page_content">
