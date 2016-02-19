@@ -65,10 +65,9 @@
                                 </pre>
                             </div>
                             <div class="uk-margin-large-bottom">
-                                <h2 class="heading_c uk-margin-small-bottom">Variables de Sesión</h2>
-                                <pre id="tracer" class="line-numbers">
-                                    <code class="language-php"
-                                          style="margin-top: -20px;">{!! $issue->exception['trace'] !!}</code>
+                                <h2 class="heading_c uk-margin-small-bottom">Exception Trace</h2>
+                                <pre id="tracer">
+                                    <code style="margin-top: -20px;">{!! $issue->exception['trace'] !!}</code>
                                 </pre>
                             </div>
                             <div class="uk-margin-large-bottom">
