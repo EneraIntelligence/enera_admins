@@ -44,7 +44,10 @@
                         <div class="md-btn-group">
                             <a href="#" class="md-btn" style="background-color: #2196f3; color: white;">Asignar</a>
                             <a href="#" class="md-btn md-btn-success">Iniciar</a>
-                            <a href="#" class="md-btn md-btn-danger">Cerrar</a>
+                            <a href="{!! route('issuetracker::close', ['id' => $issue->_id]) !!}"
+                               class="md-btn md-btn-danger">
+                                Cerrar
+                            </a>
                         </div>
                     </div>
                     <hr/>

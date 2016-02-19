@@ -23,27 +23,6 @@ class IssueTrackerController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  int $id
@@ -61,6 +40,33 @@ class IssueTrackerController extends Controller
                 'n_type' => 'danger',
                 'n_timeout' => 5000,
                 'n_msg' => '"Issue" no encontrado.'
+            ]);
+        }
+    }
+
+    /**
+     * Cierre de Issue
+     *
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function close($id)
+    {
+        $issue = Issue::find($id);
+        if ($issue) {
+            $issue->status = 'closed';
+            $issue->responsible_id = $issue->responsible_id == 0 ? auth()->user()->_id : $issue->responsible_id;
+            $issue->save();
+            return redirect()->route('issuetracker::index')->with([
+                'n_type' => 'success',
+                'n_timeout' => 5000,
+                'n_msg' => '"Issue" cerrado.'
+            ]);
+        } else {
+            return redirect()->route('issuetracker::index')->with([
+                'n_type' => 'danger',
+                'n_timeout' => 5000,
+                'n_msg' => '"Issue" no valido.'
             ]);
         }
     }
@@ -84,17 +90,6 @@ class IssueTrackerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
     {
         //
     }

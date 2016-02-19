@@ -35,8 +35,9 @@ Route::group(['middleware' => ['auth', 'guardian', 'preview']], function () {
     });
 
     Route::group(['prefix' => 'issuetracker', 'as' => 'issuetracker::'], function () {
-        Route::get('/',['as'=>'index','uses'=>'IssueTrackerController@index']);
-        Route::get('/show/{id}',['as'=>'show','uses'=>'IssueTrackerController@show']);
+        Route::get('/', ['as' => 'index', 'uses' => 'IssueTrackerController@index']);
+        Route::get('/show/{id}', ['as' => 'show', 'uses' => 'IssueTrackerController@show']);
+        Route::post('/close/{id}', ['as' => 'close', 'uses' => 'IssueTrackerController@close']);
     });
 
 });
