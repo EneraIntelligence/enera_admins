@@ -34,7 +34,9 @@
             <div class="md-card">
                 <div class="md-card-content">
                     <div class="uk-margin-bottom" data-uk-margin>
-                        <a href="#" class="md-btn"><i class="material-icons">&#xE254;</i> Editar</a>
+                        <a href="#" class="md-btn">
+                            <i class="material-icons">&#xE254;</i> Editar
+                        </a>
                         <div class="md-btn-group">
                             <a class="md-btn" href="#">Asignar</a>
                             <a href="#" class="md-btn">Iniciar</a>
@@ -47,7 +49,8 @@
                             <div class="uk-margin-large-bottom">
                                 <h2 class="heading_c uk-margin-small-bottom">Contexto</h2>
                                 <pre class="line-numbers">
-                                    <code class="language-php" style="margin-top: -20px;">{!! $issue->file['context'] !!}</code>
+                                    <code class="language-php"
+                                          style="margin-top: -20px;">{!! $issue->file['context'] !!}</code>
                                 </pre>
                             </div>
                             <div class="uk-margin-large-bottom">
@@ -57,7 +60,8 @@
                             <div class="uk-margin-large-bottom">
                                 <h2 class="heading_c uk-margin-small-bottom">Variables de Sesión</h2>
                                 <pre class="line-numbers">
-                                    <code class="language-php" style="margin-top: -20px;">{!! print_r($issue->session_vars) !!}</code>
+                                    <code class="language-php"
+                                          style="margin-top: -20px;">{!! print_r($issue->session_vars) !!}</code>
                                 </pre>
                             </div>
                             <div class="uk-margin-large-bottom">
@@ -133,12 +137,16 @@
                         <div class="uk-width-medium-1-4">
                             <div class="uk-margin-medium-bottom">
                                 <p>
-                                    Priority:
-                                    <span class="uk-badge uk-badge-success uk-text-upper uk-margin-small-left">Major</span>
+                                    Prioridad:
+                                    <span class="uk-badge uk-badge-warning uk-text-upper uk-margin-small-left">
+                                        {{ $issue->priority }}
+                                    </span>
                                 </p>
                                 <p>
-                                    Status:
-                                    <span class="uk-badge uk-badge-outline uk-text-upper uk-margin-small-left">Open</span>
+                                    Estado:
+                                    <span class="uk-badge uk-badge-outline uk-text-upper uk-margin-small-left">
+                                        {{ $issue->status }}
+                                    </span>
                                 </p>
                             </div>
                             <h2 class="heading_c uk-margin-small-bottom">Details</h2>
@@ -149,8 +157,10 @@
                                              src="assets/img/avatars/avatar_02_tn.png" alt=""/>
                                     </div>
                                     <div class="md-list-content">
-                                        <span class="md-list-heading">Berneice Feil</span>
-                                        <span class="uk-text-small uk-text-muted">Assignee</span>
+                                        <span class="md-list-heading">
+                                            {{ $issue->responsible_id > 0 ? $issue->responsible->name : '---' }}
+                                        </span>
+                                        <span class="uk-text-small uk-text-muted">Responsable</span>
                                     </div>
                                 </li>
                                 <li>
@@ -158,8 +168,10 @@
                                         <i class="md-list-addon-icon material-icons">&#xE8DF;</i>
                                     </div>
                                     <div class="md-list-content">
-                                        <span class="md-list-heading">14 Jun 2015</span>
-                                        <span class="uk-text-small uk-text-muted">Created</span>
+                                        <span class="md-list-heading">
+                                            {{ $issue->created_at->format('j M y') }}
+                                        </span>
+                                        <span class="uk-text-small uk-text-muted">Fecha</span>
                                     </div>
                                 </li>
                                 <li>
@@ -167,8 +179,10 @@
                                         <i class="md-list-addon-icon material-icons">&#xE8B5;</i>
                                     </div>
                                     <div class="md-list-content">
-                                        <span class="md-list-heading">18 Jun 2015</span>
-                                        <span class="uk-text-small uk-text-muted">Updated</span>
+                                        <span class="md-list-heading">
+                                            {{ $issue->updated_at->format('j M y') }}
+                                        </span>
+                                        <span class="uk-text-small uk-text-muted">Actualización</span>
                                     </div>
                                 </li>
                             </ul>
