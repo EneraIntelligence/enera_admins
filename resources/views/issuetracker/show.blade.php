@@ -46,7 +46,7 @@
                         <div class="uk-width-medium-3-4">
                             <div class="uk-margin-large-bottom">
                                 <h2 class="heading_c uk-margin-small-bottom">Contexto</h2>
-                                <pre class="line-numbers">
+                                <pre class="line-numbers" style="height: 500px;">
                                     <code class="language-php">{!! $issue->file['context'] !!}</code>
                                 </pre>
                             </div>
