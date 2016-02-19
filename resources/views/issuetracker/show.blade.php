@@ -50,7 +50,7 @@
                                 <h2 class="heading_c uk-margin-small-bottom">Contexto</h2>
                                 <pre class="line-numbers">
                                     <code class="language-php"
-                                          style="margin-top: -20px;">{!! $issue->file['context'] !!}</code>
+                                          style="max-height: 500px !important; margin-top: -20px;">{!! $issue->file['context'] !!}</code>
                                 </pre>
                             </div>
                             <div class="uk-margin-large-bottom">
@@ -65,7 +65,10 @@
                                 </pre>
                             </div>
                             <div class="uk-margin-large-bottom">
-                                <h2 class="heading_c uk-margin-small-bottom">Exception Trace</h2>
+                                <h2 class="heading_c uk-margin-small-bottom">
+                                    Exception Trace
+                                    <i class="material-icons">&#xE254;</i>
+                                </h2>
                                 <pre id="tracer"><code
                                             style="margin-top: -20px;">{!! $issue->exception['trace'] !!}</code>
                                 </pre>
