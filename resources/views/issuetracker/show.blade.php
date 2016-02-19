@@ -47,7 +47,8 @@
                     <div class="uk-grid uk-grid-divider" data-uk-grid-margin>
                         <div class="uk-width-medium-3-4">
                             <div class="uk-margin-large-bottom">
-                                <h2 class="heading_c uk-margin-small-bottom">Contexto ( Linea: {{ $issue->file['line'] }})</h2>
+                                <h2 class="heading_c uk-margin-small-bottom">Contexto (
+                                    Linea: {{ $issue->file['line'] }})</h2>
                                 <pre data-start="{!! $issue->file['line'] > 9 ? $issue->file['line'] - 9 : 1 !!}"
                                      class="line-numbers" style="max-height: 380px; !important;">
                                     <code class="language-php"
@@ -59,17 +60,19 @@
                                 <pre class="line-numbers"><a href="#">{{ $issue->url }}</a></pre>
                             </div>
                             <div class="uk-margin-large-bottom">
-                                <h2 class="heading_c uk-margin-small-bottom">Variables de Sesión</h2>
-                                <pre class="line-numbers">
+                                <h2 class="heading_c uk-margin-small-bottom issue-data-expand" data-pre="session_vars">
+                                    Variables de Sesión <i class="material-icons">&#xE5CF;</i>
+                                </h2>
+                                <pre id="session_vars" class="line-numbers" style="display: none;">
                                     <code class="language-php"
                                           style="margin-top: -20px;">{!! print_r($issue->session_vars) !!}</code>
                                 </pre>
                             </div>
                             <div class="uk-margin-large-bottom">
-                                <h2 class="heading_c uk-margin-small-bottom" id="more_trace" data-pre="tracer">
+                                <h2 class="heading_c uk-margin-small-bottom issue-data-expand" data-pre="tracer">
                                     Exception Trace <i class="material-icons">&#xE5CF;</i>
                                 </h2>
-                                <pre id="tracer"><code
+                                <pre id="tracer" style="display: none;"><code
                                             style="margin-top: -20px;">{!! $issue->exception['trace'] !!}</code>
                                 </pre>
                             </div>
@@ -208,7 +211,7 @@
 @section('scripts')
     <script>
         $(document).ready(function () {
-            $("#more_trace").click(function () {
+            $(".issue-data-expand").click(function () {
                 var $this = $(this);
                 $("#" + $this.attr('data-pre')).slideToggle("slow");
             });
