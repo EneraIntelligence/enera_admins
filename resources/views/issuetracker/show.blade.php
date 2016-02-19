@@ -47,7 +47,7 @@
                             <div class="uk-margin-large-bottom">
                                 <h2 class="heading_c uk-margin-small-bottom">Contexto</h2>
                                 <pre class="line-numbers">
-                                    <code class="language-php">{!! $issue->file['context'] !!}</code>
+                                    <code class="language-php" style="margin-top: -20px;">{!! $issue->file['context'] !!}</code>
                                 </pre>
                             </div>
                             <div class="uk-margin-large-bottom">
@@ -59,7 +59,7 @@
                             <div class="uk-margin-large-bottom">
                                 <h2 class="heading_c uk-margin-small-bottom">Variables de Sesión</h2>
                                 <pre class="line-numbers">
-                                    <code class="language-php">{!! print_r($issue->session_vars) !!}</code>
+                                    <code class="language-php" style="margin-top: -20px;">{!! print_r($issue->session_vars) !!}</code>
                                 </pre>
                             </div>
                             <div class="uk-margin-large-bottom">
