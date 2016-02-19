@@ -15,6 +15,7 @@ class PreviewHelper
     private static $NAME_ROUTE = array(
         'profile::index' => 'Perfil',
         'campaigns::index' => 'Campañas',
+        'issuetracker::index' => 'Issues Track'
     );
 
     public static function getNameRoute($route)

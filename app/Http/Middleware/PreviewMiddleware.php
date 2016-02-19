@@ -24,7 +24,7 @@ class PreviewMiddleware
 
         if ($route != "home" && $route != 'auth.logout' && $route != 'campaigns::show' &&  $route != 'admin::clients::index"'
             && $route != 'edit.profile' && $route != 'campaigns::reject::campaign' && $route != 'campaigns::active::campaign'
-            && $route != 'campaigns::admin::campaign') {
+            && $route != 'campaigns::admin::campaign' && $route != 'issuetracker::show') {
             array_unshift($test, PreviewHelper::getNameRoute($route) . '/' . $route);
         }
         if (count($test) > 5) {
