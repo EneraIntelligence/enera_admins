@@ -65,7 +65,7 @@
                             </div>
                             <div class="uk-margin-large-bottom">
                                 <h2 class="heading_c uk-margin-small-bottom issue-data-expand" data-pre="session_vars">
-                                    Variables de Sesión <i class="material-icons">&#xE5CF;</i>
+                                    Variables de Sesión <i class="material-icons">expand_more</i>
                                 </h2>
                                 <pre id="session_vars" class="line-numbers" style="display: none;">
                                     <code class="language-php"
@@ -74,7 +74,7 @@
                             </div>
                             <div class="uk-margin-large-bottom">
                                 <h2 class="heading_c uk-margin-small-bottom issue-data-expand" data-pre="tracer">
-                                    Exception Trace <i class="material-icons">&#xE5CF;</i>
+                                    Exception Trace <i class="material-icons">expand_more</i>
                                 </h2>
                                 <pre id="tracer" style="display: none;"><code
                                             style="margin-top: -20px;">{!! $issue->exception['trace'] !!}</code>
@@ -218,7 +218,7 @@
             $(".issue-data-expand").click(function () {
                 var $this = $(this);
                 $("#" + $this.attr('data-pre')).slideToggle("slow", function () {
-                    $this.find('.material-icons').html($this.find('.material-icons').html()[0] == '&#xE5CF;' ? '&#xE5CE;' : '&#xE5CF;');
+                    $this.find('.material-icons').html($this.find('.material-icons').html()[0] == 'expand_more' ? 'expand_less' : 'expand_more');
                 });
             });
         });
