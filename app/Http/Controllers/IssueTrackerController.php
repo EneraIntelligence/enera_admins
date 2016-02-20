@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use Admins\Http\Requests;
 use Admins\Http\Controllers\Controller;
+use MongoDate;
 
 class IssueTrackerController extends Controller
 {
@@ -55,6 +56,7 @@ class IssueTrackerController extends Controller
         $issue = Issue::find($id);
         if ($issue && $issue->status != 'closed') {
             $issue->status = 'closed';
+            $issue->closed = new MongoDate();
             $issue->responsible_id = $issue->responsible_id == 0 ? auth()->user()->_id : $issue->responsible_id;
             $issue->save();
             return redirect()->route('issuetracker::index')->with([

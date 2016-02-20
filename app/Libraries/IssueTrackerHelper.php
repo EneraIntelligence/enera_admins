@@ -44,8 +44,10 @@ class IssueTrackerHelper
         }
 
         /* Creacion de Issue */
+        $instance = explode('\\', get_class($e));
         Issue::create([
-            'msg' => $e->getMessage() != '' ? $e->getMessage() : 'IssueTracket Error',
+            // 'msg' => $e->getMessage() != '' ? $e->getMessage() : 'IssueTracket Error',
+            'msg' => $instance[count($instance) - 1] . ' ' . $request->method() . ' /' . $request->path(),
             'platform' => $plataform,
             'environment' => env('APP_ENV', 'local'),
             'url' => $request->url() . $url,
@@ -55,6 +57,7 @@ class IssueTrackerHelper
                 'context' => $context,
             ],
             'exception' => [
+                'msg' => $e->getMessage(),
                 'code' => $e->getCode(),
                 'trace' => $e->getTraceAsString(),
             ],
