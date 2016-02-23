@@ -54,8 +54,12 @@
                     <div class="uk-grid uk-grid-divider" data-uk-grid-margin>
                         <div class="uk-width-medium-3-4">
                             <div class="uk-margin-large-bottom">
-                                <h2 class="heading_c uk-margin-small-bottom">Contexto (
-                                    L: {{ $issue->file['line'] }})</h2>
+                                <h2 class="heading_c uk-margin-small-bottom">
+                                    Contexto
+                                </h2>
+                                <span class="uk-text-upper uk-text-small">
+                                    {{ $issue->file['path'] }} (L: {{ $issue->file['line'] }})
+                                </span>
                                 <pre data-start="{!! $issue->file['line'] > 9 ? $issue->file['line'] - 9 : 1 !!}"
                                      class="line-numbers" style="max-height: 380px; !important;">
                                     <code class="language-php"
