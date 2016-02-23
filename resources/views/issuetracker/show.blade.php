@@ -58,7 +58,7 @@
                                     Contexto
                                 </h2>
                                 <span class="uk-text-upper uk-text-small">
-                                    {{ $issue->file['path'] }} (L: {{ $issue->file['line'] }})
+                                    {{ str_replace(base_path(),'',$issue->file['path']) }} (L: {{ $issue->file['line'] }})
                                 </span>
                                 <pre data-start="{!! $issue->file['line'] > 9 ? $issue->file['line'] - 9 : 1 !!}"
                                      class="line-numbers" style="max-height: 380px; !important;">
