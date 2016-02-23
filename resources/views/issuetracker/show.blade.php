@@ -29,7 +29,7 @@
             </div>
             <h1>{{ $issue->msg }}</h1>
             <span class="uk-text-upper uk-text-small">
-                {{ $issue->exception['msg'] }} (L: {{ $issue->file['line'] }})
+                {{ $issue->exception['msg'] }}
             </span>
         </div>
 
@@ -179,7 +179,7 @@
                                         <span class="md-list-heading">
                                             {{ $issue->created_at->format('j M y H:i:s') }}
                                         </span>
-                                        <span class="uk-text-small uk-text-muted">Fecha</span>
+                                        <span class="uk-text-small uk-text-muted">Creación</span>
                                     </div>
                                 </li>
                                 <li>
