@@ -64,7 +64,7 @@
                             </div>
                             <div class="uk-margin-large-bottom">
                                 <h2 class="heading_c uk-margin-small-bottom">URL</h2>
-                                <p><a href="#">{{ $issue->request['url'] }}</a></p>
+                                <pre><a href="#">{{ $issue->request['url'] }}</a></pre>
                             </div>
                             <div class="uk-margin-large-bottom">
                                 <h2 class="heading_c uk-margin-small-bottom issue-data-expand" data-pre="session_vars">
