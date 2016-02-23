@@ -31,6 +31,8 @@ Route::group(['middleware' => ['auth', 'guardian', 'preview']], function () {
         /* clients */
         Route::group(['prefix' => 'clients', 'as' => 'clients::'], function () {
             Route::get('/', ['as' => 'index', 'uses' => 'ClientsController@index']);
+            Route::get('/show/{id}', ['as' => 'show', 'uses' => 'ClientsController@show']);
+            Route::post('/search', ['as' => 'search', 'uses' => 'ClientsController@search']);
         });
     });
 

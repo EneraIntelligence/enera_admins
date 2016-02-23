@@ -298,9 +298,10 @@
     <div class="header_main_search_form">
         <i class="md-icon header_main_search_close material-icons">&#xE5CD;</i>
 
-        <form class="uk-form">
-            <input type="text" class="header_main_search_input"/>
-            <button class="header_main_search_btn uk-button-link"><i class="md-icon material-icons">&#xE8B6;</i>
+        <form action="{!! route('admin::clients::search') !!}" method="post" class="uk-form">
+            <input type="text" class="header_main_search_input" name="search"/>
+            <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+            <button type="submit" class="header_main_search_btn uk-button-link"><i class="md-icon material-icons">&#xE8B6;</i>
             </button>
         </form>
     </div>

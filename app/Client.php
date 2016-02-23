@@ -13,6 +13,11 @@ class Client extends Model
     {
         return $this->hasMany('Admins\Administrator');
     }
+
+    public function networks()
+    {
+        return $this->hasMany('Admins\Network');
+    }
     // end relations
 
 }

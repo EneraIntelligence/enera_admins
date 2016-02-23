@@ -2,6 +2,7 @@
 
 namespace Admins\Http\Controllers;
 
+use Admins\Client;
 use Illuminate\Http\Request;
 
 use Admins\Http\Requests;
@@ -18,31 +19,8 @@ class ClientsController extends Controller
      */
     public function index()
     {
-        $admins = Administrator::all();
-
-//        dd($admins);
-        return view('admin.clients.index',['admins' => $admins] );
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        $clients = Client::all();
+        return view('admin.clients.index',['clients' => $clients] );
     }
 
     /**
@@ -53,40 +31,24 @@ class ClientsController extends Controller
      */
     public function show($id)
     {
-        //
+        $client = Client::where('_id', $id)->first();
+        return view('admin.clients.show',['client' => $client]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function search()
     {
-        //
+
+        $clients = Client::where('name', 'like', '%'.\Input::get('search').'%')
+                         ->orWhere('billing_information.business_name', 'like', '%'.\Input::get('search').'%')
+                         ->orWhere('billing_information.rfc', 'like', '%'.\Input::get('search').'%')
+                         ->orWhere('billing_information.address', 'like', '%'.\Input::get('search').'%')
+                         ->get();
+        return view('admin.clients.index',['clients' => $clients] );
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }
