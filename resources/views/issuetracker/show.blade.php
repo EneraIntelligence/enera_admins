@@ -29,7 +29,7 @@
             </div>
             <h1>{{ $issue->msg }}</h1>
             <span class="uk-text-upper uk-text-small">
-                {{ $issue->file['path'] }} ({{ $issue->file['line'] }})
+                {{ $issue->exception['msg'] }} (L: {{ $issue->file['line'] }})
             </span>
         </div>
 
@@ -139,7 +139,7 @@
                                     </span>
                                 </p>
                                 <p>
-                                    Host / Server:
+                                    Server:
                                     <span class="uk-badge uk-badge-outline uk-text-upper uk-margin-small-left">
                                         {{ $issue->request['host'] }}
                                     </span>
