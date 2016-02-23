@@ -64,7 +64,7 @@
                                         {{ $issue->created_at->format('j/M/y H:i:s') }}
                                     </td>
                                     <td class="uk-text-small">
-                                        {{ $issue->platform }}
+                                        {{ $issue->request['platform'] }}
                                     </td>
                                     <td>
                                         <span class="uk-badge uk-badge-outline uk-text-upper">{{ $issue->status }}</span>

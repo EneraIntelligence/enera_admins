@@ -64,7 +64,7 @@
                             </div>
                             <div class="uk-margin-large-bottom">
                                 <h2 class="heading_c uk-margin-small-bottom">URL</h2>
-                                <pre class="line-numbers"><a href="#">{{ $issue->url }}</a></pre>
+                                <pre class="line-numbers"><a href="#">{{ $issue->request['url'] }}</a></pre>
                             </div>
                             <div class="uk-margin-large-bottom">
                                 <h2 class="heading_c uk-margin-small-bottom issue-data-expand" data-pre="session_vars">
@@ -72,7 +72,7 @@
                                 </h2>
                                 <pre id="session_vars" class="line-numbers">
                                     <code class="language-php"
-                                          style="margin-top: -18px;">{!! print_r($issue->session_vars) !!}</code>
+                                          style="margin-top: -18px;">{!! print_r($issue->request['session_vars']) !!}</code>
                                 </pre>
                             </div>
                             <div class="uk-margin-large-bottom">
@@ -138,8 +138,26 @@
                                         {{ $issue->status }}
                                     </span>
                                 </p>
+                                <p>
+                                    Host / Server:
+                                    <span class="uk-badge uk-badge-outline uk-text-upper uk-margin-small-left">
+                                        {{ $issue->request['host'] }}
+                                    </span>
+                                </p>
+                                <p>
+                                    Plataforma:
+                                    <span class="uk-badge uk-badge-outline uk-text-upper uk-margin-small-left">
+                                        {{ $issue->request['platform'] }}
+                                    </span>
+                                </p>
+                                <p>
+                                    Ambiente:
+                                    <span class="uk-badge uk-badge-outline uk-text-upper uk-margin-small-left">
+                                        {{ $issue->request['environment'] }}
+                                    </span>
+                                </p>
                             </div>
-                            <h2 class="heading_c uk-margin-small-bottom">Details</h2>
+                            <h2 class="heading_c uk-margin-small-bottom">Detalles</h2>
                             <ul class="md-list md-list-addon">
                                 <li>
                                     <div class="md-list-addon-element">
@@ -159,7 +177,7 @@
                                     </div>
                                     <div class="md-list-content">
                                         <span class="md-list-heading">
-                                            {{ $issue->created_at->format('j M y') }}
+                                            {{ $issue->created_at->format('j M y H:i:s') }}
                                         </span>
                                         <span class="uk-text-small uk-text-muted">Fecha</span>
                                     </div>
@@ -170,7 +188,7 @@
                                     </div>
                                     <div class="md-list-content">
                                         <span class="md-list-heading">
-                                            {{ $issue->updated_at->format('j M y') }}
+                                            {{ $issue->updated_at->format('j M y H:i:s') }}
                                         </span>
                                         <span class="uk-text-small uk-text-muted">Actualización</span>
                                     </div>
