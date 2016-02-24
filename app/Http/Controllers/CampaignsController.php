@@ -148,13 +148,12 @@ class CampaignsController extends Controller
 
             /*******         OBTENER LAS INTERACCIONES POR DIAS       ***************/
             $collection = DB::getMongoDB()->selectCollection('campaign_logs');
-            $em = $collection->aggregate([
+            $gender_age = $collection->aggregate([
 
                 // Stage 1
                 [
                     '$match' => [
                         'campaign_id' => $id,
-                        'interaction.loaded' => ['$exists' => true],
                         'user.id' => ['$exists' => true],
                     ]
                 ],
@@ -196,56 +195,30 @@ class CampaignsController extends Controller
 
             ]);
 
-            $edades = $em['result'];
+            $male = [];
+            $female = [];
 
-            $men = ['1' => 0, '2' => 0, '3' => 0, '4' => 0, '5' => 0, '6' => 0, '7' => 0, '8' => 0, '9' => 0, '10' => 0];
-            $women = ['1' => 0, '2' => 0, '3' => 0, '4' => 0, '5' => 0, '6' => 0, '7' => 0, '8' => 0, '9' => 0, '10' => 0];
-
-            foreach ($edades as $person => $valor) {
-                if ($valor['_id']['gender'] == 'female') {
-                    if ($valor['_id']['age'] > 0 && $valor['_id']['age'] <= 17) {
-                        $women['1'] += $valor['count'];
-                    } else if ($valor['_id']['age'] >= 18 && $valor['_id']['age'] <= 20) {
-                        $women['2'] += $valor['count'];
-                    } else if ($valor['_id']['age'] >= 21 && $valor['_id']['age'] <= 30) {
-                        $women['3'] += $valor['count'];
-                    } else if ($valor['_id']['age'] >= 31 && $valor['_id']['age'] <= 40) {
-                        $women['4'] += $valor['count'];
-                    } else if ($valor['_id']['age'] >= 41 && $valor['_id']['age'] <= 50) {
-                        $women['5'] += $valor['count'];
-                    } else if ($valor['_id']['age'] >= 51 && $valor['_id']['age'] <= 60) {
-                        $women['6'] += $valor['count'];
-                    } else if ($valor['_id']['age'] >= 61 && $valor['_id']['age'] <= 70) {
-                        $women['7'] += $valor['count'];
-                    } else if ($valor['_id']['age'] >= 71 && $valor['_id']['age'] <= 80) {
-                        $women['8'] += $valor['count'];
-                    } else if ($valor['_id']['age'] >= 81 && $valor['_id']['age'] <= 90) {
-                        $women['9'] += $valor['count'];
-                    } else if ($valor['_id']['age'] >= 91) {
-                        $women['10'] += $valor['count'];
-                    }
-                } else {
-                    if ($valor['_id']['age'] > 0 && $valor['_id']['age'] <= 17) {
-                        $men['1'] -= $valor['count'];
-                    } else if ($valor['_id']['age'] >= 18 && $valor['_id']['age'] <= 20) {
-                        $men['2'] -= $valor['count'];
-                    } else if ($valor['_id']['age'] >= 21 && $valor['_id']['age'] <= 30) {
-                        $men['3'] -= $valor['count'];
-                    } else if ($valor['_id']['age'] >= 31 && $valor['_id']['age'] <= 40) {
-                        $men['4'] -= $valor['count'];
-                    } else if ($valor['_id']['age'] >= 41 && $valor['_id']['age'] <= 50) {
-                        $men['5'] -= $valor['count'];
-                    } else if ($valor['_id']['age'] >= 51 && $valor['_id']['age'] <= 60) {
-                        $men['6'] -= $valor['count'];
-                    } else if ($valor['_id']['age'] >= 61 && $valor['_id']['age'] <= 70) {
-                        $men['7'] -= $valor['count'];
-                    } else if ($valor['_id']['age'] >= 71 && $valor['_id']['age'] <= 80) {
-                        $men['8'] -= $valor['count'];
-                    } else if ($valor['_id']['age'] >= 81 && $valor['_id']['age'] <= 90) {
-                        $men['9'] -= $valor['count'];
-                    } else if ($valor['_id']['age'] >= 91) {
-                        $men['10'] -= $valor['count'];
-                    }
+            foreach ($gender_age['result'] as $person => $valor) {
+                if ($valor['_id']['age'] > 0 && $valor['_id']['age'] <= 17) {
+                    ${$valor['_id']['gender']}[1] += $valor['count'];
+                } else if ($valor['_id']['age'] >= 18 && $valor['_id']['age'] <= 20) {
+                    ${$valor['_id']['gender']}[2] += $valor['count'];
+                } else if ($valor['_id']['age'] >= 21 && $valor['_id']['age'] <= 30) {
+                    ${$valor['_id']['gender']}[3] += $valor['count'];
+                } else if ($valor['_id']['age'] >= 31 && $valor['_id']['age'] <= 40) {
+                    ${$valor['_id']['gender']}[4] += $valor['count'];
+                } else if ($valor['_id']['age'] >= 41 && $valor['_id']['age'] <= 50) {
+                    ${$valor['_id']['gender']}[5] += $valor['count'];
+                } else if ($valor['_id']['age'] >= 51 && $valor['_id']['age'] <= 60) {
+                    ${$valor['_id']['gender']}[6] += $valor['count'];
+                } else if ($valor['_id']['age'] >= 61 && $valor['_id']['age'] <= 70) {
+                    ${$valor['_id']['gender']}[7] += $valor['count'];
+                } else if ($valor['_id']['age'] >= 71 && $valor['_id']['age'] <= 80) {
+                    ${$valor['_id']['gender']}[8] += $valor['count'];
+                } else if ($valor['_id']['age'] >= 81 && $valor['_id']['age'] <= 90) {
+                    ${$valor['_id']['gender']}[9] += $valor['count'];
+                } else if ($valor['_id']['age'] >= 91) {
+                    ${$valor['_id']['gender']}[10] += $valor['count'];
                 }
             }
 
@@ -341,15 +314,13 @@ class CampaignsController extends Controller
             ])['result'];
             $unique_users = isset($unique_users_query[0]['cnt']) ? $unique_users_query[0]['cnt'] : 0;
 
-            /****         SI EL BRANCH TIENE ALL SE MOSTRARA COMO GLOBAL       ***************/
-            $today = new DateTime();
             $lugares = in_array('all', $campaign->branches) ? 'global' : $campaign->branches;
 
             return view('campaigns.show', [
                 'cam' => $campaign,
                 'lugares' => $lugares,
-                'men' => $men,
-                'women' => $women,
+                'men' => $male,
+                'women' => $female,
                 'porcentaje' => $porcentaje,
                 'IntHours' => $IntHours,
                 'unique_users' => $unique_users,
