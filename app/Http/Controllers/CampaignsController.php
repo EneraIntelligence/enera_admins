@@ -260,7 +260,7 @@ class CampaignsController extends Controller
 
             /*******         OBTENER LAS INTERACCIONES POR hora       ***************/
             $collection = DB::getMongoDB()->selectCollection('campaign_logs');
-            $results = $collection->aggregate([
+            $IntLoaded = $collection->aggregate([
                 [
                     '$match' => [
                         'campaign_id' => $id,
@@ -274,7 +274,7 @@ class CampaignsController extends Controller
                     '$group' => [
                         '_id' => [
                             '$dateToString' => [
-                                'format' => '%H:00:00', 'date' => ['$subtract' => ['$created_at', 18000000]]
+                                'format' => '%H', 'date' => ['$subtract' => ['$created_at', 18000000]]
                             ]
                         ],
                         'cnt' => [
@@ -288,7 +288,7 @@ class CampaignsController extends Controller
                     ]
                 ]
             ]);
-            $results2 = $collection->aggregate([
+            $IntCompleted = $collection->aggregate([
                 [
                     '$match' => [
                         'campaign_id' => $id,
@@ -302,7 +302,7 @@ class CampaignsController extends Controller
                     '$group' => [
                         '_id' => [
                             '$dateToString' => [
-                                'format' => '%H:00:00', 'date' => ['$subtract' => ['$created_at', 18000000]]
+                                'format' => '%H', 'date' => ['$subtract' => ['$created_at', 18000000]]
                             ]
                         ],
                         'cnt' => [
@@ -317,25 +317,16 @@ class CampaignsController extends Controller
                 ]
             ]);
 
-            foreach ($results['result'] as $result => $valor) {
+            $IntHours = [];
+            foreach ($IntLoaded['result'] as $k => $v) {
+                $IntHours[$v['_id']]['loaded'] = $v['cnt'];
+            }
 
-                $time = explode(":", $valor['_id']);
-                if (array_key_exists($time[0], $IntXDias)) {
-//                    echo '<br>si esta<br>';
-                    $IntXDias[$time[0]]['cntL'] = $valor['cnt'];
-                } else {
-//                    echo '<br>no esta<br>';
-                    $IntXDias[$result][$time[0]] = 0;
-                }
+            foreach ($IntCompleted['result'] as $k => $v) {
+                $IntHours[$v['_id']]['completed'] = $v['cnt'];
             }
-            foreach ($results2['result'] as $result => $valor) {
-                $time = explode(":", $valor['_id']);
-                if (array_key_exists($time[0], $IntXDias)) {
-                    $IntXDias[$time[0]]['cntC'] = $valor['cnt'];
-                } else {
-                    $IntXDias[$result][$time[0]] = 0;
-                }
-            }
+
+            dd($IntHours);
 
             /****         SI EL BRANCH TIENE ALL SE MOSTRARA COMO GLOBAL       ***************/
             $today = new DateTime();
