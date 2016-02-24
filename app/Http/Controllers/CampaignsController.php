@@ -317,7 +317,7 @@ class CampaignsController extends Controller
                 $IntHours[$v['_id']]['completed'] = $v['cnt'];
             }
 
-            $unique_users = $collection->aggregate([
+            $unique_users_query = $collection->aggregate([
                 [
                     '$match' => [
                         'campaign_id' => $id,
@@ -338,9 +338,8 @@ class CampaignsController extends Controller
                         'cnt' => ['$sum' => 1]
                     ]
                 ]
-            ]);
-
-            dd($unique_users);
+            ])['result'];
+            $unique_users = isset($unique_users_query[0]['cnt']) ? $unique_users_query[0]['cnt'] : 0;
 
             /****         SI EL BRANCH TIENE ALL SE MOSTRARA COMO GLOBAL       ***************/
             $today = new DateTime();
