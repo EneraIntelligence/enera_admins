@@ -317,6 +317,31 @@ class CampaignsController extends Controller
                 $IntHours[$v['_id']]['completed'] = $v['cnt'];
             }
 
+            $unique_users = $collection->aggregate([
+                [
+                    '$match' => [
+                        'campaign_id' => $id,
+                    ]
+                ],
+                [
+                    '$group' => [
+                        '_id' => '',
+                        'users' => [
+                            '$addToSet' => '$user.id',
+                        ]
+                    ],
+                ],
+                ['$unwind' => '$users'],
+                [
+                    '$group' => [
+                        '_id' => '$_id',
+                        'cnt' => ['$sum' => 1]
+                    ]
+                ]
+            ])['result'][0]['cnt'];
+
+            dd($unique_users);
+
             /****         SI EL BRANCH TIENE ALL SE MOSTRARA COMO GLOBAL       ***************/
             $today = new DateTime();
             $lugares = in_array('all', $campaign->branches) ? 'global' : $campaign->branches;
@@ -326,9 +351,9 @@ class CampaignsController extends Controller
                 'lugares' => $lugares,
                 'men' => $men,
                 'women' => $women,
-                'user' => auth()->user(),
                 'porcentaje' => $porcentaje,
                 'IntHours' => $IntHours,
+                'unique_users' => '',
             ]);
         } else {
             return redirect()->route('campaigns::index')->with('data', 'errorCamp');
