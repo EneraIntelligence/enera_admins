@@ -357,7 +357,7 @@
                                                     @endif
 
                                                             <!-- create mailing campaign button start -->
-                                                    <div class="uk-grid uk-margin-medium-top" data="uk-grid-margin">
+                                                    {{--<div class="uk-grid uk-margin-medium-top" data="uk-grid-margin">
                                                         <div class="uk-width-1-1">
                                                             <div class="uk-width-medium-1-1">
                                                                 <a class="md-btn md-btn-primary"
@@ -366,7 +366,7 @@
                                                                 </a>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div>--}}
                                                     <!-- create mailing campaign button end -->
 
                                                 @endif
