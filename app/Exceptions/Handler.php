@@ -45,24 +45,23 @@ class Handler extends ExceptionHandler
     {
         $debug = env('APP_DEBUG');
         if ($debug == 0) {
+            IssueTrackerHelper::create($request, $e, 'Admins');
             if ($this->isHttpException($e)) {
                 return $this->renderHttpException($e);
             } else if ($e instanceof NotFoundHttpException) {
                 return response()->view('error.404', [], 404);
             } else if ($e instanceof FatalErrorException) {
-                IssueTrackerHelper::create($request, $e, 'Admins');
                 return response()->view('errors.503', [], 503);
             } else if ($e instanceof Exception) {
-                IssueTrackerHelper::create($request, $e, 'Admins');
                 return response()->view('errors.500', [], 500);
             } else {
-                IssueTrackerHelper::create($request, $e, 'Admins');
                 return response()->view('errors.500', [], 500);
             }
         } elseif ($debug == 1) {
             if ($e instanceof ModelNotFoundException) {
                 $e = new NotFoundHttpException($e->getMessage(), $e);
             }
+            IssueTrackerHelper::create($request, $e, 'Admins');
             return parent::render($request, $e);
         }
     }
