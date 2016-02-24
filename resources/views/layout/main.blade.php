@@ -134,7 +134,6 @@
                                     if (!isset(auth()->user()->routeAdmins)) {
                                         auth()->user()->routeAdmins = [];
                                     }
-
                                     ?>
                                     @foreach(auth()->user()->routeAdmins as $preview)
                                         <?php $last = explode('/', $preview) ?>
@@ -301,7 +300,8 @@
         <form action="{!! route('admin::clients::search') !!}" method="post" class="uk-form">
             <input type="text" class="header_main_search_input" name="search"/>
             <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-            <button type="submit" class="header_main_search_btn uk-button-link"><i class="md-icon material-icons">&#xE8B6;</i>
+            <button type="submit" class="header_main_search_btn uk-button-link"><i class="md-icon material-icons">
+                    &#xE8B6;</i>
             </button>
         </form>
     </div>
@@ -369,7 +369,6 @@
             FastClick.attach(document.body);
         }
     });
-
     window.onload = function () {
         //remove loader
         TweenLite.to("#loader", .3, {
@@ -378,7 +377,6 @@
             }
         });
     }
-
 </script>
 @yield('scripts')
 <script>
