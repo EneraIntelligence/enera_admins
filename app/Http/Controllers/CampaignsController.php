@@ -319,7 +319,7 @@ class CampaignsController extends Controller
 
             /****         SI EL BRANCH TIENE ALL SE MOSTRARA COMO GLOBAL       ***************/
             $today = new DateTime();
-            $lugares = in_array('all', $$campaign->branches) ? 'global' : $campaign->branches;
+            $lugares = in_array('all', $campaign->branches) ? 'global' : $campaign->branches;
 
             return view('campaigns.show', [
                 'cam' => $campaign,
