@@ -338,7 +338,7 @@ class CampaignsController extends Controller
                         'cnt' => ['$sum' => 1]
                     ]
                 ]
-            ])['result'][0]['cnt'];
+            ]);
 
             dd($unique_users);
 
