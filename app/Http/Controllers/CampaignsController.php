@@ -195,8 +195,8 @@ class CampaignsController extends Controller
 
             ]);
 
-            $male = [];
-            $female = [];
+            $male = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+            $female = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
             foreach ($gender_age['result'] as $person => $valor) {
                 if ($valor['_id']['age'] > 0 && $valor['_id']['age'] <= 17) {
