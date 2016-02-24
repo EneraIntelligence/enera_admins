@@ -339,18 +339,7 @@ class CampaignsController extends Controller
 
             /****         SI EL BRANCH TIENE ALL SE MOSTRARA COMO GLOBAL       ***************/
             $today = new DateTime();
-            if ($campaign->branches == ['all']) {//SI TIENE ALL CAMBIO EL TEXTO POR GLOBAL
-//                echo 'tiene globales';
-                $lugares = 'global';
-            } else {//SI NO ES GLOBAL SACO EL NOMBRE DE LOS BRANCHES
-//                echo 'no tiene globales';
-                $branches = $campaign->branches;// saco los branches a otra bariable para que me sea mas facil manejar los datos
-                foreach ($branches as $clave => $valor) { // recorro el arreglo para hacer una consulta de todos los id de branches
-//                    echo '<br>'.$clave.'  '.$valor;
-                    $BRA = Branche::where('_id', $valor)->get(['name']); //guardo el valor de la consulta
-                    $lugares[$clave] = $BRA[0]['original']['name'];//saco solo el valor que me interesa para no tener un array dentro de un array
-                }
-            }//FIN DEL ELSE PARA MANEJAR LOS BRANCHES
+            $lugares = in_array('all', $$campaign->branches) ? 'global' : $campaign->branches;
 
             return view('campaigns.show', [
                 'cam' => $campaign,

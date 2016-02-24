@@ -20,19 +20,21 @@ class ClientsController extends Controller
     public function index()
     {
         $clients = Client::all();
-        return view('admin.clients.index',['clients' => $clients] );
+        return view('admin.clients.index', [
+            'clients' => $clients
+        ]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         $client = Client::where('_id', $id)->first();
-        return view('admin.clients.show',['client' => $client]);
+        return view('admin.clients.show', ['client' => $client]);
     }
 
     /**
@@ -43,12 +45,12 @@ class ClientsController extends Controller
     public function search()
     {
 
-        $clients = Client::where('name', 'like', '%'.\Input::get('search').'%')
-                         ->orWhere('billing_information.business_name', 'like', '%'.\Input::get('search').'%')
-                         ->orWhere('billing_information.rfc', 'like', '%'.\Input::get('search').'%')
-                         ->orWhere('billing_information.address', 'like', '%'.\Input::get('search').'%')
-                         ->get();
-        return view('admin.clients.index',['clients' => $clients] );
+        $clients = Client::where('name', 'like', '%' . \Input::get('search') . '%')
+            ->orWhere('billing_information.business_name', 'like', '%' . \Input::get('search') . '%')
+            ->orWhere('billing_information.rfc', 'like', '%' . \Input::get('search') . '%')
+            ->orWhere('billing_information.address', 'like', '%' . \Input::get('search') . '%')
+            ->get();
+        return view('admin.clients.index', ['clients' => $clients]);
     }
 
 }

@@ -133,14 +133,14 @@
                                                         <div class="md-list-content azul">
                                                             <span class="md-list-heading">Lugares</span>
                                                             @if($lugares!='global')
-                                                                {{--                                                                {!! var_dump($cam->branches) !!}--}}
-                                                                @foreach($lugares as $lugar)
-                                                                    <span> {!! $lugar !!} , </span>
+                                                                @foreach($lugares as $branch)
+                                                                    <span>
+                                                                        {{ Admins\Branche::find($branch)->name }},
+                                                                    </span>
                                                                 @endforeach
                                                             @else
-                                                                <span> Global</span>
+                                                                <span>Global</span>
                                                             @endif
-                                                            <span class="uk-text-small uk-text-muted">{{--{{$branches[0]}}--}}</span>
                                                         </div>
                                                     </li>
                                                 </ul>
@@ -367,7 +367,7 @@
                                                             </div>
                                                         </div>
                                                     </div>--}}
-                                                    <!-- create mailing campaign button end -->
+                                                            <!-- create mailing campaign button end -->
 
                                                 @endif
                                                 @if($cam->interaction['name'] == 'survey')
