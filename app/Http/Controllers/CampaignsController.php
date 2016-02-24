@@ -223,7 +223,7 @@ class CampaignsController extends Controller
             }
 
             $male = array_map(function ($item) {
-                return $item * 60;
+                return $item * -1;
             }, $male);
 
             /*******         OBTENER LAS INTERACCIONES POR hora       ***************/
