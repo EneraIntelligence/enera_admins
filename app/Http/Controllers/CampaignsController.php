@@ -198,6 +198,8 @@ class CampaignsController extends Controller
             $male = array_fill(1, 10, 0);
             $female = array_fill(1, 10, 0);
 
+            dd($gender_age['result']);
+
             foreach ($gender_age['result'] as $person => $valor) {
                 if ($valor['_id']['age'] > 0 && $valor['_id']['age'] <= 17) {
                     ${$valor['_id']['gender']}[1] += $valor['count'];
