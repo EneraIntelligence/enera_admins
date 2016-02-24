@@ -689,7 +689,7 @@
         var womenJson = '{!! json_encode($women) !!}';
         var womenObj = JSON.parse(womenJson);
 
-        var intLJson = '{!! json_encode($IntXDias) !!}';
+        var intLJson = '{!! json_encode($IntHours) !!}';
         var intLObj = JSON.parse(intLJson);
         //        console.log(intLObj);
 

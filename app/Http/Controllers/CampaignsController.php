@@ -103,15 +103,6 @@ class CampaignsController extends Controller
     {
         $porcentaje = 0.0;
         $lugares = '';
-        /**     ARREGLO PARA GUARDAR LAS HORAS **/
-        $IntXDias = [
-            '00' => ['hora' => '00', 'cntC' => 0, 'cntL' => 0], '01' => ['hora' => '01', 'cntC' => 0, 'cntL' => 0], '02' => ['hora' => '02', 'cntC' => 0, 'cntL' => 0], '03' => ['hora' => '03', 'cntC' => 0, 'cntL' => 0],
-            '04' => ['hora' => '04', 'cntC' => 0, 'cntL' => 0], '05' => ['hora' => '05', 'cntC' => 0, 'cntL' => 0], '06' => ['hora' => '06', 'cntC' => 0, 'cntL' => 0], '07' => ['hora' => '07', 'cntC' => 0, 'cntL' => 0],
-            '08' => ['hora' => '08', 'cntC' => 0, 'cntL' => 0], '09' => ['hora' => '09', 'cntC' => 0, 'cntL' => 0], '10' => ['hora' => '10', 'cntC' => 0, 'cntL' => 0], '11' => ['hora' => '11', 'cntC' => 0, 'cntL' => 0],
-            '12' => ['hora' => '12', 'cntC' => 0, 'cntL' => 0], '13' => ['hora' => '13', 'cntC' => 0, 'cntL' => 0], '14' => ['hora' => '14', 'cntC' => 0, 'cntL' => 0], '15' => ['hora' => '15', 'cntC' => 0, 'cntL' => 0],
-            '16' => ['hora' => '16', 'cntC' => 0, 'cntL' => 0], '17' => ['hora' => '17', 'cntC' => 0, 'cntL' => 0], '18' => ['hora' => '18', 'cntC' => 0, 'cntL' => 0], '19' => ['hora' => '19', 'cntC' => 0, 'cntL' => 0],
-            '20' => ['hora' => '20', 'cntC' => 0, 'cntL' => 0], '21' => ['hora' => '21', 'cntC' => 0, 'cntL' => 0], '22' => ['hora' => '22', 'cntC' => 0, 'cntL' => 0], '23' => ['hora' => '23', 'cntC' => 0, 'cntL' => 0],
-        ];
         $campaign = Campaign::find($id); //busca la campaña
         if ($campaign) {
             /******     saca el color y el icono que se va a usar regresa un array  ********/
@@ -326,8 +317,6 @@ class CampaignsController extends Controller
                 $IntHours[$v['_id']]['completed'] = $v['cnt'];
             }
 
-            dd($IntHours);
-
             /****         SI EL BRANCH TIENE ALL SE MOSTRARA COMO GLOBAL       ***************/
             $today = new DateTime();
             $lugares = in_array('all', $$campaign->branches) ? 'global' : $campaign->branches;
@@ -339,7 +328,7 @@ class CampaignsController extends Controller
                 'women' => $women,
                 'user' => auth()->user(),
                 'porcentaje' => $porcentaje,
-                'IntXDias' => $IntXDias
+                'IntHours' => $IntHours,
             ]);
         } else {
             return redirect()->route('campaigns::index')->with('data', 'errorCamp');
