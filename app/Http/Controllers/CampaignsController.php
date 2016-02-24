@@ -195,8 +195,8 @@ class CampaignsController extends Controller
 
             ]);
 
-            $male = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-            $female = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+            $male = array_fill(1, 10, 0);
+            $female = array_fill(1, 10, 0);
 
             foreach ($gender_age['result'] as $person => $valor) {
                 if ($valor['_id']['age'] > 0 && $valor['_id']['age'] <= 17) {
@@ -227,7 +227,6 @@ class CampaignsController extends Controller
             }, $male);
 
             /*******         OBTENER LAS INTERACCIONES POR hora       ***************/
-            $collection = DB::getMongoDB()->selectCollection('campaign_logs');
             $IntLoaded = $collection->aggregate([
                 [
                     '$match' => [
