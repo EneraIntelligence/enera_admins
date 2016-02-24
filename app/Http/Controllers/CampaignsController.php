@@ -340,6 +340,8 @@ class CampaignsController extends Controller
                 ]
             ])['result'][0]['cnt'];
 
+            dd($unique_users);
+
             /****         SI EL BRANCH TIENE ALL SE MOSTRARA COMO GLOBAL       ***************/
             $today = new DateTime();
             $lugares = in_array('all', $campaign->branches) ? 'global' : $campaign->branches;
