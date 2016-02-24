@@ -102,7 +102,6 @@ class CampaignsController extends Controller
     public function show($id)
     {
         $porcentaje = 0.0;
-        $lugares = '';
         $campaign = Campaign::find($id); //busca la campaña
         if ($campaign) {
             /******     saca el color y el icono que se va a usar regresa un array  ********/
