@@ -226,6 +226,8 @@ class CampaignsController extends Controller
                 return $item * -1;
             }, $male);
 
+            dd($male);
+
             /*******         OBTENER LAS INTERACCIONES POR hora       ***************/
             $collection = DB::getMongoDB()->selectCollection('campaign_logs');
             $IntLoaded = $collection->aggregate([
