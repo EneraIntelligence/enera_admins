@@ -48,6 +48,7 @@ class Handler extends ExceptionHandler
             if ($this->isHttpException($e)) {
                 return $this->renderHttpException($e);
             } else if ($e instanceof NotFoundHttpException) {
+                IssueTrackerHelper::create($request, $e, 'Admins');
                 return response()->view('error.404', [], 404);
             } else if ($e instanceof FatalErrorException) {
                 IssueTrackerHelper::create($request, $e, 'Admins');
@@ -63,6 +64,7 @@ class Handler extends ExceptionHandler
             if ($e instanceof ModelNotFoundException) {
                 $e = new NotFoundHttpException($e->getMessage(), $e);
             }
+            IssueTrackerHelper::create($request, $e, 'Admins');
             return parent::render($request, $e);
         }
     }
