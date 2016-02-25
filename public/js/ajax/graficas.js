@@ -40,6 +40,7 @@ graficas = function () {
             // Age categories
             var categories = ['0-17', '18-20', '21-30', '31-40', '41-50', '51-60',
                 '61-70', '71-80', '81-90', '91-100 +'];
+            //var categoriesArr = ['> 50 años', '40-49 años', '30-39 años', '26-29 años', '18-25 años','13-17 años'];
             //var categories = [''];
             var elemento;
             $('#genderAge').highcharts({
@@ -53,7 +54,7 @@ graficas = function () {
                     text: ' DISTRIBUCION POR EDADES<a href="http://populationpyramid.net/germany/2015/"></a>'
                 },
                 xAxis: [{
-                    categories: ['', '', '', '', '', '', '', '', '', ''],//se le pasa el arreglo de categorias
+                    categories: ['13-17', '17-20', '20-29', '30-39', '40-49', '50-59', '60-69', '70-79', '80-89', '90-100'],//se le pasa el arreglo de categorias
                     reversed: false,// para decirle el orden en que van a parecer las categorias
                     labels: {
                         step: 1
@@ -72,6 +73,13 @@ graficas = function () {
                         text: 'numero de personas por edad y genero'
                     },
                     labels: {//en esta parte van las etiquetas que van abajo de la grafica
+                        format: function (v,id,i,j) {
+                            return categories[i];
+                            /*
+                             if(j==0)
+                             return categoriesArr[i]+" ("+Math.abs(v)+")";
+                             return "("+Math.abs(v)+") "+categoriesArr[i];*/
+                        },
                         formatter: function () {
                             return Math.abs(this.value) + '';
                         }
@@ -228,8 +236,8 @@ graficas = function () {
         var columns = [
             ['x'],
             ['Visto'],
-            ['Completado'],
-        ]
+            ['Completado']
+        ];
         for (var k in IntXDias) {
             columns[0].push(k);
             columns[1].push(IntXDias[k]['loaded']);
