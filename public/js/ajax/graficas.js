@@ -62,7 +62,7 @@ graficas = function () {
                 }, { // mirror axis on right side
                     opposite: true, //para que en la grafica se muestren las barras encontradas o no en la misma direccion
                     reversed: false,
-                    categories: ['', '', '', '', '', '', '', '', '', ''],
+                    categories: ['13-17', '17-20', '20-29', '30-39', '40-49', '50-59', '60-69', '70-79', '80-89', '90-100'],
                     linkedTo: 0,
                     labels: {
                         step: 1 //es como decirle cuantos numeros de la categoria  aparescan en la grafica
