@@ -21,7 +21,11 @@
 
     <!-- altair admin error page -->
     <link rel="stylesheet" href="{!! URL::asset('assets/css/error_page.min.css') !!}" />
-
+    <style>
+        .error_page_header{
+            background-color: #d32f2f!important;
+        }
+    </style>
 </head>
 <body class="error_page">
 
@@ -42,7 +46,7 @@
             </div>
         </div>
         <div class="uk-width-4-10  md-card-content" style="float: right">
-            <img src="{!! URL::asset('images/publisher.png') !!}">
+            <img src="{!! URL::asset('images/admins.png') !!}">
         </div>
     </div>
 </div>
