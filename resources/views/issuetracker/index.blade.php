@@ -35,6 +35,7 @@
                                id="ts_issues">
                             <thead>
                             <tr>
+                                <th></th>
                                 <th>Issue</th>
                                 <th>Responsable</th>
                                 <th>Prioridad</th>
@@ -46,6 +47,8 @@
                             <tbody>
                             @foreach($issues as $issue)
                                 <tr>
+                                    <td>
+                                        <input type="checkbox" data-md-icheck/>
                                     </td>
                                     <td>
                                         <a href="{!! route('issuetracker::show', ['id' => $issue->_id]) !!}">
