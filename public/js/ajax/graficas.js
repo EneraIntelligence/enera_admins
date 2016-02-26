@@ -3,7 +3,7 @@ graficas = function () {
 
     this.bar = function bar() {
 
-    }
+    };
     //grafica de pastel para los sistemas operativos
     this.so = function so(array) {
         console.log(array);
@@ -32,7 +32,7 @@ graficas = function () {
             }
         });
         return chart4;
-    }
+    };
 //------------------------grafica de barra para los años y edades
     this.genderAge = function genderAge(men, women) {
         // Data gathered from http://populationpyramid.net/germany/2015/
@@ -109,7 +109,7 @@ graficas = function () {
             });
             return elemento;
         });
-    }
+    };
 //------------------------grafica de barra para los años y edades
     this.gender = function gender(array) {
         console.log('entro a la  grafica de interacciones por modelos');
@@ -138,7 +138,7 @@ graficas = function () {
             }
         });
         return gender;
-    }
+    };
 //------------------------grafica de barra para las interacciones por dia
     this.intPerDay = function intPerDay(dias, cnt) {
         var graphDates = ['x'];
@@ -189,7 +189,7 @@ graficas = function () {
                 show: false
             }
         });
-    }
+    };
     this.intPerDay2 = function intPerDay2(dias) {
         //        Interacciones por modelos
         var chart3 = c3.generate({
@@ -197,7 +197,7 @@ graficas = function () {
             data: {
                 x: 'x',
                 columns: [
-                    ['x', dia1['num'],],
+                    ['x', dia1['num']],
                     //                            ['interacciones por dia '],
                     ['interacciones', dias, dia2, dia3, dia4, dia5, dia6, dia7]
                 ],
@@ -229,7 +229,7 @@ graficas = function () {
             }
         });
         return chart3;
-    }
+    };
     this.intPerHour = function intPerHour(IntXDias, Load, complet, horas) {
         var c3chart_area_stacked_id = '#intXHour';
 
@@ -252,8 +252,8 @@ graficas = function () {
                     x: 'x',
                     columns: columns,
                     types: {
-                        Visto: 'area-spline',
-                        Completado: 'area-spline'
+                        Visto: 'area',
+                        Completado: 'area'
                     },
                     groups: [['Visto', 'Completado']]
                 },
@@ -317,7 +317,7 @@ var chart3 = c3.generate({
             ['Windows Phone', 230, 200, 200, 300, 250, 250],
             ['other', 230, 200, 200, 300, 250, 250]
         ],
-        type: 'bar',
+        type: 'bar'
         /*groups: [
          ['Android', 'Blackberry', 'IOS', 'Windows Phone', 'other']
          ]*/
