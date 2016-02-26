@@ -3,7 +3,7 @@ graficas = function () {
 
     this.bar = function bar() {
 
-    }
+    };
     //grafica de pastel para los sistemas operativos
     this.so = function so(array) {
         console.log(array);
@@ -32,7 +32,7 @@ graficas = function () {
             }
         });
         return chart4;
-    }
+    };
 //------------------------grafica de barra para los años y edades
     this.genderAge = function genderAge(men, women) {
         // Data gathered from http://populationpyramid.net/germany/2015/
@@ -40,6 +40,7 @@ graficas = function () {
             // Age categories
             var categories = ['0-17', '18-20', '21-30', '31-40', '41-50', '51-60',
                 '61-70', '71-80', '81-90', '91-100 +'];
+            //var categoriesArr = ['> 50 años', '40-49 años', '30-39 años', '26-29 años', '18-25 años','13-17 años'];
             //var categories = [''];
             var elemento;
             $('#genderAge').highcharts({
@@ -53,7 +54,7 @@ graficas = function () {
                     text: ' DISTRIBUCION POR EDADES<a href="http://populationpyramid.net/germany/2015/"></a>'
                 },
                 xAxis: [{
-                    categories: ['', '', '', '', '', '', '', '', '', ''],//se le pasa el arreglo de categorias
+                    categories: ['13-17', '17-20', '20-29', '30-39', '40-49', '50-59', '60-69', '70-79', '80-89', '90-100'],//se le pasa el arreglo de categorias
                     reversed: false,// para decirle el orden en que van a parecer las categorias
                     labels: {
                         step: 1
@@ -61,7 +62,7 @@ graficas = function () {
                 }, { // mirror axis on right side
                     opposite: true, //para que en la grafica se muestren las barras encontradas o no en la misma direccion
                     reversed: false,
-                    categories: ['', '', '', '', '', '', '', '', '', ''],
+                    categories: ['13-17', '17-20', '20-29', '30-39', '40-49', '50-59', '60-69', '70-79', '80-89', '90-100'],
                     linkedTo: 0,
                     labels: {
                         step: 1 //es como decirle cuantos numeros de la categoria  aparescan en la grafica
@@ -72,6 +73,13 @@ graficas = function () {
                         text: 'numero de personas por edad y genero'
                     },
                     labels: {//en esta parte van las etiquetas que van abajo de la grafica
+                        format: function (v,id,i,j) {
+                            return categories[i];
+                            /*
+                             if(j==0)
+                             return categoriesArr[i]+" ("+Math.abs(v)+")";
+                             return "("+Math.abs(v)+") "+categoriesArr[i];*/
+                        },
                         formatter: function () {
                             return Math.abs(this.value) + '';
                         }
@@ -101,7 +109,7 @@ graficas = function () {
             });
             return elemento;
         });
-    }
+    };
 //------------------------grafica de barra para los años y edades
     this.gender = function gender(array) {
         console.log('entro a la  grafica de interacciones por modelos');
@@ -130,7 +138,7 @@ graficas = function () {
             }
         });
         return gender;
-    }
+    };
 //------------------------grafica de barra para las interacciones por dia
     this.intPerDay = function intPerDay(dias, cnt) {
         var graphDates = ['x'];
@@ -181,7 +189,7 @@ graficas = function () {
                 show: false
             }
         });
-    }
+    };
     this.intPerDay2 = function intPerDay2(dias) {
         //        Interacciones por modelos
         var chart3 = c3.generate({
@@ -189,7 +197,7 @@ graficas = function () {
             data: {
                 x: 'x',
                 columns: [
-                    ['x', dia1['num'],],
+                    ['x', dia1['num']],
                     //                            ['interacciones por dia '],
                     ['interacciones', dias, dia2, dia3, dia4, dia5, dia6, dia7]
                 ],
@@ -221,15 +229,15 @@ graficas = function () {
             }
         });
         return chart3;
-    }
+    };
     this.intPerHour = function intPerHour(IntXDias, Load, complet, horas) {
         var c3chart_area_stacked_id = '#intXHour';
 
         var columns = [
             ['x'],
             ['Visto'],
-            ['Completado'],
-        ]
+            ['Completado']
+        ];
         for (var k in IntXDias) {
             columns[0].push(k);
             columns[1].push(IntXDias[k]['loaded']);
@@ -244,8 +252,8 @@ graficas = function () {
                     x: 'x',
                     columns: columns,
                     types: {
-                        Visto: 'area-spline',
-                        Completado: 'area-spline'
+                        Visto: 'area',
+                        Completado: 'area'
                     },
                     groups: [['Visto', 'Completado']]
                 },
@@ -309,7 +317,7 @@ var chart3 = c3.generate({
             ['Windows Phone', 230, 200, 200, 300, 250, 250],
             ['other', 230, 200, 200, 300, 250, 250]
         ],
-        type: 'bar',
+        type: 'bar'
         /*groups: [
          ['Android', 'Blackberry', 'IOS', 'Windows Phone', 'other']
          ]*/

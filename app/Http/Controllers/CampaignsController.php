@@ -145,7 +145,7 @@ class CampaignsController extends Controller
                     break;
             }
 
-            /*******         OBTENER LAS INTERACCIONES POR DIAS       ***************/
+            /*******         OBTENER LAS EDADES Y CANTIDAD DE USUARIOS UNICOS       ***************/
             $collection = DB::getMongoDB()->selectCollection('campaign_logs');
             $gender_age = $collection->aggregate([
 
@@ -156,7 +156,6 @@ class CampaignsController extends Controller
                         'user.id' => ['$exists' => true],
                     ]
                 ],
-
                 // Stage 2
                 [
                     '$group' => [
@@ -169,12 +168,10 @@ class CampaignsController extends Controller
                         ]
                     ]
                 ],
-
                 // Stage 3
                 [
                     '$unwind' => '$users'
                 ],
-
                 // Stage 4
                 [
                     '$group' => [
@@ -184,14 +181,12 @@ class CampaignsController extends Controller
                         ]
                     ]
                 ],
-
                 // Stage 5
                 [
                     '$sort' => [
                         '_id' => 1
                     ]
                 ]
-
             ]);
 
             $male = array_fill(1, 10, 0);

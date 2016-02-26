@@ -23,6 +23,11 @@
     <!-- altair admin error page -->
     {{--<link rel="stylesheet" href="assets/css/error_page.min.css" />--}}
     {!! HTML::style('assets/css/error_page.min.css') !!}
+    <style>
+        .error_page_header{
+            background-color: #d32f2f!important;
+        }
+    </style>
 
 </head>
 <body class="error_page">
@@ -37,13 +42,13 @@
         <div class="uk-width-8-10 uk-container-center">
             <p class="heading_b">Pagina no encontrada</p>
             <p class="uk-text-large">
-                La URL que buscas <span class="uk-text-muted">{!! $_SERVER["REQUEST_URI"]  !!}</span> no se encontro en este servidor.
+                La URL que buscas no se encontro.
             </p>
             <a href="#" onclick="history.go(-1);return false;">regresar a la pagina anterior</a>
         </div>
     </div>
     <div class="uk-width-4-10  md-card-content" style="float: right">
-        <img src="{!! URL::asset('images/publisher.png') !!}">
+        <img src="{!! URL::asset('images/admins.png') !!}">
     </div>
 </div>
 
