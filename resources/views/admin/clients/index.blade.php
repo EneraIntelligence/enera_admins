@@ -47,7 +47,7 @@
             <div class="uk-width-medium-2-10">
                 <h1>Lista de Clietes</h1>
             </div>
-            <div class="uk-width-medium-6-10">
+            <div class="uk-width-medium-7-10">
                 <form action="{!! route('admin::clients::search') !!}" method="post"
                       class="uk-form">
                     <div class="uk-grid">
@@ -66,7 +66,7 @@
                     <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
                 </form>
             </div>
-            <div class="uk-width-medium-2-10 uk-hidden-small">
+            <div class="uk-width-medium-1-10 uk-hidden-small">
                 <a href="#" data-uk-tooltip="{pos:'bottom'}" title="Archive"><i
                             class="md-icon material-icons">
                         &#xE149;</i></a>
