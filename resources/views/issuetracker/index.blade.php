@@ -7,11 +7,16 @@
     <div id="page_content">
         <div id="page_heading" data-uk-sticky="{ top: 48, media: 960 }">
             <div class="heading_actions">
-                <a href="#" data-uk-tooltip="{pos:'bottom'}" title="Archive"><i class="md-icon material-icons">
-                        &#xE149;</i></a>
-                <a href="#" data-uk-tooltip="{pos:'bottom'}" title="Print"><i class="md-icon material-icons">
-                        &#xE8AD;</i></a>
-                <div data-uk-dropdown>
+                <a href="#" data-uk-tooltip="{pos:'bottom'}" title="Iniciar">
+                    <i class="md-icon material-icons uk-text-success">&#xE86C;</i>
+                </a>
+                <a href="#" data-uk-tooltip="{pos:'bottom'}" title="Cerrar">
+                    <i class="md-icon material-icons uk-text-danger">&#xE5C9;</i>
+                </a>
+                <a href="#" data-uk-tooltip="{pos:'bottom'}" title="Cerrar">
+                    <i class="md-icon material-icons uk-text-danger">&#xE872;</i>
+                </a>
+                {{--<div data-uk-dropdown>
                     <i class="md-icon material-icons">&#xE5D4;</i>
                     <div class="uk-dropdown uk-dropdown-small">
                         <ul class="uk-nav">
@@ -20,7 +25,7 @@
                             <li><a href="#">Other Action</a></li>
                         </ul>
                     </div>
-                </div>
+                </div>--}}
             </div>
             <h1>Issue Tracker</h1>
             <span class="uk-text-upper uk-text-small">
@@ -48,7 +53,7 @@
                             @foreach($issues as $issue)
                                 <tr>
                                     <td>
-                                        <input type="checkbox" data-md-icheck/>
+                                        <input type="checkbox issue" data-md-icheck/>
                                     </td>
                                     <td>
                                         <a href="{!! route('issuetracker::show', ['id' => $issue->_id]) !!}">
