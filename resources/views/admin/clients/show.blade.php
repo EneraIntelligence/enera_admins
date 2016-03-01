@@ -67,7 +67,7 @@
                                                 <thead>
                                                 <tr>
                                                     <th>Nombre</th>
-                                                    <th>Nombre Comercial</th>
+                                                    <th>Rol</th>
                                                     <th>Email</th>
                                                 </tr>
                                                 </thead>

@@ -125,9 +125,6 @@
                                 <li onclick="window.location.href='{!! route('admin::clients::show', [$client->id]) !!}'"
                                     style="cursor: pointer;">
                                     <span class="md-card-list-item-date">{{ $client->administrators()->count() }}</span>
-                                    <div class="md-card-list-item-select">
-                                        <input type="checkbox" data-md-icheck/>
-                                    </div>
                                     <div class="md-card-list-item-avatar-wrapper"><span
                                                 class="md-card-list-item-avatar md-bg-grey">hp</span>
                                     </div>
