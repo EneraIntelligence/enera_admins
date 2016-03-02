@@ -34,13 +34,11 @@ class CampaignsController extends Controller
     public function index()
     {
         //Obteniendo todas campañas con estado activo y pending
-
-
-        $campaignsA = Campaign::where('status','active')->latest()->get();
+        $campaignsA = Campaign::where('status', 'active')->latest()->get();
         $campaignsP = Campaign::where('status', 'pending')->latest()->get();
         $subcampaigns = Auth::user()->subcampaigns()->latest()->get();
 //        dd($campaigns);
-        return view('campaigns.index', ['campaignsA' => $campaignsA,'campaignsP' => $campaignsP, 'subcampaigns' => $subcampaigns]);
+        return view('campaigns.index', ['campaignsA' => $campaignsA, 'campaignsP' => $campaignsP, 'subcampaigns' => $subcampaigns]);
     }
 
     /**

@@ -18,25 +18,20 @@
     {!! HTML::style('bower_components/kendo-ui/styles/kendo.common-material.min.css') !!}
     {!! HTML::style('bower_components/kendo-ui/styles/kendo.material.min.css') !!}
     {!! HTML::style('bower_components/uikit/css/uikit.almost-flat.min.css') !!}
-
             <!-- flag icons -->
     {!! HTML::style('assets/icons/flags/flags.min.css') !!}
-
             <!-- altair admin -->
     {!! HTML::style('assets/css/main.min.css') !!}
-
     {{--loader--}}
     {!! HTML::style('assets/css/loader.css') !!}
-
-
             <!-- matchMedia polyfill for testing media queries in JS -->
     <!--[if lte IE 9]>
     {!! HTML::script('bower_components/matchMedia/matchMedia.js') !!}
     {!! HTML::script('bower_components/matchMedia/matchMedia.addListener.js') !!}
     <![endif]-->
-
     <!-- c3 charts -->
     {!! HTML::style('bower_components/c3js-chart/c3.min.css') !!}
+    @yield('style')
     <style>
         .uk-dropdown .uk-dropdown-width-3 .uk-dropdown-active .uk-dropdown-shown .uk-dropdown-bottom {
             top: 100px;
@@ -297,9 +292,9 @@
     </div>
     <div class="header_main_search_form">
         <i class="md-icon header_main_search_close material-icons">&#xE5CD;</i>
-            <input type="text" class="header_main_search_input" name="search"/>
-            <button class="header_main_search_btn uk-button-link"><i class="md-icon material-icons">&#xE8B6;</i>
-            </button>
+        <input type="text" class="header_main_search_input" name="search"/>
+        <button class="header_main_search_btn uk-button-link"><i class="md-icon material-icons">&#xE8B6;</i>
+        </button>
     </div>
 </header><!-- main header end -->
 
@@ -329,8 +324,7 @@
 </script>
 
 <!-- common functions -->
-{{--{!! HTML::script('bower_components/peity/test/jquery-1.6.2.min.js') !!}--}}
-{!! HTML::script('assets/js/common.js') !!}
+{!! HTML::script('assets/js/common.min.js') !!}
         <!-- uikit functions -->
 {!! HTML::script('assets/js/uikit_custom.js') !!}
         <!-- kendo functions -->
@@ -338,16 +332,18 @@
         <!-- altair common functions/helpers -->
 {!! HTML::script('assets/js/altair_admin_common.min.js') !!}
 
-{{--<script>
+<script>
     // load parsley config (altair_admin_common.js)
     altair_forms.parsley_validation_config();
-</script>--}}
+</script>
+
 
 {!! HTML::script('bower_components/d3/d3.min.js') !!}
 {!! HTML::script('bower_components/c3js-chart/c3.min.js') !!}
 
 
-{!! HTML::script('bower_components/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js') !!}
+{!! HTML::script('js/ajax/new_campaign.js') !!}
+{!! HTML::script('bower_components/jquery.inputmask/dist/jquery.inputmask.bundle.min.js') !!}
 {!! HTML::script('assets/js/pages/kendoui.min.js') !!}
 
         <!-- animation library -->
