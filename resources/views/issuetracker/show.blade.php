@@ -12,6 +12,9 @@
 
         <div id="page_heading" data-uk-sticky="{ top: 48, media: 960 }">
             <div class="heading_actions">
+                <a href="#" data-uk-tooltip="{pos:'bottom'}" title="Asignar" id="asignar">
+                    <i class="md-icon material-icons uk-text-primary">&#xE853;</i>
+                </a>
                 <a href="#" data-uk-tooltip="{pos:'bottom'}" title="Iniciar" id="iniciar">
                     <i class="md-icon material-icons uk-text-success">&#xE86C;</i>
                 </a>
