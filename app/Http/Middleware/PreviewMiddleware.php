@@ -12,8 +12,8 @@ class PreviewMiddleware
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param  \Illuminate\Http\Request $request
+     * @param  \Closure $next
      * @return mixed
      */
     public function handle($request, Closure $next)
@@ -21,11 +21,11 @@ class PreviewMiddleware
         $route = $request->route()->getName();
         $user = Administrator::where('_id', Auth::user()->_id)->first();
         $test = isset($user->routeAdmins) ? $user->routeAdmins : [];
+        $accept = ["home", 'auth.logout', 'campaigns::show', 'admin::clients::index', 'edit.profile', 'campaigns::reject::campaign',
+            'campaigns::active::campaign', 'campaigns::admin::campaign', 'issuetracker::show', 'issuetracker::show',
+            'admin::clients::show', 'network::show', 'network::search'];
 
-        if ($route != "home" && $route != 'auth.logout' && $route != 'campaigns::show' &&  $route != 'admin::clients::index"'
-            && $route != 'edit.profile' && $route != 'campaigns::reject::campaign' && $route != 'campaigns::active::campaign'
-            && $route != 'campaigns::admin::campaign' && $route != 'issuetracker::show' && $route != 'admin::clients::search'
-            && $route != 'admin::clients::show') {
+        if (!in_array($route, $accept)) {
             array_unshift($test, PreviewHelper::getNameRoute($route) . '/' . $route);
         }
         if (count($test) > 5) {
@@ -33,7 +33,7 @@ class PreviewMiddleware
         }
         $diff = array_unique($test);
         $user->routeAdmins = $diff;
-        $user->tour_taken=true;
+        $user->tour_taken = true;
         $user->save();
         return $next($request);
     }

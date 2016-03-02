@@ -16,7 +16,8 @@ class PreviewHelper
         'profile::index' => 'Perfil',
         'campaigns::index' => 'Campañas',
         'issuetracker::index' => 'Issues Track',
-        'admin::clients::index' => 'Clientes'
+        'admin::clients::index' => 'Clientes',
+        'network::index' => 'Redes'
     );
 
     public static function getNameRoute($route)

@@ -28,7 +28,7 @@
                     <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
                 </form>
             </div>
-            <div class="uk-width-medium-1-10 uk-hidden-small">
+            <div class="uk-width-medium-1-10 uk-hidden-small" style="padding-left: 0;">
                 <a href="#" data-uk-tooltip="{pos:'bottom'}" title="Archive"><i
                             class="md-icon material-icons">
                         &#xE149;</i></a>
@@ -62,7 +62,7 @@
                         <ul class="hierarchical_slide">
                             @foreach($networks as $network)
                                 <li onclick="window.location.href='{!! route('network::show', [$network->id]) !!}'"
-                                        style="cursor: pointer;">
+                                    style="cursor: pointer;">
                                     <span class="md-card-list-item-date">{{ $network->branches->count() }}</span>
                                     <div class="md-card-list-item-avatar-wrapper"><span
                                                 class="md-card-list-item-avatar md-bg-grey">hp</span>
