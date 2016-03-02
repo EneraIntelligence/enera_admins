@@ -12,20 +12,16 @@
 
         <div id="page_heading" data-uk-sticky="{ top: 48, media: 960 }">
             <div class="heading_actions">
-                <a href="#" data-uk-tooltip="{pos:'bottom'}" title="Archive"><i class="md-icon material-icons">
-                        &#xE149;</i></a>
-                <a href="#" data-uk-tooltip="{pos:'bottom'}" title="Print"><i class="md-icon material-icons">
-                        &#xE8AD;</i></a>
-                <div data-uk-dropdown>
-                    <i class="md-icon material-icons">&#xE5D4;</i>
-                    <div class="uk-dropdown uk-dropdown-small">
-                        <ul class="uk-nav">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Other Action</a></li>
-                            <li><a href="#">Other Action</a></li>
-                        </ul>
-                    </div>
-                </div>
+                <a href="#" data-uk-tooltip="{pos:'bottom'}" title="Iniciar" id="iniciar">
+                    <i class="md-icon material-icons uk-text-success">&#xE86C;</i>
+                </a>
+                <a href="{!! route('issuetracker::close', ['id' => $issue->_id]) !!}" data-uk-tooltip="{pos:'bottom'}"
+                   title="Cerrar" id="cerrar">
+                    <i class="md-icon material-icons uk-text-danger">&#xE5C9;</i>
+                </a>
+                <a href="#" data-uk-tooltip="{pos:'bottom'}" title="Eliminar" id="eliminar">
+                    <i class="md-icon material-icons">&#xE872;</i>
+                </a>
             </div>
             <h1>{{ $issue->msg }}</h1>
             <span class="uk-text-upper uk-text-small">
@@ -37,7 +33,7 @@
 
             <div class="md-card">
                 <div class="md-card-content">
-                    <div class="uk-margin-bottom" data-uk-margin>
+                    {{--<div class="uk-margin-bottom" data-uk-margin>
                         <a href="#" class="md-btn">
                             <i class="material-icons">&#xE254;</i> Editar
                         </a>
@@ -49,7 +45,7 @@
                                 Cerrar
                             </a>
                         </div>
-                    </div>
+                    </div>--}}
                     <hr/>
                     <div class="uk-grid uk-grid-divider" data-uk-grid-margin>
                         <div class="uk-width-medium-3-4">

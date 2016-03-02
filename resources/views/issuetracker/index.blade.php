@@ -108,7 +108,7 @@
     <script>
         $(document).ready(function () {
             $('#cerrar').click(function () {
-
+                
             });
         });
     </script>
