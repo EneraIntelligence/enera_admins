@@ -7,14 +7,14 @@
     <div id="page_content">
         <div id="page_heading" data-uk-sticky="{ top: 48, media: 960 }">
             <div class="heading_actions">
-                <a href="#" data-uk-tooltip="{pos:'bottom'}" title="Iniciar">
+                <a href="#" data-uk-tooltip="{pos:'bottom'}" title="Iniciar" id="iniciar">
                     <i class="md-icon material-icons uk-text-success">&#xE86C;</i>
                 </a>
-                <a href="#" data-uk-tooltip="{pos:'bottom'}" title="Cerrar">
+                <a href="#" data-uk-tooltip="{pos:'bottom'}" title="Cerrar" id="cerrar">
                     <i class="md-icon material-icons uk-text-danger">&#xE5C9;</i>
                 </a>
-                <a href="#" data-uk-tooltip="{pos:'bottom'}" title="Cerrar">
-                    <i class="md-icon material-icons uk-text-danger">&#xE872;</i>
+                <a href="#" data-uk-tooltip="{pos:'bottom'}" title="Eliminar" id="eliminar">
+                    <i class="md-icon material-icons">&#xE872;</i>
                 </a>
                 {{--<div data-uk-dropdown>
                     <i class="md-icon material-icons">&#xE5D4;</i>
@@ -53,7 +53,8 @@
                             @foreach($issues as $issue)
                                 <tr>
                                     <td>
-                                        <input type="checkbox issue" data-md-icheck/>
+                                        <input type="checkbox" class="issue" data-md-icheck
+                                               value="{!! $issue->_id !!}"/>
                                     </td>
                                     <td>
                                         <a href="{!! route('issuetracker::show', ['id' => $issue->_id]) !!}">
@@ -104,5 +105,11 @@
 @stop
 
 @section('scripts')
+    <script>
+        $(document).ready(function () {
+            $('#cerrar').click(function () {
 
+            });
+        });
+    </script>
 @stop
