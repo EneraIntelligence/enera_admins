@@ -107,7 +107,7 @@
                                         <i class="material-icons md-36  md-color-red-600">&#xE8DF;</i>
                                         <span class="uk-text-muted uk-display-block">Campañas</span>
                                     </a>
-                                    <a href="#">
+                                    <a href="{!! route('network::index') !!}">
                                         <i class="material-icons md-36 md-color-red-600">&#xE63E;</i>
                                         <span class="uk-text-muted uk-display-block">Redes</span>
                                     </a>

@@ -42,6 +42,12 @@ Route::group(['middleware' => ['auth', 'guardian', 'preview']], function () {
         Route::match(['get', 'post'], '/close/{id}', ['as' => 'close', 'uses' => 'IssueTrackerController@close']);
     });
 
+    Route::group(['prefix' => 'network', 'as' => 'network::'], function () {
+        Route::get('/', ['as' => 'index', 'uses' => 'NetworksController@index']);
+        Route::get('/show/{id}', ['as' => 'show', 'uses' => 'NetworksController@show']);
+        Route::post('/search', ['as' => 'search', 'uses' => 'NetworksController@search']);
+    });
+
 });
 
 Route::group(['middleware' => 'auth.ready'], function () {
