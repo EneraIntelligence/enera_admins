@@ -12,114 +12,26 @@
 
 @section('content')
 
-    <div id="page_content" style="padding: 25px 0 0 0;">
-        <div class="uk-grid uk-align-right" style="padding: 0 25px 0 0;">
-            @if(count($campaigns)<=0)
-                <div class="uk-button-dropdown" id="dropdown" data-uk-dropdown>
-                    @else
-                        <div class="uk-button-dropdown abajo" data-uk-dropdown>
-                            @endif
-
-                            <button class="md-btn bottom-10">
-                                Filtrar campañas
-                                <i class="material-icons"></i>
-                            </button>
-                            <div class="uk-dropdown uk-dropdown-width-2">
-                                <div class="uk-grid uk-dropdown-grid">
-                                    <div class="uk-width-1-2">
-                                        <ul class="uk-nav uk-nav-dropdown" id="campaign-filter">
-                                            <li class="uk-nav-header">Estado</li>
-                                            <li class="uk-active" data-uk-filter="">
-                                                <a href="#">Todas</a>
-                                            </li>
-                                            <li data-uk-filter="campaign-active">
-                                                <a href="javascript:void(0)">Activas</a>
-                                            </li>
-                                            <li data-uk-filter="campaign-pending">
-                                                <a href="javascript:void(0)">En espera</a>
-                                            </li>
-                                            <li data-uk-filter="campaign-rejected">
-                                                <a href="javascript:void(0)">Rechazadas</a>
-                                            </li>
-                                            <li data-uk-filter="campaign-ended">
-                                                <a href="javascript:void(0)">Terminadas</a>
-                                            </li>
-                                            <li data-uk-filter="campaign-canceled">
-                                                <a href="javascript:void(0)">Canceladas</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="uk-width-1-2">
-                                        <ul class="uk-nav uk-nav-dropdown" id="action-filter">
-                                            <li class="uk-nav-header">Interacción</li>
-                                            <li data-uk-filter="action-banner">
-                                                <a href="javascript:void(0)">Banner</a>
-                                            </li>
-
-                                            <li data-uk-filter="action-banner_link">
-                                                <a href="javascript:void(0)">Banner+Link</a>
-                                            </li>
-
-                                            <li data-uk-filter="action-mailing_list">
-                                                <a href="javascript:void(0)">Mailing list</a>
-                                            </li>
-
-                                            <li data-uk-filter="action-survey">
-                                                <a href="javascript:void(0)">Captcha</a>
-                                            </li>
-
-                                            <li data-uk-filter="action-survey">
-                                                <a href="javascript:void(0)">Encuesta</a>
-                                            </li>
-
-                                            <li data-uk-filter="action-video">
-                                                <a href="javascript:void(0)">Video</a>
-                                            </li>
-                                            <li data-uk-filter="action-like">
-                                                <a href="javascript:void(0)">Like</a>
-                                            </li>
-
-
-                                        </ul>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        @if(count($campaigns)<=0 && count($subcampaigns)<=0)
-                            <div class="uk-button-dropdown" id="event" data-uk-dropdown>
-                                @else
-                                    <div class="uk-button-dropdown" style="" data-uk-dropdown>
-                                        @endif
-
-                                        <button class="md-btn">
-                                            Ordenar por:
-                                            <i class="material-icons"></i>
-                                        </button>
-
-
-                                        <div class="uk-dropdown uk-dropdown-small">
-                                            <ul class="uk-nav uk-nav-dropdown" id="campaign-sort">
-                                                <li class="uk-active" data-uk-sort="date">
-                                                    <a href="#">Fecha de creación</a>
-                                                </li>
-                                                <li data-uk-sort="name">
-                                                    <a href="#">Nombre</a>
-                                                </li>
-                                                <li data-uk-sort="action">
-                                                    <a href="#">Interacción</a>
-                                                </li>
-                                                <li data-uk-sort="status">
-                                                    <a href="#">Estado</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                            </div>
+    <div id="page_content" >
+        <div id="page_heading" data-uk-sticky="{ top: 48, media: 960 }">
+            <div class="heading_actions">
+                <a href="#" data-uk-tooltip="{pos:'bottom'}" title="Archive"><i class="md-icon material-icons">
+                        &#xE149;</i></a>
+                <a href="#" data-uk-tooltip="{pos:'bottom'}" title="Print"><i class="md-icon material-icons">
+                        &#xE8AD;</i></a>
+                <div data-uk-dropdown>
+                    <i class="md-icon material-icons">&#xE5D4;</i>
+                    <div class="uk-dropdown uk-dropdown-small">
+                        <ul class="uk-nav">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Other Action</a></li>
+                            <li><a href="#">Other Action</a></li>
+                        </ul>
+                    </div>
                 </div>
+            </div>
+            <h1 style="width: 80%;margin: auto;">Campañas</h1>
+             <span style="margin-left: 10%;" class="uk-text-upper uk-text-small"> campañas activas y pendientes </span>
         </div>
         <div id="page_content_inner">
             <div class="md-card-list-wrapper" id="mailbox">
@@ -143,7 +55,7 @@
                         </ul>
                         <ul class=""
                             data-uk-grid="{controls: '#campaign-filter, #action-filter, #campaign-sort' }">
-                            @foreach($campaigns as $campaign)
+                            @foreach($campaignsP as $campaign)
                                 <li class="nav" style=" cursor: pointer; width: 100%; !important;"
                                     onclick="window.location.href='{!! route('campaigns::show', [$campaign->id]) !!}'"
                                     data-uk-filter="campaign-{!! $campaign->status !!}, action-{!! $campaign->interaction['name'] !!}"
@@ -156,9 +68,62 @@
                                     <span class="md-card-list-item-date"
                                           style="margin-right: 25px;">{{$campaign->logs()->where('interaction.loaded', 'exists', 'true')->count()}}</span>
                                     <div class="md-card-list-item-avatar-wrapper">
-                                        <img src="{!! URL::asset('images/icons/'.
-                                                                CampaignStyle::getCampaignIcon( $campaign->interaction['name']
-                                                             ) ) !!}2.svg"
+                                        <img src="{!! URL::asset('images/icons/'.CampaignStyle::getCampaignIcon( $campaign->interaction['name'] ) ) !!}2.svg"
+                                             style="background: {!! CampaignStyle::getStatusColor($campaign->status) !!};border: solid 1px {!! CampaignStyle::getStatusColor($campaign->status) !!};"
+                                             class="md-card-list-item-avatar dense-image dense-ready" alt="">
+                                    </div>
+                                    <div class="md-card-list-item-sender">
+                                        <span>{{$campaign->name}}</span>
+                                    </div>
+                                    <div class="md-card-list-item-subject">
+                                        <span>
+                                            @if(isset($campaign->filters['week_days'] ))
+                                                @foreach($campaign->filters['week_days'] as $dia)
+                                                    <span class="uk-badge uk-badge-notification uk-badge-primary">{{ trans('days.'.$dia) }}</span>,
+                                                @endforeach
+                                            @else
+                                                no definido
+                                            @endif</span>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+                <div class="uk-width-large-8-10 uk-container-center">
+                    <div class="md-card-list">
+                        <ul class="hierarchical_slide">
+                            <li>
+                                <span class="md-card-list-item-date">Terminación</span>
+                                <span class="md-card-list-item-date">Loaded</span>
+                                <div class="md-card-list-item-avatar-wrapper">
+                                    <img src="assets/img/avatars/avatar_08_tn@2x.png" style="background: none;"
+                                         class="md-card-list-item-avatar dense-image dense-ready" alt="">
+                                </div>
+                                <div class="md-card-list-item-sender">
+                                    <span>Nombre</span>
+                                </div>
+                                <div class="md-card-list-item-subject">
+                                    <span>Días de interacción</span>
+                                </div>
+                            </li>
+                        </ul>
+                        <ul class=""
+                            data-uk-grid="{controls: '#campaign-filter, #action-filter, #campaign-sort' }">
+                            @foreach($campaignsA as $campaign)
+                                <li class="nav" style=" cursor: pointer; width: 100%; !important;"
+                                    onclick="window.location.href='{!! route('campaigns::show', [$campaign->id]) !!}'"
+                                    data-uk-filter="campaign-{!! $campaign->status !!}, action-{!! $campaign->interaction['name'] !!}"
+                                    data-name="{!! $campaign->name !!}"
+                                    data-action="{!! $campaign->interaction['name'] !!}"
+                                    data-company="{!! $campaign->publishers_summary['client'] !!}"
+                                    data-status="{!! CampaignStyle::getStatusValue( $campaign->status )  !!}"
+                                    data-date="{!! $campaign->created_at !!}">
+                                    <span class="md-card-list-item-date">{{date('Y-m-d',$campaign->filters['date']['end']->sec)}}</span>
+                                    <span class="md-card-list-item-date"
+                                          style="margin-right: 25px;">{{$campaign->logs()->where('interaction.loaded', 'exists', 'true')->count()}}</span>
+                                    <div class="md-card-list-item-avatar-wrapper">
+                                        <img src="{!! URL::asset('images/icons/'.CampaignStyle::getCampaignIcon( $campaign->interaction['name'] ) ) !!}2.svg"
                                              style="background: {!! CampaignStyle::getStatusColor($campaign->status) !!};border: solid 1px {!! CampaignStyle::getStatusColor($campaign->status) !!};"
                                              class="md-card-list-item-avatar dense-image dense-ready" alt="">
                                     </div>
@@ -181,7 +146,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 
