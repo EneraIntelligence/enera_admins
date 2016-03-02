@@ -384,7 +384,7 @@
                                                                             class="uk-modal-close uk-close uk-close-alt"></button>
                                                                     <img src="{!! "https://s3-us-west-1.amazonaws.com/enera-publishers/items/". $cam->content['images']['survey'] !!}"
                                                                          alt="{{$cam->content['images']['survey']}}"/>
-                                                                    <div class="uk-modal-caption">Lorem</div>
+                                                                    <div class="uk-modal-caption">{{$cam->content['images']['survey']}}</div>
                                                                 </div>
                                                             </div>
                                                         </div>
