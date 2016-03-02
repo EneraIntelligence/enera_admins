@@ -41,8 +41,7 @@
                             <div class="user_heading_avatar">
                                 <div>
                                     <div id="circle" style="max-width:98px;max-height:98px;margin:auto;">
-                                        <img class="svg"
-                                             style="background-image:none!important;margin:-103px 0px;background:transparent;border:none;"
+                                        <img class="svg" style="background-image:none!important;margin:-104px 1px;background:transparent;border:none;"
                                              src="{!! URL::asset('images/icons/'.
                                                                 CampaignStyle::getCampaignIcon( $cam->interaction['name']
                                                              ) ) !!}2.svg"
@@ -57,39 +56,19 @@
                                 </h2>
                             </div>
                             <a data-uk-tooltip="{pos:'left'}" title="{!! $cam->status !!}"
-                               class="md-fab md-fab-small md-fab-accent {!! CampaignStyle::getStatusColor($cam->status) !!} ">
-                                {{--style="background: {!! Publishers\Libraries\CampaignStyleHelper::getStatusColor($cam->status) !!}">  --}}{{-- href="page_user_edit.html" --}}
-                                <i class="material-icons">{!! CampaignStyle::getStatusIcon($cam->status) !!}</i>
+                               class="md-fab md-fab-small md-fab-accent {!! Admins\Libraries\CampaignStyleHelper::getStatusColor($cam->status) !!} ">
+                                {{--style="background: {!! Admins\Libraries\CampaignStyleHelper::getStatusColor($cam->status) !!}">  --}}{{-- href="page_user_edit.html" --}}
+                                <i class="material-icons">{!! Admins\Libraries\CampaignStyleHelper::getStatusIcon($cam->status) !!}</i>
                             </a>
                         </div>
                         <div class="md-card-content">
                             <div class="user_content">
-                                {{--@if($cam->status == 'pending')--}}
-                                {{--<div class="uk-margin-bottom" data-uk-margin>--}}
-                                {{--<div class="md-btn-group">--}}
-                                {{--<a class="md-btn"--}}
-                                {{--href="{{ route('campaigns::active::campaign', [$cam->id]) }}"><i--}}
-                                {{--class="material-icons">&#xE876;</i>Aceptar</a>--}}
-                                {{--<a class="md-btn" href="#" data-uk-modal="{target:'#reject',bgclose:false}"><i--}}
-                                {{--class="material-icons">&#xE14C;</i>Rechazar</a>--}}
-                                {{--</div>--}}
-                                {{--</div>--}}
-                                {{--@endif--}}
                                 <div class="uk-grid uk-margin-medium-top uk-width-large-1-1 " data-uk-grid-margin>
                                     <div class="uk-width-large-1-2">
                                         <div class="uk-grid">
                                             <div class="uk-width-large-1-2">
                                                 <h4 class="heading_c uk-margin-small-bottom">Información</h4>
                                                 <ul class="md-list md-list-addon ul">
-                                                    <li>
-                                                        <div class="md-list-addon-element">
-                                                            <i class="material-icons md-36">&#xE851;</i>
-                                                        </div>
-                                                        <div class="md-list-content">
-                                                            <span class="md-list-heading azul">Administrador</span>
-                                                            <span class="uk-text-small uk-text-muted">{{ $cam->administrator->name['first'].' '.$cam->administrator->name['last']  }}</span>
-                                                        </div>
-                                                    </li>
                                                     <li>
                                                         <div class="md-list-addon-element">
                                                             <i class="md-list-addon-icon uk-icon-archive"></i>
@@ -130,17 +109,16 @@
                                                         <div class="md-list-addon-element azul">
                                                             <i class="md-list-addon-icon uk-icon-road"></i>
                                                         </div>
-                                                        <div class="md-list-content azul">
-                                                            <span class="md-list-heading">Lugares</span>
+                                                        <div class="md-list-content ">
+                                                            <span class="md-list-heading azul">Lugares</span>
                                                             @if($lugares!='global')
                                                                 @foreach($lugares as $branch)
-                                                                    <span>
-                                                                        {{ Admins\Branche::find($branch)->name }},
-                                                                    </span>
+                                                                    <span> {{ Admins\Branche::find($branch)->name }} , </span>
                                                                 @endforeach
                                                             @else
-                                                                <span>Global</span>
+                                                                <span> Global</span>
                                                             @endif
+                                                            <span class="uk-text-small uk-text-muted">{{--{{$branches[0]}}--}}</span>
                                                         </div>
                                                     </li>
                                                 </ul>
@@ -190,21 +168,21 @@
                                                     <li>
                                                         <div class="md-list-content">
                                                             <span class="md-list-heading azul">Horario</span>
-                                                                    <span class="uk-text-small uk-text-muted">
-                                                                        @if(isset($cam->filters['day_hours']))
-                                                                            {{ $cam->filters['day_hours'][0].':00' }}
-                                                                            a {{ $cam->filters['day_hours'][count($cam->filters['day_hours'])-1].':00' }}
-                                                                        @else
-                                                                            no se definio horario
-                                                                        @endif
-                                                                    </span>
+                                                            <span class="uk-text-small uk-text-muted">
+                                                                @if(isset($cam->filters['day_hours']))
+                                                                    {{ $cam->filters['day_hours'][0].':00' }}
+                                                                    a {{ $cam->filters['day_hours'][count($cam->filters['day_hours'])-1].':00' }}
+                                                                @else
+                                                                    no se definio horario
+                                                                @endif
+                                                            </span>
                                                         </div>
                                                     </li>
                                                     {{-- esta parte usao if para saber que es lo que se va a mostrar --}}
                                                     <li>
                                                         <div class="md-list-content azul">
                                                             <span class="md-list-heading">Usuario unico </span>
-                                                            <span class="uk-text-small uk-text-muted">{{ isset($cam->filters['unique_user'])?'SI':'NO' }}</span>
+                                                            <span class="uk-text-small uk-text-muted">{{ isset($cam->filters['unique_user'])?$cam->filters['unique_user']==true?'SI':'no':'NO' }}</span>
                                                         </div>
                                                     </li>
                                                     <li>
@@ -216,7 +194,7 @@
                                                     <li>
                                                         <div class="md-list-content azul">
                                                             <span class="md-list-heading">Meta de interacciones </span>
-                                                            <span class="uk-text-small uk-text-muted">{{ isset($cam->filters['max_interactions'])?$cam->filters['max_interactions']:'no definido' }}</span>
+                                                            <span class="uk-text-small uk-text-muted">{{ isset($cam->filters['max_interactions'])?$cam->filters['max_interactions']==false?'no':$cam->filters['max_interactions']:'no definido' }}</span>
                                                         </div>
                                                     </li>
                                                 </ul>
@@ -224,328 +202,80 @@
                                         </div>
 
                                         <div class="md-list-content uk-width-large-1-1">
-                                            <h3 class="heading_c uk-margin-small-bottom">Elementos de la campaña</h3>
-                                            @if($cam->interaction['name'] == 'banner'|| $cam->interaction['name'] ==  'banner_link')
-                                                <div class="md-list-heading uk-width-large-1-2"
-                                                     style="color: #1e88e5;float: left">
-                                                    Imagen chica :
-                                                    <a id="link" class=""
-                                                       data-uk-modal="{target:'#modal_lightbox-1'}">{!! isset($cam->content['images']['small'])?$cam->content['images']['small']:'no hay imagen' !!}</a>
-                                                    <div class="uk-modal" id="modal_lightbox-1">
-                                                        <div class="uk-modal-dialog uk-modal-dialog-lightbox">
-                                                            <button type="button"
-                                                                    class="uk-modal-close uk-close uk-close-alt"></button>
-                                                            <img src="{!! "https://s3-us-west-1.amazonaws.com/enera-publishers/items/". $cam->content['images']['small'] !!}"
-                                                                 alt=""/>
-                                                            <div class="uk-modal-caption">{!! $cam->content['images']['small'] !!}</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="md-list-content uk-width-large-1-2"
-                                                     style=" color: #1e88e5;float: right;">
-                                                    Imagen grande :
-                                                    <a id="link" class=""
-                                                       data-uk-modal="{target:'#modal_lightbox-2'}">
-                                                        {!! isset($cam->content['images']['large'])?$cam->content['images']['large']:'no hay imagen' !!}</a>
-                                                    <div class="uk-modal" id="modal_lightbox-2">
-                                                        <div class="uk-modal-dialog uk-modal-dialog-lightbox">
-                                                            <button type="button"
-                                                                    class="uk-modal-close uk-close uk-close-alt"></button>
-                                                            <img src="{!! "https://s3-us-west-1.amazonaws.com/enera-publishers/items/". $cam->content['images']['large'] !!}"
-                                                                 alt=""/>
-                                                            <div class="uk-modal-caption">{!! $cam->content['images']['large'] !!}</div>
-                                                        </div>
-                                                    </div>
-                                                    {{--<span class="uk-text-small uk-text-muted"><img class="uk-width-large-2-6" src="{!! URL::asset('images/'.$content['imageng']) !!}" alt=""></span>--}}
-                                                </div>
-                                                <h3 class="md-hr" style="margin-bottom: 10px;"></h3>
-                                                <div class="md-list-content uk-width-large-1-2"
-                                                     style=" color: #1e88e5;">
-                                                    Link a redireccionar :
-                                                    <a id="link" class=""
-                                                       href="http://{{ isset($cam->content['link'])? str_replace("http://","",$cam->content['link']):'no definido' }}"
-                                                       target="_blank">{!! isset($cam->content['link'])? $cam->content['link']:'no hay una definida www.enera.com ' !!}</a>
-                                                </div>
+
+                                            @if(view()->exists('campaigns.partials.preview_'.$cam->interaction['name']))
+                                                @include('campaigns.partials.preview_'.$cam->interaction['name'])
                                             @endif
-                                            @if($cam->interaction['name'] == 'captcha')
-                                                <div class="md-list-heading uk-width-large-1-2"
-                                                     style="color: #1e88e5;float: left">
-                                                    Imagen Chica :
-                                                    <a id="link" class=""
-                                                       data-uk-modal="{target:'#captcha-image'}">
-                                                        {!! isset($cam->content['images']['small'])?$cam->content['images']['small']:'imagen no definida' !!}</a>
-                                                    <div class="uk-modal" id="captcha-image">
-                                                        <div class="uk-modal-dialog uk-modal-dialog-lightbox">
-                                                            <button type="button"
-                                                                    class="uk-modal-close uk-close uk-close-alt"></button>
-                                                            @if(isset($cam->content['images']['small']))
-                                                                <img src="{!! "https://s3-us-west-1.amazonaws.com/enera-publishers/items/". $cam->content['images']['small'] !!}"
-                                                                     alt=""/>
-                                                            @endif
-                                                            <div class="uk-modal-caption">{{$cam->content['images']['small']}}</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="md-list-heading uk-width-large-1-2"
-                                                     style="color: #1e88e5;float: left">
-                                                    Imagen Grande :
-                                                    <a id="link" class=""
-                                                       data-uk-modal="{target:'#captcha-image'}">
-                                                        {!! isset($cam->content['images']['large'])?$cam->content['images']['large']:'imagen no definida' !!}</a>
-                                                    <div class="uk-modal" id="captcha-image">
-                                                        <div class="uk-modal-dialog uk-modal-dialog-lightbox">
-                                                            <button type="button"
-                                                                    class="uk-modal-close uk-close uk-close-alt"></button>
-                                                            @if(isset($cam->content['images']['large']))
-                                                                <img src="{!! "https://s3-us-west-1.amazonaws.com/enera-publishers/items/". $cam->content['images']['large'] !!}"
-                                                                     alt=""/>
-                                                            @endif
-                                                            <div class="uk-modal-caption">{{$cam->content['images']['large']}}</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="md-list-heading uk-width-large-1-2"
-                                                     style="color: #1e88e5;float: left">
-                                                    Texto Captcha :
-                                                    <a id="link" class="">
-                                                        {!!isset($cam->content['captcha'])?  $cam->content['captcha']:'texto no definido' !!}</a>
-                                                </div>
-                                            @endif
-                                            @if($cam->interaction['name'] == 'mailing_list')
-                                                @if(isset($cam->content['images']))
-                                                    <div class="md-list-heading uk-width-large-1-2"
-                                                         style="color: #1e88e5;float: left">
-                                                        Imagen Chica :
-                                                        <a id="link" class=""
-                                                           data-uk-modal="{target:'#captcha-image'}">
-                                                            {!! isset($cam->content['images']['small'])?$cam->content['images']['small']:'imagen no definida' !!}</a>
-                                                        <div class="uk-modal" id="captcha-image">
-                                                            <div class="uk-modal-dialog uk-modal-dialog-lightbox">
-                                                                <button type="button"
-                                                                        class="uk-modal-close uk-close uk-close-alt"></button>
-                                                                @if(isset($cam->content['images']['small']))
-                                                                    <img src="{!! "https://s3-us-west-1.amazonaws.com/enera-publishers/items/". $cam->content['images']['small'] !!}"
-                                                                         alt=""/>
-                                                                @endif
-                                                                <div class="uk-modal-caption">{{$cam->content['images']['small']}}</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="md-list-heading uk-width-large-1-2"
-                                                         style="color: #1e88e5;float: left">
-                                                        Imagen Grande :
-                                                        <a id="link" class=""
-                                                           data-uk-modal="{target:'#captcha-image'}">
-                                                            {!! isset($cam->content['images']['large'])?$cam->content['images']['large']:'imagen no definida' !!}</a>
-                                                        <div class="uk-modal" id="captcha-image">
-                                                            <div class="uk-modal-dialog uk-modal-dialog-lightbox">
-                                                                <button type="button"
-                                                                        class="uk-modal-close uk-close uk-close-alt"></button>
-                                                                @if(isset($cam->content['images']['large']))
-                                                                    <img src="{!! "https://s3-us-west-1.amazonaws.com/enera-publishers/items/". $cam->content['images']['large'] !!}"
-                                                                         alt=""/>
-                                                                @endif
-                                                                <div class="uk-modal-caption">{{$cam->content['images']['large']}}</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                @else
-                                                    <div class="md-list-heading uk-width-large-1-2"
-                                                         style="color: #1e88e5;float: left">
-                                                        no hay imagen definida
-                                                    </div>
-                                                    @endif
 
-                                                            <!-- create mailing campaign button start -->
-                                                    {{--<div class="uk-grid uk-margin-medium-top" data="uk-grid-margin">
-                                                        <div class="uk-width-1-1">
-                                                            <div class="uk-width-medium-1-1">
-                                                                <a class="md-btn md-btn-primary"
-                                                                   onclick="new_campaign.promptMailingCampaign('{{$cam->_id}}')">
-                                                                    <span class="uk-display-block">Crear campaña de mailing</span>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>--}}
-                                                            <!-- create mailing campaign button end -->
-
-                                                @endif
-                                                @if($cam->interaction['name'] == 'survey')
-                                                    @if(isset($cam->content['survey']))
-                                                        <div class="md-list-heading uk-width-large-1"
-                                                             style="color: #1e88e5;float: left">
-                                                            Imagen Encuesta :
-                                                            <a id="link" class=""
-                                                               data-uk-modal="{target:'#survey-image'}">
-                                                                {!! $cam->content['images']['survey'] !!}</a>
-                                                            <div class="uk-modal" id="survey-image">
-                                                                <div class="uk-modal-dialog uk-modal-dialog-lightbox">
-                                                                    <button type="button"
-                                                                            class="uk-modal-close uk-close uk-close-alt"></button>
-                                                                    <img src="{!! "https://s3-us-west-1.amazonaws.com/enera-publishers/items/". $cam->content['images']['survey'] !!}"
-                                                                         alt="{{$cam->content['images']['survey']}}"/>
-                                                                    <div class="uk-modal-caption">{{$cam->content['images']['survey']}}</div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    @else
-                                                        <div>
-                                                            no hay imagen que mostrar
-                                                        </div>
-                                                        @endif
-                                                                <!------- informacion de survey  ---->
-                                                        <div class="md-list-content uk-width-large-1"
-                                                             style=" color: #1e88e5;">
-                                                            @if(isset($cam->content['survey']))
-                                                                @foreach($cam->content['survey'] as $key => $con)
-                                                                    <span>Pregunta {!! $key[1] !!}
-                                                                        : &nbsp;{!! $con['question'] !!}</span>
-                                                                    <br>
-                                                                    @foreach($con['answers'] as $key => $a)
-                                                                        <ul>
-                                                                            <li class="p"><p>Respuesta {!! $key[1] !!}
-                                                                                    : {!! $a !!}</p>
-                                                                        </ul>
-                                                                    @endforeach
-                                                                @endforeach
-                                                            @else
-                                                                <div>
-                                                                    no hay preguntas que mostrar
-                                                                </div>
-                                                            @endif
-
-                                                        </div>
-                                                    @endif
-                                                    @if($cam->interaction['name'] == 'video')
-                                                        <div class="md-list-heading uk-width-large-1-2"
-                                                             style="color: #1e88e5;float: left">
-                                                            @if(isset($cam->content['video']))
-                                                                Video :
-                                                                <a id="link" class=""
-                                                                   data-uk-modal="{target:'#video'}">
-                                                                    {!! $cam->content['video'] !!}</a>
-                                                                <div class="uk-modal" id="video">
-                                                                    <div class="uk-modal-dialog uk-modal-dialog-lightbox">
-                                                                        <button type="button"
-                                                                                class="uk-modal-close uk-close uk-close-alt"></button>
-                                                                        <video width="600" height="300" controls>
-                                                                            <source src="{!! URL::asset('videos/'.$cam->content['video']) !!}"
-                                                                                    type="video/mp4">
-                                                                            Your browser does not support HTML5 video.
-                                                                        </video>
-                                                                        {{--<div class="uk-modal-caption">Lorem</div>--}}
-                                                                    </div>
-                                                                </div>
-                                                            @else
-                                                                <span>
-                                                        no hay video asignado
-                                                    </span>
-                                                            @endif
-                                                        </div>
-                                                    @endif
-                                                    @if($cam->interaction['name'] == 'like')
-                                                        <div class="md-list-heading uk-width-large-1-2"
-                                                             style="color: #1e88e5;float: left">
-                                                            Imagen chica :
-                                                            <a id="link" class=""
-                                                               data-uk-modal="{target:'#modal_lightbox-1'}">{!! isset($cam->content['images']['small'])?$cam->content['images']['small']:'no hay imagen' !!}</a>
-                                                            <div class="uk-modal" id="modal_lightbox-1">
-                                                                <div class="uk-modal-dialog uk-modal-dialog-lightbox">
-                                                                    <button type="button"
-                                                                            class="uk-modal-close uk-close uk-close-alt"></button>
-                                                                    <img src="{!! "https://s3-us-west-1.amazonaws.com/enera-publishers/items/". $cam->content['images']['small'] !!}"
-                                                                         alt=""/>
-                                                                    <div class="uk-modal-caption">{!! $cam->content['images']['small'] !!}</div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="md-list-content uk-width-large-1-2"
-                                                             style=" color: #1e88e5;float: right;">
-                                                            Imagen grande :
-                                                            <a id="link" class=""
-                                                               data-uk-modal="{target:'#modal_lightbox-2'}">
-                                                                {!! isset($cam->content['images']['large'])?$cam->content['images']['large']:'no hay imagen' !!}</a>
-                                                            <div class="uk-modal" id="modal_lightbox-2">
-                                                                <div class="uk-modal-dialog uk-modal-dialog-lightbox">
-                                                                    <button type="button"
-                                                                            class="uk-modal-close uk-close uk-close-alt"></button>
-                                                                    <img src="{!! "https://s3-us-west-1.amazonaws.com/enera-publishers/items/". $cam->content['images']['large'] !!}"
-                                                                         alt=""/>
-                                                                    <div class="uk-modal-caption">{!! $cam->content['images']['large'] !!}</div>
-                                                                </div>
-                                                            </div>
-                                                            {{--<span class="uk-text-small uk-text-muted"><img class="uk-width-large-2-6" src="{!! URL::asset('images/'.$content['imageng']) !!}" alt=""></span>--}}
-                                                        </div>
-                                                        <h3 class="md-hr" style="margin-bottom: 10px;"></h3>
-                                                        <div class="md-list-content uk-width-large-1-2"
-                                                             style=" color: #1e88e5;">
-                                                            Url:
-                                                            <a id="link" class=""
-                                                               href="http://{{ isset($cam->content['like_url'])? str_replace("http://","",$cam->content['like_url']):'no definido' }}"
-                                                               target="_blank">{!! isset($cam->content['like_url'])? $cam->content['like_url']:'Like url no definido www.enera.mx' !!}</a>
-                                                        </div>
-                                                    @endif
                                         </div>
+
                                     </div>
 
                                     <div class="uk-width-large-1-2">
                                         <div class="">
-                                            <div class="uk-width-medium-1">
-                                                <div class="uk-grid">
-                                                    <div class="uk-width-medium-1-3 uk-width-small-1-3">
-                                                        <div class="uk-width-medium-1-2 uk-width-small-1-2 uk-container-center">
-                                                            <i class="uk-icon-eye uk-icon-medium"
-
-                                                               data-uk-tooltip="{pos:'top'}"
-                                                               title="visto"></i>
-
-                                                        </div>
-                                                    </div>
-                                                    <div class="uk-width-medium-1-3 uk-width-small-1-3">
-                                                        <div class="uk-width-medium-1-2 uk-width-small-1-2 uk-container-center">
-                                                            <i class="material-icons md-36"
-                                                               data-uk-tooltip="{pos:'top'}"
-                                                               title="Completado">done</i>
-
-                                                        </div>
-                                                    </div>
-                                                    <div class="uk-width-medium-1-3 uk-width-small-1-3">
-                                                        <div class="uk-kit-medium-2-3 uk-width-small-1-2 uk-container-center">
-                                                            <i class="uk-icon-user uk-icon-medium "
-                                                               data-uk-tooltip="{pos:'top'}"
-                                                               title="Usuario"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="uk-width-medium-1">
-                                                <div class="uk-grid">
-                                                    <div class="uk-width-medium-1-3 uk-width-small-1-3">
-                                                        <div class="uk-width-medium-1-2 uk-width-small-1-2 uk-container-center">
-                                                            <h2 class="jumbo uk-float-left" id="vistos">0</h2>
-                                                        </div>
-                                                    </div>
-                                                    <div class="uk-width-medium-1-3 uk-width-small-1-3">
-                                                        <div class="uk-width-medium-1-2 uk-width-small-1-2 uk-container-center">
-                                                            <h2 class="jumbo uk-float-left" id="completados">0</h2>
-                                                        </div>
-                                                    </div>
-                                                    <div class="uk-width-medium-1-3 uk-width-small-1-3">
-                                                        <div class="uk-kit-medium-2-3 uk-width-small-1-2 uk-container-center">
-                                                            <h2 class="jumbo uk-float-left" id="usuarios">0</h2>
+                                            <div class="uk-grid uk-margin-medium-top">
+                                                <div class="uk-width-medium-1">
+                                                    <div class="md-card-content ">
+                                                        <div class="uk-grid">
+                                                            <div class="uk-width-1-3 uk-padding-remove">
+                                                                <div class="uk-grid">
+                                                                    <div class="uk-width-2-3 ">
+                                                                        <h2 class="jumbo uk-text-center" id="vistos"
+                                                                            style="width: 100%">
+                                                                            0</h2>
+                                                                    </div>
+                                                                    <div class="uk-width-1-3 uk-padding-remove">
+                                                                        <i class="uk-icon-eye uk-icon-medium uk-text-center"
+                                                                           data-uk-tooltip="{pos:'top'}"
+                                                                           title="Visto"></i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="uk-width-1-3 uk-padding-remove">
+                                                                <div class="uk-grid">
+                                                                    <div class="uk-width-2-3 ">
+                                                                        <h2 class="jumbo uk-text-center"
+                                                                            style="width: 100%"
+                                                                            id="completados">0</h2>
+                                                                    </div>
+                                                                    <div class="uk-width-1-3 uk-padding-remove">
+                                                                        <i class="material-icons md-36 "
+                                                                           data-uk-tooltip="{pos:'top'}"
+                                                                           title="Completado" >done</i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="uk-width-1-3 uk-padding-remove">
+                                                                <div class="uk-grid">
+                                                                    <div class="uk-width-2-3 ">
+                                                                        <h2 class="jumbo uk-text-center" id="usuarios"
+                                                                            style="width: 100%">
+                                                                            0</h2>
+                                                                    </div>
+                                                                    <div class="uk-width-1-3">
+                                                                        <i class="uk-icon-user uk-icon-medium "
+                                                                           data-uk-tooltip="{pos:'top'}"
+                                                                           title="Usuario"></i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="md-card">
-                                            <div id="graficas" class="md-card-content">
-                                                <h3 class="heading_a uk-margin-bottom">Analiticos</h3>
-                                                <div id='intXHour'
-                                                     class="uk-width-large-1-1 uk-margin-right"></div>
-                                                <h3 class="md-hr" style="margin: 10px;"></h3>
-                                                <div id='genderAge' class="uk-width-large-1-1 uk-panel-teaser"
-                                                     style="height: 350px"></div>
+                                        <div class="uk-grid uk-margin-medium-top">
+                                            <div class="uk-width-medium-1">
+                                                <div class="md-card">
+                                                    <div id="graficas" class="md-card-content">
+                                                        <h3 class="heading_a uk-margin-bottom">Analiticos</h3>
+                                                        <div id='intXHour'
+                                                             class="uk-width-large-1-1 uk-margin-right"></div>
+                                                        <h3 class="md-hr" style="margin: 10px;"></h3>
+                                                        <div id='genderAge' class="uk-width-large-1-1 uk-panel-teaser"
+                                                             style="height: 350px"></div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="uk-grid uk-margin-medium-top" data="uk-grid-margin">
