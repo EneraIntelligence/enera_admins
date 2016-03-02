@@ -253,7 +253,7 @@
                                                                     class="uk-modal-close uk-close uk-close-alt"></button>
                                                             <img src="{!! "https://s3-us-west-1.amazonaws.com/enera-publishers/items/". $cam->content['images']['large'] !!}"
                                                                  alt=""/>
-                                                            <div class="uk-modal-caption">Lorem</div>
+                                                            <div class="uk-modal-caption">{!! $cam->content['images']['large'] !!}</div>
                                                         </div>
                                                     </div>
                                                     {{--<span class="uk-text-small uk-text-muted"><img class="uk-width-large-2-6" src="{!! URL::asset('images/'.$content['imageng']) !!}" alt=""></span>--}}
@@ -471,7 +471,7 @@
                                                                             class="uk-modal-close uk-close uk-close-alt"></button>
                                                                     <img src="{!! "https://s3-us-west-1.amazonaws.com/enera-publishers/items/". $cam->content['images']['large'] !!}"
                                                                          alt=""/>
-                                                                    <div class="uk-modal-caption">Lorem</div>
+                                                                    <div class="uk-modal-caption">{!! $cam->content['images']['large'] !!}</div>
                                                                 </div>
                                                             </div>
                                                             {{--<span class="uk-text-small uk-text-muted"><img class="uk-width-large-2-6" src="{!! URL::asset('images/'.$content['imageng']) !!}" alt=""></span>--}}
