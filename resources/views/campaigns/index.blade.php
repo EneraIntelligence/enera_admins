@@ -12,9 +12,9 @@
 
 @section('content')
 
-    <div id="page_content" >
+    <div id="page_content">
         <div id="page_heading" data-uk-sticky="{ top: 48, media: 960 }">
-            <div class="heading_actions">
+            <div class="heading_actions" style="margin-right: 8%">
                 <a href="#" data-uk-tooltip="{pos:'bottom'}" title="Archive"><i class="md-icon material-icons">
                         &#xE149;</i></a>
                 <a href="#" data-uk-tooltip="{pos:'bottom'}" title="Print"><i class="md-icon material-icons">
@@ -37,6 +37,7 @@
             <div class="md-card-list-wrapper" id="mailbox">
                 <div class="uk-width-large-8-10 uk-container-center">
                     <div class="md-card-list">
+                        <div class="md-card-list-header heading_list">Pendientes</div>
                         <ul class="hierarchical_slide">
                             <li>
                                 <span class="md-card-list-item-date">Terminación</span>
@@ -79,7 +80,8 @@
                                         <span>
                                             @if(isset($campaign->filters['week_days'] ))
                                                 @foreach($campaign->filters['week_days'] as $dia)
-                                                    <span class="uk-badge uk-badge-notification uk-badge-primary">{{ trans('days.'.$dia) }}</span>,
+                                                    <span class="uk-badge uk-badge-notification uk-badge-primary"
+                                                          style="background:#2196f3 !important; margin-right:10px ">{{ substr(trans('days.'.$dia), 0, 1) }}</span>
                                                 @endforeach
                                             @else
                                                 no definido
@@ -91,7 +93,8 @@
                     </div>
                 </div>
                 <div class="uk-width-large-8-10 uk-container-center">
-                    <div class="md-card-list">
+                    <div class="md-card-list" style="margin-top:35px ">
+                        <div class="md-card-list-header heading_list">Activas</div>
                         <ul class="hierarchical_slide">
                             <li>
                                 <span class="md-card-list-item-date">Terminación</span>
@@ -134,7 +137,8 @@
                                         <span>
                                             @if(isset($campaign->filters['week_days'] ))
                                                 @foreach($campaign->filters['week_days'] as $dia)
-                                                    {{ trans('days.'.$dia) }},
+                                                    <span class="uk-badge uk-badge-notification uk-badge-primary"
+                                                          style="background:#2196f3 !important; margin-right:10px ">{{ substr(trans('days.'.$dia), 0, 1) }}</span>
                                                 @endforeach
                                             @else
                                                 no definido

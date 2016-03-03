@@ -44,10 +44,11 @@
                 </div>
             </div> -->
         <div class="uk-grid">
+            <div class="uk-width-medium-1-10"></div>
             <div class="uk-width-medium-2-10">
                 <h1>Lista de Clietes</h1>
             </div>
-            <div class="uk-width-medium-7-10">
+            <div class="uk-width-medium-5-10">
                 <form action="{!! route('admin::clients::search') !!}" method="post"
                       class="uk-form">
                     <div class="uk-grid">
@@ -115,7 +116,7 @@
         <div id="page_content_inner">
 
             <div class="md-card-list-wrapper" id="mailbox">
-                <div class="uk-width-large-1 uk-container-center">
+                <div class="uk-width-large-8-10 uk-container-center">
                     <div class="md-card-list">
                         <div class="md-card-list-header md-card-list-header-combined heading_list"
                              style="display: none">All Messages
