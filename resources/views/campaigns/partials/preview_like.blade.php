@@ -1,35 +1,44 @@
-<div id="page_content">
-    <div id="page_content_inner">
-        <div class="uk-container-center uk-width-medium-1-3">
-            <p>Dirección : {!! $cam->content['like_url'] !!}</p>
-        </div>
-        <div class="gallery_grid uk-grid-width-medium-1-2 uk-grid-width-large-1-2" data-uk-grid="{gutter: 16}">
-            <div>
-                <div class="md-card md-card-hover">
-                    <div class="gallery_grid_item md-card-content">
-                        <a href="{!! "https://s3-us-west-1.amazonaws.com/enera-publishers/items/". $cam->content['images']['large'] !!}" data-uk-lightbox="{group:'gallery'}">
-                            <img src="{!! "https://s3-us-west-1.amazonaws.com/enera-publishers/items/". $cam->content['images']['large'] !!}"
-                                 alt="" style="width: 480px; height: 450px;"/>
-                        </a>
-                        <div class="gallery_grid_image_caption">
-                            <span class="gallery_image_title uk-text-truncate">{!! $cam->content['images']['large'] !!}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <div class="md-card md-card-hover">
-                    <div class="gallery_grid_item md-card-content">
-                        <a href="{!! "https://s3-us-west-1.amazonaws.com/enera-publishers/items/". $cam->content['images']['small'] !!}" data-uk-lightbox="{group:'gallery'}">
-                            <img src="{!! "https://s3-us-west-1.amazonaws.com/enera-publishers/items/". $cam->content['images']['small'] !!}"
-                                 alt="" style="width: 480px; height: 450px;"  />
-                        </a>
-                        <div class="gallery_grid_image_caption">
-                            <span class="gallery_image_title uk-text-truncate">{!! $cam->content['images']['small'] !!}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<!-- campaign elements -->
+<h3 class="heading_c uk-margin-small-bottom">Elementos de la campaña</h3>
+
+<div class="md-list-heading uk-width-large-1 azul">
+    <i class="uk-icon-file-picture-o "
+       style="margin-right:10px;"></i>Imagen chica :
+    <a id="link" class=""
+       data-uk-modal="{target:'#modal_lightbox-1'}">{!! isset($cam->content['images']['small'])?$cam->content['images']['small']:'no hay imagen' !!}</a>
+    <div class="uk-modal" id="modal_lightbox-1">
+        <div class="uk-modal-dialog uk-modal-dialog-lightbox">
+            <button type="button"
+                    class="uk-modal-close uk-close uk-close-alt"></button>
+            <img src="{!! "https://s3-us-west-1.amazonaws.com/enera-publishers/items/". $cam->content['images']['small'] !!}"
+                 alt=""/>
+            <div class="uk-modal-caption">{!! $cam->content['images']['small'] !!}</div>
         </div>
     </div>
+</div>
+
+<div class="md-list-content uk-width-large-1 azul">
+    <i class="uk-icon-file-picture-o "
+       style="margin-right:10px;"></i>Imagen grande :
+    <a id="link" class=""
+       data-uk-modal="{target:'#modal_lightbox-2'}">
+        {!! isset($cam->content['images']['large'])?$cam->content['images']['large']:'no hay imagen' !!}</a>
+    <div class="uk-modal" id="modal_lightbox-2">
+        <div class="uk-modal-dialog uk-modal-dialog-lightbox">
+            <button type="button"
+                    class="uk-modal-close uk-close uk-close-alt"></button>
+            <img src="{!! "https://s3-us-west-1.amazonaws.com/enera-publishers/items/". $cam->content['images']['large'] !!}"
+                 alt=""/>
+            <div class="uk-modal-caption">$cam->content['images']['large']</div>
+        </div>
+    </div>
+
+</div>
+
+<div class="md-list-content uk-width-large-1 azul">
+    <i class="uk-icon-link "  style="margin-right:6px;"></i>
+    Url like:
+    <a id="link" class=""
+       href="http://{{ isset($cam->content['like_url'])? str_replace("http://","",$cam->content['like_url']):'no definido' }}"
+       target="_blank">{!! isset($cam->content['like_url'])? $cam->content['like_url']:'Like url no definido www.enera.mx' !!}</a>
 </div>
