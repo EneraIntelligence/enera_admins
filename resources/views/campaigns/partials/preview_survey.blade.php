@@ -6,8 +6,8 @@
                     <div>
                         <div class="md-card md-card-hover">
                             <div class="gallery_grid_item md-card-content">
-                                <a href="{!! "https://s3-us-west-1.amazonaws.com/enera-publishers/avatars/". $cam->content['images']['survey'] !!}" data-uk-lightbox="{group:'gallery'}">
-                                    <img src="{!! "https://s3-us-west-1.amazonaws.com/enera-publishers/avatars/". $cam->content['images']['survey'] !!}"
+                                <a href="{!! "https://s3-us-west-1.amazonaws.com/enera-publishers/items/". $cam->content['images']['survey'] !!}" data-uk-lightbox="{group:'gallery'}">
+                                    <img src="{!! "https://s3-us-west-1.amazonaws.com/enera-publishers/items/". $cam->content['images']['survey'] !!}"
                                          alt="" style="width: 480px; height: 450px;"/>
                                 </a>
                                 <div class="gallery_grid_image_caption">

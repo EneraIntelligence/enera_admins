@@ -4,8 +4,8 @@
             <div>
                 <div class="md-card md-card-hover">
                     <div class="gallery_grid_item md-card-content">
-                        <a href="{!! "https://s3-us-west-1.amazonaws.com/enera-publishers/avatars/". $cam->content['images']['large'] !!}" data-uk-lightbox="{group:'gallery'}">
-                            <img src="{!! "https://s3-us-west-1.amazonaws.com/enera-publishers/avatars/". $cam->content['images']['large'] !!}"
+                        <a href="{!! "https://s3-us-west-1.amazonaws.com/enera-publishers/items/". $cam->content['images']['large'] !!}" data-uk-lightbox="{group:'gallery'}">
+                            <img src="{!! "https://s3-us-west-1.amazonaws.com/enera-publishers/items/". $cam->content['images']['large'] !!}"
                                  alt="" style="width: 480px; height: 450px;"/>
                         </a>
                         <div class="gallery_grid_image_caption">
@@ -17,8 +17,8 @@
             <div>
                 <div class="md-card md-card-hover">
                     <div class="gallery_grid_item md-card-content">
-                        <a href="{!! "https://s3-us-west-1.amazonaws.com/enera-publishers/avatars/". $cam->content['images']['small'] !!}" data-uk-lightbox="{group:'gallery'}">
-                            <img src="{!! "https://s3-us-west-1.amazonaws.com/enera-publishers/avatars/". $cam->content['images']['small'] !!}"
+                        <a href="{!! "https://s3-us-west-1.amazonaws.com/enera-publishers/items/". $cam->content['images']['small'] !!}" data-uk-lightbox="{group:'gallery'}">
+                            <img src="{!! "https://s3-us-west-1.amazonaws.com/enera-publishers/items/". $cam->content['images']['small'] !!}"
                                  alt="" style="width: 480px; height: 450px;"  />
                         </a>
                         <div class="gallery_grid_image_caption">
