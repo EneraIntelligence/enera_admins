@@ -227,8 +227,18 @@ class CampaignsController extends Controller
                 ]
             ]);
 
-            $IntHours = [];
+//            $IntHours = array_fill(0, 24, 0);
+            $IntHours = array();
+            for($i=0;$i<10;$i++){
+                $IntHours['0'.$i]['loaded'] = 0;
+                $IntHours['0'.$i]['completed'] = 0;
+            }
+            for($i=10;$i<24;$i++){
+                $IntHours[$i]['loaded'] = 0;
+                $IntHours[$i]['completed'] = 0;
+            }
             foreach ($IntLoaded['result'] as $k => $v) {
+                echo $v['_id'].'- <br>';
                 $IntHours[$v['_id']]['loaded'] = $v['cnt'];
             }
 
