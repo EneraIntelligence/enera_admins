@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 use Admins\Http\Requests;
 use Admins\Http\Controllers\Controller;
+use Input;
 
 class NetworksController extends Controller
 {
@@ -36,7 +37,8 @@ class NetworksController extends Controller
 
     public function search()
     {
-        $network = Network::all();
+        $network = Network::where('name', 'like', '%'. Input::get('search'). '%')
+                    ->orWhere('type', 'like', '%'. Input::get('search'). '%')->get();
         return view('network.index', ['networks' => $network]);
     }
 

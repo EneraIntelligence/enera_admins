@@ -6,10 +6,11 @@
 @section('content')
     <div id="page_heading" data-uk-sticky="{ top: 48, media: 960 }">
         <div class="uk-grid">
+            <div class="uk-width-medium-1-10"></div>
             <div class="uk-width-medium-2-10">
                 <h1>Lista de redes</h1>
             </div>
-            <div class="uk-width-medium-7-10">
+            <div class="uk-width-medium-5-10">
                 <form action="{!! route('network::search') !!}" method="post"
                       class="uk-form">
                     <div class="uk-grid">
@@ -28,7 +29,7 @@
                     <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
                 </form>
             </div>
-            <div class="uk-width-medium-1-10 uk-hidden-small" style="padding-left: 0;">
+            <div class="uk-width-medium-1-10 uk-hidden-small" style="padding-left: 0; text-align: right">
                 <a href="#" data-uk-tooltip="{pos:'bottom'}" title="Archive"><i
                             class="md-icon material-icons">
                         &#xE149;</i></a>
@@ -54,7 +55,7 @@
         <div id="page_content_inner">
 
             <div class="md-card-list-wrapper" id="mailbox">
-                <div class="uk-width-large-1 uk-container-center">
+                <div class="uk-width-large-8-10 uk-container-center">
                     <div class="md-card-list">
                         <div class="md-card-list-header md-card-list-header-combined heading_list"
                              style="display: none">All Messages
