@@ -234,41 +234,27 @@ graficas = function () {
         var c3chart_area_stacked_id = '#intXHour';
 
         var columns = [
-            ['x'],
-            ['Visto'],
-            ['Completado']
+            //['x'],
+            ['visto'],
+            ['completado']
         ];
         for (var k in IntXDias) {
-            columns[0].push(k);
-            columns[1].push(IntXDias[k]['loaded']);
-            columns[2].push(IntXDias[k]['completed']);
+            //columns[0].push(k);
+            columns[0].push(IntXDias[k]['loaded']);
+            columns[1].push(IntXDias[k]['completed']);
         }
         //console.log(columns);
-        if ($(c3chart_area_stacked_id).length) {
-
-            var c3chart_area_stacked = c3.generate({
-                bindto: c3chart_area_stacked_id,
-                data: {
-                    x: 'x',
-                    columns: columns,
-                    types: {
-                        Visto: 'area',
-                        Completado: 'area'
-                    },
-                    groups: [['Visto', 'Completado']]
-                },
-                color: {
-                    pattern: ['#1565C0', '#727272']
+        var chart = c3.generate({
+            bindto: '#intXHour',
+            data: {
+                columns: columns,
+                types: {
+                    visto: 'area',
+                    completado: 'area'
                 }
-            });
-
-            $window.on('debouncedresize', function () {
-                c3chart_area_stacked.resize();
-            });
-
-        } else {
-            console.log('error en el contenedor');
-        }
+            },
+            groups: [['Visto', 'Completado']]
+        });
     }
 };
 

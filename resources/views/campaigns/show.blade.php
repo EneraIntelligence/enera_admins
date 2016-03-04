@@ -9,22 +9,28 @@
         color: #000000;
         margin-bottom: 0;
     }
+
     .p {
         list-style: none;
     }
+
     a:hover:not(#link) {
         cursor: default;
         color: #1e88e5;
     }
+
     .azul {
         color: #1e88e5;
     }
+
     #link {
         color: black;
     }
+
     #link:hover {
         color: #1e88e5;
     }
+
     #button {
         position: fixed;
         bottom: 25px;
@@ -377,7 +383,6 @@
     {!! HTML::script('bower_components/ionrangeslider/js/ion.rangeSlider.min.js') !!}
     {!! HTML::script('bower_components/countUp.js/countUp.js') !!}
     {!! HTML::script('js/circle-progress.js') !!}
-    {!! HTML::style('css/show.css') !!}
 
             <!-- page specific plugins -->
     <!-- d3 -->
@@ -434,8 +439,8 @@
 
         var intLJson = '{!! json_encode($IntHours) !!}';
         var intLObj = JSON.parse(intLJson);
-//                console.log(intLObj);
 
+        //                console.log(intLObj);
         var gra = grafica.genderAge(menObj, womenObj);
         var graf = grafica.intPerHour(intLObj);
     </script>
