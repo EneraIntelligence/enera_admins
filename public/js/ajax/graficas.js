@@ -243,7 +243,7 @@ graficas = function () {
             columns[1].push(IntXDias[k]['loaded']);
             columns[2].push(IntXDias[k]['completed']);
         }
-
+        console.log(columns);
         if ($(c3chart_area_stacked_id).length) {
 
             var c3chart_area_stacked = c3.generate({

@@ -7,6 +7,9 @@
     <div id="page_content">
         <div id="page_heading" data-uk-sticky="{ top: 48, media: 960 }">
             <div class="heading_actions">
+                <a href="#" data-uk-tooltip="{pos:'bottom'}" title="Asignar" id="asignar">
+                    <i class="md-icon material-icons uk-text-primary">&#xE853;</i>
+                </a>
                 <a href="#" data-uk-tooltip="{pos:'bottom'}" title="Iniciar" id="iniciar">
                     <i class="md-icon material-icons uk-text-success">&#xE86C;</i>
                 </a>
@@ -36,6 +39,7 @@
             <div class="md-card">
                 <div class="md-card-content">
                     <div class="uk-overflow-container uk-margin-bottom">
+                        {!! Form::open([]) !!}
                         <table class="uk-table uk-table-align-vertical uk-table-nowrap tablesorter tablesorter-altair"
                                id="ts_issues">
                             <thead>
@@ -53,7 +57,7 @@
                             @foreach($issues as $issue)
                                 <tr>
                                     <td>
-                                        <input type="checkbox" class="issue" data-md-icheck
+                                        <input type="checkbox" class="issue" data-md-icheck name="issue[]"
                                                value="{!! $issue->_id !!}"/>
                                     </td>
                                     <td>
@@ -108,7 +112,7 @@
     <script>
         $(document).ready(function () {
             $('#cerrar').click(function () {
-                
+                $('.issue:checked').each
             });
         });
     </script>
