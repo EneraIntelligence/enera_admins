@@ -173,7 +173,6 @@ class CampaignsController extends Controller
                 [
                     '$match' => [
                         'campaign_id' => $id,
-                        'interaction.completed' => ['$exists'=>true],
                         'interaction.loaded' => [
                             '$gte' => new MongoDate(strtotime(Carbon::today()->subDays(30)->format('Y-m-d'))),
                             '$lte' => new MongoDate(strtotime(Carbon::today()->subDays(0)->format('Y-m-d'))),
@@ -234,9 +233,10 @@ class CampaignsController extends Controller
                 $IntHours['0'.$i]['completed'] = 0;
             }
             for($i=10;$i<24;$i++){
-                $IntHours[$i]['loaded'] = 0;
-                $IntHours[$i]['completed'] = 0;
+                $IntHours[''.$i]['loaded'] = 0;
+                $IntHours[''.$i]['completed'] = 0;
             }
+
             foreach ($IntLoaded['result'] as $k => $v) {
 //                echo $v['_id'].'- <br>';
                 $IntHours[$v['_id']]['loaded'] = $v['cnt'];

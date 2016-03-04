@@ -434,7 +434,7 @@
 
         var intLJson = '{!! json_encode($IntHours) !!}';
         var intLObj = JSON.parse(intLJson);
-                console.log(intLObj);
+//                console.log(intLObj);
 
         var gra = grafica.genderAge(menObj, womenObj);
         var graf = grafica.intPerHour(intLObj);
