@@ -238,7 +238,7 @@ class CampaignsController extends Controller
                 $IntHours[$i]['completed'] = 0;
             }
             foreach ($IntLoaded['result'] as $k => $v) {
-                echo $v['_id'].'- <br>';
+//                echo $v['_id'].'- <br>';
                 $IntHours[$v['_id']]['loaded'] = $v['cnt'];
             }
 
