@@ -21,7 +21,7 @@ class PreviewMiddleware
         $route = $request->route()->getName();
         $user = Administrator::where('_id', Auth::user()->_id)->first();
         $test = isset($user->routeAdmins) ? $user->routeAdmins : [];
-        $accept = ["home", 'auth.logout', 'campaigns::show', 'admin::clients::index', 'edit.profile', 'campaigns::reject::campaign',
+        $accept = ["home", 'auth.logout', 'campaigns::show', 'edit.profile', 'campaigns::reject::campaign',
             'campaigns::active::campaign', 'campaigns::admin::campaign', 'issuetracker::show', 'issuetracker::show',
             'admin::clients::show', 'network::show', 'network::search', 'issuetracker::close'];
 
