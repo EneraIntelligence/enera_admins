@@ -13,7 +13,14 @@
                 </div>
             </div>
         </div>
-        <p>Contenido:</p>
-        {!! $cam->content['mail']['content'] !!}
+
+        <a href="#my-id" data-uk-modal="{target:'#my-id'}" style="cursor: pointer;">Contenido del Correo</a>
+        <!-- This is the modal -->
+        <div id="my-id" class="uk-modal">
+            <div class="uk-modal-dialog">
+                <a class="uk-modal-close uk-close"></a>
+                {!! $cam->content['mail']['content'] !!}
+            </div>
+        </div>
     </div>
 </div>
