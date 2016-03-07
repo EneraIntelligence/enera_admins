@@ -14,7 +14,8 @@
             </div>
         </div>
 
-        <a href="#my-id" data-uk-modal="{target:'#my-id'}" style="cursor: pointer;">Contenido del Correo</a>
+        <a href="#my-id" data-uk-modal="{target:'#my-id'}" style="cursor: pointer;">
+            <i class="uk-icon-th-list " style="margin-right:10px;"></i>Contenido del Correo</a>
         <!-- This is the modal -->
         <div id="my-id" class="uk-modal">
             <div class="uk-modal-dialog">
