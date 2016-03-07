@@ -40,6 +40,7 @@ Route::group(['middleware' => ['auth', 'guardian', 'preview']], function () {
         Route::get('/', ['as' => 'index', 'uses' => 'IssueTrackerController@index']);
         Route::get('/show/{id}', ['as' => 'show', 'uses' => 'IssueTrackerController@show']);
         Route::match(['get', 'post'], '/close/{id}', ['as' => 'close', 'uses' => 'IssueTrackerController@close']);
+        Route::match(['get', 'post'], '/close_list', ['as' => 'close_list', 'uses' => 'IssueTrackerController@close_list']);
     });
 
     Route::group(['prefix' => 'network', 'as' => 'network::'], function () {

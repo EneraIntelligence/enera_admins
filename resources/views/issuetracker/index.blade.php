@@ -39,7 +39,6 @@
             <div class="md-card">
                 <div class="md-card-content">
                     <div class="uk-overflow-container uk-margin-bottom">
-                        {!! Form::open([]) !!}
                         <table class="uk-table uk-table-align-vertical uk-table-nowrap tablesorter tablesorter-altair"
                                id="ts_issues">
                             <thead>
@@ -112,7 +111,29 @@
     <script>
         $(document).ready(function () {
             $('#cerrar').click(function () {
-                $('.issue:checked').each
+
+                var modal = UIkit.modal.blockUI('<div class="uk-text-center">Cerrando Issues...<br/>' +
+                        '<img class="uk-margin-top" src="/assets/img/spinners/spinner.gif" alt=""></div>');
+
+                var issues = [];
+                $('.issue:checked').each(function () {
+                    var $this = $(this);
+                    issues.push($this.val());
+                });
+                $.ajax({
+                    method: "POST",
+                    url: "{!! route('issuetracker::close_list') !!}",
+                    data: {issues: issues}
+                }).done(function (resp) {
+                    if (resp.ok) {
+                        location.reload();
+                    } else {
+                        modal.hide();
+                        UIkit.modal.alert('<p>Enera Admins</p><pre>' + resp.msg + '</pre>');
+                    }
+                }).fail(function (resp) {
+                    //
+                });
             });
         });
     </script>

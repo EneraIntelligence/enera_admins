@@ -174,8 +174,8 @@ class CampaignsController extends Controller
                     '$match' => [
                         'campaign_id' => $id,
                         'interaction.loaded' => [
-                            '$gte' => new MongoDate(strtotime(Carbon::today()->subDays(30)->format('Y-m-d'))),
-                            '$lte' => new MongoDate(strtotime(Carbon::today()->subDays(0)->format('Y-m-d'))),
+                            '$gte' => new MongoDate(strtotime(Carbon::today()->subDays(30)->format('Y-m-d') . 'T00:00:00-0600')),
+                            '$lte' => new MongoDate(strtotime(Carbon::today()->subDays(0)->format('Y-m-d') . 'T00:00:00-0600')),
                         ]
                     ]
                 ],
@@ -183,7 +183,7 @@ class CampaignsController extends Controller
                     '$group' => [
                         '_id' => [
                             '$dateToString' => [
-                                'format' => '%H', 'date' => ['$subtract' => ['$created_at', 18000000]]
+                                'format' => '%H', 'date' => ['$subtract' => ['$created_at', 21600000]]
                             ]
                         ],
                         'cnt' => [
@@ -202,8 +202,8 @@ class CampaignsController extends Controller
                     '$match' => [
                         'campaign_id' => $id,
                         'interaction.completed' => [
-                            '$gte' => new MongoDate(strtotime(Carbon::today()->subDays(30)->format('Y-m-d'))),
-                            '$lte' => new MongoDate(strtotime(Carbon::today()->subDays(0)->format('Y-m-d'))),
+                            '$gte' => new MongoDate(strtotime(Carbon::today()->subDays(30)->format('Y-m-d') . 'T00:00:00-0600')),
+                            '$lte' => new MongoDate(strtotime(Carbon::today()->subDays(0)->format('Y-m-d') . 'T00:00:00-0600')),
                         ]
                     ]
                 ],
@@ -211,7 +211,7 @@ class CampaignsController extends Controller
                     '$group' => [
                         '_id' => [
                             '$dateToString' => [
-                                'format' => '%H', 'date' => ['$subtract' => ['$created_at', 18000000]]
+                                'format' => '%H', 'date' => ['$subtract' => ['$created_at', 21600000]]
                             ]
                         ],
                         'cnt' => [
@@ -225,16 +225,15 @@ class CampaignsController extends Controller
                     ]
                 ]
             ]);
-
 //            $IntHours = array_fill(0, 24, 0);
             $IntHours = array();
-            for($i=0;$i<10;$i++){
-                $IntHours['0'.$i]['loaded'] = 0;
-                $IntHours['0'.$i]['completed'] = 0;
+            for ($i = 0; $i < 10; $i++) {
+                $IntHours[$i]['loaded'] = 0;
+                $IntHours[$i]['completed'] = 0;
             }
-            for($i=10;$i<24;$i++){
-                $IntHours[''.$i]['loaded'] = 0;
-                $IntHours[''.$i]['completed'] = 0;
+            for ($i = 10; $i < 24; $i++) {
+                $IntHours[$i]['loaded'] = 0;
+                $IntHours[$i]['completed'] = 0;
             }
 
             foreach ($IntLoaded['result'] as $k => $v) {
