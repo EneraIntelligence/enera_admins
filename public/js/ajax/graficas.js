@@ -230,21 +230,22 @@ graficas = function () {
         });
         return chart3;
     };
-    this.intPerHour = function intPerHour(IntXDias, Load, complet, horas) {
-        var c3chart_area_stacked_id = '#intXHour';
-
+    this.intPerHour = function intPerHour(IntXDias) {
+        //console.log(IntXDias);
         var columns = [
             //['x'],
             ['visto'],
             ['completado']
         ];
         for (var k in IntXDias) {
+            //console.log(k);
+            //console.log(IntXDias[k]);
             //columns[0].push(k);
             columns[0].push(IntXDias[k]['loaded']);
             columns[1].push(IntXDias[k]['completed']);
         }
         //console.log(columns);
-        var chart = c3.generate({
+        var chart3 = c3.generate({
             bindto: '#intXHour',
             data: {
                 columns: columns,
