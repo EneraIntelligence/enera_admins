@@ -14,6 +14,23 @@
         list-style: none;
     }
 
+    a:hover:not(#link) {
+        cursor: default;
+        color: #1e88e5;
+    }
+
+    .azul {
+        color: #1e88e5;
+    }
+
+    #link {
+        color: black;
+    }
+
+    #link:hover {
+        color: #1e88e5;
+    }
+
     #button {
         position: fixed;
         bottom: 25px;
@@ -41,7 +58,8 @@
                             <div class="user_heading_avatar">
                                 <div>
                                     <div id="circle" style="max-width:98px;max-height:98px;margin:auto;">
-                                        <img class="svg" style="background-image:none!important;margin:-104px 1px;background:transparent;border:none;"
+                                        <img class="svg"
+                                             style="background-image:none!important;margin:-104px 1px;background:transparent;border:none;"
                                              src="{!! URL::asset('images/icons/'.
                                                                 CampaignStyle::getCampaignIcon( $cam->interaction['name']
                                                              ) ) !!}2.svg"
@@ -113,7 +131,8 @@
                                                             <span class="md-list-heading azul">Lugares</span>
                                                             @if($lugares!='global')
                                                                 @foreach($lugares as $branch)
-                                                                    <span> {{ Admins\Branche::find($branch)->name }} , </span>
+                                                                    <span> {{ Admins\Branche::find($branch)->name }}
+                                                                        , </span>
                                                                 @endforeach
                                                             @else
                                                                 <span> Global</span>
@@ -241,7 +260,7 @@
                                                                     <div class="uk-width-1-3 uk-padding-remove">
                                                                         <i class="material-icons md-36 "
                                                                            data-uk-tooltip="{pos:'top'}"
-                                                                           title="Completado" >done</i>
+                                                                           title="Completado">done</i>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -364,7 +383,6 @@
     {!! HTML::script('bower_components/ionrangeslider/js/ion.rangeSlider.min.js') !!}
     {!! HTML::script('bower_components/countUp.js/countUp.js') !!}
     {!! HTML::script('js/circle-progress.js') !!}
-    {!! HTML::style('css/show.css') !!}
 
             <!-- page specific plugins -->
     <!-- d3 -->
@@ -421,8 +439,8 @@
 
         var intLJson = '{!! json_encode($IntHours) !!}';
         var intLObj = JSON.parse(intLJson);
-        //        console.log(intLObj);
 
+        //                console.log(intLObj);
         var gra = grafica.genderAge(menObj, womenObj);
         var graf = grafica.intPerHour(intLObj);
     </script>
