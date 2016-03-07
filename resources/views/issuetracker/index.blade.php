@@ -111,6 +111,10 @@
     <script>
         $(document).ready(function () {
             $('#cerrar').click(function () {
+
+                var modal = UIkit.modal.blockUI('<div class="uk-text-center">Cerrando Issues...<br/>' +
+                        '<img class="uk-margin-top" src="/assets/img/spinners/spinner.gif" alt="">');
+
                 var issues = [];
                 $('.issue:checked').each(function () {
                     var $this = $(this);
@@ -119,18 +123,18 @@
                 $.ajax({
                     method: "POST",
                     url: "{!! route('issuetracker::close_list') !!}",
-                    data: {issues: issues, _token: '{!! csrf_token() !!}'}
+                    data: {issues: issues}
                 }).done(function (resp) {
                     if (resp.ok) {
                         location.reload();
                     } else {
+                        modal.hide();
                         alert(resp.msg);
                     }
                 }).fail(function (resp) {
                     //
                 });
             });
-        })
-        ;
+        });
     </script>
 @stop
