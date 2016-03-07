@@ -113,7 +113,7 @@
             $('#cerrar').click(function () {
 
                 var modal = UIkit.modal.blockUI('<div class="uk-text-center">Cerrando Issues...<br/>' +
-                        '<img class="uk-margin-top" src="/assets/img/spinners/spinner.gif" alt="">');
+                        '<img class="uk-margin-top" src="/assets/img/spinners/spinner.gif" alt=""></div>');
 
                 var issues = [];
                 $('.issue:checked').each(function () {
@@ -129,7 +129,7 @@
                         location.reload();
                     } else {
                         modal.hide();
-                        alert(resp.msg);
+                        UIkit.modal.alert('<p>Enera Admins</p><pre>' + resp.msg + '</pre>');
                     }
                 }).fail(function (resp) {
                     //
