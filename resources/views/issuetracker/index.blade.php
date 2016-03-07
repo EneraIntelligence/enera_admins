@@ -39,7 +39,6 @@
             <div class="md-card">
                 <div class="md-card-content">
                     <div class="uk-overflow-container uk-margin-bottom">
-                        {!! Form::open([]) !!}
                         <table class="uk-table uk-table-align-vertical uk-table-nowrap tablesorter tablesorter-altair"
                                id="ts_issues">
                             <thead>
@@ -112,8 +111,26 @@
     <script>
         $(document).ready(function () {
             $('#cerrar').click(function () {
-                $('.issue:checked').each
+                var issues = [];
+                $('.issue:checked').each(function () {
+                    var $this = $(this);
+                    issues.push($this.val());
+                });
+                $.ajax({
+                    method: "POST",
+                    url: "{!! route('issuetracker::close_list') !!}",
+                    data: {issues: issues, _token: '{!! csrf_token() !!}'}
+                }).done(function (resp) {
+                    if (resp.ok) {
+                        location.reload();
+                    } else {
+                        alert(resp.msg);
+                    }
+                }).fail(function (resp) {
+                    //
+                });
             });
-        });
+        })
+        ;
     </script>
 @stop

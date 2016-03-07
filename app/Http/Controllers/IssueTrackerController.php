@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 
 use Admins\Http\Requests;
 use Admins\Http\Controllers\Controller;
+use Input;
 use MongoDate;
+use Validator;
 
 class IssueTrackerController extends Controller
 {
@@ -71,6 +73,34 @@ class IssueTrackerController extends Controller
                 'n_msg' => '"Issue" no valido.'
             ]);
         }
+    }
+
+    public function close_list()
+    {
+        $validator = Validator::make(Input::all(), [
+            'issues' => 'array',
+        ]);
+        if ($validator->passes() && count(Input::get('issues')) > 0) {
+            foreach (Input::get('issues') as $id) {
+                $issue = Issue::find($id);
+                if ($issue) {
+                    $issue->status = 'closed';
+                    $issue->closed = new MongoDate();
+                    $issue->responsible_id = $issue->responsible_id == 0 ? auth()->user()->_id : $issue->responsible_id;
+                    $issue->save();
+                }
+            }
+            $response = [
+                'ok' => true,
+                'msg' => ''
+            ];
+        } else {
+            $response = [
+                'ok' => false,
+                'msg' => 'Selecciona los elmentos a cerrar.'
+            ];
+        }
+        return response()->json($response);
     }
 
     /**
