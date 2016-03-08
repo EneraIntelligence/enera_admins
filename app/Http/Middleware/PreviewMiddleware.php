@@ -23,7 +23,8 @@ class PreviewMiddleware
         $test = isset($user->routeAdmins) ? $user->routeAdmins : [];
         $accept = ["home", 'auth.logout', 'campaigns::show', 'edit.profile', 'campaigns::reject::campaign',
             'campaigns::active::campaign', 'campaigns::admin::campaign', 'issuetracker::show', 'issuetracker::show',
-            'admin::clients::show', 'network::show', 'network::search', 'issuetracker::close'];
+            'admin::clients::show', 'network::show', 'network::search', 'issuetracker::close',
+            'admin::clients::search'];
 
         if (!in_array($route, $accept)) {
             array_unshift($test, PreviewHelper::getNameRoute($route) . '/' . $route);
