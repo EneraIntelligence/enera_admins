@@ -41,7 +41,7 @@
                         <ul class="hierarchical_slide">
                             <li>
                                 <span class="md-card-list-item-date">Terminación</span>
-                                <span class="md-card-list-item-date">Loaded</span>
+                                <span class="md-card-list-item-date">Inicio</span>
                                 <div class="md-card-list-item-avatar-wrapper">
                                     <img src="assets/img/avatars/avatar_08_tn@2x.png" style="background: none;"
                                          class="md-card-list-item-avatar dense-image dense-ready" alt="">
@@ -65,7 +65,7 @@
                                     data-company="{!! $campaign->publishers_summary['client'] !!}"
                                     data-status="{!! CampaignStyle::getStatusValue( $campaign->status )  !!}"
                                     data-date="{!! $campaign->created_at !!}">
-                                    <span class="md-card-list-item-date">{{date('Y-m-d',$campaign->filters['date']['end']->sec)}}</span>
+                                    <span class="md-card-list-item-date">{{date('d-m-y',$campaign->filters['date']['end']->sec)}}</span>
                                     <span class="md-card-list-item-date"
                                           style="margin-right: 25px;">{{$campaign->logs()->where('interaction.loaded', 'exists', 'true')->count()}}</span>
                                     <div class="md-card-list-item-avatar-wrapper">
@@ -80,8 +80,8 @@
                                         <span>
                                             @if(isset($campaign->filters['week_days'] ))
                                                 @foreach($campaign->filters['week_days'] as $dia)
-                                                    <span class="uk-badge uk-badge-notification uk-badge-primary"
-                                                          style="background:#2196f3 !important; margin-right:10px ">{{ substr(trans('days.'.$dia), 0, 1) }}</span>
+                                                    <span class="uk-badge uk-badge-primary"
+                                                          style="background:#2196f3 !important;">{{ trans('days.siglas.'.$dia) }}</span>
                                                 @endforeach
                                             @else
                                                 no definido
@@ -94,23 +94,6 @@
                 </div>
                 <div class="uk-width-large-8-10 uk-container-center">
                     <div class="md-card-list" style="margin-top:35px ">
-                        <div class="md-card-list-header heading_list">Activas</div>
-                        <ul class="hierarchical_slide">
-                            <li>
-                                <span class="md-card-list-item-date">Terminación</span>
-                                <span class="md-card-list-item-date">Loaded</span>
-                                <div class="md-card-list-item-avatar-wrapper">
-                                    <img src="assets/img/avatars/avatar_08_tn@2x.png" style="background: none;"
-                                         class="md-card-list-item-avatar dense-image dense-ready" alt="">
-                                </div>
-                                <div class="md-card-list-item-sender">
-                                    <span>Nombre</span>
-                                </div>
-                                <div class="md-card-list-item-subject">
-                                    <span>Días de interacción</span>
-                                </div>
-                            </li>
-                        </ul>
                         <ul class=""
                             data-uk-grid="{controls: '#campaign-filter, #action-filter, #campaign-sort' }">
                             @foreach($campaignsA as $campaign)
@@ -122,7 +105,7 @@
                                     data-company="{!! $campaign->publishers_summary['client'] !!}"
                                     data-status="{!! CampaignStyle::getStatusValue( $campaign->status )  !!}"
                                     data-date="{!! $campaign->created_at !!}">
-                                    <span class="md-card-list-item-date">{{date('Y-m-d',$campaign->filters['date']['end']->sec)}}</span>
+                                    <span class="md-card-list-item-date">{{date('d-m-y',$campaign->filters['date']['end']->sec)}}</span>
                                     <span class="md-card-list-item-date"
                                           style="margin-right: 25px;">{{$campaign->logs()->where('interaction.loaded', 'exists', 'true')->count()}}</span>
                                     <div class="md-card-list-item-avatar-wrapper">
@@ -137,8 +120,8 @@
                                         <span>
                                             @if(isset($campaign->filters['week_days'] ))
                                                 @foreach($campaign->filters['week_days'] as $dia)
-                                                    <span class="uk-badge uk-badge-notification uk-badge-primary"
-                                                          style="background:#2196f3 !important; margin-right:10px ">{{ substr(trans('days.'.$dia), 0, 1) }}</span>
+                                                    <span class="uk-badge uk-badge-primary"
+                                                          style="background:#2196f3 !important;">{{ trans('days.siglas.'.$dia)}}</span>
                                                 @endforeach
                                             @else
                                                 no definido
