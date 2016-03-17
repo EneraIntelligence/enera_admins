@@ -11,26 +11,10 @@
                 <h1>Lista de redes</h1>
             </div>
             <div class="uk-width-medium-5-10">
-                <form action="{!! route('network::search') !!}" method="post"
-                      class="uk-form">
-                    <div class="uk-grid">
-                        <div class="uk-width-medium-5-6">
-                            <div class="md-input-wrapper"><input class="md-input" type="text"
-                                                                 id="contact_list_search"
-                                                                 name="search"><span
-                                        class="md-input-bar"></span></div>
-                        </div>
-                        <div class="uk-width-medium-1-6 uk-hidden-small">
-                            <button type="submit" class="header_main_search_btn uk-button-link"><i
-                                        class="md-icon material-icons">&#xE8B6;</i>
-                            </button>
-                        </div>
-                    </div>
-                    <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-                </form>
             </div>
             <div class="uk-width-medium-1-10 uk-hidden-small" style="padding-left: 0; text-align: right">
-                <a href="#" data-uk-tooltip="{pos:'bottom'}" title="Archive"><i
+                <a href="#" data-uk-tooltip="{pos:'bottom'}" title="Archive"
+                   data-uk-modal="{target:'#my-id'}"><i
                             class="md-icon material-icons">
                         &#xE149;</i></a>
                 <a href="#" data-uk-tooltip="{pos:'bottom'}" title="Print"><i class="md-icon material-icons">
@@ -64,16 +48,16 @@
                             @foreach($networks as $network)
                                 <li onclick="window.location.href='{!! route('network::show', [$network->id]) !!}'"
                                     style="cursor: pointer;">
-                                    <span class="md-card-list-item-date">{{ $network->branches->count() }}</span>
+                                    <span class="md-card-list-item-date">{{ $network->branches->count().' ' }} Nodo(s)</span>
                                     <div class="md-card-list-item-avatar-wrapper"><span
-                                                class="md-card-list-item-avatar md-bg-grey">hp</span>
+                                                class="md-card-list-item-avatar md-bg-green-400">@for($i = 0; $i < 2; $i++){{$network->name[$i]}}@endfor</span>
                                     </div>
                                     <div class="md-card-list-item-sender">
                                         <span>{{$network->name}}</span>
                                     </div>
                                     <div class="md-card-list-item-subject">
                                         <div class="md-card-list-item-sender-small">
-                                            <span>{{($network->client == null) ? 'Sin cliente' : $network->client->name }}</span>
+                                            <span>{{$network->name}}</span>
                                         </div>
                                         <span>{{($network->client == null) ? 'Sin cliente' : $network->client->name }}</span>
                                     </div>
@@ -85,8 +69,38 @@
             </div>
         </div>
     </div>
+
+
+    <div id="my-id" class="uk-modal">
+        <div class="uk-modal-dialog">
+            <a class="uk-modal-close uk-close"></a>
+            <form action="{!! route('network::search') !!}" class="uk-form-stacked" method="post" id="form"
+                  data-parsley-validate
+                  enctype="multipart/form-data">
+                <div class="uk-grid" data-uk-grid-margin>
+                    <div class="uk-width-medium-1">
+                        <div class="parsley-row">
+                            <input type="text" name="search" required class="md-input"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="uk-grid">
+                    <div class="uk-width-1-1">
+                        <button type="submit" class="md-btn md-btn-primary">Buscar</button>
+                    </div>
+                </div>
+                <div class="uk-grid">
+                    <div class="uk-width-1-1">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 @stop
 
 @section('scripts')
-
+    {!! HTML::script('bower_components/parsleyjs/dist/parsley.min.js') !!}
+    {!! HTML::script('bower_components/parsleyjs/src/i18n/es.js') !!}
+    {!! HTML::script('assets/js/pages/forms_validation.min.js') !!}
 @stop
