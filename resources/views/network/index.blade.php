@@ -5,35 +5,23 @@
 @endsection
 @section('content')
     <div id="page_heading" data-uk-sticky="{ top: 48, media: 960 }">
-        <div class="uk-grid">
-            <div class="uk-width-medium-1-10"></div>
-            <div class="uk-width-medium-2-10">
-                <h1>Lista de redes</h1>
-            </div>
-            <div class="uk-width-medium-5-10">
-            </div>
-            <div class="uk-width-medium-1-10 uk-hidden-small" style="padding-left: 0; text-align: right">
-                <a href="#" data-uk-tooltip="{pos:'bottom'}" title="Archive"
-                   data-uk-modal="{target:'#my-id'}"><i
-                            class="md-icon material-icons">
-                        &#xE149;</i></a>
-                <a href="#" data-uk-tooltip="{pos:'bottom'}" title="Print"><i class="md-icon material-icons">
-                        &#xE8AD;</i></a>
-                <div class="uk-button-dropdown" data-uk-dropdown>
-
-                    <!-- This is the button toggling the dropdown -->
-                    <i class="md-icon material-icons">&#xE5D4;</i>
-
-                    <!-- This is the dropdown -->
-                    <div class="uk-dropdown uk-dropdown-small">
-                        <ul class="uk-nav uk-nav-dropdown">
-                            <li><a href="">Action</a></li>
-                            <li><a href="">Other Action</a></li>
-                        </ul>
-                    </div>
+        <div class="heading_actions" style="margin-right: 8%">
+            <a href="javascript:void(0) " data-uk-tooltip="{pos:'bottom'}" title="Search"
+               data-uk-modal="{target:'#my-id'}"><i class="material-icons">&#xE8B6;</i></a>
+            <a href="#" data-uk-tooltip="{pos:'bottom'}" title="Print"><i class="md-icon material-icons">
+                    &#xE8AD;</i></a>
+            <div data-uk-dropdown>
+                <i class="md-icon material-icons">&#xE5D4;</i>
+                <div class="uk-dropdown uk-dropdown-small">
+                    <ul class="uk-nav">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Other Action</a></li>
+                        <li><a href="#">Other Action</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
+        <h1 style="width: 80%;margin: auto;">Redes</h1>
     </div>
     <div id="page_content">
         <div id="page_content_inner">

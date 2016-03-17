@@ -5,35 +5,12 @@
 @endsection
 @section('content')
     <div id="page_heading" data-uk-sticky="{ top: 48, media: 960 }">
-
-        <!-- <form action="{!! route('admin::clients::search') !!}" method="post"
-                  class="uk-form">
-                <div class="uk-grid">
-                    <div class="uk-width-medium-2-3">
-                        <div class="md-input-wrapper"><label for="contact_list_search">Encontrar
-                                usuario</label><input class="md-input" type="text"
-                                                      id="contact_list_search"
-                                                      name="search"><span
-                                    class="md-input-bar"></span></div>
-                    </div>
-                    <div class="uk-width-medium-1-3">
-                        <button type="submit" class="header_main_search_btn uk-button-link"><i
-                                    class="md-icon material-icons">&#xE8B6;</i>
-                        </button>
-                    </div>
-                </div>
-                <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-            </form>
-            <a href="#" data-uk-tooltip="{pos:'bottom'}" title="Archive"><i class="md-icon material-icons"
-                                                                            style="position: relative;
-  transform: translateY(-40%);">
-                    &#xE149;</i></a>
-            <a href="#" data-uk-tooltip="{pos:'bottom'}" title="Print"><i class="md-icon material-icons"
-                                                                          style="position: relative;
-  transform: translateY(-40%);">
+        <div class="heading_actions" style="margin-right: 8%">
+            <a href="javascript:void(0) " data-uk-tooltip="{pos:'bottom'}" title="Search"
+               data-uk-modal="{target:'#my-id'}"><i class="material-icons">&#xE8B6;</i></a>
+            <a href="#" data-uk-tooltip="{pos:'bottom'}" title="Print"><i class="md-icon material-icons">
                     &#xE8AD;</i></a>
-            <div data-uk-dropdown style="position: relative;
-  transform: translateY(-40%);">
+            <div data-uk-dropdown>
                 <i class="md-icon material-icons">&#xE5D4;</i>
                 <div class="uk-dropdown uk-dropdown-small">
                     <ul class="uk-nav">
@@ -42,76 +19,10 @@
                         <li><a href="#">Other Action</a></li>
                     </ul>
                 </div>
-            </div> -->
-        <div class="uk-grid">
-            <div class="uk-width-medium-1-10"></div>
-            <div class="uk-width-medium-2-10">
-                <h1>Lista de Clietes</h1>
             </div>
-            <div class="uk-width-medium-5-10">
-                <form action="{!! route('admin::clients::search') !!}" method="post"
-                      class="uk-form">
-                    <div class="uk-grid">
-                        <div class="uk-width-medium-5-6">
-                            <div class="md-input-wrapper"><input class="md-input" type="text"
-                                                          id="contact_list_search"
-                                                          name="search"><span
-                                        class="md-input-bar"></span></div>
-                        </div>
-                        <div class="uk-width-medium-1-6 uk-hidden-small">
-                            <button type="submit" class="header_main_search_btn uk-button-link"><i
-                                        class="md-icon material-icons">&#xE8B6;</i>
-                            </button>
-                        </div>
-                    </div>
-                    <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-                </form>
-            </div>
-            <div class="uk-width-medium-1-10 uk-hidden-small">
-                <a href="#" data-uk-tooltip="{pos:'bottom'}" title="Archive"><i
-                            class="md-icon material-icons">
-                        &#xE149;</i></a>
-                <a href="#" data-uk-tooltip="{pos:'bottom'}" title="Print"><i class="md-icon material-icons">
-                        &#xE8AD;</i></a>
-                <div class="uk-button-dropdown" data-uk-dropdown>
-
-                    <!-- This is the button toggling the dropdown -->
-                    <i class="md-icon material-icons">&#xE5D4;</i>
-
-                    <!-- This is the dropdown -->
-                    <div class="uk-dropdown uk-dropdown-small">
-                        <ul class="uk-nav uk-nav-dropdown">
-                            <li><a href="">Action</a></li>
-                            <li><a href="">Other Action</a></li>
-                        </ul>
-                    </div>
-
-                </div>
-            </div>
-
         </div>
+        <h1 style="width: 80%;margin: auto;">Clientes</h1>
     </div>
-
-
-    {{-- <div id="top_bar">
-         <div class="md-top-bar">
-             <div class="uk-width-large-8-10 uk-container-center">
-                 <div class="uk-clearfix">
-                     <div class="md-top-bar-actions-left">
-                         <div class="md-top-bar-checkbox">
-                             <input type="checkbox" name="mailbox_select_all" id="mailbox_select_all" data-md-icheck />
-                         </div>
-                     </div>
-                     <div class="md-top-bar-actions-right">
-                         <div class="md-top-bar-icons">
-                             <i id="mailbox_list_split" class=" md-icon material-icons">&#xE8EE;</i>
-                             <i id="mailbox_list_combined" class="md-icon material-icons">&#xE8F2;</i>
-                         </div>
-                     </div>
-                 </div>
-             </div>
-         </div>
-     </div>--}}
     <div id="page_content">
         <div id="page_content_inner">
 
@@ -125,7 +36,7 @@
                             @foreach($clients as $client)
                                 <li onclick="window.location.href='{!! route('admin::clients::show', [$client->id]) !!}'"
                                     style="cursor: pointer;">
-                                    <span class="md-card-list-item-date">{{ $client->administrators()->count() }}</span>
+                                    <span class="md-card-list-item-date">{{ $client->administrators()->count(). ' Usuario(s)' }}</span>
                                     <div class="md-card-list-item-avatar-wrapper"><span
                                                 class="md-card-list-item-avatar md-bg-grey">hp</span>
                                     </div>
@@ -142,12 +53,38 @@
                             @endforeach
                         </ul>
                     </div>
-                    {{--aqui termina cada categoria--}}
                 </div>
             </div>
-
         </div>
     </div>
+
+    <!-- This is the modal -->
+    <div id="my-id" class="uk-modal">
+        <div class="uk-modal-dialog">
+            <form action="{!! route('campaigns::search::campaign') !!}" class="uk-form-stacked" method="post" id="form"
+                  data-parsley-validate
+                  enctype="multipart/form-data">
+                <div class="uk-grid" data-uk-grid-margin>
+                    <div class="uk-width-medium-1">
+                        <div class="parsley-row">
+                            <input type="text" name="search" required class="md-input"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="uk-grid">
+                    <div class="uk-width-1-1">
+                        <button type="submit" class="md-btn md-btn-primary">Buscar</button>
+                    </div>
+                </div>
+                <div class="uk-grid">
+                    <div class="uk-width-1-1">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
 
     {{--modal para editar un correo--}}
     {{--<div class="md-fab-wrapper">
