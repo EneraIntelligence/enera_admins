@@ -21,6 +21,8 @@ Route::group(['middleware' => ['auth', 'guardian', 'preview']], function () {
         Route::get('/admin/{id}', ['as' => 'admin::campaign', 'uses' => 'CampaignsController@admin']);
         Route::get('/active/{id}', ['as' => 'active::campaign', 'uses' => 'CampaignsController@active']);
         Route::match(['get', 'post'], '/reject', ['as' => 'reject::campaign', 'uses' => 'CampaignsController@reject']);
+//        Route::get('/search', ['as' => 'search::campaign', 'uses' => 'CampaignsController@search']);
+        Route::match(['get', 'post'], '/search', ['as' => 'search::campaign', 'uses' => 'CampaignsController@search']);
     });
 
     Route::group(['prefix' => 'profile', 'as' => 'profile::'], function () {

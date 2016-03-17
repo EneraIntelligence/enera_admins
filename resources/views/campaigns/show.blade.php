@@ -379,9 +379,13 @@
             <!-- slider script -->
     {{--{!! HTML::script('js/preview_helper.js') !!}--}}
 
+    {!! HTML::script('bower_components/parsleyjs/dist/parsley.min.js') !!}
+    {!! HTML::script('bower_components/parsleyjs/src/i18n/es.js') !!}
+    {!! HTML::script('assets/js/pages/forms_validation.min.js') !!}
     {!! HTML::script('bower_components/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js') !!}
     {!! HTML::script('bower_components/countUp.js/countUp.js') !!}
     {!! HTML::script('js/circle-progress.js') !!}
+
 
             <!-- page specific plugins -->
     <!-- d3 -->

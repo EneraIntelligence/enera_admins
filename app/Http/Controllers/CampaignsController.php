@@ -358,5 +358,11 @@ class CampaignsController extends Controller
 
     }
 
+    public function search()
+    {
+        $campaign = Campaign::where('status','<>','filed')->where('name', 'like', '%'.Input::get('search').'%')->latest()->get();
+        return view('campaigns.search', ['campaigns' => $campaign]);
+    }
+
 
 }
