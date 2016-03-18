@@ -36,7 +36,8 @@
                             @foreach($clients as $client)
                                 <li onclick="window.location.href='{!! route('admin::clients::show', [$client->id]) !!}'"
                                     style="cursor: pointer;">
-                                    <span class="md-card-list-item-date">{{ $client->administrators()->count(). ' Usuario(s)' }}</span>
+                                    <span class="md-card-list-item-date">{{($client->administrators()->count() > 1 ) ?
+                                    $client->administrators()->count().' Usuarios' : $client->administrators()->count().' Usuario' }}</span>
                                     <div class="md-card-list-item-avatar-wrapper"><span
                                                 class="md-card-list-item-avatar md-bg-grey">hp</span>
                                     </div>
