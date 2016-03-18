@@ -288,8 +288,10 @@
                                                 <div class="md-card">
                                                     <div id="graficas" class="md-card-content">
                                                         <h3 class="heading_a uk-margin-bottom">Analiticos</h3>
-                                                        <div id='chart5'
-                                                             class="uk-width-large-1-1 uk-margin-right"></div>
+                                                        @if($cam->interaction['name'] == 'survey')
+                                                            <div id='chart5'
+                                                                 class="uk-width-large-1-1 uk-margin-right"></div>
+                                                        @endif
                                                         <div id='intXHour'
                                                              class="uk-width-large-1-1 uk-margin-right"></div>
                                                         <h3 class="md-hr" style="margin: 10px;"></h3>
@@ -457,7 +459,7 @@
                 columns: [
                     ['data1', 100, 400, 150, 250],
                     ['data2', 100, 400, 150, 250],
-                    ['data3', 100, 400, 0  , 250],
+                    ['data3', 100, 400, 0, 250],
                     ['data4', 140, 500, 100, 200]
                 ],
                 type: 'bar',
@@ -474,14 +476,20 @@
                 rotated: true,
                 x: {
                     tick: {
-                        format: function (x) { return 'pregunta '+ x; }
+                        format: function (x) {
+                            return 'pregunta ' + x;
+                        }
                     }
                 }
             },
             tooltip: {
                 format: {
-                    name: function (name, ratio, id, index) { return name; },
-                    title: function (x) { return 'Pregunta ' + x; }
+                    name: function (name, ratio, id, index) {
+                        return name;
+                    },
+                    title: function (x) {
+                        return 'Pregunta ' + x;
+                    }
                 }
             }
         });
