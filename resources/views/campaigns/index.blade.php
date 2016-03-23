@@ -210,9 +210,9 @@
 
 @section('scripts')
 
-    {!! HTML::script('bower_components/parsleyjs/dist/parsley.min.js') !!}
+{{--    {!! HTML::script('bower_components/parsleyjs/dist/parsley.min.js') !!}
     {!! HTML::script('bower_components/parsleyjs/src/i18n/es.js') !!}
-    {!! HTML::script('assets/js/pages/forms_validation.min.js') !!}
+    {!! HTML::script('assets/js/pages/forms_validation.min.js') !!}--}}
     <script>
         $("li.nav").css('width', '100%');
     </script>
