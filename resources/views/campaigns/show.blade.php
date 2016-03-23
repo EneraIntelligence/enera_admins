@@ -383,7 +383,7 @@
             <!-- slider script -->
     {{--{!! HTML::script('js/preview_helper.js') !!}--}}
 
-    {!! HTML::script('bower_components/parsleyjs/dist/parsley.min.js') !!}
+    {{--{!! HTML::script('bower_components/parsleyjs/dist/parsley.min.js') !!}--}}
     {!! HTML::script('bower_components/parsleyjs/src/i18n/es.js') !!}
     {!! HTML::script('assets/js/pages/forms_validation.min.js') !!}
     {!! HTML::script('bower_components/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js') !!}
@@ -446,8 +446,8 @@
 
         var intLJson = '{!! json_encode($IntHours) !!}';
         var intLObj = JSON.parse(intLJson);
-
-        //                        console.log(intLObj);
+        console.log('horas');
+        console.log(intLObj);
         var gra = grafica.genderAge(menObj, womenObj);
         var graf = grafica.intPerHour(intLObj);
 

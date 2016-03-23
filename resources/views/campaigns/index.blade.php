@@ -46,7 +46,7 @@
                                     <img src="assets/img/avatars/avatar_08_tn@2x.png" style="background: none;"
                                          class="md-card-list-item-avatar dense-image dense-ready" alt="">
                                 </div>
-                                <div class="md-card-list-item-sender">
+                                <div class="md-card-list-item-sender" style="display:block;">
                                     <span>Nombre</span>
                                 </div>
                                 <div class="md-card-list-item-subject">
@@ -85,7 +85,7 @@
                                                 @else
                                                     <span class="uk-badge uk-badge-primary"
                                                           style="background:gray !important;">{{ trans('days.siglas.'.$i)}}</span>
-                                            @endif
+                                        @endif
                                         @endfor
                                     </div>
                                 </li>
@@ -210,9 +210,9 @@
 
 @section('scripts')
 
-{{--    {!! HTML::script('bower_components/parsleyjs/dist/parsley.min.js') !!}
-    {!! HTML::script('bower_components/parsleyjs/src/i18n/es.js') !!}
-    {!! HTML::script('assets/js/pages/forms_validation.min.js') !!}--}}
+    {{--    {!! HTML::script('bower_components/parsleyjs/dist/parsley.min.js') !!}
+        {!! HTML::script('bower_components/parsleyjs/src/i18n/es.js') !!}
+        {!! HTML::script('assets/js/pages/forms_validation.min.js') !!}--}}
     <script>
         $("li.nav").css('width', '100%');
     </script>
