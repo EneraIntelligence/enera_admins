@@ -115,7 +115,7 @@
                                              style="background: {!! CampaignStyle::getStatusColor($campaign->status) !!};border: solid 1px {!! CampaignStyle::getStatusColor($campaign->status) !!};"
                                              class="md-card-list-item-avatar dense-image dense-ready" alt="">
                                     </div>
-                                    <div class="md-card-list-item-sender">
+                                    <div class="md-card-list-item-sender" style="display: block;">
                                         <span>{{$campaign->name}}</span>
                                     </div>
                                     <div class="md-card-list-item-subject">
