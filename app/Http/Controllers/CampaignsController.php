@@ -236,7 +236,6 @@ class CampaignsController extends Controller
                 $IntHours[$i]['loaded'] = 0;
                 $IntHours[$i]['completed'] = 0;
             }
-            var_dump($IntHours);
 
             foreach ($IntLoaded['result'] as $k => $v) {
 //                echo $v['_id'].'- <br>';
@@ -246,7 +245,7 @@ class CampaignsController extends Controller
             foreach ($IntCompleted['result'] as $k => $v) {
                 $IntHours[$v['_id']]['completed'] = $v['cnt'];
             }
-            dd($IntHours);
+
             $unique_users_query = $collection->aggregate([
                 [
                     '$match' => [
