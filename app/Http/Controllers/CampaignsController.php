@@ -225,6 +225,7 @@ class CampaignsController extends Controller
                     ]
                 ]
             ]);
+
 //            $IntHours = array_fill(0, 24, 0);
             $IntHours = array();
             for ($i = 0; $i < 10; $i++) {

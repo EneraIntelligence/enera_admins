@@ -234,8 +234,8 @@ graficas = function () {
         //console.log(IntXDias);
         var columns = [
             //['x'],
-            ['visto'],
-            ['completado']
+            ['Visto'],
+            ['Completado']
         ];
         for (var k in IntXDias) {
             //console.log(k);
@@ -248,13 +248,17 @@ graficas = function () {
         var chart3 = c3.generate({
             bindto: '#intXHour',
             data: {
+                //x: 'x',
                 columns: columns,
                 types: {
-                    visto: 'area',
-                    completado: 'area'
-                }
+                    Visto: 'area',
+                    Completado: 'area'
+                },
+                groups: [['Visto', 'Completado']]
             },
-            groups: [['Visto', 'Completado']]
+            color: {
+                pattern: ['#1565C0', '#727272']
+            }
         });
     }
 };

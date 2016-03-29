@@ -383,15 +383,15 @@
             <!-- slider script -->
     {{--{!! HTML::script('js/preview_helper.js') !!}--}}
 
-    {{--{!! HTML::script('bower_components/parsleyjs/dist/parsley.min.js') !!}--}}
-    {!! HTML::script('bower_components/parsleyjs/src/i18n/es.js') !!}
-    {!! HTML::script('assets/js/pages/forms_validation.min.js') !!}
     {!! HTML::script('bower_components/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js') !!}
+    {!! HTML::script('bower_components/ionrangeslider/js/ion.rangeSlider.min.js') !!}
     {!! HTML::script('bower_components/countUp.js/countUp.js') !!}
     {!! HTML::script('js/circle-progress.js') !!}
 
-
-            <!-- page specific plugins -->
+            <!-- links para que funcione la grafica demografica  -->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <!-- page specific plugins -->
     <!-- d3 -->
     {{--<script src="bower_components/d3/d3.min.js"></script>--}}
     {!! HTML::script('bower_components/d3/d3.min.js') !!}
@@ -401,10 +401,8 @@
     {!! HTML::script('bower_components/c3js-chart/c3.min.js') !!}
             <!-- chartist -->
     {{--<script src="bower_components/chartist/dist/chartist.min.js"></script>--}}
-            <!-- links para que funcione la grafica demografica  -->
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <!--  charts functions -->
+
+            <!--  charts functions -->
     {{--<script src="assets/js/pages/plugins_charts.min.js"></script>--}}
 
     {!! HTML::script('js/ajax/graficas.js') !!}
