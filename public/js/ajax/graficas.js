@@ -231,7 +231,7 @@ graficas = function () {
         return chart3;
     };
     this.intPerHour = function intPerHour(IntXDias) {
-        //console.log(IntXDias);
+        console.log(IntXDias);
         var columns = [
             //['x'],
             ['Visto'],
