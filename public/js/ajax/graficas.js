@@ -238,8 +238,8 @@ graficas = function () {
             ['Completado']
         ];
         for (var k in IntXDias) {
-            //console.log(k);
-            //console.log(IntXDias[k]);
+            console.log(k);
+            console.log(IntXDias[k]);
             //columns[0].push(k);
             columns[0].push(IntXDias[k]['loaded']);
             columns[1].push(IntXDias[k]['completed']);
