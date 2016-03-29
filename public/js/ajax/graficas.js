@@ -244,7 +244,7 @@ graficas = function () {
             columns[0].push(IntXDias[k]['loaded']);
             columns[1].push(IntXDias[k]['completed']);
         }
-        //console.log(columns);
+        console.log(columns);
         var chart3 = c3.generate({
             bindto: '#intXHour',
             data: {
