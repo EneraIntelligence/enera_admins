@@ -229,8 +229,8 @@ class CampaignsController extends Controller
 //            $IntHours = array_fill(0, 24, 0);
             $IntHours = array();
             for ($i = 0; $i < 10; $i++) {
-                $IntHours[$i]['loaded'] = 0;
-                $IntHours[$i]['completed'] = 0;
+                $IntHours[sprintf("%02u", $i)]['loaded'] = 0;
+                $IntHours[sprintf("%02u", $i)]['completed'] = 0;
             }
             for ($i = 10; $i < 24; $i++) {
                 $IntHours[$i]['loaded'] = 0;
