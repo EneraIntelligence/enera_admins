@@ -253,12 +253,9 @@ graficas = function () {
                 types: {
                     Visto: 'area',
                     Completado: 'area'
-                },
-                groups: [['Visto', 'Completado']]
+                }
             },
-            color: {
-                pattern: ['#1565C0', '#727272']
-            }
+            groups: [['Visto', 'Completado']]
         });
     }
 };
