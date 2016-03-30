@@ -6,16 +6,15 @@
 @section('content')
     <div id="page_heading" data-uk-sticky="{ top: 48, media: 960 }">
         <div class="heading_actions" style="margin-right: 8%">
-            <a href="javascript:void(0) " data-uk-tooltip="{pos:'bottom'}" title="Search"
+            <a href="javascript:void(0) " data-uk-tooltip="{pos:'bottom'}" title="Buscar"
                data-uk-modal="{target:'#my-id'}"><i class="material-icons">&#xE8B6;</i></a>
-            <a href="#" data-uk-tooltip="{pos:'bottom'}" title="Print"><i class="md-icon material-icons">
-                    &#xE8AD;</i></a>
+            {{--<a href="#" data-uk-tooltip="{pos:'bottom'}" title="Print"><i class="md-icon material-icons">--}}
+                    {{--&#xE8AD;</i></a>--}}
             <div data-uk-dropdown>
                 <i class="md-icon material-icons">&#xE5D4;</i>
                 <div class="uk-dropdown uk-dropdown-small">
                     <ul class="uk-nav">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Other Action</a></li>
+                        <li><a href="#">Imprimir</a></li>
                         <li><a href="#">Other Action</a></li>
                     </ul>
                 </div>

@@ -288,10 +288,12 @@
                                                 <div class="md-card">
                                                     <div id="graficas" class="md-card-content">
                                                         <h3 class="heading_a uk-margin-bottom">Analiticos</h3>
-                                                        @if($cam->interaction['name'] == 'survey')
-                                                            <div id='chart5'
-                                                                 class="uk-width-large-1-1 uk-margin-right"></div>
-                                                        @endif
+                                                        {{--@foreach($cam->content['survey'] as $survey)--}}
+                                                            {{--@if($cam->interaction['name'] == 'survey')--}}
+                                                                {{--<div id='chart5'--}}
+                                                                     {{--class="uk-width-large-1-1 uk-margin-right"></div>--}}
+                                                            {{--@endif--}}
+                                                        {{--@endforeach--}}
                                                         <div id='intXHour'
                                                              class="uk-width-large-1-1 uk-margin-right"></div>
                                                         <h3 class="md-hr" style="margin: 10px;"></h3>
@@ -451,22 +453,22 @@
 
 
         //Grafica para desplegar resultados de Encuestas
+        var pregunta = ['Pregunata1', 'Pregunata2', 'Pregunata3', 'Pregunata4'];
         var chart5 = c3.generate({
+
             bindto: '#chart5',
             data: {
                 columns: [
-                    ['data1', 100, 400, 150, 250],
-                    ['data2', 100, 400, 150, 250],
-                    ['data3', 100, 400, 0, 250],
-                    ['data4', 140, 500, 100, 200]
+                    ['Respuesta2', 100],
+                    ['Respuesta1', 100],
+                    ['Respuesta3', 100],
+                    ['Respuesta4', 140]
                 ],
                 type: 'bar',
-                groups: [['data1', 'data2', 'data3', 'data4']]
+                groups: [['Respuesta1', 'Respuesta2', 'Respuesta3', 'Respuesta4']]
             },
             bar: {
-                width: {
-                    ratio: 0.5 // this makes bar width 50% of length between ticks
-                }
+                width: 20
                 // or
                 //width: 100 // this makes bar width 100px
             },
@@ -475,9 +477,19 @@
                 x: {
                     tick: {
                         format: function (x) {
-                            return 'pregunta ' + x;
+                            return 'Pregunta ' + (x + 1);
                         }
+                    },
+                    x: {
+                        show: false
+                    },
+                    padding: {
+                        left: 0,
+                        right: 0
                     }
+                },
+                y: {
+                    show: false
                 }
             },
             tooltip: {
@@ -486,11 +498,75 @@
                         return name;
                     },
                     title: function (x) {
-                        return 'Pregunta ' + x;
-                    }
+                        return pregunta[x] ;
+                    },
+                    grouped: false
                 }
+            },
+            legend: {
+                show: false
+            },
+            size: {
+                height: 30
             }
         });
+
+//        var chart6 = c3.generate({
+//
+//            bindto: '#chart6',
+//            data: {
+//                columns: [
+//                    ['Respuesta2', 100],
+//                    ['Respuesta1', 100],
+//                    ['Respuesta4', 140]
+//                ],
+//                type: 'bar',
+//                groups: [['Respuesta1', 'Respuesta2', 'Respuesta3', 'Respuesta4']]
+//            },
+//            bar: {
+//                width: 20
+//                // or
+//                //width: 100 // this makes bar width 100px
+//            },
+//            axis: {
+//                rotated: true,
+//                x: {
+//                    tick: {
+//                        format: function (x) {
+//                            return 'Pregunta ' + (x + 1);
+//                        }
+//                    },
+//                    x: {
+//                        show: false
+//                    },
+//                    padding: {
+//                        left: 0,
+//                        right: 0
+//                    }
+//                },
+//                y: {
+//                    show: false
+//                }
+//            },
+//            tooltip: {
+//                format: {
+//                    name: function (name, ratio, id, index) {
+//                        return name;
+//                    },
+//                    title: function (x) {
+//                        return pregunta[x] ;
+//                    },
+//                    grouped: false
+//                }
+//            },
+//            legend: {
+//                show: false
+//            },
+//            size: {
+//                height: 30
+//            }
+//        });
+
 
 
     </script>
