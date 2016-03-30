@@ -305,8 +305,7 @@ class CampaignsController extends Controller
                 'women' => $female,
                 'porcentaje' => $porcentaje,
                 'IntHours' => $IntHours,
-                'unique_users' => $unique_users,
-                'chart5' => $chart5
+                'unique_users' => $unique_users
             ]);
         } else {
             return redirect()->route('campaigns::index')->with('data', 'errorCamp');
