@@ -61,7 +61,7 @@
     <!-- This is the modal -->
     <div id="my-id" class="uk-modal">
         <div class="uk-modal-dialog">
-            <h3 class="uk-panel-title">Buscar...</h3>
+            <h3 class="uk-panel-title">Buscar....</h3>
             <form action="{!! route('campaigns::search::campaign') !!}" class="uk-form-stacked" method="post" id="form"
                   data-parsley-validate
                   enctype="multipart/form-data">
