@@ -229,8 +229,8 @@ class CampaignsController extends Controller
 //            $IntHours = array_fill(0, 24, 0);
             $IntHours = array();
             for ($i = 0; $i < 10; $i++) {
-                $IntHours[sprintf("%02u", $i)]['loaded'] = 0;
-                $IntHours[sprintf("%02u", $i)]['completed'] = 0;
+                $IntHours[$i]['loaded'] = 0;
+                $IntHours[$i]['completed'] = 0;
             }
             for ($i = 10; $i < 24; $i++) {
                 $IntHours[$i]['loaded'] = 0;
@@ -239,13 +239,13 @@ class CampaignsController extends Controller
 
             foreach ($IntLoaded['result'] as $k => $v) {
 //                echo $v['_id'].'- <br>';
-                $IntHours[$v['_id']]['loaded'] = $v['cnt'];
+                $IntHours[intval($v['_id'])]['loaded'] = $v['cnt'];
             }
 
             foreach ($IntCompleted['result'] as $k => $v) {
-                $IntHours[$v['_id']]['completed'] = $v['cnt'];
+                $IntHours[intval($v['_id'])]['completed'] = $v['cnt'];
             }
-
+//            dd($IntHours);
             $unique_users_query = $collection->aggregate([
                 [
                     '$match' => [
@@ -361,7 +361,7 @@ class CampaignsController extends Controller
 
     public function search()
     {
-        $campaign = Campaign::where('status','<>','filed')->where('name', 'like', '%'.Input::get('search').'%')->latest()->get();
+        $campaign = Campaign::where('status', '<>', 'filed')->where('name', 'like', '%' . Input::get('search') . '%')->latest()->get();
         return view('campaigns.search', ['campaigns' => $campaign]);
     }
 
