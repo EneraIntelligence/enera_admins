@@ -231,16 +231,13 @@ graficas = function () {
         return chart3;
     };
     this.intPerHour = function intPerHour(IntXDias) {
-        console.log(IntXDias);
+
         var columns = [
             //['x'],
             ['Visto'],
             ['Completado']
         ];
         for (var k in IntXDias) {
-            console.log(k);
-            console.log(IntXDias[k]);
-            //columns[0].push(k);
             columns[0].push(IntXDias[k]['loaded']);
             columns[1].push(IntXDias[k]['completed']);
         }
@@ -253,12 +250,9 @@ graficas = function () {
                 types: {
                     Visto: 'area',
                     Completado: 'area'
-                },
-                groups: [['Visto', 'Completado']]
+                }
             },
-            color: {
-                pattern: ['#1565C0', '#727272']
-            }
+            groups: [['Visto', 'Completado']]
         });
     }
 };
