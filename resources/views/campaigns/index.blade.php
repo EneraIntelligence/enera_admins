@@ -15,16 +15,15 @@
     <div id="page_content">
         <div id="page_heading" data-uk-sticky="{ top: 48, media: 960 }">
             <div class="heading_actions" style="margin-right: 8%">
-                <a href="javascript:void(0) " data-uk-tooltip="{pos:'bottom'}" title="Search"
+                <a href="javascript:void(0) " data-uk-tooltip="{pos:'bottom'}" title="Buscar"
                    data-uk-modal="{target:'#my-id'}"><i class="material-icons">&#xE8B6;</i></a>
-                <a href="#" data-uk-tooltip="{pos:'bottom'}" title="Print"><i class="md-icon material-icons">
-                        &#xE8AD;</i></a>
+                {{--<a href="#" data-uk-tooltip="{pos:'bottom'}" title="Print"><i class="md-icon material-icons">--}}
+                        {{--&#xE8AD;</i></a>--}}
                 <div data-uk-dropdown>
                     <i class="md-icon material-icons">&#xE5D4;</i>
                     <div class="uk-dropdown uk-dropdown-small">
                         <ul class="uk-nav">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Other Action</a></li>
+                            <li><a href="#">Imprimir</a></li>
                             <li><a href="#">Other Action</a></li>
                         </ul>
                     </div>
@@ -42,7 +41,7 @@
                             <li>
                                 <span class="md-card-list-item-date">Terminación</span>
                                 <span class="md-card-list-item-date" style="padding-right: 20px;">Inicio</span>
-                                <div class="md-card-list-item-avatar-wrapper">
+                                <div class="md-card-list-item-avatar-wrapper" style="padding: 0 8px 0 35px">
                                     <img src="assets/img/avatars/avatar_08_tn@2x.png" style="background: none;"
                                          class="md-card-list-item-avatar dense-image dense-ready" alt="">
                                 </div>
@@ -65,6 +64,9 @@
                                     data-company="{!! $campaign->publishers_summary['client'] !!}"
                                     data-status="{!! CampaignStyle::getStatusValue( $campaign->status )  !!}"
                                     data-date="{!! $campaign->created_at !!}">
+                                    <div class="md-card-list-item-select">
+                                        <input type="checkbox" data-md-icheck />
+                                    </div>
                                     <span class="md-card-list-item-date">{{date('d-M-y',$campaign->filters['date']['end']->sec)}}</span>
                                     <span class="md-card-list-item-date"
                                           style="margin-right: 25px;">{{date('d-M-y',$campaign->filters['date']['start']->sec)}}</span>
@@ -107,6 +109,9 @@
                                     data-company="{!! $campaign->publishers_summary['client'] !!}"
                                     data-status="{!! CampaignStyle::getStatusValue( $campaign->status )  !!}"
                                     data-date="{!! $campaign->created_at !!}">
+                                    <div class="md-card-list-item-select">
+                                        <input type="checkbox" data-md-icheck />
+                                    </div>
                                     <span class="md-card-list-item-date">{{date('d-M-y',$campaign->filters['date']['end']->sec)}}</span>
                                     <span class="md-card-list-item-date"
                                           style="padding-right: 30px;">{{date('d-M-y',$campaign->filters['date']['start']->sec)}}</span>
@@ -144,21 +149,27 @@
     <!-- This is the modal -->
     <div id="my-id" class="uk-modal">
         <div class="uk-modal-dialog">
+            <h3 class="uk-panel-title">Buscar...</h3>
             <form action="{!! route('campaigns::search::campaign') !!}" class="uk-form-stacked" method="post" id="form"
                   data-parsley-validate
                   enctype="multipart/form-data">
                 <div class="uk-grid" data-uk-grid-margin>
-                    <div class="uk-width-medium-1">
+                    <div class="uk-width-medium-2-3">
                         <div class="parsley-row">
                             <input type="text" name="search" required class="md-input"/>
                         </div>
                     </div>
-                </div>
-                <div class="uk-grid">
-                    <div class="uk-width-1-1">
-                        <button type="submit" class="md-btn md-btn-primary">Buscar</button>
+                    <div class="uk-width-medium-1-3" style="text-align: center;">
+                        <div class="parsley-row">
+                            <button type="submit" class="md-btn md-btn-primary">Buscar</button>
+                        </div>
                     </div>
                 </div>
+                {{--<div class="uk-grid">--}}
+                    {{--<div class="uk-width-1-1">--}}
+                        {{--<button type="submit" class="md-btn md-btn-primary">Buscar</button>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
                 <div class="uk-grid">
                     <div class="uk-width-1-1">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">

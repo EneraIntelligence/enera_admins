@@ -270,8 +270,33 @@ class CampaignsController extends Controller
             ])['result'];
             $unique_users = isset($unique_users_query[0]['cnt']) ? $unique_users_query[0]['cnt'] : 0;
 
-//            dd($campaign->branches);
             $lugares = in_array('all', $campaign->branches) ? 'global' : $campaign->branches;
+
+            $count = 0;
+            $chart5 = [];
+
+            foreach ($campaign->content['survey'] as $q) {
+                $survey = $collection->aggregate([
+                    [
+                        '$match' => [
+                            'campaign_id' => "56d711d2d4c6b6e8605e976f",
+                            'survey' => ['$exists' => true]
+                        ]
+                    ],
+                    [
+                        '$group' => [
+                            '_id' =>
+                                ['answer' => '$survey.q' . $count,
+                                 'gender' => '$user.gender'
+                                ],
+                            'cnt' => ['$sum' => 1]
+                        ]
+                    ]
+                ])['result'];
+                $count++;
+                array_push($chart5, [$survey, $q]);
+            }
+//            dd($survey);
 
             return view('campaigns.show', [
                 'cam' => $campaign,
@@ -281,6 +306,7 @@ class CampaignsController extends Controller
                 'porcentaje' => $porcentaje,
                 'IntHours' => $IntHours,
                 'unique_users' => $unique_users,
+                'chart5' => $chart5
             ]);
         } else {
             return redirect()->route('campaigns::index')->with('data', 'errorCamp');
@@ -361,7 +387,7 @@ class CampaignsController extends Controller
 
     public function search()
     {
-        $campaign = Campaign::where('status','<>','filed')->where('name', 'like', '%'.Input::get('search').'%')->latest()->get();
+        $campaign = Campaign::where('status', '<>', 'filed')->where('name', 'like', '%' . Input::get('search') . '%')->latest()->get();
         return view('campaigns.search', ['campaigns' => $campaign]);
     }
 

@@ -60,6 +60,17 @@ class CampaignStyleHelper
         'like' => 'like'
     );
 
+    private static $TYPE_ICON = array(
+
+        'trasporte' => '&#xE530;',
+        'hoteleria' => '&#xE53A;',
+        'sitios publico' => '&#xE54C;',
+        'tiendas' => '&#xE8CC;',
+        'resturantes/bar' => '&#xE556;',
+        'centro negocio' => '&#xE0AF;',
+        'agencias' => '&#xE2C7;',
+    );
+
 
     /**
      * @param $status
@@ -134,6 +145,14 @@ class CampaignStyleHelper
             $rgb .= (strlen($c) < 2) ? '0'.$c : $c;
         }
         return '#'.$rgb;
+    }
+
+    public static function getTypeIcon($typeIcon)
+    {
+        if(array_key_exists($typeIcon , self::$TYPE_ICON )){
+            return self::$TYPE_ICON[$typeIcon];
+        }
+        return '';
     }
 
 }
