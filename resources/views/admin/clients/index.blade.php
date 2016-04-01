@@ -61,21 +61,27 @@
     <!-- This is the modal -->
     <div id="my-id" class="uk-modal">
         <div class="uk-modal-dialog">
+            <h3 class="uk-panel-title">Buscar....</h3>
             <form action="{!! route('campaigns::search::campaign') !!}" class="uk-form-stacked" method="post" id="form"
                   data-parsley-validate
                   enctype="multipart/form-data">
                 <div class="uk-grid" data-uk-grid-margin>
-                    <div class="uk-width-medium-1">
+                    <div class="uk-width-medium-2-3">
                         <div class="parsley-row">
                             <input type="text" name="search" required class="md-input"/>
                         </div>
                     </div>
-                </div>
-                <div class="uk-grid">
-                    <div class="uk-width-1-1">
-                        <button type="submit" class="md-btn md-btn-primary">Buscar</button>
+                    <div class="uk-width-medium-1-3" style="text-align: center;">
+                        <div class="parsley-row">
+                            <button type="submit" class="md-btn md-btn-primary">Buscar</button>
+                        </div>
                     </div>
                 </div>
+                {{--<div class="uk-grid">--}}
+                    {{--<div class="uk-width-1-1">--}}
+                        {{--<button type="submit" class="md-btn md-btn-primary">Buscar</button>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
                 <div class="uk-grid">
                     <div class="uk-width-1-1">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
