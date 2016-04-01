@@ -106,7 +106,7 @@
                 <button type="submit" class="md-btn md-btn-primary md-btn-block md-btn-large">Entrar</button>
             </div>
             <div class="uk-margin-top">
-                {{--<a href="#" id="login_help_show" class="uk-float-right">Necesitas ayuda?</a>--}}
+                <a href="#" id="login_help_show" class="uk-float-right">Necesitas ayuda?</a>
                 <span class="icheck-inline">
                     <input type="checkbox" name="login_page_stay_signed" id="login_page_stay_signed" data-md-icheck/>
                     <label for="login_page_stay_signed" class="inline-label">Mantener sesión</label>
@@ -129,20 +129,31 @@
             <p>Si la contraseña sigue sin funcionar, es hora de <a href="#" id="password_reset_show">restablecer la
                     contraseña</a>.</p>
         </div>
-        <div class="md-card-content large-padding" id="login_password_reset" style="display: none">
+        <div class="md-card-content large-padding" id="login_password_reset" style="display: none;height: 315px">
             <button type="button"
                     class="uk-position-top-right uk-close uk-margin-right uk-margin-top back_to_login"></button>
-            <h2 class="heading_a uk-margin-large-bottom">Restablecer la contraseña</h2>
-
-            <form>
-                <div class="uk-form-row">
-                    <label for="login_email_reset">Email</label>
-                    <input class="md-input" type="text" id="login_email_reset" name="login_email_reset"/>
+            <h2 class="heading_a uk-margin-large-bottom" style="margin-bottom: 0px!important;">Restablecer la
+                contraseña</h2>
+            <div class="md-card-content large-padding" id="reset_msg" style="display: block">
+                {!! session('reset_msg') !!} <strong></strong>
+            </div>
+            {!! Form::open(['route'=>'auth.restore', 'class'=>'uk-form-stacked', 'id'=>'restore']) !!}
+            @if( Session::has('errors') )
+                <div style="text-align: center; color: red;">
+                    hubo un error al verificar el correo
                 </div>
-                <div class="uk-margin-medium-top">
-                    <a href="index.html" class="md-btn md-btn-primary md-btn-block">Restablecer</a>
-                </div>
-            </form>
+            @endif
+            <div class="uk-form-row">
+                <label for="reset_password_email">Email</label>
+                <input class="md-input" type="text" id="reset_password_email" name="reset_password_email"/>
+                @foreach($errors->get('reset_password_email') as $m)
+                    <div style="text-align: center; color: red;">{!! $m !!}</div>
+                @endforeach
+            </div>
+            <div class="uk-margin-medium-top">
+                <button type="submit" class="md-btn md-btn-primary md-btn-block md-btn-large">Restablecer</button>
+            </div>
+            {!! Form::close() !!}
         </div>
     </div>
 </div>
@@ -163,7 +174,27 @@
 {!! HTML::script('bower_components/parsleyjs/src/i18n/es.js') !!}
 {!! HTML::script('assets/js/pages/forms_validation.min.js') !!}
 
+<script>
+    $(document).ready(function () {
+        var restore = {!! $errors->get('reset_password_email')!=null? true : 'null'  !!}
 
+        if (restore) {
+//            console.log('true');
+            $("#login_password_reset").show();
+            $("#login_form").hide();
+            $("#create").hide();
+        }
+
+        var reset_f = '{!! session('reset_msg') !!}';
+        if (reset_f) {
+//            console.log('true');
+            $("#login_password_reset").show();
+            $("#login_form").hide();
+            $("#create").hide();
+        }
+
+    });
+</script>
 
 
 </body>
