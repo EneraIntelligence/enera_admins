@@ -56,6 +56,11 @@ Route::group(['middleware' => ['auth', 'guardian', 'preview']], function () {
 Route::group(['middleware' => 'auth.ready'], function () {
     Route::get('/login', ['as' => 'auth.index', 'uses' => 'AuthController@index']);
     Route::post('/login', ['as' => 'auth.login', 'uses' => 'AuthController@login']);
+    Route::post('/restore', ['as' => 'auth.restore', 'uses' => 'AuthController@restore']);  //ruta peticion recuperar contraseña
+    Route::get('/restore/password/{id}/{token}', ['as' => 'auth.reset', 'uses' => 'AuthController@verify']);  //ruta que valida el token de nueva contraseña
+    Route::get('/register/verify/{id}/{token}', ['as' => 'auth.verify', 'uses' => 'AuthController@verify']); //ruta que valida el correo
+    Route::get('/restore/password', ['as' => 'auth.newpassword', 'uses' => 'AuthController@newpassword']);     //vista para cambiar la contraseña
+    Route::post('/restore/password', ['as' => 'auth.newpass', 'uses' => 'AuthController@newpass']);
 });
 
 Route::get('/choose', ['as' => 'choose.platform', function () {
