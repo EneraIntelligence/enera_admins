@@ -73,7 +73,7 @@ graficas = function () {
                         text: 'numero de personas por edad y genero'
                     },
                     labels: {//en esta parte van las etiquetas que van abajo de la grafica
-                        format: function (v,id,i,j) {
+                        format: function (v, id, i, j) {
                             return categories[i];
                             /*
                              if(j==0)
@@ -241,7 +241,7 @@ graficas = function () {
             columns[0].push(IntXDias[k]['loaded']);
             columns[1].push(IntXDias[k]['completed']);
         }
-        console.log(columns);
+        //console.log(columns);
         var chart3 = c3.generate({
             bindto: '#intXHour',
             data: {
