@@ -25,20 +25,24 @@
         span {
             list-style: none;
         }
+
         ul {
             list-style: none;
         }
     </style>
 </head>
 <body class="login_page login_body">
-<div class="login_page_wrapper">
 
-    <div class="md-card" id="login_card">
+<div class="uk-grid uk-container-center" id="login_card">
+    <div class="uk-width-3-10" id="">
+    </div>
+    <div class="md-card uk-width-large-4-10 uk-width-medium-6-10 uk-padding-remove" id="">
         <div class="md-card-content large-padding" id="login_form">
             <div class="login_heading">
-                <div style="width: 290px;height: 100px; display:inline-block;text-align:center;">
+                <div style=display:inline-block;text-align:center;">
                     <img src="images/admins.png" alt="">
                 </div>
+                {!! session('reset_msg2') !!}
                 @if(session('data')=='active')
                     <div class="uk-alert uk-alert-success" style="padding-right:10px">
                         <a href="#" class="uk-alert-close "></a>
@@ -67,13 +71,7 @@
                 <div class="uk-width-medium-1-1">
                     <div class="parsley-row">
                         <label for="email">Email <span class="req"></span></label>
-                        {{--<div class="md-input-wrapper md-input-filled md-input-wrapper-danger">--}}
-                        {{--<input data-parsley-type="email" id="email" name="email" required
-                               data-parsley-trigger="change" class="md-input"
-                               data-parsley-type-message="ingresa un correo valido"
-                               data-parsley-required-message="Ingresa tu correo"/>--}}
-                        <input type="email" name="email" data-parsley-trigger="change" required  class="md-input" />
-                        {{--</div>--}}
+                        <input type="email" name="email" data-parsley-trigger="change" required class="md-input"/>
                         <div class="parsley-errors-list filled" id="parsley-id-6">
                             @foreach($errors->get('email') as $m)
                                 <span class="parsley-type">{!! $m !!}</span>
@@ -95,7 +93,6 @@
                                    data-parsley-validation-threshold="10" data-parsley-id="2"
                                    data-parsley-required-message="No olvides tu contraseña"
                             />
-
                             <span class="md-input-bar"> </span>
                         </div>
                     </div>
@@ -107,7 +104,7 @@
             </div>
             <div class="uk-margin-top">
                 <a href="#" id="login_help_show" class="uk-float-right">Necesitas ayuda?</a>
-                <span class="icheck-inline">
+                    <span class="icheck-inline">
                     <input type="checkbox" name="login_page_stay_signed" id="login_page_stay_signed" data-md-icheck/>
                     <label for="login_page_stay_signed" class="inline-label">Mantener sesión</label>
                 </span>
@@ -156,10 +153,11 @@
             {!! Form::close() !!}
         </div>
     </div>
+
 </div>
 
 
-        <!-- common functions -->
+<!-- common functions -->
 {!! HTML::script('assets/js/common.min.js') !!}
         <!-- altair core functions -->
 {!! HTML::script('assets/js/altair_admin_common.min.js') !!}
@@ -168,7 +166,7 @@
     // load parsley config (altair_admin_common.js)
     altair_forms.parsley_validation_config();
 </script>
-        <!-- altair login page functions -->
+<!-- altair login page functions -->
 {!! HTML::script('assets/js/pages/login.min.js') !!}
 {!! HTML::script('bower_components/parsleyjs/dist/parsley.min.js') !!}
 {!! HTML::script('bower_components/parsleyjs/src/i18n/es.js') !!}
@@ -177,7 +175,9 @@
 <script>
     $(document).ready(function () {
         var restore = {!! $errors->get('reset_password_email')!=null? true : 'null'  !!}
+        //        console.log(restore);
         if (restore) {
+//            console.log('true');
             $("#login_password_reset").show();
             $("#login_form").hide();
             $("#create").hide();
@@ -185,11 +185,14 @@
 
         var reset_f = '{!! session('reset_msg') !!}';
         if (reset_f) {
+//            console.log('true');
             $("#login_password_reset").show();
             $("#login_form").hide();
             $("#create").hide();
         }
+
     });
+
     //        llamada al parsley
     $('#form_validation2').parsley();
 </script>
