@@ -4,6 +4,7 @@ namespace Admins\Http\Controllers;
 
 use Admins\Administrator;
 use Admins\ValidationCode;
+use Hash;
 use Illuminate\Http\Request;
 use Admins\Http\Requests;
 use Admins\Http\Controllers\Controller;
@@ -136,6 +137,7 @@ class AuthController extends Controller
                         $message->from('notificacion@enera.mx', 'Enera Intelligence');
                         $message->to($correo, $nombre)->subject('Recuperacion de contraseña');
                     });
+
                     return redirect()->route('auth.index')->with('reset_msg2', 'se a enviado un mail a tu correo: <strong>' . Input::get('reset_password_email') . '</strong> . Para restablecer la contraseña');
                 } else if ($admin && $admin->status == 'pending') {
                     return redirect()->route('auth.index')->with('reset_msg2', 'la cuenta <strong>' . Input::get('reset_password_email') . '</strong> no se ha activado todavía. por favor activa tu cuenta primero ');

@@ -38,11 +38,11 @@
     </div>
     <div class="md-card uk-width-large-4-10 uk-width-medium-6-10 uk-padding-remove" id="">
         <div class="md-card-content large-padding" id="login_form">
-            <div class="login_heading">
+            <div class="login_heading" style="margin-bottom:15px!important;">
                 <div style=display:inline-block;text-align:center;">
                     <img src="images/admins.png" alt="">
                 </div>
-                {!! session('reset_msg2') !!}
+                <div style="display:block; width:100%; margin-top:15px;">{!! session('reset_msg2') !!}</div>
                 @if(session('data')=='active')
                     <div class="uk-alert uk-alert-success" style="padding-right:10px">
                         <a href="#" class="uk-alert-close "></a>
@@ -141,11 +141,13 @@
                 </div>
             @endif
             <div class="uk-form-row">
-                <label for="reset_password_email">Email</label>
-                <input class="md-input" type="text" id="reset_password_email" name="reset_password_email"/>
-                @foreach($errors->get('reset_password_email') as $m)
-                    <div style="text-align: center; color: red;">{!! $m !!}</div>
-                @endforeach
+                <div class="parsley-row">
+                    <label for="reset_password_email" class="req">Email</label>
+                    <input class="md-input" type="text" id="reset_password_email" name="reset_password_email"/>
+                    @foreach($errors->get('reset_password_email') as $m)
+                        <div style="text-align: center; color: red;">{!! $m !!}</div>
+                    @endforeach
+                </div>
             </div>
             <div class="uk-margin-medium-top">
                 <button type="submit" class="md-btn md-btn-primary md-btn-block md-btn-large">Restablecer</button>

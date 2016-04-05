@@ -16,7 +16,7 @@
 </head>
 <body>
 <div style="text-align: center;">
-    <img src="http://publishers.enera-intelligence.mx/images/admins.png" alt="">
+    <img src="http://admins.enera-intelligence.mx/images/admins.png" alt="">
 </div>
 <div style="width: 75%; margin: auto;">
     <h2>Recuperación de contraseña </h2>
@@ -26,10 +26,10 @@
             Si no solicitaste este cambio, puedes ignorar sin riesgos este correo electrónico.
             <br>
             Para recuperar la contraseña solo haz clic en el siguiente enlace:<br>
-            <a href="http://publishers.enera-intelligence.mx/restore/password//{{$data['id_usuario'].'/'. $data['confirmation_code']}} ">
+            <a href="http://admins.enera-intelligence.mx/restore/password//{{$data['id_usuario'].'/'. $data['confirmation_code']}} ">
                 recuperar contraseña</a>
             <br>o copia y pega la siguiente url en tu navegador:
-            http://publishers.enera-intelligence.mx/restore/password/{{$data['id_usuario'].'/'.$data['confirmation_code']}}<br>
+            http://admins.enera-intelligence.mx/restore/password/{{$data['id_usuario'].'/'.$data['confirmation_code']}}<br>
             Este enlace expirará después de 24 horas.
         </p>
         <p>Enera Intelligence</p>
