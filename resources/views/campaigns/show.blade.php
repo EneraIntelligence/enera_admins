@@ -36,6 +36,8 @@
         bottom: 25px;
         right: 25px;
     }
+
+
 </style>
 @endsection
 
@@ -223,7 +225,7 @@
                                         <div class="md-list-content uk-width-large-1-1">
 
                                             @if(view()->exists('campaigns.partials.preview_'.$cam->interaction['name']))
-                                                @include('campaigns.partials.preview_'.$cam->interaction['name'])
+                                                @include('campaigns.partials.preview_'.$cam->interaction['name'], ['json' => $json])
                                             @endif
 
                                         </div>
