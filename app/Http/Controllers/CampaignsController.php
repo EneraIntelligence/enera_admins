@@ -270,7 +270,8 @@ class CampaignsController extends Controller
 
             $count = 0;
             $chart5 = [];
-            foreach ($campaign->content['survey'] as $q) {
+
+            /*foreach ($campaign->content['survey'] as $q) {
                 $survey = $collection->aggregate([
                     [
                         '$match' => [
@@ -294,13 +295,13 @@ class CampaignsController extends Controller
                 ])['result'];
                 $count++;
                 array_push($chart5, $survey);
-            }
+            }*/
 
             $json = "{}";
             $json = json_decode($json);
-            foreach ($campaign->content['survey'] as $key => $value) {
+            /*foreach ($campaign->content['survey'] as $key => $value) {
                 $json->$key = array('total' => 0, 'a0' => array('male' => 0, 'female' => 0), 'data' => $value);
-            }
+            }*/
             $count = 0;
             foreach ($chart5 as $v) {
                     foreach ($v as $c) {
@@ -320,7 +321,6 @@ class CampaignsController extends Controller
                             }
                         }
                     }
-
             }
 
             json_encode($json);
