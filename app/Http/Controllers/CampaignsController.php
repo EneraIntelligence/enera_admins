@@ -271,39 +271,41 @@ class CampaignsController extends Controller
             $count = 0;
             $chart5 = [];
 
-            /*foreach ($campaign->content['survey'] as $q) {
-                $survey = $collection->aggregate([
-                    [
-                        '$match' => [
-                            'campaign_id' => $campaign->_id,
-                            'survey.q' . $count => ['$exists' => true]
+//            dd($campaign->interaction['name']);
+            if ($campaign->interaction['name'] == 'survey') {
+//                dd($campaign->content['survey']);
+                /*foreach ($campaign->content['survey'] as $q) {
+                    $survey = $collection->aggregate([
+                        [
+                            '$match' => [
+                                'campaign_id' => $campaign->_id,
+                                'survey.q' . $count => ['$exists' => true]
+                            ]
+                        ],
+                        [
+                            '$group' => [
+                                '_id' =>
+                                    ['answer' => '$survey.q' . $count,
+                                        'gender' => '$user.gender',
+                                        'question' => ['$literal' => 'q' . ($count)]
+                                    ],
+                                'cnt' => ['$sum' => 1]
+                            ]
+                        ],
+                        [
+                            '$sort' => ['_id' => 1]
                         ]
-                    ],
-                    [
-                        '$group' => [
-                            '_id' =>
-                                ['answer' => '$survey.q' . $count,
-                                    'gender' => '$user.gender',
-                                    'question' => ['$literal' => 'q' . ($count)]
-                                ],
-                            'cnt' => ['$sum' => 1]
-                        ]
-                    ],
-                    [
-                        '$sort' => ['_id' => 1]
-                    ]
-                ])['result'];
-                $count++;
-                array_push($chart5, $survey);
-            }*/
-
-            $json = "{}";
-            $json = json_decode($json);
-            /*foreach ($campaign->content['survey'] as $key => $value) {
-                $json->$key = array('total' => 0, 'a0' => array('male' => 0, 'female' => 0), 'data' => $value);
-            }*/
-            $count = 0;
-            foreach ($chart5 as $v) {
+                    ])['result'];
+                    $count++;
+                    array_push($chart5, $survey);
+                }*/
+                $json = "{}";
+                $json = json_decode($json);
+                /*foreach ($campaign->content['survey'] as $key => $value) {
+                    $json->$key = array('total' => 0, 'a0' => array('male' => 0, 'female' => 0), 'data' => $value);
+                }*/
+                $count = 0;
+                /*foreach ($chart5 as $v) {
                     foreach ($v as $c) {
                         if ($c['_id']['gender'] == 'male') {
                             $json->{$c['_id']['question']}['total'] += $c['cnt'];
@@ -321,9 +323,12 @@ class CampaignsController extends Controller
                             }
                         }
                     }
+                }*/
+
+                json_encode($json);
             }
 
-            json_encode($json);
+            $json = "{}";
 
             return view('campaigns.show', [
                 'cam' => $campaign,
