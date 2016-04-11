@@ -287,7 +287,7 @@
                             <ul class="uk-nav js-uk-prevent">
                                 <li><a href="{!! url('profile') !!}">Mi cuenta</a></li>
                                 <li><a href="#">Ajustes</a></li>
-                                <li><a href="#">Salir</a></li>
+                                <li><a href="{!! URL::route('auth.logout') !!}">Salir</a></li>
                             </ul>
                         </div>
                     </li>
@@ -295,6 +295,7 @@
             </div>
         </nav>
     </div>
+
     <div class="header_main_search_form">
         <i class="md-icon header_main_search_close material-icons">&#xE5CD;</i>
         <input type="text" class="header_main_search_input" name="search"/>

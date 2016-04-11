@@ -2,13 +2,21 @@
 @section('title', ' -  Campaña')
 @section('head_scripts')
     {!! HTML::style(asset('assets/css/campaign.css')) !!}
+
+    <style>
+        a:hover{
+            color: #00a8e6;
+        }
+    </style>
 @endsection
 @section('content')
     <div id="page_content">
         <div id="page_heading">
-            <h1>{{$network->name}}</h1>
+            <i class="material-icons md-36"
+               style="display: inline-block;">{!! Admins\Libraries\CampaignStyleHelper::getTypeIcon($network->type) !!}</i>
+            <h1 style="display: inline-block;">{{$network->name}}</h1><br>
             <a href="{{($network->client == null) ? 'javascript:void(0)' : route('admin::clients::show', [$network->client->_id])}}"><span
-                        class="uk-text-muted uk-text-upper uk-text-small">{{($network->client == null) ? 'Sin cliente' : $network->client->name }}</span></a>
+                        class="uk-text-upper uk-text-small">{{($network->client == null) ? 'Sin cliente' : $network->client->name }}</span></a>
         </div>
         <div id="page_content_inner">
             <div class="uk-grid uk-grid-medium" data-uk-grid-margin>
@@ -31,9 +39,8 @@
                                 <div class="uk-width-1-1">
                                     <ul class="uk-tab" data-uk-tab="{connect:'#tabs_1'}">
                                         <li class="uk-active"><a href="#">Detalles</a></li>
-                                        <li><a href="#">Aps</a></li>
-                                        <li class="uk-disabled"><a href="#">Item</a></li>
-                                        <li class="uk-disabled"><a href="#">Disabled</a></li>
+                                        <li><a href="#">Nodos</a></li>
+                                        <li class="uk-disabled"><a href="#">Redes</a></li>
                                     </ul>
                                     <ul id="tabs_1" class="uk-switcher uk-margin">
                                         <li>
@@ -43,7 +50,8 @@
                                                         <span class="uk-text-muted uk-text-small">Nombre de la red</span>
                                                     </div>
                                                     <div class="uk-width-large-2-3">
-                                                        <span class="uk-text-large uk-text-middle"><a href="#">{{$network->name}}</a></span>
+                                                        <span class="uk-text-large uk-text-middle"><a
+                                                                    href="#">{{$network->name}}</a></span>
                                                     </div>
                                                 </div>
                                                 <hr class="uk-grid-divider">
@@ -80,16 +88,16 @@
                                             <table class="uk-table uk-table-striped">
                                                 <thead>
                                                 <tr>
+                                                    <th></th>
                                                     <th>Nombre</th>
-                                                    <th>Status</th>
-                                                    <th>Aps</th>
+                                                    <th>Ap</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
                                                 @foreach($network->branches as $n)
                                                     <tr>
+                                                        <td>{!! ($n->status == 'active') ? '<i class="material-icons md-color-green-900">&#xE876;</i>' : '<i class="material-icons md-color-red-A700">&#xE14C;</i>'!!}</td>
                                                         <td>{{$n->name}}</td>
-                                                        <td>{{$n->status}}</td>
                                                         <td>{{count($n->aps)}}</td>
                                                     </tr>
                                                 @endforeach

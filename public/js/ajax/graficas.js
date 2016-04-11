@@ -73,7 +73,7 @@ graficas = function () {
                         text: 'numero de personas por edad y genero'
                     },
                     labels: {//en esta parte van las etiquetas que van abajo de la grafica
-                        format: function (v,id,i,j) {
+                        format: function (v, id, i, j) {
                             return categories[i];
                             /*
                              if(j==0)
@@ -231,16 +231,13 @@ graficas = function () {
         return chart3;
     };
     this.intPerHour = function intPerHour(IntXDias) {
-        //console.log(IntXDias);
+
         var columns = [
             //['x'],
-            ['visto'],
-            ['completado']
+            ['Visto'],
+            ['Completado']
         ];
         for (var k in IntXDias) {
-            //console.log(k);
-            //console.log(IntXDias[k]);
-            //columns[0].push(k);
             columns[0].push(IntXDias[k]['loaded']);
             columns[1].push(IntXDias[k]['completed']);
         }
@@ -248,10 +245,11 @@ graficas = function () {
         var chart3 = c3.generate({
             bindto: '#intXHour',
             data: {
+                //x: 'x',
                 columns: columns,
                 types: {
-                    visto: 'area',
-                    completado: 'area'
+                    Visto: 'area',
+                    Completado: 'area'
                 }
             },
             groups: [['Visto', 'Completado']]

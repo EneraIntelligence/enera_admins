@@ -36,6 +36,8 @@
         bottom: 25px;
         right: 25px;
     }
+
+
 </style>
 @endsection
 
@@ -223,7 +225,7 @@
                                         <div class="md-list-content uk-width-large-1-1">
 
                                             @if(view()->exists('campaigns.partials.preview_'.$cam->interaction['name']))
-                                                @include('campaigns.partials.preview_'.$cam->interaction['name'])
+                                                @include('campaigns.partials.preview_'.$cam->interaction['name'], ['json' => $json])
                                             @endif
 
                                         </div>
@@ -288,6 +290,12 @@
                                                 <div class="md-card">
                                                     <div id="graficas" class="md-card-content">
                                                         <h3 class="heading_a uk-margin-bottom">Analiticos</h3>
+                                                        {{--@foreach($cam->content['survey'] as $survey)--}}
+                                                        {{--@if($cam->interaction['name'] == 'survey')--}}
+                                                        {{--<div id='chart5'--}}
+                                                        {{--class="uk-width-large-1-1 uk-margin-right"></div>--}}
+                                                        {{--@endif--}}
+                                                        {{--@endforeach--}}
                                                         <div id='intXHour'
                                                              class="uk-width-large-1-1 uk-margin-right"></div>
                                                         <h3 class="md-hr" style="margin: 10px;"></h3>
@@ -379,15 +387,15 @@
             <!-- slider script -->
     {{--{!! HTML::script('js/preview_helper.js') !!}--}}
 
-    {!! HTML::script('bower_components/parsleyjs/dist/parsley.min.js') !!}
-    {!! HTML::script('bower_components/parsleyjs/src/i18n/es.js') !!}
-    {!! HTML::script('assets/js/pages/forms_validation.min.js') !!}
     {!! HTML::script('bower_components/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js') !!}
+    {{--    {!! HTML::script('bower_components/ionrangeslider/js/ion.rangeSlider.min.js') !!}--}}
     {!! HTML::script('bower_components/countUp.js/countUp.js') !!}
     {!! HTML::script('js/circle-progress.js') !!}
 
-
-            <!-- page specific plugins -->
+            <!-- links para que funcione la grafica demografica  -->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <!-- page specific plugins -->
     <!-- d3 -->
     {{--<script src="bower_components/d3/d3.min.js"></script>--}}
     {!! HTML::script('bower_components/d3/d3.min.js') !!}
@@ -397,10 +405,8 @@
     {!! HTML::script('bower_components/c3js-chart/c3.min.js') !!}
             <!-- chartist -->
     {{--<script src="bower_components/chartist/dist/chartist.min.js"></script>--}}
-            <!-- links para que funcione la grafica demografica  -->
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <!--  charts functions -->
+
+            <!--  charts functions -->
     {{--<script src="assets/js/pages/plugins_charts.min.js"></script>--}}
 
     {!! HTML::script('js/ajax/graficas.js') !!}
@@ -442,10 +448,128 @@
 
         var intLJson = '{!! json_encode($IntHours) !!}';
         var intLObj = JSON.parse(intLJson);
-
-//                        console.log(intLObj);
+        //        console.log('horas');
+        //        console.log(intLObj);
         var gra = grafica.genderAge(menObj, womenObj);
         var graf = grafica.intPerHour(intLObj);
+
+
+        //Grafica para desplegar resultados de Encuestas
+        var pregunta = ['Pregunata1', 'Pregunata2', 'Pregunata3', 'Pregunata4'];
+        var chart5 = c3.generate({
+
+            bindto: '#chart5',
+            data: {
+                columns: [
+                    ['Respuesta2', 100],
+                    ['Respuesta1', 100],
+                    ['Respuesta3', 100],
+                    ['Respuesta4', 140]
+                ],
+                type: 'bar',
+                groups: [['Respuesta1', 'Respuesta2', 'Respuesta3', 'Respuesta4']]
+            },
+            bar: {
+                width: 20
+                // or
+                //width: 100 // this makes bar width 100px
+            },
+            axis: {
+                rotated: true,
+                x: {
+                    tick: {
+                        format: function (x) {
+                            return 'Pregunta ' + (x + 1);
+                        }
+                    },
+                    x: {
+                        show: false
+                    },
+                    padding: {
+                        left: 0,
+                        right: 0
+                    }
+                },
+                y: {
+                    show: false
+                }
+            },
+            tooltip: {
+                format: {
+                    name: function (name, ratio, id, index) {
+                        return name;
+                    },
+                    title: function (x) {
+                        return pregunta[x];
+                    },
+                    grouped: false
+                }
+            },
+            legend: {
+                show: false
+            },
+            size: {
+                height: 30
+            }
+        });
+
+        //        var chart6 = c3.generate({
+        //
+        //            bindto: '#chart6',
+        //            data: {
+        //                columns: [
+        //                    ['Respuesta2', 100],
+        //                    ['Respuesta1', 100],
+        //                    ['Respuesta4', 140]
+        //                ],
+        //                type: 'bar',
+        //                groups: [['Respuesta1', 'Respuesta2', 'Respuesta3', 'Respuesta4']]
+        //            },
+        //            bar: {
+        //                width: 20
+        //                // or
+        //                //width: 100 // this makes bar width 100px
+        //            },
+        //            axis: {
+        //                rotated: true,
+        //                x: {
+        //                    tick: {
+        //                        format: function (x) {
+        //                            return 'Pregunta ' + (x + 1);
+        //                        }
+        //                    },
+        //                    x: {
+        //                        show: false
+        //                    },
+        //                    padding: {
+        //                        left: 0,
+        //                        right: 0
+        //                    }
+        //                },
+        //                y: {
+        //                    show: false
+        //                }
+        //            },
+        //            tooltip: {
+        //                format: {
+        //                    name: function (name, ratio, id, index) {
+        //                        return name;
+        //                    },
+        //                    title: function (x) {
+        //                        return pregunta[x] ;
+        //                    },
+        //                    grouped: false
+        //                }
+        //            },
+        //            legend: {
+        //                show: false
+        //            },
+        //            size: {
+        //                height: 30
+        //            }
+        //        });
+
+
     </script>
     <!-- enera custom scripts -->
     {{--{!! HTML::script('assets/js/enera/create_campaign_helper.js') !!}--}}

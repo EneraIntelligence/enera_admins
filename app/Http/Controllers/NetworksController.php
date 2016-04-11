@@ -19,7 +19,7 @@ class NetworksController extends Controller
      */
     public function index()
     {
-        $network = Network::all();
+        $network = Network::where('status', 'active')->get();
         return view('network.index', ['networks' => $network]);
     }
 
