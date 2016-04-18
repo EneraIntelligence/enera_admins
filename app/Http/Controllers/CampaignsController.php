@@ -37,7 +37,6 @@ class CampaignsController extends Controller
         $campaignsA = Campaign::where('status', 'active')->latest()->get();
         $campaignsP = Campaign::where('status', 'pending')->latest()->get();
         $subcampaigns = Auth::user()->subcampaigns()->latest()->get();
-//        dd($campaigns);
         return view('campaigns.index', ['campaignsA' => $campaignsA, 'campaignsP' => $campaignsP, 'subcampaigns' => $subcampaigns]);
     }
 
@@ -241,7 +240,6 @@ class CampaignsController extends Controller
             foreach ($IntCompleted['result'] as $k => $v) {
                 $IntHours[intval($v['_id'])]['completed'] = $v['cnt'];
             }
-//            dd($IntHours);
             $unique_users_query = $collection->aggregate([
                 [
                     '$match' => [
