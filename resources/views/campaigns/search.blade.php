@@ -60,7 +60,7 @@
                                     data-uk-filter="campaign-{!! $campaign->status !!}, action-{!! $campaign->interaction['name'] !!}"
                                     data-name="{!! $campaign->name !!}"
                                     data-action="{!! $campaign->interaction['name'] !!}"
-                                    data-company="{!! $campaign->publishers_summary['client'] !!}"
+                                    {{--data-company="{!! $campaign->publishers_summary['client'] !!}"--}}
                                     data-status="{!! CampaignStyle::getStatusValue( $campaign->status )  !!}"
                                     data-date="{!! $campaign->created_at !!}">
                                     <span class="md-card-list-item-date">{{date('Y-m-d',$campaign->filters['date']['end']->sec)}}</span>

@@ -415,9 +415,19 @@ class CampaignsController extends Controller
 
     public function search()
     {
-        $campaign = Campaign::where('status', '<>', 'filed')->where('name', 'like', '%' . Input::get('search') . '%')->latest()->get();
+
+        $admin = Administrator::where('name.last', 'like', '%' . Input::get('search') . '%')
+            ->orWhere('name.first', 'like', '%' . Input::get('search') . '%')->lists('_id');
+
+
+        $campaign = Campaign::where('status', '<>', 'filed')
+                    ->where(function ($q) use ($admin){
+                        $q->whereIn('administrator_id', $admin)
+                          ->orWhere('name', 'like', '%' . Input::get('search') . '%');
+                    })
+                    ->get();
+
         return view('campaigns.search', ['campaigns' => $campaign]);
     }
-
 
 }
