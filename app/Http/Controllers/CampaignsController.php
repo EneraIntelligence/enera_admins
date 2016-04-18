@@ -417,7 +417,9 @@ class CampaignsController extends Controller
     {
 
         $admin = Administrator::where('name.last', 'like', '%' . Input::get('search') . '%')
-            ->orWhere('name.first', 'like', '%' . Input::get('search') . '%')->lists('_id');
+            ->orWhere('name.first', 'like', '%' . Input::get('search') . '%')
+            ->orWhere('email', 'like', '%' . Input::get('search') . '%')
+            ->lists('_id');
 
 
         $campaign = Campaign::where('status', '<>', 'filed')
@@ -427,6 +429,7 @@ class CampaignsController extends Controller
                     })
                     ->get();
 
+        dd($admin);
         return view('campaigns.search', ['campaigns' => $campaign]);
     }
 
