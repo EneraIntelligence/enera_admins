@@ -39,12 +39,12 @@
                         <ul class="hierarchical_slide">
                             <li>
                                 <span class="md-card-list-item-date">Terminación</span>
-                                <span class="md-card-list-item-date">Loaded</span>
-                                <div class="md-card-list-item-avatar-wrapper">
-                                    <img src="assets/img/avatars/avatar_08_tn@2x.png" style="background: none;"
+                                <span class="md-card-list-item-date" style="padding-right: 20px;">Inicio</span>
+                                <div class="md-card-list-item-avatar-wrapper" style="padding: 0 8px 0 35px">
+                                    <img src="{{asset('assets/img/avatars/avatar_08_tn@2x.png')}}" style="background: none;"
                                          class="md-card-list-item-avatar dense-image dense-ready" alt="">
                                 </div>
-                                <div class="md-card-list-item-sender">
+                                <div class="md-card-list-item-sender" style="display:block;">
                                     <span>Nombre</span>
                                 </div>
                                 <div class="md-card-list-item-subject">
@@ -60,30 +60,34 @@
                                     data-uk-filter="campaign-{!! $campaign->status !!}, action-{!! $campaign->interaction['name'] !!}"
                                     data-name="{!! $campaign->name !!}"
                                     data-action="{!! $campaign->interaction['name'] !!}"
-                                    {{--data-company="{!! $campaign->publishers_summary['client'] !!}"--}}
+                                    data-company="{!! $campaign->publishers_summary['client'] !!}"
                                     data-status="{!! CampaignStyle::getStatusValue( $campaign->status )  !!}"
                                     data-date="{!! $campaign->created_at !!}">
-                                    <span class="md-card-list-item-date">{{date('Y-m-d',$campaign->filters['date']['end']->sec)}}</span>
+                                    <div class="md-card-list-item-select">
+                                        <input type="checkbox" data-md-icheck />
+                                    </div>
+                                    <span class="md-card-list-item-date">{{date('d-M-y',$campaign->filters['date']['end']->sec)}}</span>
                                     <span class="md-card-list-item-date"
-                                          style="margin-right: 25px;">{{$campaign->logs()->where('interaction.loaded', 'exists', 'true')->count()}}</span>
+                                          style="margin-right: 25px;">{{date('d-M-y',$campaign->filters['date']['start']->sec)}}</span>
                                     <div class="md-card-list-item-avatar-wrapper">
                                         <img src="{!! URL::asset('images/icons/'.CampaignStyle::getCampaignIcon( $campaign->interaction['name'] ) ) !!}2.svg"
                                              style="background: {!! CampaignStyle::getStatusColor($campaign->status) !!};border: solid 1px {!! CampaignStyle::getStatusColor($campaign->status) !!};"
                                              class="md-card-list-item-avatar dense-image dense-ready" alt="">
                                     </div>
-                                    <div class="md-card-list-item-sender">
+                                    <div class="md-card-list-item-sender" style="display: block;">
                                         <span>{{$campaign->name}}</span>
                                     </div>
                                     <div class="md-card-list-item-subject">
                                         <span>
-                                            @if(isset($campaign->filters['week_days'] ))
-                                                @foreach($campaign->filters['week_days'] as $dia)
-                                                    <span class="uk-badge uk-badge-notification uk-badge-primary"
-                                                          style="background:#2196f3 !important; margin-right:10px ">{{ substr(trans('days.'.$dia), 0, 1) }}</span>
-                                                @endforeach
-                                            @else
-                                                no definido
-                                            @endif</span>
+                                            @for ($i = 1; $i < 8; $i++)
+                                                @if(in_array($i ,$campaign->filters['week_days'] ))
+                                                    <span class="uk-badge uk-badge-primary"
+                                                          style="background:#2196f3 !important;">{{ trans('days.siglas.'.$i)}}</span>
+                                                @else
+                                                    <span class="uk-badge uk-badge-primary"
+                                                          style="background:gray !important;">{{ trans('days.siglas.'.$i)}}</span>
+                                        @endif
+                                        @endfor
                                     </div>
                                 </li>
                             @endforeach
