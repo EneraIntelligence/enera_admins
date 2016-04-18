@@ -429,7 +429,6 @@ class CampaignsController extends Controller
                     })
                     ->get();
 
-        dd($admin);
         return view('campaigns.search', ['campaigns' => $campaign]);
     }
 
