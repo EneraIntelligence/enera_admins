@@ -21,7 +21,7 @@ class IssueTrackerController extends Controller
     public function index()
     {
         return view('issuetracker.index', [
-            'issues' => Issue::where('status', '<>', 'closed')->orderBy('created_at', 'DESC')->take(100)->get(),
+            'issues' => Issue::where('status', '<>', 'closed')->get(),
         ]);
     }
 

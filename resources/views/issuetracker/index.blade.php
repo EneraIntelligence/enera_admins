@@ -61,7 +61,7 @@
                                     </td>
                                     <td>
                                         <a href="{!! route('issuetracker::show', ['id' => $issue->_id]) !!}">
-                                            {{ $issue->msg }}
+                                            {{ $issue->issue['title'] }}
                                         </a>
                                     </td>
                                     <td>
