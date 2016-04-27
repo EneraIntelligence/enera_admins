@@ -150,7 +150,7 @@
     <div id="my-id" class="uk-modal">
         <div class="uk-modal-dialog">
             <h3 class="uk-panel-title">Buscar...</h3>
-            <form action="{!! route('campaigns::search::campaign') !!}" class="uk-form-stacked" method="post" id="form"
+            <form action="{!! route('campaigns::search::campaign') !!}" class="uk-form-stacked" method="post" id="form-buscar"
                   data-parsley-validate
                   enctype="multipart/form-data">
                 <div class="uk-grid" data-uk-grid-margin>
@@ -165,11 +165,6 @@
                         </div>
                     </div>
                 </div>
-                {{--<div class="uk-grid">--}}
-                    {{--<div class="uk-width-1-1">--}}
-                        {{--<button type="submit" class="md-btn md-btn-primary">Buscar</button>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
                 <div class="uk-grid">
                     <div class="uk-width-1-1">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -178,44 +173,6 @@
             </form>
         </div>
     </div>
-
-    {{--<div class="md-fab-wrapper">--}}
-    {{--<a class="md-fab md-fab-accent md-fab-wave" href="#mailbox_new_message" data-uk-modal="{center:true}">--}}
-    {{--<i class="material-icons">&#xE150;</i>--}}
-    {{--</a>--}}
-    {{--</div>--}}
-
-    {{--<div class="uk-modal" id="mailbox_new_message">--}}
-    {{--<div class="uk-modal-dialog">--}}
-    {{--<button class="uk-modal-close uk-close" type="button"></button>--}}
-    {{--<form>--}}
-    {{--<div class="uk-modal-header">--}}
-    {{--<h3 class="uk-modal-title">Compose Message</h3>--}}
-    {{--</div>--}}
-    {{--<div class="uk-margin-medium-bottom">--}}
-    {{--<label for="mail_new_to">To</label>--}}
-    {{--<input type="text" class="md-input" id="mail_new_to"/>--}}
-    {{--</div>--}}
-    {{--<div class="uk-margin-large-bottom">--}}
-    {{--<label for="mail_new_message">Message</label>--}}
-    {{--<textarea name="mail_new_message" id="mail_new_message" cols="30" rows="6"--}}
-    {{--class="md-input"></textarea>--}}
-    {{--</div>--}}
-    {{--<div id="mail_upload-drop" class="uk-file-upload">--}}
-    {{--<p class="uk-text">Drop file to upload</p>--}}
-    {{--<p class="uk-text-muted uk-text-small uk-margin-small-bottom">or</p>--}}
-    {{--<a class="uk-form-file md-btn">choose file<input id="mail_upload-select" type="file"></a>--}}
-    {{--</div>--}}
-    {{--<div id="mail_progressbar" class="uk-progress uk-hidden">--}}
-    {{--<div class="uk-progress-bar" style="width:0">0%</div>--}}
-    {{--</div>--}}
-    {{--<div class="uk-modal-footer">--}}
-    {{--<a href="#" class="md-icon-btn"><i class="md-icon material-icons">&#xE226;</i></a>--}}
-    {{--<button type="button" class="uk-float-right md-btn md-btn-flat md-btn-flat-primary">Send</button>--}}
-    {{--</div>--}}
-    {{--</form>--}}
-    {{--</div>--}}
-    {{--</div>--}}
 
 @stop
 
