@@ -72,7 +72,7 @@
                                     <td>
                                         {{ $issue->issue['platform'] }}
                                     </td>
-                                    <td>
+                                    <td style="text-align: center;">
                                         {{ $issue->statistic['recurrence'] }}
                                     </td>
                                     <td>
