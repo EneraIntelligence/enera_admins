@@ -349,7 +349,7 @@
 
 
 {!! HTML::script('js/ajax/new_campaign.js') !!}
-{!! HTML::script('bower_components/jquery.inputmask/dist/jquery.inputmask.bundle.min.js') !!}
+{{--{!! HTML::script('bower_components/jquery.inputmask/dist/jquery.inputmask.bundle.min.js') !!}--}}
 {!! HTML::script('assets/js/pages/kendoui.min.js') !!}
 
         <!-- animation library -->
