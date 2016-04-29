@@ -45,7 +45,7 @@
                             <tr>
                                 <th></th>
                                 <th>Issue</th>
-                                <th>Responsable</th>
+                                <th>Eventos</th>
                                 <th>Prioridad</th>
                                 <th>Fecha</th>
                                 <th>Plataforma</th>
@@ -62,10 +62,11 @@
                                     <td>
                                         <a href="{!! route('issuetracker::show', ['id' => $issue->_id]) !!}">
                                             {{ $issue->issue['title'] }}
-                                        </a>
+                                        </a><br>
+                                        {{ strlen($issue->exception['msg']) > 80?substr($issue->exception['msg'],0,80).'...':$issue->exception['msg'] }}
                                     </td>
                                     <td>
-                                        {{ $issue->responsible_id > 0 ? $issue->responsible->name : '---' }}
+                                        ---
                                     </td>
                                     <td>
                                         <span class="uk-badge uk-badge-warning">
@@ -76,7 +77,7 @@
                                         {{ $issue->created_at->format('j/M/y H:i:s') }}
                                     </td>
                                     <td class="uk-text-small">
-                                        {{ $issue->request['platform'] }}
+                                        {{ $issue->issue['platform'] }}
                                     </td>
                                     <td>
                                         <span class="uk-badge uk-badge-outline uk-text-upper">{{ $issue->status }}</span>
