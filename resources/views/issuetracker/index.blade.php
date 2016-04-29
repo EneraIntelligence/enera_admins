@@ -64,11 +64,13 @@
                                             {{ $issue->issue['title'] }}
                                         </a><br>
                                         <span style="color: #7a7a7a;">
-                                            {{ strlen($issue->exception['msg']) > 80?substr($issue->exception['msg'],0,80).'...':$issue->exception['msg'] }}
+                                            {{ strlen($issue->exception['msg']) > 80 ?
+                                            substr($issue->exception['msg'],0,80).'...' :
+                                            $issue->exception['msg'] }}
                                         </span>
                                     </td>
                                     <td>
-                                        {{ $issue->$issue['platform'] }}
+                                        {{ $issue->issue['platform'] }}
                                     </td>
                                     <td>
                                         {{ $issue->statistic['recurrence'] }}
