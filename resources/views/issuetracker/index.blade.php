@@ -69,19 +69,19 @@
                                             $issue->exception['msg'] }}
                                         </span>
                                     </td>
-                                    <td>
+                                    <td style="text-align: center;">
                                         {{ $issue->issue['platform'] }}
                                     </td>
                                     <td style="text-align: center;">
                                         {{ $issue->statistic['recurrence'] }}
                                     </td>
-                                    <td>
+                                    <td style="text-align: center;">
 
                                     </td>
                                     <td>
 
                                     </td>
-                                    <td>
+                                    <td style="text-align: center;">
                                         <span class="uk-badge uk-badge-warning">
                                             {{ $issue->priority }}
                                         </span>
