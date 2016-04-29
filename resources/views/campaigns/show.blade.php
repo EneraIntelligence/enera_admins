@@ -165,9 +165,7 @@
                                                         <div class="md-list-content">
                                                             <span class="md-list-heading azul">Generos</span>
                                                                     <span class="uk-text-small uk-text-muted">
-                                                                        {{--{{ trans_choice('gender.'.$cam->filters['gender'][0],1) }}--}}
-                                                                        {{ isset($filters['gender'][1]) ? trans_choice('gender.'.$cam->filters['gender'][0],1):'ambos' }}
-                                                                        , {{ isset($filters['gender'][2]) ? trans_choice('gender.'.$cam->filters['gender'][1],1):' ' }}
+                                                                        {{(!isset($cam->filters['gender']) ? 'No definidos' : (count($cam->filters['gender']) == 1) ? $cam->filters['gender'][0] : 'ambos')}}
                                                                     </span>
                                                             {{--{{$filters['gender'][0].',  '.$filters['gender'][1]}}--}}
                                                         </div>
@@ -512,63 +510,6 @@
                 height: 30
             }
         });
-
-        //        var chart6 = c3.generate({
-        //
-        //            bindto: '#chart6',
-        //            data: {
-        //                columns: [
-        //                    ['Respuesta2', 100],
-        //                    ['Respuesta1', 100],
-        //                    ['Respuesta4', 140]
-        //                ],
-        //                type: 'bar',
-        //                groups: [['Respuesta1', 'Respuesta2', 'Respuesta3', 'Respuesta4']]
-        //            },
-        //            bar: {
-        //                width: 20
-        //                // or
-        //                //width: 100 // this makes bar width 100px
-        //            },
-        //            axis: {
-        //                rotated: true,
-        //                x: {
-        //                    tick: {
-        //                        format: function (x) {
-        //                            return 'Pregunta ' + (x + 1);
-        //                        }
-        //                    },
-        //                    x: {
-        //                        show: false
-        //                    },
-        //                    padding: {
-        //                        left: 0,
-        //                        right: 0
-        //                    }
-        //                },
-        //                y: {
-        //                    show: false
-        //                }
-        //            },
-        //            tooltip: {
-        //                format: {
-        //                    name: function (name, ratio, id, index) {
-        //                        return name;
-        //                    },
-        //                    title: function (x) {
-        //                        return pregunta[x] ;
-        //                    },
-        //                    grouped: false
-        //                }
-        //            },
-        //            legend: {
-        //                show: false
-        //            },
-        //            size: {
-        //                height: 30
-        //            }
-        //        });
-
 
     </script>
     <!-- enera custom scripts -->
