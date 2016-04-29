@@ -13,7 +13,7 @@ use File;
 use \Illuminate\Http\Request;
 use Mail;
 use MongoDate;
-use Portal\Issue;
+use Admins\Issue;
 use Session;
 
 class IssueTrackerHelper
