@@ -86,18 +86,6 @@
                                     </td>
                                 </tr>
                             @endforeach
-                            {{--<tr>
-                                </td>
-                                <td>
-                                    <a href="page_issue_details.html"> Magnam recusandae placeat perferendis voluptates
-                                        blanditiis quas modi.</a>
-                                </td>
-                                <td>Garry Stehr</td>
-                                <td><span class="uk-badge uk-badge-info">minor</span></td>
-                                <td class="uk-text-small">28/Jun/16 12:12:12</td>
-                                <td class="uk-text-small">Network</td>
-                                <td><span class="uk-badge uk-badge-outline uk-text-upper">open</span></td>
-                            </tr>--}}
                             </tbody>
                         </table>
                     </div>
