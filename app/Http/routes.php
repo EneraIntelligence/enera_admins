@@ -70,3 +70,9 @@ Route::get('/choose', ['as' => 'choose.platform', function () {
         'msg' => Input::has('msg') ? Input::get('msg') : 'Selecciona alguna de las plataformas.'
     ]);
 }]);
+
+
+//route for tests de emails
+Route::get('/test-email', function (){
+    return view('mail.axa');
+});
