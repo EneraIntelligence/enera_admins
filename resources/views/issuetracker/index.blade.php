@@ -45,11 +45,11 @@
                             <tr>
                                 <th></th>
                                 <th>Issue</th>
-                                <th>Eventos</th>
-                                <th>Prioridad</th>
-                                <th>Fecha</th>
                                 <th>Plataforma</th>
-                                <th>Estado</th>
+                                <th>Eventos</th>
+                                <th>Usuarios</th>
+                                <th>Actividad</th>
+                                <th>Prioridad</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -63,39 +63,31 @@
                                         <a href="{!! route('issuetracker::show', ['id' => $issue->_id]) !!}">
                                             {{ $issue->issue['title'] }}
                                         </a><br>
-                                        {{ strlen($issue->exception['msg']) > 80?substr($issue->exception['msg'],0,80).'...':$issue->exception['msg'] }}
+                                        <span style="color: #7a7a7a;">
+                                            {{ strlen($issue->exception['msg']) > 80 ?
+                                            substr($issue->exception['msg'],0,80).'...' :
+                                            $issue->exception['msg'] }}
+                                        </span>
+                                    </td>
+                                    <td style="text-align: center;">
+                                        {{ $issue->issue['platform'] }}
+                                    </td>
+                                    <td style="text-align: center;">
+                                        {{ $issue->statistic['recurrence'] }}
+                                    </td>
+                                    <td style="text-align: center;">
+
                                     </td>
                                     <td>
-                                        ---
+
                                     </td>
-                                    <td>
+                                    <td style="text-align: center;">
                                         <span class="uk-badge uk-badge-warning">
                                             {{ $issue->priority }}
                                         </span>
                                     </td>
-                                    <td class="uk-text-small">
-                                        {{ $issue->created_at->format('j/M/y H:i:s') }}
-                                    </td>
-                                    <td class="uk-text-small">
-                                        {{ $issue->issue['platform'] }}
-                                    </td>
-                                    <td>
-                                        <span class="uk-badge uk-badge-outline uk-text-upper">{{ $issue->status }}</span>
-                                    </td>
                                 </tr>
                             @endforeach
-                            {{--<tr>
-                                </td>
-                                <td>
-                                    <a href="page_issue_details.html"> Magnam recusandae placeat perferendis voluptates
-                                        blanditiis quas modi.</a>
-                                </td>
-                                <td>Garry Stehr</td>
-                                <td><span class="uk-badge uk-badge-info">minor</span></td>
-                                <td class="uk-text-small">28/Jun/16 12:12:12</td>
-                                <td class="uk-text-small">Network</td>
-                                <td><span class="uk-badge uk-badge-outline uk-text-upper">open</span></td>
-                            </tr>--}}
                             </tbody>
                         </table>
                     </div>

@@ -63,7 +63,7 @@ class IssueTrackerHelper
                 if (isset($issue_statistic[$issue_date]['host'][gethostname()])) {
                     $issue_statistic[$issue_date]['host'][gethostname()]++;
                 } else {
-                    $issue_statistic[$issue_date]['host'][gethostname()] = 1;
+                    $issue_statistic[$issue_date]['host'][gethostname()] = intval('1');
                 }
             } else {
                 $issue_statistic[$issue_date] = [
@@ -74,7 +74,9 @@ class IssueTrackerHelper
                 ];
             }
             $issue_statistic['recurrence']++;
-            isset($issue_statistic['host'][gethostname()]) ? $issue_statistic['host'][gethostname()]++ : $issue_statistic['host'][gethostname()] = 0;
+            isset($issue_statistic['host'][gethostname()]) ?
+                $issue_statistic['host'][gethostname()]++ :
+                $issue_statistic['host'][gethostname()] = intval('1');
             $issue->statistic = $issue_statistic;
             $issue->save();
 
@@ -111,7 +113,7 @@ class IssueTrackerHelper
                     'trace' => $e->getTraceAsString(),
                 ],
                 'statistic' => [
-                    'recurrence' => inval(1),
+                    'recurrence' => intval(1),
                     'host' => [
                         gethostname() => intval('1')
                     ],
@@ -144,9 +146,12 @@ class IssueTrackerHelper
                 ]
             ]);
 
-            Mail::send('mail.issuestracker', ['issue' => $issue], function ($m) {
-                $m->from('servers@enera.mx', 'Enera Portal');
-                $m->to('issuestracker@enera.mx', 'Enera Servers')->subject('Issue Tracker');
+            Mail::send('mail.issuestracker', [
+                'issue' => $issue,
+                'env' => env('APP_ENV', 'local')
+            ], function ($m) {
+                $m->from('servers@enera.mx', 'Enera Servers');
+                $m->to('issuestracker@enera.mx', 'Enera IssueTracker')->subject('Issue Tracker');
             });
 
         }
