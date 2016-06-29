@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use Admins\Http\Requests;
 use Admins\Http\Controllers\Controller;
+use Mail;
 
 class MassiveMailingController extends Controller
 {
