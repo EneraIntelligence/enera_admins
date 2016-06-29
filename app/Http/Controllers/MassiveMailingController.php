@@ -19,7 +19,7 @@ class MassiveMailingController extends Controller
     {
         Mail::send('mail.axa', ['data' => ''], function ($message) {
             $message->from('notificacion@enera.mx', 'Enera Intelligence');
-            $message->to('aavalos@enera.mx', 'angel avalos')->subject('Maling Enera Intelligence');
+            $message->to('arosas@enera.mx', 'angel avalos')->subject('Maling Enera Intelligence');
         });
     }
 }
