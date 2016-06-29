@@ -61,7 +61,7 @@ Route::group(['middleware' => 'auth.ready'], function () {
     Route::get('/restore/password/{id}/{token}', ['as' => 'auth.reset', 'uses' => 'AuthController@verify']); //3er paso de recuperar contraseña valida el token de nueva contraseña//    Route::get('/register/verify/{id}/{token}', ['as' => 'auth.verify', 'uses' => 'AuthController@verify']); //ruta que valida el correo
     Route::get('/restore/password', ['as' => 'auth.newpassword', 'uses' => 'AuthController@newpassword']);   //4to paso de recuperar contraseña vista para poner la nueva contraseña
     Route::post('/restore/password', ['as' => 'auth.newpass', 'uses' => 'AuthController@newpass']);         //5to paso de recuperar contraseña
-    Route::get('/remove',['as'=> 'auth.remove','uses'=> 'AuthController@remove']); //cancela los codigos del usuario que se pasa
+    Route::get('/remove', ['as' => 'auth.remove', 'uses' => 'AuthController@remove']); //cancela los codigos del usuario que se pasa
 });
 
 Route::get('/choose', ['as' => 'choose.platform', function () {
@@ -73,6 +73,8 @@ Route::get('/choose', ['as' => 'choose.platform', function () {
 
 
 //route for tests de emails
-Route::get('/test-email', function (){
+Route::get('/test-email', function () {
     return view('mail.axa');
 });
+
+Route::get('/massive_mail', ['as' => 'mail.massive', 'uses' => 'MassiveMailingController@index']);

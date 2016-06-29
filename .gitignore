@@ -15,3 +15,5 @@ Homestead.json
 !public/css/my_theme.css
 !public/css/my_theme.min.css
 !public/css/show.css
+
+tests/_output/*

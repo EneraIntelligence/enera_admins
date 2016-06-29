@@ -81,7 +81,6 @@
                                     <td>
 
                                     </td>
-                                    <td style="text-align: center;">
                                         <span class="uk-badge uk-badge-warning">
                                             {{ $issue->priority }}
                                         </span>
