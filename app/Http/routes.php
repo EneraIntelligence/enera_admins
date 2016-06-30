@@ -52,8 +52,9 @@ Route::group(['middleware' => ['auth', 'guardian', 'preview']], function () {
     });
 
     Route::group(['prefix' => 'mailing', 'as' => 'mailing::'], function () {
-        Route::get('/', ['as' => 'index', 'uses' => 'MailingController@index']);
-        Route::get('/unsuscribe', ['as' => 'unsuscribe', 'uses' => 'MailingController@unsuscribe']);
+        Route::get('/', ['as' => 'index', 'uses' => 'MassiveMailingController@index']);
+        Route::get('/sendMail', ['as' => 'sendMail', 'sendMail' => 'MassiveMailingController@sendMail']);
+        Route::get('/unSubscribe', ['as' => 'unSubscribe', 'uses' => 'MassiveMailingController@unSubscribe']);
     });
 
 });
@@ -82,4 +83,4 @@ Route::get('/test-email', function () {
     return view('mail.axa');
 });
 
-Route::get('/massive_mail', ['as' => 'mail.massive', 'uses' => 'MassiveMailingController@index']);
+//Route::get('/massive_mail', ['as' => 'mail.massive', 'uses' => 'MassiveMailingController@index']);
