@@ -41,7 +41,13 @@
                     m&aacute;s &raquo;</strong></a>
             <img src="http://axa-hogarprotegido.com/newsletters/12/images/axa-hogar-09_02.jpg" width="100%" style=" display:block; border:0;"  alt="coberturas Hogar Integral"/>
             <img src="http://axa-hogarprotegido.com/newsletters/12/images/axa-hogar-09_03.jpg" width="100%" style=" display:block; border:0;"  alt="Axa"/>
+            <div>
+                <p style="text-align: center; padding: 20px; color: lightgrey;">Si ya no deseas recibir información de Sam’s Club haz
+                    <a href="{{route('mailing::unSubscribe')}}" style="text-decoration: none">clic aquí.</a> </p>
+            </div>
         </div>
+
+
     </div>
     <div style="width: 24%;  display: inline-block;" class="hide"></div>
 </div>

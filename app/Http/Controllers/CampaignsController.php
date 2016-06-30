@@ -48,6 +48,7 @@ class CampaignsController extends Controller
      */
     public function show($id)
     {
+
         $porcentaje = 0.0;
         $campaign = Campaign::find($id); //busca la campaña
         if ($campaign) {
@@ -59,7 +60,6 @@ class CampaignsController extends Controller
             /****         OBTENER PORCENTAJE DEL TIEMPO TRANSCURRIDO       ***************/
             $start = new DateTime(date('Y-m-d H:i:s', $campaign->filters['date']['start']->sec));
             $end = new DateTime(date('Y-m-d H:i:s', $campaign->filters['date']['end']->sec));
-
             switch ($campaign->status) {
                 case 'pending':
                     $porcentaje = 0.0;
@@ -91,6 +91,7 @@ class CampaignsController extends Controller
                     $porcentaje = $diff->format('%a') / $total->format('%a');
                     break;
             }
+
 
             /*******         OBTENER LAS EDADES Y CANTIDAD DE USUARIOS UNICOS       ***************/
             $collection = DB::getMongoDB()->selectCollection('campaign_logs');
@@ -298,10 +299,10 @@ class CampaignsController extends Controller
                 }
                 $json = json_decode($json);
                 foreach ($campaign->content['survey'] as $key => $value) {
-                    $json->$key = array('total' => 0, 'a0' => array('male' => 0, 'female' => 0), 'data' => $value);
+                    $json->$key = array('total' => 0, 'data' => $value ,'a0' => array('male' => 0, 'female' => 0) );
                 }
                 $count = 0;
-                /*foreach ($chart5 as $v) {
+                foreach ($chart5 as $v) {
                     foreach ($v as $c) {
                         if ($c['_id']['gender'] == 'male') {
                             $json->{$c['_id']['question']}['total'] += $c['cnt'];
@@ -319,8 +320,7 @@ class CampaignsController extends Controller
                             }
                         }
                     }
-                }*/
-
+                }
                 json_encode($json);
             }
 

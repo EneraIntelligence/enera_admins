@@ -26,9 +26,15 @@
         <h3 class="heading_c uk-margin-small-bottom">{{$survey['data']['question']}}</h3>
         <div class="uk-width-1" >
             <div class="uk-grid">
-                {{--{{dd($survey['a4']['female'])}}--}}
+                {{--{{dd($survey)}}--}}
+                <div class="uk-width-1-4 md-bg-indigo-400 tooltip" title="{{isset($survey['a0'])? $survey['data']['answers']['a0'] .' Female: '. $survey['a0']['female']. ' Male: '. $survey['a0']['male']  : ''}}"
+                     style="width: {{(isset($survey['a0'])? (round(($survey['a0']['male'] + $survey['a0']['female']) * 100 / $survey['total'],0, PHP_ROUND_HALF_UP)) : 0)}}%;
+                             display: {{(!isset($survey['a0']) ? 'none' : 'block')}}">
+                    <span style="color: white">{{(isset($survey['a0'])? (round(($survey['a0']['male'] + $survey['a0']['female']) * 100 / $survey['total'] ,0,PHP_ROUND_HALF_UP)): 0)}}
+                        %</span>
+                </div>
                 <div class="uk-width-1-4 md-bg-indigo-300 tooltip" title="{{isset($survey['a1'])? $survey['data']['answers']['a1'] .' Female: '. $survey['a1']['female']. ' Male: '. $survey['a1']['male']  : ''}}"
-                     style="width: {{(isset($survey['a1'])? (round(($survey['a1']['male'] + $survey['a1']['female']) * 100 / $survey['total'],2, PHP_ROUND_HALF_UP)) : 0)}}%;
+                     style="width: {{(isset($survey['a1'])? (round(($survey['a1']['male'] + $survey['a1']['female']) * 100 / $survey['total'],0, PHP_ROUND_HALF_UP)) : 0)}}%;
                              display: {{(!isset($survey['a1']) ? 'none' : 'block')}}">
                     <span style="color: white">{{(isset($survey['a1'])? (round(($survey['a1']['male'] + $survey['a1']['female']) * 100 / $survey['total'] ,0,PHP_ROUND_HALF_UP)): 0)}}
                         %</span>
