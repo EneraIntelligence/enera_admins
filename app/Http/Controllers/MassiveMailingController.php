@@ -22,4 +22,14 @@ class MassiveMailingController extends Controller
             $message->to('arosas@enera.mx', 'angel avalos')->subject('Maling Enera Intelligence');
         });
     }
+
+    public function sendmail()
+    {
+        
+    }
+
+    public function unsuscribe()
+    {
+//        echo 'salir';
+    }
 }

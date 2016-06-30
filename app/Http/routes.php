@@ -51,6 +51,11 @@ Route::group(['middleware' => ['auth', 'guardian', 'preview']], function () {
         Route::post('/search', ['as' => 'search', 'uses' => 'NetworksController@search']);
     });
 
+    Route::group(['prefix' => 'mailing', 'as' => 'mailing::'], function () {
+        Route::get('/', ['as' => 'index', 'uses' => 'MailingController@index']);
+        Route::get('/unsuscribe', ['as' => 'unsuscribe', 'uses' => 'MailingController@unsuscribe']);
+    });
+
 });
 
 Route::group(['middleware' => 'auth.ready'], function () {
