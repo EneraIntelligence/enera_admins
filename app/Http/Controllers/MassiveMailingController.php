@@ -71,7 +71,7 @@ class MassiveMailingController extends Controller
 
         $users = User::where('facebook.email', 'exists', 'true')->
         where('massive_mail.accept', '<>', false)->get();
-
+        $total = 0;
         foreach ($users as $user) {
             $date = strtotime($user->facebook['birthday']['date']);
             $diff = date_diff($date, date());
@@ -84,8 +84,10 @@ class MassiveMailingController extends Controller
                     $message->from('noreply@axa.com', 'Seguros Axa');
                     $message->to($user->facebook['email'], $user->facebook['first_name'])->subject('Notificación de Seguridad');
                 });
+                $total += 1;
             }
         }
+        echo $total;
     }
 
     public function unSubscribe($email = 'default')
