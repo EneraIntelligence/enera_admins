@@ -34,34 +34,30 @@ class MassiveMailingController extends Controller
 
     public function createList()
     {
-        echo 'se creara la lista';
 //        dd(Input::all());
         $validator = Validator::make(Input::all(), [
             'nombre' => array('regex:[^([a-zA-Z ñáéíóú]{2,60})$]'),
             'male' => array('regex:[^([a-zA-Z ñáéíóú]{2,60})$]'),
             'edad' => 'required'
         ]);
-//        dd($validator);
         //     despues de las validaciones
         if ($validator->passes()) {
-//            dd(Input::all());
             $user = Auth::user();
-//            dd($user);
-            $male = Input::get('male') ? Input::get('male') : '';
-            dd($male);
-            $male = Input::get('male') ? Input::get('male') : '';
-            dd($male);
+            $gender['male'] = Input::get('male') ? Input::get('male') : '';
+            $gender['female'] = Input::get('female') ? Input::get('female') : '';
+            $edad = explode(";",Input::get('edad'));
 
             $lista = MassiveMailList::create(array(
                 'name' => Input::get('nombre'),
                 'filters' => [
-                    'genero' => [],
-                    'edad' => []
+                    'gender' => $gender,
+                    'age' => $edad
                 ],
                 'administrator_id' => $user['_id'],
-                'status' => 'pending'
+                'status' => 'active'
             ));
-            dd($lista);
+//            dd($lista);
+            return redirect()->route('mailing::index');
         }
     }
 
