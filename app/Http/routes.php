@@ -53,8 +53,10 @@ Route::group(['middleware' => ['auth', 'guardian', 'preview']], function () {
 
     Route::group(['prefix' => 'mailing', 'as' => 'mailing::'], function () {
         Route::get('/', ['as' => 'index', 'uses' => 'MassiveMailingController@index']);
+        Route::get('/newlist', ['as' => 'newList', 'uses' => 'MassiveMailingController@newList']);
+        Route::post('/createlist', ['as' => 'createList', 'uses' => 'MassiveMailingController@createList']);
         Route::get('/sendMail', ['as' => 'sendMail', 'sendMail' => 'MassiveMailingController@sendMail']);
-        Route::get('/unSubscribe', ['as' => 'unSubscribe', 'uses' => 'MassiveMailingController@unSubscribe']);
+
     });
 
 });
@@ -70,6 +72,9 @@ Route::group(['middleware' => 'auth.ready'], function () {
     Route::get('/remove', ['as' => 'auth.remove', 'uses' => 'AuthController@remove']); //cancela los codigos del usuario que se pasa
 });
 
+Route::get('/unsubscribe/{email}', ['as' => 'unSubscribe', 'uses' => 'MassiveMailingController@unSubscribe']);
+Route::post('/unsubscribe', ['as' => 'unSubscribe', 'uses' => 'MassiveMailingController@unSubscribe']);
+
 Route::get('/choose', ['as' => 'choose.platform', function () {
     return view('choose', [
         'color' => '#d32f2f',
@@ -82,5 +87,8 @@ Route::get('/choose', ['as' => 'choose.platform', function () {
 Route::get('/test-email', function () {
     return view('mail.axa');
 });
+/*Route::get('/test', function () {
+    return view('massivemail.unsubscribeok');
+});*/
 
-//Route::get('/massive_mail', ['as' => 'mail.massive', 'uses' => 'MassiveMailingController@index']);
+//Route::get('/massive_mail', ['as' => 'mail.massive', 'uses' => 'MassiveMailingController@sendMail']);
