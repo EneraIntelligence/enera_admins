@@ -45,7 +45,7 @@ class MassiveMailingController extends Controller
             $user = Auth::user();
             $gender['male'] = Input::get('male') ? Input::get('male') : '';
             $gender['female'] = Input::get('female') ? Input::get('female') : '';
-            $edad = explode(";",Input::get('edad'));
+            $edad = explode(";", Input::get('edad'));
 
             $lista = MassiveMailList::create(array(
                 'name' => Input::get('nombre'),
@@ -68,10 +68,24 @@ class MassiveMailingController extends Controller
 
     public function sendMail()
     {
-        Mail::send('mail.axa', ['data' => ''], function ($message) {
-            $message->from('notificacion@enera.mx', 'Enera Intelligence');
-            $message->to('aavalos@enera.mx', 'angel avalos')->subject('Notificación de Seguridad');
-        });
+
+        $users = User::where('facebook.email', 'exists', 'true')->
+        where('massive_mail.accept', '<>', false)->get();
+
+        foreach ($users as $user) {
+            $date = strtotime($user->facebook['birthday']['date']);
+            $diff = date_diff($date, date());
+            if ($diff->y >= 25) {
+                Mail::send('mail.axa', [
+                    'data' => [
+                        'email' => $user->facebook['email']
+                    ]
+                ], function ($message) use ($user) {
+                    $message->from('noreply@axa.com', 'Seguros Axa');
+                    $message->to($user->facebook['email'], $user->facebook['first_name'])->subject('Notificación de Seguridad');
+                });
+            }
+        }
     }
 
     public function unSubscribe($email = 'default')
