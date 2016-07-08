@@ -74,7 +74,7 @@ class MassiveMailingController extends Controller
         $total = 0;
         foreach ($users as $user) {
             $date = strtotime($user->facebook['birthday']['date']);
-            $diff = date_diff($date, date());
+            $diff = date_diff($date, new Datetime());
             if ($diff->y >= 25) {
                 Mail::send('mail.axa', [
                     'data' => [
