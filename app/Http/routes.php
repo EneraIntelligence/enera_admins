@@ -91,4 +91,4 @@ Route::get('/test-email', function () {
     return view('massivemail.unsubscribeok');
 });*/
 
-Route::get('/massive_mail/{skipe}/{take}', ['as' => 'mail.massive', 'uses' => 'MassiveMailingController@sendMail']);
+Route::get('/massive_mail/{skip}/{take}', ['as' => 'mail.massive', 'uses' => 'MassiveMailingController@sendMail']);

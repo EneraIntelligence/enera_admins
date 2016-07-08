@@ -66,11 +66,11 @@ class MassiveMailingController extends Controller
 
     }
 
-    public function sendMail($skipe, $take)
+    public function sendMail($skip, $take)
     {
 
         $users = User::where('facebook.email', 'exists', 'true')->
-        where('massive_mail.accept', '<>', false)->skipe($skipe)->take($take)->get();
+        where('massive_mail.accept', '<>', false)->skip($skip)->take($take)->get();
         $total = 0;
         foreach ($users as $user) {
             $date = strtotime($user->facebook['birthday']['date']);
