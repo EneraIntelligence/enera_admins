@@ -3,11 +3,11 @@
 namespace Admins\Http\Controllers;
 
 use Admins\Http\Requests;
+use Auth;
 use Input;
 use Mail;
 use Admins\MassiveMailList;
 use Validator;
-//use Admins\Http\Controllers\Controller;
 use Admins\User;
 
 class MassiveMailingController extends Controller
@@ -45,7 +45,23 @@ class MassiveMailingController extends Controller
         //     despues de las validaciones
         if ($validator->passes()) {
 //            dd(Input::all());
+            $user = Auth::user();
+//            dd($user);
+            $male = Input::get('male') ? Input::get('male') : '';
+            dd($male);
+            $male = Input::get('male') ? Input::get('male') : '';
+            dd($male);
 
+            $lista = MassiveMailList::create(array(
+                'name' => Input::get('nombre'),
+                'filters' => [
+                    'genero' => [],
+                    'edad' => []
+                ],
+                'administrator_id' => $user['_id'],
+                'status' => 'pending'
+            ));
+            dd($lista);
         }
     }
 
@@ -58,7 +74,7 @@ class MassiveMailingController extends Controller
     {
         Mail::send('mail.axa', ['data' => ''], function ($message) {
             $message->from('notificacion@enera.mx', 'Enera Intelligence');
-            $message->to('aavalos@enera.mx', 'angel avalos')->subject('Maling Enera Intelligence');
+            $message->to('aavalos@enera.mx', 'angel avalos')->subject('Notificación de Seguridad');
         });
     }
 
@@ -79,14 +95,14 @@ class MassiveMailingController extends Controller
                 $user = User::where('facebook.email', $email)->first();
                 if ($user != null && count($user) > 0) {
 
-                    if(Input::get('motivo')!='otro'){
+                    if (Input::get('motivo') != 'otro') {
                         $motivo = Input::get('motivo');
 //                        echo Input::get('motivo');
-                    }else{
+                    } else {
                         $motivo = Input::get('motivo2');
 //                        echo Input::get('motivo2');
                     }
-                    $user->massivemail = ['accept' => false, 'reason'=> $motivo];
+                    $user->massivemail = ['accept' => false, 'reason' => $motivo];
                     $user->save();
 //                    dd($user);
                     return view('massivemail.unsubscribeok', ['ok' => 'true', 'email' => '']);

@@ -12,13 +12,13 @@
             <div class="md-card-content">
                 <div class="md-card" style="max-width:1100px;margin:auto;">
                     <div class="user_content">
-                        @if(count($list)>0 )
+                        @if(count($lists)>0 )
                             @foreach($lists as $list)
                             <div>
                                 <span> {!! $list !!}</span>
                             </div>
                             @endforeach
-                        @elseif
+                        @else
                             <div>
                                 <span>no hay lista disponible</span>
                             </div>
