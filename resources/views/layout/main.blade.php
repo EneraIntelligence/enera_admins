@@ -121,7 +121,7 @@
                                         <i class="material-icons md-36 md-color-red-600">&#xE85D;</i>
                                         <span class="uk-text-muted uk-display-block">Issue Tracker</span>
                                     </a>
-                                    <a href="javascript:void(0)" class="uk-margin-top">
+                                    <a href="{{ route('mailing::index') }}" class="uk-margin-top">
                                         <i class="material-icons md-36 md-color-red-600">&#xE8B8;</i>
                                         <span class="uk-text-muted uk-display-block">Ajustes</span>
                                     </a>

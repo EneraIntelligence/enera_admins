@@ -13,7 +13,7 @@
                 <div class="md-card" style="max-width:1100px;margin:auto;">
                     <div class="user_content">
                         @if(count($list)>0 )
-                            @foreach($lists as $list) //$key ->
+                            @foreach($lists as $list)
                             <div>
                                 <span> {!! $list !!}</span>
                             </div>

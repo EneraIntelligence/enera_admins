@@ -7,7 +7,7 @@ use Input;
 use Mail;
 use Admins\MassiveMailList;
 use Validator;
-use Admins\Http\Controllers\Controller;
+//use Admins\Http\Controllers\Controller;
 use Admins\User;
 
 class MassiveMailingController extends Controller
@@ -58,7 +58,7 @@ class MassiveMailingController extends Controller
     {
         Mail::send('mail.axa', ['data' => ''], function ($message) {
             $message->from('notificacion@enera.mx', 'Enera Intelligence');
-            $message->to('arosas@enera.mx', 'angel avalos')->subject('Maling Enera Intelligence');
+            $message->to('aavalos@enera.mx', 'angel avalos')->subject('Maling Enera Intelligence');
         });
     }
 

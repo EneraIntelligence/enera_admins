@@ -117,9 +117,9 @@
             var input = $(this);
 //            console.log(input.attr("id"));
             var id = input.attr("id");
-            if (id=='otro') {
+            if (id == 'otro') {
                 $("#text").show();
-            }else{
+            } else {
                 $("#text").hide();
             }
         });
