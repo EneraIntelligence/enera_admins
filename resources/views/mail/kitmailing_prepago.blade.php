@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="">
 </head>
 <body style="padding:0; margin:0; background-color:#eaeaea;">
-<div style="margin: 0 auto; max-width: 1280px;width: 90%;">
+<div style="margin: 0 auto; max-width: 575px;">
     <table cellpadding="0" cellspacing="0" align="center" style="width:100% !important">
         <tr>
             <td>
