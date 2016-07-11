@@ -85,7 +85,7 @@ Route::get('/choose', ['as' => 'choose.platform', function () {
 
 //route for tests of emails
 Route::get('/test-email', function () {
-    return view('mail.kitmailing_deuda');
+    return view('mail.kitmailing_banamex');
 });
 /*Route::get('/test', function () {
     return view('massivemail.unsubscribeok');
