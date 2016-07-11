@@ -15,7 +15,8 @@
                         @if(count($lists)>0 )
                             @foreach($lists as $list)
                             <div>
-                                <span> {!! $list !!}</span>
+                                <label> {!! $list['name'] !!}</label>
+                                <input id="nombre" name="nombre" type="text" placeholder="nombre"/>
                             </div>
                             @endforeach
                         @else

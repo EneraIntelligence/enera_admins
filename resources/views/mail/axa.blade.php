@@ -39,11 +39,14 @@
             <a href="http://actualmanager.com/click.php?aspid=b27cae35dc6c8d946379ee61c7532dcd" target="_blank"
                style="margin: 20px auto ;width: 150px;text-align: center; padding: 15px;background-color:#e7050e; font-family:Arial, Helvetica, sans-serif; font-size:23px; color:#f9f9f9; display:block; text-decoration:none; line-height:40px;"><strong>Saber
                     m&aacute;s &raquo;</strong></a>
-            <img src="http://axa-hogarprotegido.com/newsletters/12/images/axa-hogar-09_02.jpg" width="100%" style=" display:block; border:0;"  alt="coberturas Hogar Integral"/>
-            <img src="http://axa-hogarprotegido.com/newsletters/12/images/axa-hogar-09_03.jpg" width="100%" style=" display:block; border:0;"  alt="Axa"/>
+            <img src="http://axa-hogarprotegido.com/newsletters/12/images/axa-hogar-09_02.jpg" width="100%"
+                 style=" display:block; border:0;" alt="coberturas Hogar Integral"/>
+            <img src="http://axa-hogarprotegido.com/newsletters/12/images/axa-hogar-09_03.jpg" width="100%"
+                 style=" display:block; border:0;" alt="Axa"/>
             <div>
                 <p style="text-align: center; padding: 20px; color: lightgrey;">Si ya no deseas recibir información haz
-                    <a href="{{ route('unSubscribe') }}/aavalos@enera.mx" style="text-decoration: none">clic aquí.</a> </p>
+                    <a href="{!! route('unSubscribe') !!}/{!! $data['email'] !!}" style="text-decoration: none">clic
+                        aquí.</a></p>
             </div>
         </div>
 

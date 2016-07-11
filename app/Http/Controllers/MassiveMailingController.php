@@ -4,6 +4,7 @@ namespace Admins\Http\Controllers;
 
 use Admins\Http\Requests;
 use Auth;
+use DateTime;
 use Input;
 use Mail;
 use Admins\MassiveMailList;
@@ -34,34 +35,30 @@ class MassiveMailingController extends Controller
 
     public function createList()
     {
-        echo 'se creara la lista';
 //        dd(Input::all());
         $validator = Validator::make(Input::all(), [
             'nombre' => array('regex:[^([a-zA-Z ñáéíóú]{2,60})$]'),
             'male' => array('regex:[^([a-zA-Z ñáéíóú]{2,60})$]'),
             'edad' => 'required'
         ]);
-//        dd($validator);
         //     despues de las validaciones
         if ($validator->passes()) {
-//            dd(Input::all());
             $user = Auth::user();
-//            dd($user);
-            $male = Input::get('male') ? Input::get('male') : '';
-            dd($male);
-            $male = Input::get('male') ? Input::get('male') : '';
-            dd($male);
+            $gender['male'] = Input::get('male') ? Input::get('male') : '';
+            $gender['female'] = Input::get('female') ? Input::get('female') : '';
+            $edad = explode(";", Input::get('edad'));
 
             $lista = MassiveMailList::create(array(
                 'name' => Input::get('nombre'),
                 'filters' => [
-                    'genero' => [],
-                    'edad' => []
+                    'gender' => $gender,
+                    'age' => $edad
                 ],
                 'administrator_id' => $user['_id'],
-                'status' => 'pending'
+                'status' => 'active'
             ));
-            dd($lista);
+//            dd($lista);
+            return redirect()->route('mailing::index');
         }
     }
 
@@ -70,12 +67,27 @@ class MassiveMailingController extends Controller
 
     }
 
-    public function sendMail()
+    public function sendMail($skip, $take)
     {
-        Mail::send('mail.axa', ['data' => ''], function ($message) {
-            $message->from('notificacion@enera.mx', 'Enera Intelligence');
-            $message->to('aavalos@enera.mx', 'angel avalos')->subject('Notificación de Seguridad');
-        });
+
+        $users = User::where('facebook.email', 'exists', 'true')->
+        where('massive_mail.accept', '<>', false)->skip($skip)->take($take)->get();
+        $total = 0;
+        foreach ($users as $user) {
+            $diff = date_diff(new DateTime($user->facebook['birthday']['date']), new Datetime());
+            if ($diff->y >= 25) {
+                Mail::send('mail.axa', [
+                    'data' => [
+                        'email' => $user->facebook['email']
+                    ]
+                ], function ($message) use ($user) {
+                    $message->from('noreply@axa.com', 'Seguros Axa');
+                    $message->to($user->facebook['email'], $user->facebook['first_name'])->subject('Notificación de Seguridad');
+                });
+                $total += 1;
+            }
+        }
+        echo $total;
     }
 
     public function unSubscribe($email = 'default')
