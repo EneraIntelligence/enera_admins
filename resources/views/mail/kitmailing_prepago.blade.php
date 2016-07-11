@@ -14,7 +14,7 @@
             <td>
                 <a href="http://interacttrk.com/?a=21744&c=20792&s1="><img
                             src="http://7458fef244112da9ec42-3a7a28bc54f1e977a943ce68ab4c0361.r33.cf2.rackcdn.com/april/movistar1.jpg"
-                            style="display:block;border:0px; width: 100%; height: 83px; max-width: 575%" alt="Movistar"></a>
+                            style="display:block;border:0px; width: 100%; height: 100%; max-width: 575px" alt="Movistar"></a>
             </td>
         </tr>
         <tr height="150">
@@ -28,14 +28,14 @@
             <td>
                 <a href="http://interacttrk.com/?a=21744&c=20792&s1="><img
                             src="http://7458fef244112da9ec42-3a7a28bc54f1e977a943ce68ab4c0361.r33.cf2.rackcdn.com/april/movistar2.jpg"
-                            style="display:block;border:0px; width: 100%; height: 222px; max-width: 575%"" alt=""></a>
+                            style="display:block;border:0px; width: 100%; height: 100%; max-width: 575px" alt=""></a>
             </td>
         </tr>
         <tr>
             <td>
                 <a href="http://interacttrk.com/?a=21744&c=20792&s1="><img
                             src="http://7458fef244112da9ec42-3a7a28bc54f1e977a943ce68ab4c0361.r33.cf2.rackcdn.com/april/movistar3.jpg"
-                            style="display:block;border:0px; width: 100%; height: 222px; max-width: 575%"" alt="Movistar"></a>
+                            style="display:block;border:0px; width: 100%; height: 100%; max-width: 575px" alt="Movistar"></a>
             </td>
         </tr>
         <tr height="150">
