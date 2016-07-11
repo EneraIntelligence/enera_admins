@@ -254,17 +254,10 @@
 
     </tr>
     <tr height="0">
-        <td bgcolor="#fff" align="center">
-            <p style="text-align: center; padding: 0px;">Si ya no deseas recibir información haz
-    <tr height="0">
         <td bgcolor="#eaeaea" align="center">
-            <p style="text-align: center; padding: 0px;">Si ya no deseas recibir información haz<a
-                        href="{!! route('unSubscribe') !!}/{!! $data['email'] !!}" style="text-decoration: none">clic
-                    aquí.</a>
-            </p>
-        </td>
-    </tr>
-            </p>
+            <p style="text-align: center; padding: 10px; color: lightgrey;">Si ya no deseas recibir información haz
+                <a href="{!! route('unSubscribe') !!}/{!! $data['email'] !!}" style="text-decoration: none">clic
+                    aquí.</a></p>
         </td>
     </tr>
 
