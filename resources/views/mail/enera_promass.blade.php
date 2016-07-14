@@ -26,7 +26,7 @@
 
 </head>
 <body style="padding:0; margin:0; background-color:#eaeaea;">
-<table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color:#eaeaea;">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color:#eaeaea; width:100%; max-width: 575px;">
     <tr>
         <td align="center" valign="top">
             <table width="100%" style="max-width:652px; background-color:#FFF;" border="0" cellspacing="0"
@@ -42,7 +42,7 @@
                                 href="http://actualmanager.com/click.php?aspid=199a82eecf505e7ca23b5bad1f0dd08c"
                                 target="_blank"><img
                                     src="http://mass-seguros.com/newsletters/13/images/promass-afiliados-06_01.jpg"
-                                    alt="Promass" width="650" height="100%"
+                                    alt="Promass"
                                     style="max-width:652px; display:block; border:0;"/></a></td>
                 </tr>
 
@@ -64,7 +64,7 @@
                                 href="http://actualmanager.com/click.php?aspid=199a82eecf505e7ca23b5bad1f0dd08c"
                                 target="_blank"><img
                                     src="http://mass-seguros.com/newsletters/13/images/promass-afiliados-06_03.jpg"
-                                    alt="Maneja Tranquilo" width="650" height="100%"
+                                    alt="Maneja Tranquilo"
                                     style="max-width:652px; display:block; border:0;"/></a></td>
                 </tr>
                 <tr>
