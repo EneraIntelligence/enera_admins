@@ -48,9 +48,10 @@
         </tr>
         <tr height="25">
             <td bgcolor="#eaeaea" align="center">
-                <p style="text-align: center; padding: 10px; color: lightgrey;">Si ya no deseas recibir información haz
+                <p style="text-align: center; padding: 10px; color: darkgray;">Si ya no deseas recibir información haz
                     <a href="{!! route('unSubscribe') !!}/{!! $data['email'] !!}" style="text-decoration: none">clic
-                        aquí.</a></p>
+                        aquí.</a>
+                </p>
             </td>
         </tr>
     </table>
