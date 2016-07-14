@@ -30,7 +30,7 @@
     </style>
 
 </head>
-<body style="padding:0; margin:0; background-color:#eaeaea;">
+<body style="padding:0; margin:0; background-color:#eaeaea; overflow: visible;">
 <table cellpadding="0" cellspacing="0" align="center" style="width:100%; max-width: 575px;">
     <tr>
         <td align="center" valign="top">
@@ -93,7 +93,7 @@
                 </tr>
 
                 <tr>
-                    <td height="40" align="center" valign="top" style="background-color:#ffffff;">
+                    <td height="40" align="center" valign="top" style="background-color:#ffffff;" class="center-table">
                         <table width="100%" border="0" cellspacing="0" cellpadding="0">
                             <tr>
                                 <td width="12%">&nbsp;</td>
@@ -107,7 +107,7 @@
 
                 <tr>
                 <tr>
-                    <td align="left" valign="top" style="background-color:#ffffff;">
+                    <td align="left" valign="top" style="background-color:#ffffff;" class="center-table">
                         <table width="100%" border="0" cellspacing="0" cellpadding="0" height="63">
                             <tr>
 
@@ -129,7 +129,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td align="left" valign="top" style="background-color:#ffffff;">
+                    <td align="left" valign="top" style="background-color:#ffffff;" class="center-table">
                         <table width="100%" border="0" cellspacing="0" cellpadding="0" height="78">
                             <tr>
 
@@ -152,7 +152,7 @@
                 </tr>
 
                 <tr>
-                    <td align="left" valign="top" style="background-color:#ffffff;">
+                    <td align="left" valign="top" style="background-color:#ffffff;" class="center-table">
                         <table width="100%" border="0" cellspacing="0" cellpadding="0" height="81">
                             <tr>
 
@@ -186,6 +186,14 @@
                            target="_blank"
                            style="font-family:Arial, Helvetica, sans-serif; font-size:13px; color:#f4801f;"><strong>Saber
                                 m&aacute;s &raquo;</strong></a>
+                    </td>
+                </tr>
+                <tr height="25">
+                    <td bgcolor="#eaeaea" align="center">
+                        <p style="text-align: center; padding: 10px; color: darkgray;">Si ya no deseas recibir información haz
+                            {{--<a href="{!! route('unSubscribe') !!}/{!! $data['email'] !!}" style="text-decoration: none">clic--}}
+                                {{--aquí.</a>--}}
+                        </p>
                     </td>
                 </tr>
 
