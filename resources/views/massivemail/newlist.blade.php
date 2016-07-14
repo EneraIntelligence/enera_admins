@@ -24,19 +24,13 @@
                                 <label class="uk-form-label" style="width: 100%">Género <i class="material-icons">
                                         &#xE63D;</i></label>
                                 <div class="icheck" style="width: 100%">
-                                    <input type="checkbox" name="male" id="wizard_gender_men"
+                                    <input type="checkbox" name="gender[]" id="gender"
                                            class="" value="male"/>
                                     <label for="wizard_gender_men" class="inline-label">Hombres </label>
-                                    <input type="checkbox" name="female" id="wizard_gender_women"
+                                    <input type="checkbox" name="gender[]" id="gender"
                                            class="wizard-icheck" value="female"/>
                                     <label for="wizard_gender_women" class="inline-label">Mujeres</label>
                                 </div>
-                                {{--<div class="clearfix"></div>--}}
-                                {{--<span class="icheck">
-                                    <input type="radio" name="gender" id="wizard_gender_both" checked
-                                           class="wizard-icheck" value="ambos"/>
-                                    <label for="wizard_gender_both" class="inline-label">Ambos</label>
-                                </span>--}}
                             </div>
                             <div id="edad" class="uk-width-medium-4-10  uk-width-small-1-1 uk-float-left">
                                 <div class="uk-width-medium-1-1 uk-width-small-1-1">

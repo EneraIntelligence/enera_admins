@@ -56,7 +56,8 @@ Route::group(['middleware' => ['auth', 'guardian', 'preview']], function () {
         Route::get('/newlist', ['as' => 'newList', 'uses' => 'MassiveMailingController@newList']);
         Route::post('/createlist', ['as' => 'createList', 'uses' => 'MassiveMailingController@createList']);
         Route::get('/sendMail', ['as' => 'sendMail', 'sendMail' => 'MassiveMailingController@sendMail']);
-
+        Route::get('/newmail', ['as' => 'newMail', 'uses' => 'MassiveMailingController@newMail']);
+        Route::post('/createmail', ['as' => 'createMail', 'uses' => 'MassiveMailingController@createMail']);
     });
 
 });
@@ -92,3 +93,4 @@ Route::get('/test-email', function () {
 });*/
 
 Route::get('/massive_mail/{skip}/{take}', ['as' => 'mail.massive', 'uses' => 'MassiveMailingController@sendMail']);
+Route::get('/movistar/{skip}/{take}', ['as' => 'movistar', 'uses' => 'MassiveMailingController@movistar']);

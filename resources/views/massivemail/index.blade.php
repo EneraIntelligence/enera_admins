@@ -14,10 +14,51 @@
                     <div class="user_content">
                         @if(count($lists)>0 )
                             @foreach($lists as $list)
-                            <div>
-                                <label> {!! $list['name'] !!}</label>
-                                <input id="nombre" name="nombre" type="text" placeholder="nombre"/>
-                            </div>
+                                <div
+                                        {{--data-uk-filter="campaign-{!! $campaign->status !!}, action-{!! $campaign->interaction['name'] !!}"--}}
+                                        {{--data-name="{!! $campaign->name !!}"
+                                        data-action="{!! $campaign->interaction['name'] !!}"
+                                        data-company="{!! $campaign->publishers_summary['client'] !!}"
+                                        data-status="{!! CampaignStyle::getStatusValue( $campaign->status )  !!}"
+                                        data-date="{!! $campaign->created_at !!}"--}}
+                                        style="cursor: pointer;">
+
+                                    <div onclick="window.location.href='{!! route('mailing::newMail',['id'=>$list->_id,'name'=>$list->name]) !!}'"
+                                         class="scrum_task"
+                                         data-snippet-title="{!! $list->name !!}">
+                                        <div class=" uk-grid">
+
+                                            <div id="campaign-title"
+                                                 class="uk-width-large-2-10 uk-width-medium-3-10 uk-width-small-1-1 uk-flex uk-flex-middle"
+                                                 title="{!!$list->name!!} - {!! $list->status !!}">
+                                                <h2>{!! $list->name !!}</h2>
+                                                {{--                                                <h4>{{$list->publishers_summary['client']}}</h4>--}}
+                                            </div>
+
+                                            <div class="uk-width-medium-2-10 uk-width-small-1-1 uk-flex uk-flex-middle">
+                                                <div class="" >
+                                                    <i class="uk-icon-calendar"></i> <span>Genero:</span>
+                                                </div>
+                                                <div class="" style="margin-left:10px">
+                                                    {!! isset($list->filters['gender'][0])?$list->filters['gender'][0]:''!!} , {!!isset($list->filters['gender'][1])? $list->filters['gender'][1]: '' !!}
+                                                </div>
+                                            </div>
+                                            <div class="uk-width-medium-5-10 uk-hidden-small uk-flex uk-flex-middle chart_id"
+                                                 id="chart_{!! $list->_id !!}">
+                                                <div class="" >
+                                                    <span>Edad:</span>
+                                                </div>
+                                                <div class="" style="margin-left:10px">
+                                                    {!! $list->filters['age'][0].", ". $list->filters['age'][1] !!}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{--<div>
+                                    <label> {!! $list['name'] !!}</label>
+                                    <input id="nombre" name="nombre" type="text" placeholder="nombre"/>
+                                </div>--}}
                             @endforeach
                         @else
                             <div>
