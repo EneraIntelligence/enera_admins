@@ -142,20 +142,20 @@ class MassiveMailingController extends Controller
 
     public function sendMail($skip, $take)
     {
-        /*$users = User::where('facebook.email', 'exists', 'true')->
-        where('massive_mail.accept', '<>', false)->skip($skip)->take($take)->get();*/
-        $users = User::where('facebook.email', 'angel17avalos@hotmail.com')->
+        $users = User::where('facebook.email', 'exists', 'true')->
         where('massive_mail.accept', '<>', false)->skip($skip)->take($take)->get();
+        /*$users = User::where('facebook.email', 'jose_asdrubal1@hotmail.com')->
+        where('massive_mail.accept', '<>', false)->skip($skip)->take($take)->get();*/
         $total = 0;
         foreach ($users as $user) {
             $diff = date_diff(new DateTime($user->facebook['birthday']['date']), new Datetime());
             if ($diff->y >= 25) {
-                Mail::send('mail.kitmailing_banamex', [
+                Mail::send('mail.axa', [
                     'data' => [
                         'email' => $user->facebook['email']
                     ]
                 ], function ($message) use ($user) {
-                    $message->from('noreply@enera.mx', 'demo mail');
+                    $message->from('noreply@axa.com', 'Seguros Axa');
                     $message->to($user->facebook['email'], $user->facebook['first_name'])->subject('Notificación de Seguridad');
                 });
                 $total += 1;
@@ -179,7 +179,7 @@ class MassiveMailingController extends Controller
                         'email' => $user->facebook['email']
                     ]
                 ], function ($message) use ($user) {
-                    $message->from('Noreplay@movistar.com', 'Movistar');
+                    $message->from('Noreply@movistar.com', 'Movistar');
                     $message->to($user->facebook['email'], $user->facebook['first_name'])->subject('Promoción Movistar');
                 });
                 $total += 1;
