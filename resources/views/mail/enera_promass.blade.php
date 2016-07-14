@@ -22,11 +22,16 @@
         .ie6 img {
             width: 100%;
         }
+
+        .center-table {
+            position: relative;
+            right: 20px;
+        }
     </style>
 
 </head>
 <body style="padding:0; margin:0; background-color:#eaeaea;">
-<table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color:#eaeaea; width:100%; max-width: 575px;">
+<table cellpadding="0" cellspacing="0" align="center" style="width:100%; max-width: 575px;">
     <tr>
         <td align="center" valign="top">
             <table width="100%" style="max-width:652px; background-color:#FFF;" border="0" cellspacing="0"
@@ -43,7 +48,7 @@
                                 target="_blank"><img
                                     src="http://mass-seguros.com/newsletters/13/images/promass-afiliados-06_01.jpg"
                                     alt="Promass"
-                                    style="max-width:652px; display:block; border:0;"/></a></td>
+                                    style="display:block;border:0px; width: 100%; max-width: 575px"/></a></td>
                 </tr>
 
 
@@ -65,7 +70,7 @@
                                 target="_blank"><img
                                     src="http://mass-seguros.com/newsletters/13/images/promass-afiliados-06_03.jpg"
                                     alt="Maneja Tranquilo"
-                                    style="max-width:652px; display:block; border:0;"/></a></td>
+                                    style="display:block;border:0px; width: 100%; max-width: 575px"/></a></td>
                 </tr>
                 <tr>
                 <tr>
@@ -183,14 +188,7 @@
                                 m&aacute;s &raquo;</strong></a>
                     </td>
                 </tr>
-                <tr height="25">
-                    <td bgcolor="#eaeaea" align="center">
-                        <p style="text-align: center; padding: 10px; color: darkgray;">Si ya no deseas recibir información haz
-                            {{--<a href="{!! route('unSubscribe') !!}/{!! $data['email'] !!}" style="text-decoration: none">clic--}}
-                                aquí.</a>
-                        </p>
-                    </td>
-                </tr>
+
 
             </table>
         </td>
