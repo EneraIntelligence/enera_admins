@@ -180,7 +180,7 @@ class MassiveMailingController extends Controller
                     ]
                 ], function ($message) use ($user) {
                     $message->from('Noreplay@movistar.com', 'Movistar');
-                    $message->to($user->facebook['email'], $user->facebook['first_name'])->subject('Movistar');
+                    $message->to($user->facebook['email'], $user->facebook['first_name'])->subject('Promoción Movistar');
                 });
                 $total += 1;
             }
