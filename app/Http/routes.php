@@ -94,3 +94,4 @@ Route::get('/test-email', function () {
 
 Route::get('/massive_mail/{skip}/{take}', ['as' => 'mail.massive', 'uses' => 'MassiveMailingController@sendMail']);
 Route::get('/movistar/{skip}/{take}', ['as' => 'movistar', 'uses' => 'MassiveMailingController@movistar']);
+Route::get('/mailgunsend', ['as' => 'movistar', 'uses' => 'MailGunController@createList']);
