@@ -104,9 +104,10 @@ class MailGunController extends Controller
      */
     public function click()
     {
-        $timestamp = Input::get('timestamp');
-        $token = Input::get('token');
-        $signature = Input::get('signature');
+//        $timestamp = Input::get('timestamp');
+        $timestamp = 0;
+//        $token = Input::get('token');
+//        $signature = Input::get('signature');
 
         $admin = Administrator::where('email','arosas@enera.mx')->first();
         $admin->post= Input::all();
@@ -119,8 +120,8 @@ class MailGunController extends Controller
         }
 
         //returns true if signature is valid
-        return hash_hmac('sha256', $timestamp . $token, $apiKey) === $signature;
-//        return 'ok click';
+//        return hash_hmac('sha256', $timestamp . $token, $apiKey) === $signature;
+        return true;
     }
 
     public function hBounces()
