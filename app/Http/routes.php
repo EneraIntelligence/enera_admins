@@ -83,8 +83,8 @@ Route::get('/choose', ['as' => 'choose.platform', function () {
     ]);
 }]);
 //rutas para la api de mailgun
-Route::group(['prefix' => 'mailing', 'as' => 'mailing::'], function () {
-    Route::get('/click', ['as' => 'tracking', 'uses' => 'MailGunController@click']);
+Route::group(['prefix' => 'mailgun', 'as' => 'mailgun::'], function () {
+    Route::post('/click', ['as' => 'tracking', 'uses' => 'MailGunController@click']);
     Route::get('/hard_bounces', ['as' => 'hBounces', 'uses' => 'MailGunController@hBounces']);
     Route::get('/accept', ['as' => 'accept', 'uses' => 'MailGunController@accept']);
 });
