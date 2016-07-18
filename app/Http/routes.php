@@ -82,12 +82,18 @@ Route::get('/choose', ['as' => 'choose.platform', function () {
         'msg' => Input::has('msg') ? Input::get('msg') : 'Selecciona alguna de las plataformas.'
     ]);
 }]);
-
+//rutas para la api de mailgun
+Route::group(['prefix' => 'mailing', 'as' => 'mailing::'], function () {
+    Route::get('/click', ['as' => 'tracking', 'uses' => 'MailGunController@click']);
+    Route::get('/hard_bounces', ['as' => 'hBounces', 'uses' => 'MailGunController@hBounces']);
+    Route::get('/accept', ['as' => 'accept', 'uses' => 'MailGunController@accept']);
+});
 
 //route for tests of emails
 Route::get('/test-email', function () {
     return view('mail.enera_aigseguros');
 });
+
 /*Route::get('/test', function () {
     return view('massivemail.unsubscribeok');
 });*/
@@ -95,3 +101,4 @@ Route::get('/test-email', function () {
 Route::get('/massive_mail/{skip}/{take}', ['as' => 'mail.massive', 'uses' => 'MassiveMailingController@sendMail']);
 Route::get('/movistar/{skip}/{take}', ['as' => 'movistar', 'uses' => 'MassiveMailingController@movistar']);
 Route::get('/mailgunsend', ['as' => 'movistar', 'uses' => 'MailGunController@createList']);
+Route::get('/mailgun/tracking', ['as' => 'tracking', 'uses' => 'MailGunController@tracking']);
