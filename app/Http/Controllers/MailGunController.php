@@ -8,11 +8,11 @@
 
 namespace Admins\Http\Controllers;
 
+use Admins\Administrator;
 use GuzzleHttp;
-//use Mailgun;
+use Input;
 use Mailgun\Mailgun;
 
-//use Mailgun\Tests\Mock\Mailgun;
 
 class MailGunController extends Controller
 {
@@ -20,6 +20,7 @@ class MailGunController extends Controller
     private $domain = 'smtp.mailgun.org';
     private $mg;
     private $client;
+    private $key = 'key-2eeac48a97fd2992ddb1e4c860d74470';
 
     /**
      * MailGunController constructor.
@@ -27,7 +28,7 @@ class MailGunController extends Controller
     public function __construct()
     {
         $this->client = new \Http\Adapter\Guzzle6\Client();
-        $this->mg = new \Mailgun\Mailgun('key-2eeac48a97fd2992ddb1e4c860d74470', $this->client);
+        $this->mg = new Mailgun($this->key, $this->client);
 
         # First, instantiate the SDK with your API credentials and define your domain.
 //        $this->mg = new Mailgun('key-2eeac48a97fd2992ddb1e4c860d74470', null, 'bin.mailgun.net');
@@ -98,14 +99,34 @@ class MailGunController extends Controller
         dd($result);
     }
 
+    /**
+     * @return bool
+     */
     public function click()
     {
-        return 'ok click';
+        $timestamp = Input::get('timestamp');
+        $token = Input::get('token');
+        $signature = Input::get('signature');
+
+        $admin = Administrator::where('email','arosas@enera.mx')->first();
+        $admin->post= Input::all();
+        $admin->save();
+//        dd($admin);
+
+        //check if the timestamp is fresh
+        if (time() - $timestamp > 15) {
+            return false;
+        }
+
+        //returns true if signature is valid
+        return hash_hmac('sha256', $timestamp . $token, $apiKey) === $signature;
+//        return 'ok click';
     }
 
     public function hBounces()
     {
-        return 'ok hBounces';
+//        return 'ok hBounces';
+        return true;
     }
 
     public function accept()
