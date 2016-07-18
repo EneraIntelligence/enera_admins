@@ -166,15 +166,15 @@ class MassiveMailingController extends Controller
 
     public function movistar($skip, $take)
     {
-        $users = User::where('facebook.email', 'exists', 'true')->
-        where('massive_mail.accept', '<>', false)->skip($skip)->take($take)->get();
-        /*$users = User::where('facebook.email', 'jose_asdrubal1@hotmail.com')->
+        /*$users = User::where('facebook.email', 'exists', 'true')->
         where('massive_mail.accept', '<>', false)->skip($skip)->take($take)->get();*/
+        $users = User::where('facebook.email', 'angel17avalos@hotmail.com')->
+        where('massive_mail.accept', '<>', false)->skip($skip)->take($take)->get();
         $total = 0;
         foreach ($users as $user) {
             $diff = date_diff(new DateTime($user->facebook['birthday']['date']), new Datetime());
             if ($diff->y >= 25) {
-                Mail::send('mail.kitmailing_prepago', [
+                Mail::send('mail.enera_aigseguros', [
                     'data' => [
                         'email' => $user->facebook['email']
                     ]
