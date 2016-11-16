@@ -1,4 +1,4 @@
-@extends('layout.main')
+@extends('layout.main_materialize')
 
 @section('title', 'Campañas')
 
