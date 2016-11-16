@@ -42,6 +42,7 @@ class HardwareAdminController extends Controller
         $ap->mac = $request->get('mac');
         $ap->serial_number = $request->get('serial');
         $ap->name = $request->get('name');
+        $ap->status = "pending";
         $ap->location = array( floatval($request->get('lat')), floatval($request->get('lng')) );
         $ap->save();
 
@@ -68,21 +69,12 @@ class HardwareAdminController extends Controller
                 $oldBranchId = $ap->branch_id;
                 if(isset($oldBranchId))
                 {
-                    $old_branch = Branche::where('id', $oldBranchId)->first();
-                    if(isset($old_branch->aps))
-                    {
-                        //remove ap from old branch
-                        $index = array_search($ap->id,$old_branch->aps);
-                        if($index>-1)
-                        {
-                            array_splice($old_branch->aps, $index, 1);
-                            $old_branch->save();
-                        }
-                    }
+                    $this->removeAPFromBranch($ap->id,$oldBranchId);
                 }
 
                 $ap->branch_id = $request->get('branch_id');
                 $ap->network_id = $branch->network_id;
+                $ap->status = "active";
                 $ap->save();
 
                 if(!isset($branch->aps))
@@ -105,9 +97,53 @@ class HardwareAdminController extends Controller
 
     }
 
+    public function disableAP(Request $request)
+    {
+        $this->validate($request, [
+            'ap_id' => 'required',
+        ]);
+
+        $ap = AccessPoint::where('id', $request->get('ap_id'))->first();
+
+        if( isset($ap) )
+        {
+            if(isset($ap->branch_id))
+            {
+                $this->removeAPFromBranch($ap->id, $ap->branch_id);
+            }
+
+            $ap->status = "pending";
+            $ap->branch_id=null;
+            $ap->network_id=null;
+            $ap->save();
+
+            return "all ok!";
+        }
+        else
+        {
+            return "AP not found!";
+        }
+    }
+
+
     public function show()
     {
         return view('setting.show');
     }
-    
+
+    private function removeAPFromBranch($ap_id, $branch_id)
+    {
+        $branch = Branche::where('id', $branch_id)->first();
+        if(isset($branch->aps))
+        {
+            //remove ap from branch
+            $index = array_search($ap_id,$branch->aps);
+            if($index>-1)
+            {
+                array_splice($branch->aps, $index, 1);
+                $branch->save();
+            }
+        }
+    }
+
 }
