@@ -4,6 +4,7 @@ namespace Admins\Http\Controllers;
 
 use Admins\AccessPoint;
 use Admins\Branche;
+use Admins\Client;
 use Admins\Network;
 use Illuminate\Http\Request;
 
@@ -207,6 +208,125 @@ class HardwareAdminController extends Controller
         $branch->save();
 
         return "Branch created!";
+    }
+
+    public function updateBranchStatus(Request $request)
+    {
+        $this->validate($request, [
+            'branch_id' => 'required',
+            'new_status' => 'required'
+        ]);
+
+        $branch = Branche::where('id', $request->get('branch_id'))->first();
+
+        if(isset($branch))
+        {
+            $status = $request->get('new_status');
+
+            if(
+                $status=="active" ||
+                $status=="pending" ||
+                $status=="filed"
+            )
+            {
+                $branch->status = $status;
+                $branch->save();
+                return 'All ok!';
+            }
+            return 'Invalid new_status!';
+        }
+        else
+        {
+            return 'Branch not found';
+        }
+
+    }
+
+    public function createNetwork(Request $request)
+    {
+
+        $this->validate($request, [
+            'name' => 'required',
+            'type' => 'required',
+            'client_id' => 'required',
+        ]);
+
+        $client = Client::where('id',$request->get('client_id'))->first();
+
+        if( !isset($client))
+        {
+            return 'Invalid client_id !';
+        }
+
+        $network= new Network;
+        $network->name = $request->get('name');
+        $network->type = $request->get('type');
+        $network->status = 'pending';
+        $network->client_id = $request->get('client_id');
+        $network->save();
+
+        return 'All ok!';
+
+    }
+
+    public function updateNetworkStatus(Request $request)
+    {
+        $this->validate($request, [
+            'network_id' => 'required',
+            'new_status' => 'required'
+        ]);
+
+        $network = Network::where('id', $request->get('network_id'))->first();
+
+        if(isset($network))
+        {
+            $status = $request->get('new_status');
+
+            if(
+                $status=="active" ||
+                $status=="pending" ||
+                $status=="filed"
+            )
+            {
+                $network->status = $status;
+                $network->save();
+                return 'All ok!';
+            }
+            return 'Invalid new_status!';
+        }
+        else
+        {
+            return 'Network not found';
+        }
+
+    }
+
+    public function createClient(Request $request)
+    {
+
+        $this->validate($request, [
+            'name' => 'required',
+            'business_name' => 'required',
+            'rfc' => 'required',
+            'address' => 'required',
+            'suburb' => 'required',
+            'zip_code' => 'required',
+        ]);
+
+        $client = new Client;
+        $client->name = $request->get('name');
+        $billing_info = array(
+            'business_name'=>$request->get('business_name'),
+            'rfc'=>$request->get('rfc'),
+            'address'=>$request->get('address'),
+            'suburb'=>$request->get('suburb'),
+            'zipcode'=>$request->get('zipcode')
+        );
+        $client->billing_information = $billing_info;
+        $client->save();
+
+        return 'All ok!';
+
     }
 
 }
