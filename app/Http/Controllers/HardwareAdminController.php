@@ -4,6 +4,7 @@ namespace Admins\Http\Controllers;
 
 use Admins\AccessPoint;
 use Admins\Branche;
+use Admins\Network;
 use Illuminate\Http\Request;
 
 use Admins\Http\Requests;
@@ -43,33 +44,33 @@ class HardwareAdminController extends Controller
         $ap->serial_number = $request->get('serial');
         $ap->name = $request->get('name');
         $ap->status = "pending";
-        $ap->location = array( floatval($request->get('lat')), floatval($request->get('lng')) );
+        $ap->location = array(floatval($request->get('lat')), floatval($request->get('lng')));
         $ap->save();
 
         return view('setting.index');
         //AccessPoint::create()
-        
+
     }
 
     public function updateAPBranch(Request $request)
     {
         $this->validate($request, [
             'ap_id' => 'required',
-            'branch_id'=> 'required'
+            'branch_id' => 'required'
         ]);
 
         $ap = AccessPoint::where('id', $request->get('ap_id'))->first();
 
-        if( isset($ap))
+        if (isset($ap))
         {
             $branch = Branche::where('id', $request->get('branch_id'))->first();
 
-            if(isset($branch))
+            if (isset($branch))
             {
                 $oldBranchId = $ap->branch_id;
-                if(isset($oldBranchId))
+                if (isset($oldBranchId))
                 {
-                    $this->removeAPFromBranch($ap->id,$oldBranchId);
+                    $this->removeAPFromBranch($ap->id, $oldBranchId);
                 }
 
                 $ap->branch_id = $request->get('branch_id');
@@ -77,20 +78,18 @@ class HardwareAdminController extends Controller
                 $ap->status = "active";
                 $ap->save();
 
-                if(!isset($branch->aps))
+                if (!isset($branch->aps))
                     $branch->aps = array();
                 $branch->aps[] = $ap->id;
                 $branch->save();
 
                 return "All ok";
-            }
-            else
+            } else
             {
                 return "Branch not found!";
             }
 
-        }
-        else
+        } else
         {
             return "AP not found!";
         }
@@ -105,21 +104,20 @@ class HardwareAdminController extends Controller
 
         $ap = AccessPoint::where('id', $request->get('ap_id'))->first();
 
-        if( isset($ap) )
+        if (isset($ap))
         {
-            if(isset($ap->branch_id))
+            if (isset($ap->branch_id))
             {
                 $this->removeAPFromBranch($ap->id, $ap->branch_id);
             }
 
             $ap->status = "pending";
-            $ap->branch_id=null;
-            $ap->network_id=null;
+            $ap->branch_id = null;
+            $ap->network_id = null;
             $ap->save();
 
             return "all ok!";
-        }
-        else
+        } else
         {
             return "AP not found!";
         }
@@ -134,16 +132,81 @@ class HardwareAdminController extends Controller
     private function removeAPFromBranch($ap_id, $branch_id)
     {
         $branch = Branche::where('id', $branch_id)->first();
-        if(isset($branch->aps))
+        if (isset($branch->aps))
         {
             //remove ap from branch
-            $index = array_search($ap_id,$branch->aps);
-            if($index>-1)
+            $index = array_search($ap_id, $branch->aps);
+            if ($index > -1)
             {
                 array_splice($branch->aps, $index, 1);
                 $branch->save();
             }
         }
+    }
+
+    public function createBranch(Request $request)
+    {
+
+        $this->validate($request, [
+            'name' => 'required',
+            'network_id' => 'required',
+            'lat' => 'required|numeric',
+            'lng' => 'required|numeric',
+            'portal_image' => 'required',
+            'external_ads' => 'required'
+        ]);
+
+
+        $network = Network::where('id',$request->get('network_id'))->first();
+
+        if( !isset($network))
+        {
+            return 'Invalid network_id !';
+        }
+
+
+        $branch = new Branche;
+        $branch->name = $request->get('name');
+        $branch->network_id = $request->get('network_id');
+        $branch->location = array(floatval($request->get('lat')), floatval($request->get('lng')));
+
+        $portal = array(
+            'image' => $request->get('portal_image'),
+            'background' => 'none',
+            'message' => array(
+                'text' => 'Wifi gratis',
+                'color' => '#000000'
+            ),
+            'session_time' => 30
+        );
+        $branch->portal = $portal;
+
+
+        $category = array(
+            "type" => "default",
+            "tags" => array()
+        );
+        $branch->category = $category;
+
+        $filters = array(
+            'external_ads'=> $request->get('external_ads')=="yes",
+            'tags_deny'=>array()
+        );
+        $branch->filters = $filters;
+        $branch->private = false;
+
+        $traffic = array(
+            'private'=>0,
+            'external'=>100
+        );
+        $branch->traffic = $traffic;
+
+        $branch->aps = array();
+        $branch->status = 'pending';
+
+        $branch->save();
+
+        return "Branch created!";
     }
 
 }
