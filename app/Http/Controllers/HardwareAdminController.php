@@ -3,6 +3,7 @@
 namespace Admins\Http\Controllers;
 
 use Admins\AccessPoint;
+use Admins\Branche;
 use Illuminate\Http\Request;
 
 use Admins\Http\Requests;
@@ -36,9 +37,56 @@ class HardwareAdminController extends Controller
         ]);
 
 
+        $ap = new AccessPoint;
+        $ap->model = $request->get('model');
+        $ap->mac = $request->get('mac');
+        $ap->serial_number = $request->get('serial');
+        $ap->name = $request->get('name');
+        $ap->location = array( floatval($request->get('lat')), floatval($request->get('lng')) );
+        $ap->save();
+
         return view('setting.index');
         //AccessPoint::create()
         
+    }
+
+    public function updateAPBranch(Request $request)
+    {
+        $this->validate($request, [
+            'ap_id' => 'required',
+            'branch_id'=> 'required'
+        ]);
+
+        $ap = AccessPoint::where('id', $request->get('ap_id'))->first();
+
+        if( isset($ap))
+        {
+            $branch = Branche::where('id', $request->get('branch_id'))->first();
+
+            if(isset($branch))
+            {
+                $ap->branch_id = $request->get('branch_id');
+                $ap->network_id = $branch->network_id;
+                $ap->save();
+
+                if(!isset($branch->aps))
+                    $branch->aps = array();
+                $branch->aps[] = $ap->id;
+                $branch->save();
+
+                return "All ok";
+            }
+            else
+            {
+                return "Branch not found!";
+            }
+
+        }
+        else
+        {
+            return "AP not found!";
+        }
+
     }
 
     public function show()
