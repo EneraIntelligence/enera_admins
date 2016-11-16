@@ -65,6 +65,22 @@ class HardwareAdminController extends Controller
 
             if(isset($branch))
             {
+                $oldBranchId = $ap->branch_id;
+                if(isset($oldBranchId))
+                {
+                    $old_branch = Branche::where('id', $oldBranchId)->first();
+                    if(isset($old_branch->aps))
+                    {
+                        //remove ap from old branch
+                        $index = array_search($ap->id,$old_branch->aps);
+                        if($index>-1)
+                        {
+                            array_splice($old_branch->aps, $index, 1);
+                            $old_branch->save();
+                        }
+                    }
+                }
+
                 $ap->branch_id = $request->get('branch_id');
                 $ap->network_id = $branch->network_id;
                 $ap->save();
