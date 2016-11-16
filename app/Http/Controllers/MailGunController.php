@@ -11,7 +11,7 @@ namespace Admins\Http\Controllers;
 use Admins\Administrator;
 use GuzzleHttp;
 use Input;
-use Mailgun\Mailgun;
+//use Mailgun\Mailgun;
 
 
 class MailGunController extends Controller
@@ -25,18 +25,18 @@ class MailGunController extends Controller
     /**
      * MailGunController constructor.
      */
-    public function __construct()
-    {
-        $this->client = new \Http\Adapter\Guzzle6\Client();
-        $this->mg = new Mailgun($this->key, $this->client);
-
-        # First, instantiate the SDK with your API credentials and define your domain.
-//        $this->mg = new Mailgun('key-2eeac48a97fd2992ddb1e4c860d74470', null, 'bin.mailgun.net');
-//        $this->mg = new Mailgun('key-2eeac48a97fd2992ddb1e4c860d74470',$this->client,'bin.mailgun.net');
-//        $this->mg->setApiVersion('bin.mailgun.net/442e07d1');
-        $this->mg->setSslEnabled('false');
-        $this->domain = 'enera-intelligence.mx';
-    }
+//    public function __construct()
+//    {
+//        $this->client = new \Http\Adapter\Guzzle6\Client();
+//        $this->mg = new Mailgun($this->key, $this->client);
+//
+//        # First, instantiate the SDK with your API credentials and define your domain.
+////        $this->mg = new Mailgun('key-2eeac48a97fd2992ddb1e4c860d74470', null, 'bin.mailgun.net');
+////        $this->mg = new Mailgun('key-2eeac48a97fd2992ddb1e4c860d74470',$this->client,'bin.mailgun.net');
+////        $this->mg->setApiVersion('bin.mailgun.net/442e07d1');
+//        $this->mg->setSslEnabled('false');
+//        $this->domain = 'enera-intelligence.mx';
+//    }
 
     /**
      * @throws \Mailgun\Messages\Exceptions\MissingRequiredMIMEParameters
@@ -44,32 +44,32 @@ class MailGunController extends Controller
     public function sendMail()
     {
         # Make the call to the client.
-        $correo = $this->mg->sendMessage($this->domain, array(
-            'from' => 'Excited User <prueba@enera-intelligence.mx>',
-            'to' => 'arosas@enera.com',
-//            'cc'      => 'baz@example.com',
-//            'bcc'     => 'bar@example.com',
-            'subject' => 'Hello',
-            'text' => 'Testing some Mailgun awesomness!',
-            'o:testmode' => true,
-            'o:tracking' => true,
-            'o:tag' => array('Tag1', 'Tag2'),
-//            'html'    => '<html>HTML version of the body</html>'
-        )/*, array(
-            'attachment' => array('/path/to/file.txt', '/path/to/file.txt')
-        )*/
-        );
-
-        echo 'se envio';
-        dd($correo);
+//        $correo = $this->mg->sendMessage($this->domain, array(
+//            'from' => 'Excited User <prueba@enera-intelligence.mx>',
+//            'to' => 'arosas@enera.com',
+////            'cc'      => 'baz@example.com',
+////            'bcc'     => 'bar@example.com',
+//            'subject' => 'Hello',
+//            'text' => 'Testing some Mailgun awesomness!',
+//            'o:testmode' => true,
+//            'o:tracking' => true,
+//            'o:tag' => array('Tag1', 'Tag2'),
+////            'html'    => '<html>HTML version of the body</html>'
+//        )/*, array(
+//            'attachment' => array('/path/to/file.txt', '/path/to/file.txt')
+//        )*/
+//        );
+//
+//        echo 'se envio';
+//        dd($correo);
     }
 
     public function textmode()
     {
-        Mailgun::send('emails.welcome', $data, function ($message) {
-            $message->tag(array('Tag1', 'Tag2', 'Tag3'));
-            $message->testmode(true);
-        });
+//        Mailgun::send('emails.welcome', $data, function ($message) {
+//            $message->tag(array('Tag1', 'Tag2', 'Tag3'));
+//            $message->testmode(true);
+//        });
     }
 
     public function createList()

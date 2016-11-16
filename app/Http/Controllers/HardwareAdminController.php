@@ -36,9 +36,14 @@ class HardwareAdminController extends Controller
         ]);
 
 
-        return "All ok";
+        return view('setting.index');
         //AccessPoint::create()
-
-
+        
     }
+
+    public function show()
+    {
+        return view('setting.show');
+    }
+    
 }

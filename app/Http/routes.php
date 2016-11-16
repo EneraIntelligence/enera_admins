@@ -94,6 +94,11 @@ Route::get('/test-email', function () {
     return view('mail.enera_aigseguros');
 });
 
+Route::group(['prefix' => 'setting', 'as' => 'setting::'], function(){
+   Route::get('/', ['as' => 'index', 'uses' => 'HardwareAdminController@createAP']);
+   Route::get('/show', ['as' => 'show', 'uses' => 'HardwareAdminController@show']);
+});
+
 /*Route::get('/test', function () {
     return view('massivemail.unsubscribeok');
 });*/
